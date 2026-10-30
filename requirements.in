@@ -1,0 +1,9 @@
+# Runtime dependencies. This is the only place a runtime dependency is named.
+# Every distribution the lock resolves must be in APPROVED_DISTS in tools/offline_rules.py.
+# Recompile with `make lock`. Never add PySide6 (the meta package pulls in WebEngine).
+pandas
+numpy
+openpyxl
+lxml>=6.1.3
+python-geosupport
+PySide6-Essentials

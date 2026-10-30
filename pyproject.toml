@@ -1,0 +1,15 @@
+[project]
+name = "wholecount"
+version = "0.1.0"
+description = "Offline tool that merges a nonprofit's client lists and counts unique clients."
+requires-python = ">=3.12,<3.13"
+# Empty on purpose. requirements.in and requirements-dev.in are the only dependency source, and a test pins this.
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+    "claim(id): the test proves the copy registry claim with this ID (H11)",
+    "windows: the test needs Windows",
+]
