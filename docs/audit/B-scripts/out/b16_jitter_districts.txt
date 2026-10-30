@@ -1,0 +1,10 @@
+jitter distance over 400 rows: min=150.5 max=250.4 mean=201.6 ft
+all within 150-250 ft: True
+same seed, same input -> identical coordinates: True
+different seed -> different coordinates: True
+rows 1..399 whose stored coordinate changed because row 0 failed: 399 of 399
+300 clients at 1 Test St: distinct stored points: 300
+centroid of the 300 jittered points is 9.5 ft from the true door
+   centroid of first 5 points: 82.6 ft from the true door
+   centroid of first 20 points: 19.4 ft from the true door
+undoing the jitter with seed 1337 and row order: max error 0.23 ft over 400 rows (6-decimal rounding is about 0.4 ft)

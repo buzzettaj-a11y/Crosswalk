@@ -1,0 +1,23 @@
+[0 run] rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0} G1(low,settled,high)=(70, 70, 70) G2=84 files(clean,review,aside)=(86, 8, 0) frames=94
+[1 three group decisions] rows={'input': 94, 'clean': 88, 'review': 4, 'aside': 2} G1(low,settled,high)=(71, 71, 71) G2=86 files(clean,review,aside)=(88, 6, 2) frames=94
+    FAIL -> REVIEW FILE: 6 rows vs screen review 4
+    FAIL -> THREE FILES: 88+6+2=96 vs input 94
+   actions before upload: 3
+   review file rows: 6 | statuses: {'Pending': 3, 'Set aside': 2, 'Held': 1}
+   rows we will fix (zipbad): [['A.csv :: A1:I48', '40']]
+   corrections files held: [('Manual_Review_Needed.csv', 6)]
+   tables after upload (corrections not loaded as a source): 3
+[2 right after uploading the corrections file (no re-run yet)] rows={'input': 94, 'clean': 88, 'review': 4, 'aside': 2} G1(low,settled,high)=(71, 71, 71) G2=86 files(clean,review,aside)=(88, 6, 2) frames=94
+    FAIL -> REVIEW FILE: 6 rows vs screen review 4
+    FAIL -> THREE FILES: 88+6+2=96 vs input 94
+   actions still there: 3
+[3 after Process (corrections applied)] rows={'input': 94, 'clean': 87, 'review': 7, 'aside': 0} G1(low,settled,high)=(71, 71, 71) G2=86 files(clean,review,aside)=(87, 7, 0) frames=94
+    FAIL -> COUNTED ROWS: Unique_Clients covers 88 source rows but Final_Clean_Mapped has 87
+   actions after Process: 0 <- review decisions made earlier
+   groups now: [('idconflict', 2, 'pending'), ('dupc', 2, 'pending'), ('conflict', 1, 'pending'), ('zipcity', 1, 'pending'), ('noaddr', 1, 'pending')]
+
+--- (c) the source file changes between the export of the review file and the re-upload ---
+   zipbad row is A.csv row 40 id A900
+   row 40 of the NEW A.csv now reads: {'Client_ID': 'A039', 'First_Name': 'Tomas', 'Last_Name': 'Brown', 'DOB': '1973-04-28', 'Address': '40-22 24th St', 'City': 'Queens', 'State': 'NY', 'Zip': '11101', 'Program': 'Older Adult Services'}
+   (that row was client A039 in the new file)
+   audit lines for corrected rows: []

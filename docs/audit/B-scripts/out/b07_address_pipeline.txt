@@ -1,0 +1,75 @@
+9-digit ZIP jammed, no Zip column      -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St, Brooklyn' A2='' City='Brooklyn' St='NY' Zip='11234'
+                                          Flags: ['Split jammed address into street + city/ZIP', 'Address_1 still contains a comma; possible concatenated frag', "State: defaulted empty value to 'NY'", 'Zip: column empty; recovered ZIP from address text', "City set to 'Brooklyn' from ZIP 11234"]
+9-digit ZIP jammed, Zip col blank      -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St Brooklyn NY 1120' A2='' City='Brooklyn' St='NY' Zip='11234'
+                                          Flags: ['Split jammed address into street + city/ZIP', "State: defaulted empty value to 'NY'", 'Zip: column empty; recovered ZIP from address text', "City set to 'Brooklyn' from ZIP 11234"]
+Grand Concourse no city                -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='1010 Grand' A2='' City='Bronx' St='NY' Zip='10452'
+                                          Flags: ['Split jammed address into street + city/ZIP', "City: mapped neighborhood 'Concourse' to borough 'Bronx'", 'Zip: column empty; recovered ZIP from address text']
+Grand Concourse w/ Bronx               -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='1010 Grand Concourse' A2='' City='Bronx' St='NY' Zip='10452'
+                                          Flags: ['Split jammed address into street + city/ZIP', 'Zip: column empty; recovered ZIP from address text']
+Grand Concourse, Zip col               -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='1010 Grand Concourse' A2='' City='Bronx' St='NY' Zip='10452'
+                                          Flags: []
+spaced hyphen house number             -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='117' A2='' City='Queens' St='NY' Zip='11355'
+                                          Flags: ['Split jammed address into street + city/ZIP']
+spaced hyphen house number, jammed     -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='117, 19 45th Ave' A2='' City='Queens' St='NY' Zip='11355'
+                                          Flags: ['Split jammed address into street + city/ZIP', 'Address_1 still contains a comma; possible concatenated frag', "City: mapped neighborhood 'Flushing' to borough 'Queens'", 'Zip: column empty; recovered ZIP from address text']
+Woodhaven (not in neighborhood table)  -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='85-10 Forest Pkwy Woodhaven' A2='' City='Queens' St='NY' Zip='11421'
+                                          Flags: ['Split jammed address into street + city/ZIP', 'Zip: column empty; recovered ZIP from address text', "City set to 'Queens' from ZIP 11421"]
+Brooklyn Heights jammed                -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Montague St Brooklyn Heights' A2='' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ['Split jammed address into street + city/ZIP', 'Zip: column empty; recovered ZIP from address text', "City set to 'Brooklyn' from ZIP 11201"]
+Bklyn after unit                       -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St Apt 4B Bklyn' A2='' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ['Split jammed address into street + city/ZIP', 'Zip: column empty; recovered ZIP from address text', "City set to 'Brooklyn' from ZIP 11201"]
+unit then city, comma                  -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St' A2='Apt 3 Brooklyn' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ['Split jammed address into street + city/ZIP', 'Moved secondary unit from the address into Address_2', 'Zip: column empty; recovered ZIP from address text', "City set to 'Brooklyn' from ZIP 11201"]
+unit after zip                         -> REVIEW: Unrecognized City: 'Brooklyn NY 11201 Apt 3'; Invalid ZIP Code format: (blank)
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St' A2='' City='Brooklyn NY 11201 Apt 3' St='NY' Zip=''
+                                          Flags: ['Split jammed address into street + city/ZIP', "State: defaulted empty value to 'NY'", "Unrecognized City: 'Brooklyn NY 11201 Apt 3'", 'Invalid ZIP Code format: (blank)']
+', Lower' with City col                -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ['Split jammed address into street + city/ZIP']
+', Top Floor' with City col            -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ['Split jammed address into street + city/ZIP']
+', c/o Jane Doe' with City col         -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ['Split jammed address into street + city/ZIP']
+parsed city disagrees with City col    -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St' A2='' City='Queens' St='NY' Zip='11355'
+                                          Flags: ['Split jammed address into street + city/ZIP']
+parsed ZIP disagrees with Zip col      -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St' A2='' City='Brooklyn' St='NY' Zip='11234'
+                                          Flags: ['Split jammed address into street + city/ZIP', "Zip: kept mapped column '11234'; address text showed differi"]
+Apt B left in street                   -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St Apt B' A2='' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: []
+', B' unit with comma                  -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St, B' A2='' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ['Split jammed address into street + city/ZIP', 'Address_1 still contains a comma; possible concatenated frag', 'Zip: column empty; recovered ZIP from address text']
+Hoboken NJ jammed, no cols             -> REVIEW: Unrecognized City: 'NJ'
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St, Hoboken' A2='' City='NJ' St='NY' Zip='07030'
+                                          Flags: ['Split jammed address into street + city/ZIP', 'Address_1 still contains a comma; possible concatenated frag', "State: defaulted empty value to 'NY'", 'Zip: column empty; recovered ZIP from address text', "Unrecognized City: 'NJ'"]
+Hoboken NJ jammed, City/State cols     -> REVIEW: State is not NY: 'NJ'
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St' A2='' City='Hoboken' St='NJ' Zip='07030'
+                                          Flags: ["State is not NY: 'NJ'"]
+Unit in Addr, other unit in Addr2      -> REVIEW: Unit conflict: the address says 'Apt 4B' but Address_2 says 'Apt 5C'; confirm which is correct
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St Apt 4B' A2='Apt 5C' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ["Unit conflict: the address says 'Apt 4B' but Address_2 says "]
+Unit in Addr same as Addr2             -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St' A2='4B' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ['The same unit appeared in the address and in Address_2; kept']
+Unit in Addr, Addr2 = c/o              -> REVIEW: The address contains the unit 'Apt 4B' but Address_2 already holds something else; confirm where the unit belongs
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St Apt 4B' A2='c/o Jane' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ["The address contains the unit 'Apt 4B' but Address_2 already"]
+Addr2 '4' vs Addr 'Apt 4B'             -> REVIEW: Unit conflict: the address says 'Apt 4B' but Address_2 says '4'; confirm which is correct
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Main St Apt 4B' A2='4' City='Brooklyn' St='NY' Zip='11201'
+                                          Flags: ["Unit conflict: the address says 'Apt 4B' but Address_2 says "]

@@ -1,0 +1,13 @@
+tidy-up steps proposed on upload: [(None, "100% hold two to four name parts in one value. Handles Last, First M and First M Last. A suffix stays with the last name. DiNapoli and O'Brien keep their casing.", False)]
+express check: ok = True | warnings = [] | blockers = []
+express/run: 200
+'Maria de la Cruz'         -> first='Maria'   mi='D'  last='la Cruz'      CLEAN
+'Martin Van Buren'         -> first='Martin'  mi='V'  last='Buren'        CLEAN
+'Ana Garcia Lopez'         -> first='Ana'     mi='G'  last='Lopez'        CLEAN
+'John Smith V'             -> first='John'    mi='S'  last='V'            CLEAN
+'Dr. John Smith'           -> first='Dr.'     mi='J'  last='Smith'        CLEAN
+'John Smith, MD'           -> first='MD'      mi=''   last='John Smith'   CLEAN
+'Kim Soo Jin'              -> first='Kim'     mi='S'  last='Jin'          CLEAN
+'Smith, John Q Public'     -> first='John'    mi='Q'  last='Smith'        CLEAN
+"Pat O'Brien"              -> first='Pat'     mi=''   last="O'Brien"      CLEAN
+'Garcia Lopez, Ana'        -> first='Ana'     mi=''   last='Garcia Lopez' CLEAN

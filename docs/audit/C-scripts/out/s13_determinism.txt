@@ -1,0 +1,39 @@
+== sample: two identical runs from /api/reset
+   Final_Clean_Mapped           bf589f3afe bf589f3afe identical=True
+   Manual_Review_Needed         a8ae1a690b a8ae1a690b identical=True
+   Set_Aside_Records            28963d4e9e 28963d4e9e identical=True
+   Unique_Clients               666bb428ff 666bb428ff identical=True
+   Unique_Clients_By_Program    e3c017748e e3c017748e identical=True
+   Secure_Audit_Log             cb97654a2a cb97654a2a identical=True
+   Data_Quality_Report          2ff1ee113e 2ff1ee113e identical=True
+   (audit/other timestamps masked)
+== messy: two identical runs from /api/reset
+   Final_Clean_Mapped           22ae16d765 22ae16d765 identical=True
+   Manual_Review_Needed         0bf3855553 0bf3855553 identical=True
+   Set_Aside_Records            28963d4e9e 28963d4e9e identical=True
+   Unique_Clients               510c6d89a7 510c6d89a7 identical=True
+   Unique_Clients_By_Program    48749300d5 48749300d5 identical=True
+   Secure_Audit_Log             0581fdc276 0581fdc276 identical=True
+   Data_Quality_Report          1a3c677c37 1a3c677c37 identical=True
+   (audit/other timestamps masked)
+
+== jitter
+   lat/long filled on 0 of 256 clean rows
+   addresses used by 2+ rows: 0 | of those, rows share identical stored coordinates: 0 (each row gets its own random offset)
+
+== upload order (same files, different order)
+   Final_Clean_Mapped           identical=False
+   Manual_Review_Needed         identical=False
+   Set_Aside_Records            identical=True
+   Unique_Clients               identical=True
+   Unique_Clients_By_Program    identical=True
+   Secure_Audit_Log             identical=False
+   Data_Quality_Report          identical=False
+   Master IDs whose displayed name/address differ with upload order: 0 of 70
+Empty DataFrame
+Columns: [Master_ID, First_Name_ABC, Address_1_ABC, First_Name_CBA, Address_1_CBA]
+Index: []
+
+== one review decision shifts other rows' jitter
+   corrected row A.csv :: A1:I48||40 -> corrected
+   clean rows whose stored coordinates changed although nothing about them changed: 0 of 86

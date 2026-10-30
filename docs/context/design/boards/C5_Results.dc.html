@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cockpit, results</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&amp;display=swap">
+<style>
+body{margin:0;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;background:#f3f2f2;color:#201e1d}
+button{font-family:inherit}
+a{color:#2f5f88}a:hover{color:#20435f}
+</style>
+</helmet>
+<div style="width: 1440px; height: 980px; box-sizing: border-box; background: #f3f2f2; display: flex; flex-direction: column;">
+
+  <div style="height: 48px; flex-shrink: 0; background: #201e1d; color: #f3f2f2; display: flex; align-items: center; padding: 0 20px; gap: 12px;">
+    <span style="width: 12px; height: 12px; background: #2f5f88; display: inline-block;"></span>
+    <span style="font-size: 14px; font-weight: 800; letter-spacing: 0.06em;">CROSSWALK</span>
+    <span style="flex-grow: 1;"></span>
+    <span style="font-size: 11.5px; color: #d7d3d3;">Offline &middot; Geosupport active &middot; progress saved just now</span>
+  </div>
+
+  <div style="flex-shrink: 0; background: #ffffff; border-bottom: 1px solid #d7d3d3; display: flex; align-items: stretch;">
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #201e1d; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">01 SOURCES</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Add your files</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">5 files, 9 tables</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #bab6b6; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">02 SCHEMA</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Set up your columns</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">nothing to decide</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #201e1d; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">03 PREPARE</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Tidy up</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">2 steps kept</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #201e1d; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">04 MAP</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Match your columns</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">45 matched, all confirmed</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #201e1d; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">05 PROGRAMS</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Programs</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">6 programs, confirmed</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #201e1d; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">06 RUN</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Process</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">done in 41 seconds</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #201e1d; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">07 REVIEW</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Fix problems</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">all decided</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: #eef3f7; border: none; border-bottom: 3px solid #2f5f88; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #2f5f88;">08 SUMMARY</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #20435f; margin-top: 2px;">Results</span>
+      <span style="display: block; font-size: 10.5px; color: #20435f; margin-top: 1px; font-weight: 600;">14 pairs open</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #bab6b6; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">09 EXPORT</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Download</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">7 files ready</span>
+    </button>
+    <button style="flex-shrink: 0; width: 176px; background: transparent; border: none; border-left: 1px solid #eae9e9; border-bottom: 3px solid transparent; padding: 9px 14px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">UNDO</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #2f5f88; margin-top: 2px;">Merge 3 program names</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">takes back one decision</span>
+    </button>
+  </div>
+
+  <div style="flex-grow: 1; display: flex; overflow: hidden;">
+
+    <div style="width: 280px; flex-shrink: 0; background: #ffffff; border-right: 1px solid #d7d3d3; display: flex; flex-direction: column;">
+      <div style="padding: 18px; display: flex; flex-direction: column; gap: 17px; flex-grow: 1;">
+
+        <div>
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">This batch</div>
+          <div style="font-size: 13px; margin-top: 6px; line-height: 1.5;">5 files, 9 tables<br>7,412 rows received</div>
+        </div>
+
+        <div>
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Where they stand</div>
+          <div style="display: flex; height: 10px; margin-top: 8px; border: 1px solid #d7d3d3;">
+            <div style="width: 89%; background: #201e1d;"></div>
+            <div style="width: 11%; background: #bab6b6;"></div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 9px; font-size: 12.5px;">
+            <div style="display: flex;"><span>Clean</span><span style="flex-grow: 1;"></span><b>6,596</b></div>
+            <div style="display: flex;"><span>Still open</span><span style="flex-grow: 1;"></span><b>0</b></div>
+            <div style="display: flex;"><span>Set aside</span><span style="flex-grow: 1;"></span><b>816</b></div>
+          </div>
+          <div style="font-size: 11px; color: #605d5d; margin-top: 7px; line-height: 1.4;">6,596 + 816 = 7,412. Nothing was deleted. Everything set aside carries its reason.</div>
+        </div>
+
+        <div style="border-top: 1px solid #eae9e9; padding-top: 14px;">
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #2f5f88;">The two counts</div>
+          <div style="margin-top: 9px;">
+            <div style="font-size: 28px; font-weight: 800; line-height: 1.05;">6,341</div>
+            <div style="font-size: 11.5px; color: #605d5d; line-height: 1.35; margin-top: 1px;">unique clients, a range to 6,355 until 14 pairs are decided</div>
+          </div>
+          <div style="margin-top: 11px;">
+            <div style="font-size: 28px; font-weight: 800; line-height: 1.05;">7,588</div>
+            <div style="font-size: 11.5px; color: #605d5d; line-height: 1.35; margin-top: 1px;">unique clients by program</div>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid #eae9e9; padding-top: 14px;">
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Locations</div>
+          <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 12.5px;">
+            <div style="display: flex;"><span>High confidence</span><span style="flex-grow: 1;"></span><b>6,268</b></div>
+            <div style="display: flex;"><span>Low confidence</span><span style="flex-grow: 1;"></span><b>244</b></div>
+            <div style="display: flex;"><span>Not matched</span><span style="flex-grow: 1;"></span><b>84</b></div>
+          </div>
+          <div style="font-size: 11px; color: #605d5d; margin-top: 7px; line-height: 1.4;">A weak match is never labeled fully verified.</div>
+        </div>
+
+      </div>
+      <div style="border-top: 1px solid #d7d3d3; background: #eae9e9; padding: 13px 18px; display: flex; flex-direction: column; gap: 9px;">
+        <button style="background: transparent; border: none; padding: 0; text-align: left; cursor: pointer; font-size: 12px; font-weight: 800; color: #2f5f88; text-decoration: underline;">This computer is ready for real data</button>
+        <div style="font-size: 11px; color: #605d5d; line-height: 1.4;">Nothing leaves this machine. Files are written only when you download them.</div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 9px 12px; font-size: 12px; font-weight: 800; cursor: pointer;">Close Crosswalk</button>
+          <button style="background: transparent; color: #605d5d; border: none; padding: 0; font-size: 11.5px; font-weight: 800; cursor: pointer; text-decoration: underline;">Start over</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex-grow: 1; padding: 22px 26px; display: flex; flex-direction: column; gap: 14px; overflow: hidden;">
+
+      <div style="display: flex; align-items: flex-end; gap: 16px;">
+        <div style="flex-grow: 1;">
+          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Stage 08 of 09 &middot; Summary</div>
+          <h2 style="margin: 4px 0 0; font-size: 25px; font-weight: 800; line-height: 1.1;">Results</h2>
+          <div style="font-size: 13px; color: #605d5d; margin-top: 4px;">How many people you are working with, counted the two ways the project asks for.</div>
+        </div>
+        <a href="#print" style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 11px 15px; font-size: 12.5px; font-weight: 800; text-decoration: none; flex-shrink: 0;">Open a page to print or hand on</a>
+        <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 11px 16px; font-size: 13px; font-weight: 800; cursor: pointer; flex-shrink: 0;">Continue to the files</button>
+      </div>
+
+      <div style="display: flex; gap: 2px; background: #d7d3d3; border: 1px solid #d7d3d3;">
+        <div style="flex: 1; background: #ffffff; padding: 16px 20px;">
+          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: #2f5f88;">GOAL 1</div>
+          <div style="font-size: 15px; font-weight: 800; margin-top: 3px;">Unique clients</div>
+          <div style="font-size: 44px; font-weight: 800; line-height: 1.05; margin-top: 4px;">6,341</div>
+          <div style="font-size: 12.5px; color: #605d5d; margin-top: 3px;">Every person counted once, however many systems they appear in. Between 6,341 and 6,355 until the 14 open pairs below are decided.</div>
+        </div>
+        <div style="flex: 1; background: #ffffff; padding: 16px 20px;">
+          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: #2f5f88;">GOAL 2</div>
+          <div style="font-size: 15px; font-weight: 800; margin-top: 3px;">Unique clients by program</div>
+          <div style="font-size: 44px; font-weight: 800; line-height: 1.05; margin-top: 4px;">7,588</div>
+          <div style="font-size: 12.5px; color: #605d5d; margin-top: 3px;">The same person counted once in each program they take part in. Somebody in three programs counts once above and three times here.</div>
+        </div>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid #bcd3e4; border-top: 3px solid #2f5f88; padding: 13px 16px; display: flex; align-items: center; gap: 18px;">
+        <div style="flex-grow: 1;">
+          <div style="font-size: 13.5px; font-weight: 800;">14 pairs of records may be the same person</div>
+          <div style="font-size: 12.5px; color: #605d5d; line-height: 1.45; margin-top: 3px;">The tool will not merge people on a guess, so the first count stays a range until you decide them. 2,847 links were joined on evidence that could not reasonably be coincidence, and 61 were confirmed by a person.</div>
+        </div>
+        <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 11px 16px; font-size: 12.5px; font-weight: 800; cursor: pointer; flex-shrink: 0;">Decide them now</button>
+      </div>
+
+      <div>
+        <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d; margin-bottom: 8px;">Where the people are</div>
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+          <div style="display: flex; align-items: center; gap: 12px;"><span style="width: 186px; font-size: 12.5px;">Workforce Development</span><span style="flex-grow: 1; height: 15px; background: #eae9e9; display: block;"><span style="display: block; width: 100%; height: 15px; background: #2f5f88;"></span></span><span style="width: 52px; text-align: right; font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums;">2,412</span></div>
+          <div style="display: flex; align-items: center; gap: 12px;"><span style="width: 186px; font-size: 12.5px;">Resident Services</span><span style="flex-grow: 1; height: 15px; background: #eae9e9; display: block;"><span style="display: block; width: 82%; height: 15px; background: #2f5f88;"></span></span><span style="width: 52px; text-align: right; font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums;">1,986</span></div>
+          <div style="display: flex; align-items: center; gap: 12px;"><span style="width: 186px; font-size: 12.5px;">Property Management</span><span style="flex-grow: 1; height: 15px; background: #eae9e9; display: block;"><span style="display: block; width: 56%; height: 15px; background: #2f5f88;"></span></span><span style="width: 52px; text-align: right; font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums;">1,344</span></div>
+          <div style="display: flex; align-items: center; gap: 12px;"><span style="width: 186px; font-size: 12.5px;">Health Navigation</span><span style="flex-grow: 1; height: 15px; background: #eae9e9; display: block;"><span style="display: block; width: 38%; height: 15px; background: #2f5f88;"></span></span><span style="width: 52px; text-align: right; font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums;">908</span></div>
+          <div style="display: flex; align-items: center; gap: 12px;"><span style="width: 186px; font-size: 12.5px;">Youth Services</span><span style="flex-grow: 1; height: 15px; background: #eae9e9; display: block;"><span style="display: block; width: 26%; height: 15px; background: #2f5f88;"></span></span><span style="width: 52px; text-align: right; font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums;">622</span></div>
+          <div style="display: flex; align-items: center; gap: 12px;"><span style="width: 186px; font-size: 12.5px;">Senior Services</span><span style="flex-grow: 1; height: 15px; background: #eae9e9; display: block;"><span style="display: block; width: 13%; height: 15px; background: #2f5f88;"></span></span><span style="width: 52px; text-align: right; font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums;">316</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d; margin-bottom: 8px;">Each person, and the programs they count in</div>
+        <div style="background: #ffffff; border: 1px solid #d7d3d3;">
+          <div style="display: flex; gap: 12px; padding: 8px 14px; background: #eae9e9; border-bottom: 1px solid #d7d3d3;">
+            <span style="width: 120px; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: #444141;">PERSON</span>
+            <span style="width: 200px; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: #444141;">NAME</span>
+            <span style="flex-grow: 1; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: #444141;">PROGRAMS</span>
+            <span style="width: 80px; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: #444141; text-align: right;">COUNTS AS</span>
+          </div>
+          <div style="display: flex; gap: 12px; padding: 8px 14px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;">
+            <span style="width: 120px; font-variant-numeric: tabular-nums; color: #444141;">MC-000118</span>
+            <span style="width: 200px;">Okonkwo, Marcus</span>
+            <span style="flex-grow: 1; color: #444141;">Workforce Development, Resident Services</span>
+            <span style="width: 80px; text-align: right; font-weight: 800;">2</span>
+          </div>
+          <div style="display: flex; gap: 12px; padding: 8px 14px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;">
+            <span style="width: 120px; font-variant-numeric: tabular-nums; color: #444141;">MC-000119</span>
+            <span style="width: 200px;">Pereira, Ana</span>
+            <span style="flex-grow: 1; color: #444141;">Resident Services</span>
+            <span style="width: 80px; text-align: right; font-weight: 800;">1</span>
+          </div>
+          <div style="display: flex; gap: 12px; padding: 8px 14px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;">
+            <span style="width: 120px; font-variant-numeric: tabular-nums; color: #444141;">MC-000120</span>
+            <span style="width: 200px;">Adebayo, Ngozi</span>
+            <span style="flex-grow: 1; color: #444141;">Workforce Development, Health Navigation, Property Management</span>
+            <span style="width: 80px; text-align: right; font-weight: 800;">3</span>
+          </div>
+          <div style="display: flex; gap: 12px; padding: 8px 14px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;">
+            <span style="width: 120px; font-variant-numeric: tabular-nums; color: #444141;">MC-000121</span>
+            <span style="width: 200px;">Rivera, Luis</span>
+            <span style="flex-grow: 1; color: #444141;">Youth Services</span>
+            <span style="width: 80px; text-align: right; font-weight: 800;">1</span>
+          </div>
+          <div style="display: flex; gap: 12px; padding: 8px 14px; font-size: 12.5px;">
+            <span style="width: 120px; font-variant-numeric: tabular-nums; color: #444141;">MC-000122</span>
+            <span style="width: 200px;">Chen, Wei</span>
+            <span style="flex-grow: 1; color: #444141;">Resident Services, Senior Services</span>
+            <span style="width: 80px; text-align: right; font-weight: 800;">2</span>
+          </div>
+        </div>
+        <div style="font-size: 12px; color: #605d5d; margin-top: 7px;">and 6,336 more, all included in the counts and in the download.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":980}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+Source_File,Total_Rows,Clean_Rows,Review_Rows,Clean_Rate,Top_Issue,Carries_PII
+clinic_export.csv :: A1:B63,62,60,2,96.8%,"Duplicate within file by your rule (matched on First_Name, Last_Name, Zip), copy of row 1; set aside",True
+portal_export.json,50,50,0,100.0%,none,True
+legacy_export.xlsx :: Sheet1 :: A1:I58,57,48,9,84.2%,Invalid ZIP Code format,True
+state_export.xml,45,45,0,100.0%,none,True
+partner_export.tsv :: A1:I53,52,51,1,98.1%,"Duplicate within file by your rule (matched on First_Name, Last_Name, Zip), copy of row 51; set aside",True
+canary_clients.csv :: A1:I10,9,3,6,33.3%,Invalid ZIP Code format,True

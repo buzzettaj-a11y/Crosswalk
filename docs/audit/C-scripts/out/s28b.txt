@@ -1,0 +1,16 @@
+{
+ "included": {
+  "b.csv :: A1:I2": true,
+  "b.csv :: A5:I6": false
+ },
+ "corrections": [],
+ "stats": {
+  "files": 1,
+  "tables": 1,
+  "rows": 1,
+  "corr": 0
+ }
+}
+{'key': 'b.csv :: A1:I2', 'rows': 1, 'kind': 'records', 'headerWrong': False, 'headerWhy': ''}
+{'key': 'b.csv :: A5:I6', 'rows': 2, 'kind': 'unknown', 'headerWrong': False, 'headerWhy': ''}
+express check: {'ok': True, 'blockers': [], 'warnings': [], 'tables': 1, 'rows': 1, 'dupes_unreviewed': 0, 'dupes_rows': 0}

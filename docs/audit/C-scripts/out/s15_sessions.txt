@@ -1,0 +1,19 @@
+open proposals: 1
+session id: s20261030-160144 | keys saved: ['actions', 'cols_off', 'confirmed', 'dedupe_rules', 'dup_decisions', 'dup_fields', 'fmt', 'gde_fields', 'header_row', 'included', 'map_ov', 'max_stage', 'mode', 'ops', 'queue_edits', 'schema', 'settings', 'source_defaults', 'stage']
+original: G1 settled=74 low=74 high=74 open=0 | G2=89 no_program=0 | rows={'input': 98, 'clean': 93, 'review': 3, 'aside': 2}
+   actions: 4 | id_decisions: 1 | program_groups: 4 | program_aliases: 7
+
+resume -> {'ok': True, 'sources': ['A.csv', 'B.csv', 'C.csv', 'D.csv', 'E.csv'], 'stage': 1, 'decisions': 4}
+   actions: 4 | id_decisions: 0 | program_groups: None | program_aliases: 0
+   after re-adding files: schema kept: True | ops: 0 | tables: 5
+   actions after Process: 0
+resumed : G1 settled=73 low=72 high=73 open=1 | G2=88 no_program=0 | rows={'input': 98, 'clean': 90, 'review': 8, 'aside': 0}
+   Final_Clean_Mapped           identical to original = False
+   Manual_Review_Needed         identical to original = False
+   Set_Aside_Records            identical to original = False
+   Unique_Clients               identical to original = False
+   Unique_Clients_By_Program    identical to original = False
+   Secure_Audit_Log             identical to original = False
+   Data_Quality_Report          identical to original = True
+   open proposals now: 1
+   groups now: [('idconflict', 2, 'pending'), ('dupc', 2, 'pending'), ('conflict', 1, 'pending'), ('zipcity', 1, 'pending'), ('zipbad', 1, 'pending'), ('noaddr', 1, 'pending')]

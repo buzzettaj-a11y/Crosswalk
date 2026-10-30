@@ -1,0 +1,30 @@
+[0 run] rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0} G1(low,settled,high)=(70, 70, 70) G2=84 files(clean,review,aside)=(86, 8, 0) frames=94
+[1 idconflict accept_all] rows={'input': 94, 'clean': 88, 'review': 6, 'aside': 0} G1(low,settled,high)=(71, 71, 71) G2=86 files(clean,review,aside)=(88, 6, 0) frames=94
+[1u undo (idconflict accept_all)] rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0} G1(low,settled,high)=(71, 71, 71) G2=86 files(clean,review,aside)=(86, 8, 0) frames=94
+    FAIL -> COUNTED ROWS: Unique_Clients covers 88 source rows but Final_Clean_Mapped has 86
+[2 dupc aside] rows={'input': 94, 'clean': 86, 'review': 6, 'aside': 2} G1(low,settled,high)=(70, 70, 70) G2=84 files(clean,review,aside)=(86, 8, 2) frames=94
+    FAIL -> REVIEW FILE: 8 rows vs screen review 6
+    FAIL -> THREE FILES: 86+8+2=96 vs input 94
+[2u undo dupc aside] rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0} G1(low,settled,high)=(70, 70, 70) G2=84 files(clean,review,aside)=(86, 8, 0) frames=94
+[3 four groups sent to queue] rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0} G1(low,settled,high)=(70, 70, 70) G2=84 files(clean,review,aside)=(86, 8, 0) frames=94
+   queue pending rids: ['A.csv :: A1:I48||40', 'A.csv :: A1:I48||41', 'A.csv :: A1:I48||43', 'A.csv :: A1:I48||42']
+[3a approve one] rows={'input': 94, 'clean': 87, 'review': 7, 'aside': 0} G1(low,settled,high)=(71, 71, 71) G2=85 files(clean,review,aside)=(87, 7, 0) frames=94
+[3b reject one] rows={'input': 94, 'clean': 87, 'review': 7, 'aside': 0} G1(low,settled,high)=(71, 71, 71) G2=85 files(clean,review,aside)=(87, 7, 0) frames=94
+[3c remove (set aside) one] rows={'input': 94, 'clean': 87, 'review': 6, 'aside': 1} G1(low,settled,high)=(71, 71, 71) G2=85 files(clean,review,aside)=(87, 7, 1) frames=94
+    FAIL -> REVIEW FILE: 7 rows vs screen review 6
+    FAIL -> THREE FILES: 87+7+1=95 vs input 94
+   bulk approve all matching -> {'ok': True, 'changed': 1, 'fixed': 0, 'still_open': 0, 'note': '1 row(s) approved as entered'}
+[3d bulk approve all pending] rows={'input': 94, 'clean': 88, 'review': 5, 'aside': 1} G1(low,settled,high)=(72, 72, 72) G2=86 files(clean,review,aside)=(88, 6, 1) frames=94
+    FAIL -> REVIEW FILE: 6 rows vs screen review 5
+    FAIL -> THREE FILES: 88+6+1=95 vs input 94
+   bulk remove all approved -> {'ok': True, 'changed': 2, 'fixed': 0, 'still_open': 0, 'note': '2 row(s) removed from the dataset'}
+[3e bulk set aside all approved] rows={'input': 94, 'clean': 86, 'review': 5, 'aside': 3} G1(low,settled,high)=(70, 70, 70) G2=84 files(clean,review,aside)=(86, 8, 3) frames=94
+    FAIL -> REVIEW FILE: 8 rows vs screen review 5
+    FAIL -> THREE FILES: 86+8+3=97 vs input 94
+   bulk back to pending (all) -> {'ok': True, 'changed': 4, 'fixed': 0, 'still_open': 0, 'note': '4 row(s) put back to pending'}
+[3f bulk back to pending] rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0} G1(low,settled,high)=(70, 70, 70) G2=84 files(clean,review,aside)=(86, 8, 0) frames=94
+   keep one per program -> {'ok': True, 'kept': 3, 'set_aside': 4, 'note': 'kept one row for each of 3 person(s) per program and set 4 row(s) aside'}
+[4 keep one per program] rows={'input': 94, 'clean': 86, 'review': 6, 'aside': 2} G1(low,settled,high)=(70, 70, 70) G2=84 files(clean,review,aside)=(86, 8, 2) frames=94
+    FAIL -> REVIEW FILE: 8 rows vs screen review 6
+    FAIL -> THREE FILES: 86+8+2=96 vs input 94
+   queue counts after keep-one-per-program: {'pending': 4, 'approved': 3, 'removed': 4}

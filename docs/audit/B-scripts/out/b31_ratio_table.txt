@@ -1,0 +1,18 @@
+'111 Main St'          vs '11 Main St'           ->  97 MATCH (>=88)
+'1 Main St'            vs '11 Main St'           ->  96 MATCH (>=88)
+'1234 Main St'         vs '1243 Main St'         ->  94 MATCH (>=88)
+'2250 Flatbush Ave'    vs '2205 Flatbush Ave'    ->  95 MATCH (>=88)
+'117-19 45th Ave'      vs '117-91 45th Ave'      ->  83 
+'40 W 100 St'          vs '100 W 40 St'          -> 100 MATCH (>=88)
+'1 Avenue U'           vs '1 Avenue V'           ->  90 MATCH (>=88)
+'1 Avenue M'           vs '1 Avenue N'           ->  75 
+'100 E 10 St'          vs '100 E 11 St'          ->  89 MATCH (>=88)
+'100 W 10 St'          vs '100 W 100 St'         ->  97 MATCH (>=88)
+'100 W 10 St'          vs '100 E 10 St'          ->  72 
+'350 Broadway'         vs '350 Broadway Apt 5'   ->  67 
+'45 Beach 9 St'        vs '45 Beach 90 St'       ->  97 MATCH (>=88)
+'12 W 4 St'            vs '12 W 40 St'           ->  97 MATCH (>=88)
+'123 Fulton St'        vs '123 Fulton Ave'       ->  59 
+'20 Park Ave'          vs '200 Park Ave'         ->  97 MATCH (>=88)
+'5 Court St'           vs '5 Courtlandt St'      ->  85 
+'100 Hall St'          vs '100 Hale St'          ->  93 MATCH (>=88)

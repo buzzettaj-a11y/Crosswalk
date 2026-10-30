@@ -1,0 +1,44 @@
+=== MODE idle
+server answering after 1.3s {'ok': True, 'port': 8765, 'version': '2026.09.17'}
+files while running: ['.installed', 'launch-log.txt']
+pid file: 6313 (launcher pid 6313)
+IDLE: stopped 46.5s after the last heartbeat (exit code 0)
+--- process stdout/stderr (what a console would show):
+2026-10-30 15:58:08  ============================================================
+2026-10-30 15:58:08  starting, python 3.13.18 at /tmp/claude-0/-home-claude/ec68250d-d5ac-549e-8d94-20759c381437/scratchpad/venv-old/bin/python
+2026-10-30 15:58:09  serving on http://127.0.0.1:8765/
+2026-10-30 15:58:10  ready, opening the browser
+2026-10-30 15:58:56  no window for a while, stopping
+2026-10-30 15:58:56  stopped
+
+--- files after: ['.installed', 'launch-log.txt']
+--- launch-log.txt:
+2026-10-30 15:58:08  ============================================================
+2026-10-30 15:58:08  starting, python 3.13.18 at /tmp/claude-0/-home-claude/ec68250d-d5ac-549e-8d94-20759c381437/scratchpad/venv-old/bin/python
+2026-10-30 15:58:09  serving on http://127.0.0.1:8765/
+2026-10-30 15:58:10  ready, opening the browser
+2026-10-30 15:58:56  no window for a while, stopping
+2026-10-30 15:58:56  stopped
+
+=== MODE bye
+server answering after 1.3s {'ok': True, 'port': 8765, 'version': '2026.09.17'}
+files while running: ['.installed', 'launch-log.txt']
+pid file: 6417 (launcher pid 6417)
+BYE: stopped 16.3s after the goodbye (exit code 0)
+--- process stdout/stderr (what a console would show):
+2026-10-30 15:58:56  ============================================================
+2026-10-30 15:58:56  starting, python 3.13.18 at /tmp/claude-0/-home-claude/ec68250d-d5ac-549e-8d94-20759c381437/scratchpad/venv-old/bin/python
+2026-10-30 15:58:57  serving on http://127.0.0.1:8765/
+2026-10-30 15:58:58  ready, opening the browser
+2026-10-30 15:59:15  the window closed, stopping
+2026-10-30 15:59:15  stopped
+
+--- files after: ['.installed', 'launch-log.txt']
+--- launch-log.txt:
+2026-10-30 15:58:56  ============================================================
+2026-10-30 15:58:56  starting, python 3.13.18 at /tmp/claude-0/-home-claude/ec68250d-d5ac-549e-8d94-20759c381437/scratchpad/venv-old/bin/python
+2026-10-30 15:58:57  serving on http://127.0.0.1:8765/
+2026-10-30 15:58:58  ready, opening the browser
+2026-10-30 15:59:15  the window closed, stopping
+2026-10-30 15:59:15  stopped
+

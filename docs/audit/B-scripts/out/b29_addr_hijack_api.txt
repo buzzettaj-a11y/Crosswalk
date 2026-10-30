@@ -1,0 +1,6 @@
+tidy-up steps proposed on upload: ['100% end in a ZIP; 100% end in a state; 100% contain a comma. Creates _street, _address2, _city, _state and _zip. Rows that are already clean keep their street and leave the rest blank.']
+matched columns: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Employer Address_street', 'Address_2': 'Employer Address_address2', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+express check: ok = True warnings = []
+client Ana Lopez: stored Address_1='500 Work Ave' City='Brooklyn' Zip='11201' CLEAN
+client Bo Chen: stored Address_1='501 Work Ave' City='Brooklyn' Zip='11201' CLEAN
+client Cy Diaz: stored Address_1='502 Work Ave' City='Brooklyn' Zip='11201' CLEAN

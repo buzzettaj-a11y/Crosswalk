@@ -1,0 +1,17 @@
+== (a) three systems, each numbering its own clients 1..20, 60 DIFFERENT people
+    G1 settled=0 low=0 high=0 open=0 | G2=0 no_program=0 | rows={'input': 60, 'clean': 0, 'review': 60, 'aside': 0}
+    groups: [('idconflict', 60)]
+    the 60 rows are 60 distinct people; clean rows = 0
+
+== (b) one enrollment-level file: same client, same ID, two programs (3 clients, 6 rows)
+    G1 settled=0 low=0 high=0 open=0 | G2=0 no_program=0 | rows={'input': 6, 'clean': 0, 'review': 6, 'aside': 0} (truth: Goal 1 = 3, Goal 2 = 6)
+    groups: [('idconflict', 6, 'One identifier used for records that do not match')]
+    reason: 
+    sample message: More than one row uses this ID, but the rows are not the same.
+
+== (c) same ID in one system, name and address changed (marriage and a move), nothing else shared
+    after run: G1 settled=0 low=0 high=0 open=0 | G2=0 no_program=0 | rows={'input': 2, 'clean': 0, 'review': 2, 'aside': 0}
+    after the reviewer accepts them as entered: G1 settled=2 low=2 high=2 open=0 | G2=2 no_program=0 | rows={'input': 2, 'clean': 2, 'review': 0, 'aside': 0} (same identifier, same system: one person)
+
+== (b2) the enrollment file after the reviewer presses 'accept all' on the ID group
+    G1 settled=3 low=3 high=3 open=0 | G2=6 no_program=0 | rows={'input': 6, 'clean': 6, 'review': 0, 'aside': 0} (truth: Goal 1 = 3, Goal 2 = 6)

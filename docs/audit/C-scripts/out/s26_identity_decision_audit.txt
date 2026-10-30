@@ -1,0 +1,5 @@
+open proposals: 14 | Goal 1 range: G1 settled=256 low=244 high=256 open=14 
+after one 'same' and one 'different': G1 settled=255 low=244 high=255 open=12 
+audit lines before/after: 84 84 | identical text apart from timestamps: True
+lines mentioning the two rows: []
+GET /api/audit?kind=decision items: 1 | any mention of identity: False

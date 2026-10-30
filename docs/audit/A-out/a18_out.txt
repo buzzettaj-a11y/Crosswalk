@@ -1,0 +1,4 @@
+groups: [('other', 2100)]
+{'ok': True, 'outcome': '2,100 accepted as entered'}
+rows accepted by the reviewer: 2100 | rows listed by ID in the audit trail: 2000
+last lines: ['     big.csv :: A1:H2101||1999 id B01999', '     ... and 100 more']

@@ -1,0 +1,64 @@
+Brooklyn + NJ ZIP 07030 (Hoboken)      -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='07030'
+Brooklyn + ZIP 99999                   -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='99999'
+Brooklyn + ZIP 12345                   -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='12345'
+Brooklyn + ZIP 00000                   -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='00000'
+Hempstead + Nassau ZIP 11550           -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Fulton Ave' A2='' City='Queens' St='NY' Zip='11550'
+City blank + Nassau ZIP 11550          -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='123 Fulton Ave' A2='' City='Queens' St='NY' Zip='11550'
+Garden City + ZIP 11530                -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='1 Franklin Ave' A2='' City='Queens' St='NY' Zip='11530'
+Valley Stream + ZIP 11580              -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Queens' St='NY' Zip='11580'
+Mineola + 11501, state blank           -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Queens' St='NY' Zip='11501'
+Brooklyn + Nassau ZIP 11550 (conflict) -> REVIEW: City/ZIP conflict: City says 'Brooklyn' but ZIP 11550 is in Queens; confirm which is correct
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11550'
+Hoboken + 10001 (NYC ZIP)              -> REVIEW: State is not NY: 'NJ'
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='New York' St='NJ' Zip='10001'
+Hoboken + 10001, state blank           -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='New York' St='NY' Zip='10001'
+Yonkers + 10001                        -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='New York' St='NY' Zip='10001'
+Yonkers + ZIP 10701                    -> REVIEW: Unrecognized City: 'Yonkers'
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Yonkers' St='NY' Zip='10701'
+Chelsea (MA) + ZIP 02150, state blank  -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='New York' St='NY' Zip='02150'
+Brookline (MA) + 02446, state blank    -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='02446'
+Riverdale (MD) + 20737, state blank    -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Bronx' St='NY' Zip='20737'
+Flushing (MI) + 48433, state blank     -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Queens' St='NY' Zip='48433'
+Jamaica (VT) + 05343, state blank      -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Queens' St='NY' Zip='05343'
+Newark NJ + 07102, state NJ            -> REVIEW: State is not NY: 'NJ'
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Newark' St='NJ' Zip='07102'
+Newark + 07102, state blank            -> REVIEW: Unrecognized City: 'Newark'
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Newark' St='NY' Zip='07102'
+Manhattan + 10001                      -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='New York' St='NY' Zip='10001'
+Brooklyn + 10001 (conflict)            -> REVIEW: City/ZIP conflict: City says 'Brooklyn' but ZIP 10001 is in New York; confirm which is correct
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='10001'
+Queens + 11201 (conflict)              -> REVIEW: City/ZIP conflict: City says 'Queens' but ZIP 11201 is in Brooklyn; confirm which is correct
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Queens' St='NY' Zip='11201'
+Queens + ZIP 11001 (Floral Park)       -> REVIEW: Unrecognized City: 'Floral Park'
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Floral Park' St='NY' Zip='11001'
+Ny + ZIP 11201 (city typed NY)         -> REVIEW: City/ZIP conflict: City says 'New York' (entered as 'NY') but ZIP 11201 is in Brooklyn; confirm which is correct
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='New York' St='NY' Zip='11201'
+NYC + 11201                            -> REVIEW: City/ZIP conflict: City says 'New York' (entered as 'NYC') but ZIP 11201 is in Brooklyn; confirm which is correct
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='New York' St='NY' Zip='11201'
+New York + 11201                       -> REVIEW: City/ZIP conflict: City says 'New York' but ZIP 11201 is in Brooklyn; confirm which is correct
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='New York' St='NY' Zip='11201'
+Brooklyn + 10463 Marble Hill           -> REVIEW: City/ZIP conflict: City says 'New York' (entered as 'Manhattan') but ZIP 10463 is in Bronx; confirm which is correct
+                                          First='Ana' Last='Lopez' ID='A1' A1='5 Marble Hill Ave' A2='' City='New York' St='NY' Zip='10463'
+City='SI' ZIP 10001                    -> REVIEW: City/ZIP conflict: City says 'Staten Island' (entered as 'SI') but ZIP 10001 is in New York; confirm which is correct
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Staten Island' St='NY' Zip='10001'
+City='Rockaway' 11691                  -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Queens' St='NY' Zip='11691'
+City='Rockaway NJ' 07866               -> REVIEW: Unrecognized City: 'Rockaway NJ'
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Rockaway NJ' St='NY' Zip='07866'

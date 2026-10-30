@@ -1,0 +1,32 @@
+BOM csv columns: ['First', 'Last', 'ID', 'Addr', 'Addr2', 'City', 'State', 'Zip']
+UTF-16 csv -> UnicodeDecodeError 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+latin-1 csv -> UnicodeDecodeError 'utf-8' codec can't decode byte 0xe9 in position 3: unexpected end of data
+
+IDs that differ only by an invisible character are not seen as the same ID:
+   'A1' -> CLEAN
+   'A1\u200b' -> CLEAN
+  with identical plain IDs:
+   'A1' -> CLEAN
+   'A1' -> REVIEW: Confirmed duplicate: identical record with the same Client ID
+
+name with ZWSP / soft hyphen / NUL / BOM stays in the clean row:
+   'Ana\u200b' -> CLEAN 'Ana\u200b'
+   '\ufeffAna' -> CLEAN '\ufeffAna'
+   'An\xada' -> CLEAN 'An\xada'
+   'Ana\x00' -> CLEAN 'Ana\x00'
+
+full-width and Arabic-Indic digits in a ZIP:
+   '１１２０１' -> CLEAN Zip= '１１２０１' City= Brooklyn
+   '١١٢٠١' -> CLEAN Zip= '١١٢٠١' City= Brooklyn
+
+Middle initial placeholders:
+   'NMI' -> 'N' Middle_Initial: reduced multi-character value to initial 'N'
+   'NMN' -> 'N' Middle_Initial: reduced multi-character value to initial 'N'
+   'None' -> '' None
+   'N/A' -> '' None
+   'Jr' -> 'J' Middle_Initial: reduced multi-character value to initial 'J'
+   'no' -> 'N' Middle_Initial: reduced multi-character value to initial 'N'
+   'Unknown' -> 'U' Middle_Initial: reduced multi-character value to initial 'U'
+   '.' -> '' Middle_Initial: dropped non-alphabetic value
+   '(none)' -> '' Middle_Initial: dropped non-alphabetic value
+   'X' -> 'X' None

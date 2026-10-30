@@ -1,0 +1,4 @@
+as shipped          : G1 settled=7 low=7 high=7 open=0 | G2=9 no_program=0 | rows={'input': 12, 'clean': 12, 'review': 0, 'aside': 0}
+spec rule in memory : G1 settled=10 low=7 high=10 open=3 | G2=12 no_program=0 | rows={'input': 12, 'clean': 12, 'review': 0, 'aside': 0}
+   auto links: [('0', 128), ('4', 128)]
+   proposals : [('2', '2', 112, 'dates of birth differ by a single digit, but the dates of birth are close but not identical'), ('3', '3', 112, 'day and month are the other way round, but the dates of birth are close but not identical'), ('1', '1', 102, 'date of birth matches exactly')]

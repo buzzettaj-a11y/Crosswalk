@@ -1,0 +1,17 @@
+streamlit>=1.30
+pandas>=2.0
+numpy>=1.24
+openpyxl>=3.1
+lxml>=4.9
+thefuzz>=0.20
+
+# Preferred local geocoder (NYC). Requires NYC Geosupport Desktop Edition to be
+# installed separately on the machine. If this package or GDE is absent, the app
+# automatically falls back to the CSV gazetteer + GeoJSON district files.
+python-geosupport>=1.0
+
+# Crosswalk interface (FastAPI front end)
+fastapi
+uvicorn
+python-multipart
+httpx

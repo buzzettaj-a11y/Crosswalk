@@ -1,0 +1,11 @@
+baseline: G1 settled=70 low=70 high=70 open=0 | G2=84 no_program=0 | rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0}
+after group 'sent' + row 'approved': G1 settled=71 low=71 high=71 open=0 | G2=85 no_program=0 | rows={'input': 94, 'clean': 87, 'review': 7, 'aside': 0}
+   actions: [('group', 'zipbad', 'sent'), ('row', 'A.csv :: A1:I48||40', 'approved')]
+undo -> {'ok': True}
+   actions left: [('row', 'A.csv :: A1:I48||40', 'approved')]
+   summary (cached identity): G1 settled=71 low=71 high=71 open=0 | G2=85 no_program=0 | rows={'input': 94, 'clean': 87, 'review': 7, 'aside': 0}
+   summary (fresh identity)  : G1 settled=71 low=71 high=71 open=0 | G2=85 no_program=0 | rows={'input': 94, 'clean': 87, 'review': 7, 'aside': 0}
+   zipbad group status: pending | row A.csv :: A1:I48||40 status now: ['approved']
+   -> the group decision is undone but the row it created is still approved and counted
+
+second undo with only a row action left -> {'ok': False} (the approved row cannot be undone through Undo)

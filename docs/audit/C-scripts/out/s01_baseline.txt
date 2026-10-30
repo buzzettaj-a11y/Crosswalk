@@ -1,0 +1,11 @@
+G1 settled=256 low=244 high=256 open=14 | G2=52 no_program=204 | rows={'input': 266, 'clean': 256, 'review': 10, 'aside': 0}
+balanced: True {'input': 266, 'clean': 256, 'review': 10, 'aside': 0} frames rows: 266
+exports  G1/G2: 256 52
+summary  G1/G2: 256 52
+per program summary: {'Housing': 15, 'Older Adult Services': 13, 'Workforce': 12, 'Youth': 12}
+per program export : {'Housing': 15, 'Older Adult Services': 13, 'Workforce': 12, 'Youth': 12}
+clean rows 256 unique_clients rows 256 source record count sum 256
+rids in unique_clients: 256 distinct: 256
+missing from unique_clients: 0 extra: 0
+review rows export 10 aside 0
+groups: [('zipbad', 7), ('idconflict', 3)]

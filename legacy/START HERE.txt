@@ -1,0 +1,60 @@
+CROSSWALK
+===========
+
+TO START IT
+-----------
+
+Windows:  double-click  Crosswalk.vbs
+Mac:      double-click  Crosswalk.command
+Linux:    run           ./Crosswalk.sh
+
+That is the whole thing. It opens in your web browser by itself.
+
+The first time takes a minute or two, because it downloads the pieces it needs.
+That is the only step that uses the internet. Everything after that works with
+no connection at all, and none of your data ever leaves this computer.
+
+
+TO STOP IT
+----------
+
+Click "Close Crosswalk" at the bottom left of the screen.
+
+If you just close the browser window instead, that is fine too. The tool
+notices after a few minutes and closes itself.
+
+
+IF IT DOES NOT START
+--------------------
+
+You will get a message saying what is wrong, in plain words.
+
+The usual cause is that Python is not installed on this computer. Install it
+once from python.org/downloads, and during setup tick the box that says
+"Add python.exe to PATH". Then double-click Crosswalk again.
+
+If you need to report a problem, send the file launch-log.txt from this folder.
+It records what happened during start-up and contains no client data.
+
+
+A NOTE ON YOUR DATA
+-------------------
+
+Nothing you load is sent anywhere. The tool runs entirely on this computer and
+writes nothing to disk unless you download a file yourself.
+
+Your progress through a batch is saved as you work, so closing the window does
+not lose your decisions. That saved progress holds your settings and choices,
+never the client records themselves, and it is deleted after seven days.
+
+
+IF IT SEEMS TO KEEP RUNNING
+---------------------------
+
+Closing the browser stops the tool by itself within about a minute. If you need
+it gone right away, for example before deleting or replacing this folder,
+double-click Stop Crosswalk (Stop Crosswalk.vbs on Windows,
+Stop Crosswalk.command on a Mac).
+
+While it runs it shows in Task Manager as "Python" under background processes,
+because it has no window of its own.

@@ -1,0 +1,25 @@
+== propose(street, city) ==
+'900 Flatbush Ave'         'Brooklyn'   -> (None, 'flatbush avenue runs through 2 ZIPs in Brooklyn (11226, 11234); a house number is needed')
+'2250 Flatbush Ave'        'Brooklyn'   -> (None, 'flatbush avenue runs through 2 ZIPs in Brooklyn (11226, 11234); a house number is needed')
+'85 Montague St'           'Brooklyn'   -> ('11201', 'montague street in Brooklyn is only in ZIP 11201')
+'999 Montague St'          'Brooklyn'   -> ('11201', 'montague street in Brooklyn is only in ZIP 11201')
+'999 Montague St'          ''           -> ('11201', 'montague street is only in Brooklyn, ZIP 11201')
+'1 Main St'                'Brooklyn'   -> ('11201', 'main street in Brooklyn is only in ZIP 11201')
+'1010 Grand Concourse'     'Bronx'      -> ('10452', 'grand concourse in Bronx is only in ZIP 10452')
+'77 Grand Concourse'       'Bronx'      -> ('10452', 'grand concourse in Bronx is only in ZIP 10452')
+'1 Avenue W'               'Brooklyn'   -> (None, 'the street is not in the reference data for Brooklyn')
+'1 Avenue U'               'Brookline'  -> ('11223', 'avenue u in Brooklyn is only in ZIP 11223')
+
+== propose_city for rows with a NON-NYC zip ==
+'85 Montague St'           zip=07030 -> ('Brooklyn', 'montague street is only in Brooklyn')
+'85 Montague St'           zip=99999 -> ('Brooklyn', 'montague street is only in Brooklyn')
+'85 Montague St'           zip=10701 -> ('Brooklyn', 'montague street is only in Brooklyn')
+'1010 Grand Concourse'     zip=12345 -> ('Bronx', 'grand concourse is only in Bronx')
+
+== propose_for_row on review-style records ==
+Hoboken 07030 85 Montague St -> [{'field': 'City', 'value': 'Brooklyn', 'why': "replace 'Hoboken' with Brooklyn: montague street is only in Brooklyn"}]
+Hoboken  85 Montague St -> [{'field': 'Zip', 'value': '11201', 'why': 'montague street is only in Brooklyn, ZIP 11201'}]
+Yonkers 10701 85 Montague St -> [{'field': 'City', 'value': 'Brooklyn', 'why': "replace 'Yonkers' with Brooklyn: montague street is only in Brooklyn"}]
+Brookline  900 Flatbush Ave -> [{'field': 'Zip', 'value': None, 'why': 'flatbush avenue runs through 2 ZIPs in Brooklyn (11226, 11234); a house number is needed'}]
+Brooklyn  2250 Flatbush Ave -> [{'field': 'Zip', 'value': None, 'why': 'flatbush avenue runs through 2 ZIPs in Brooklyn (11226, 11234); a house number is needed'}]
+Brooklyn 7030 85 Montague St -> [{'field': 'Zip', 'value': '11201', 'why': 'montague street in Brooklyn is only in ZIP 11201'}]

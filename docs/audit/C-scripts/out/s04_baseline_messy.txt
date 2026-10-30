@@ -1,0 +1,15 @@
+[after run] rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0} G1(low,settled,high)=(70, 70, 70) G2=84 files(clean,review,aside)=(86, 8, 0) frames=94
+groups: [('idconflict', 2, 'pending'), ('dupc', 2, 'pending'), ('conflict', 1, 'pending'), ('zipcity', 1, 'pending'), ('zipbad', 1, 'pending'), ('noaddr', 1, 'pending')]
+review export head:
+       Source_File Source_Row Resolution_Status                                                                               Error_Reason
+0  A.csv :: A1:I48         10           Pending    Same Client ID 'A010' used by records with different data; review required (not merged)
+1  A.csv :: A1:I48         40           Pending                                                           Invalid ZIP Code format: (blank)
+2  A.csv :: A1:I48         41           Pending                             City could not be determined; Invalid ZIP Code format: (blank)
+3  A.csv :: A1:I48         42           Pending  City/ZIP conflict: City says 'Queens' but ZIP 10451 is in Bronx; confirm which is correct
+4  A.csv :: A1:I48         43           Pending                                                                          Missing Address_1
+5  A.csv :: A1:I48         44           Pending                              Confirmed duplicate: identical record with the same Client ID
+6  A.csv :: A1:I48         45           Pending                              Confirmed duplicate: identical record with the same Client ID
+7  B.csv :: A1:I32         30           Pending    Same Client ID 'A010' used by records with different data; review required (not merged)
+tallies: {'flagged': 8, 'failed': 8, 'cleared': 0, 'queue': 0, 'undecided': 8, 'decided': 0, 'groups_total': 6}
+cross-file note: {'rows': 2, 'groups': 1, 'files': ['A.csv', 'C.csv']}
+express check: {'ok': True, 'rows': 94, 'dupes_unreviewed': 2, 'dupes_rows': 5}

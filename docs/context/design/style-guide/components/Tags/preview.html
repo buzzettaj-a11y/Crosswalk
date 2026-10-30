@@ -1,0 +1,29 @@
+<!-- @dsCard group="Controls" height=96 subtitle="Needs you, a person decided, a neutral fact" -->
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap">
+<style>
+body { margin: 0; background: var(--bg-page); font-family: var(--font-sans); color: var(--ink); }
+.row { display: flex; align-items: center; gap: 22px; padding: 22px 20px; flex-wrap: wrap; }
+.stack { display: flex; flex-direction: column; gap: 8px; }
+.lbl { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 3px 7px; }
+.needs { background: var(--blue-500); color: #ffffff; }
+.decided { background: var(--green-100); color: var(--green-700); border: 1px solid var(--green-300); }
+.wrong { background: var(--amber-100); color: var(--amber-700); border: 1px solid var(--amber-300); }
+.fact { border: 1px solid var(--line-2); color: var(--ink-2); }
+.plain { font-size: 11.5px; font-weight: 800; color: var(--ink-2); border: 1px solid var(--line-2); background: var(--bg-card); padding: 5px 9px; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="stack"><span class="lbl">Needs you</span><span class="tag needs">Needs your say</span></div>
+  <div class="stack"><span class="lbl">A person decided</span><span class="tag decided">Confirmed by you</span></div>
+  <div class="stack"><span class="lbl">Looks wrong</span><span class="tag wrong">Check the header row</span></div>
+  <div class="stack"><span class="lbl">Neutral fact</span><span class="tag fact">Records</span></div>
+  <div class="stack"><span class="lbl">Sentence case, a state</span><span class="plain">decided</span></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+corrections file rows: 8 | fixed row: [['A.csv :: A1:I48', '40', 'A900', 'Zed']]
+
+A900 (Zed Zimmer) is now at row 46 in the re-exported file
+rows of the raw frame that were overwritten by the corrections file: 6
+   row 10: was A007 'Hana Alvarez'         -> now A010 Kira Alvarez zip 11101
+   row 40: was A037 'Rex Brown'            -> now A900 Zed Zimmer zip 11201
+   row 41: was A038 'Sena Brown'           -> now A901 Yan Young zip 
+   row 42: was A039 'Tomas Brown'          -> now A902 Xi Xu zip 10451
+   row 44: was A902 'Xi Xu'                -> now A003 Devi Alvarez zip 11201
+   row 45: was A901 'Yan Young'            -> now A003 Devi Alvarez zip 11201
+row for A900 itself: [['A900', '11201'], ['A900', '']]
+summary: G1 settled=67 low=67 high=67 open=0 | G2=80 no_program=0 | rows={'input': 94, 'clean': 82, 'review': 12, 'aside': 0}
+["[A.csv :: A1:I48 | ID A010 | src-row 10] [15 Corrections | annotated] Values replaced from corrections file 'Manual_Review_Needed.csv' (columns: Address, City, Client_ID, DOB, First_Name, Program, Zip); re-validated like any other row", "[A.csv :: A1:I48 | ID A900 | src-row 40] [15 Corrections | annotated] Values replaced from corrections file 'Manual_Review_Needed.csv' (columns: Address, City, Client_ID, DOB, First_Name, Last_Name, Program, Zip); re-validated like any other row"]

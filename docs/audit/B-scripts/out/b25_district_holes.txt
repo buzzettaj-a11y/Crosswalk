@@ -1,0 +1,3 @@
+point inside the hole (-73.95, 40.70), which belongs to district 2: {'Senate_District': '1', 'Assembly_District': '1', 'Council_District': '1'}
+point in the donut body (-73.99, 40.62), district 1: {'Senate_District': '1', 'Assembly_District': '1', 'Council_District': '1'}
+shipped district file features: 5 rings per polygon: [1, 1, 1, 1, 1]

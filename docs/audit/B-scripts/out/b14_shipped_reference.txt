@@ -1,0 +1,11 @@
+rows 10715 ZIP borough agrees with city column: 875 ZIP outside NYC ranges: 6128
+Counter({'Queens': 2193, 'Bronx': 2187, 'Staten Island': 2181, 'Brooklyn': 2098, 'New York': 2056})
+sample rows:
+{'address': '0645 Morris Heights', 'zip': '10305', 'city': 'Queens', 'latitude': '40.698334', 'longitude': '-73.787029'}
+{'address': '24039 Kim Views', 'zip': '11216', 'city': 'Queens', 'latitude': '40.721817', 'longitude': '-73.769517'}
+{'address': '03241 Paul Plains Apt. 684', 'zip': '11472', 'city': 'Bronx', 'latitude': '40.870547', 'longitude': '-73.837252'}
+{'address': '130 Marie Roads', 'zip': '10216', 'city': 'Queens', 'latitude': '40.729132', 'longitude': '-73.771295'}
+{'address': '603 Jessica Oval', 'zip': '10599', 'city': 'Brooklyn', 'latitude': '40.704325', 'longitude': '-73.92065'}
+{'address': '8837 David Lodge', 'zip': '10127', 'city': 'Staten Island', 'latitude': '40.600401', 'longitude': '-74.17675'}
+rows whose address starts with a normal house number and ends with St/Ave/Rd/Blvd: 127
+('fail', 'nyc_address_points.csv: 3,712 of 4,587 rows (81%) record a city that contradicts their own ZIP. This is demo or unreliable data. Replace it with real NYC address points, or install Geosupport, before processing real client data.')

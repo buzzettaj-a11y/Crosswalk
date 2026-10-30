@@ -1,0 +1,4 @@
+set aside one row: {'ok': True, 'status': 'removed'}
+Run screen band      -> 1 clean + 3 to fix = 4 rows received | sum = 4
+Export screen band   -> {'input': 4, 'clean': 1, 'review': 2, 'aside': 1, 'kept': 0}
+Rail stamp           -> [['LOSSLESS', 'clean + review = input']]

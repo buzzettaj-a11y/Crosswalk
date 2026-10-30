@@ -1,0 +1,7 @@
+data rows in the file: 5 (U1, U2, then a blank line, then U3, U4, U5)
+clean           mentions U3/U4/U5 or Gamma/Delta/Epsilon: []
+review          mentions U3/U4/U5 or Gamma/Delta/Epsilon: []
+aside           mentions U3/U4/U5 or Gamma/Delta/Epsilon: []
+unique_clients  mentions U3/U4/U5 or Gamma/Delta/Epsilon: []
+audit           mentions U3/U4/U5 or Gamma/Delta/Epsilon: []
+summary rows: {'input': 2, 'clean': 2, 'review': 0, 'aside': 0} | goal1: 2 | unique clients in the file: 5

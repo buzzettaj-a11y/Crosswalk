@@ -1,0 +1,8 @@
+send group idconflict {'ok': True, 'outcome': '2 to the queue'}
+send group zipbad {'ok': True, 'outcome': '1 to the queue'}
+queue total 3
+fields the screen offers for 'Set a field on all selected': ['First_Name', 'Middle_Initial', 'Last_Name', 'Client_ID', 'Address_1', 'Address_2', 'City', 'State', 'Zip', 'Program']
+row in the queue: household.csv :: A1:H5||0 | Same Client ID 'H100' used by records with different data; review required (not merged)
+typed Zip=11201 and Last_Name=Somebodyelse -> {'ok': True, 'status': 'corrected', 'errors': []}
+clean row: H200 Ada Lovelace 11101 | Passed every check
+clean row: H300 Zed Somebodyelse 11201 | Passed every check

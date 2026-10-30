@@ -1,0 +1,63 @@
+/* Crosswalk style guide tokens, generated from tokens.json (style guide v1.2.1).
+   tokens.json and README.md are the source of truth. Regenerate this file if they change. */
+:root {
+  --bg-page: #f3f2f2;
+  --bg-surface: #eae9e9;
+  --bg-card: #ffffff;
+  --ink: #201e1d;
+  --ink-2: #444141;
+  --muted: #605d5d;
+  --line: #d7d3d3;
+  --line-2: #bab6b6;
+  --line-soft: #eae9e9;
+  --on-dark: #f3f2f2;
+  --on-dark-muted: #d7d3d3;
+  --blue-700: #20435f;
+  --blue-500: #2f5f88;
+  --blue-300: #bcd3e4;
+  --blue-100: #eef3f7;
+  --green-700: #1b4b2b;
+  --green-500: #2a6a3f;
+  --green-300: #b6dabe;
+  --green-100: #e9f7ec;
+  --amber-700: #5f3400;
+  --amber-500: #834c00;
+  --amber-300: #f0c79a;
+  --amber-100: #ffeed6;
+  --font-sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --radius-none: 0px;
+  --topbar-height: 48px;
+  --strip-height: 64px;
+  --ledger-width: 280px;
+  --ledger-band-height: 44px;
+  --ledger-breakpoint: 1360px;
+  --undo-width: 176px;
+  --row-count-width: 58px;
+  --mark-size: 16px;
+  --rule-weight: 3px;
+}
+
+.t-h1 { font-family: var(--font-sans); font-size: 34px; line-height: 1.08; font-weight: 800; letter-spacing: -0.01em; }
+.t-h2 { font-family: var(--font-sans); font-size: 25px; line-height: 1.1; font-weight: 800; }
+.t-count-lg { font-family: var(--font-sans); font-size: 44px; line-height: 1.05; font-weight: 800; }
+.t-count { font-family: var(--font-sans); font-size: 28px; line-height: 1.05; font-weight: 800; }
+.t-count-row { font-family: var(--font-sans); font-size: 20px; line-height: 1.1; font-weight: 800; }
+.t-body { font-family: var(--font-sans); font-size: 13px; line-height: 1.5; font-weight: 400; }
+.t-row-title { font-family: var(--font-sans); font-size: 13.5px; line-height: 1.3; font-weight: 800; }
+.t-note { font-family: var(--font-sans); font-size: 12.5px; line-height: 1.45; font-weight: 400; }
+.t-caption { font-family: var(--font-sans); font-size: 11.5px; line-height: 1.4; font-weight: 400; }
+.t-micro { font-family: var(--font-sans); font-size: 11px; line-height: 1.4; font-weight: 400; }
+.t-kicker { font-family: var(--font-sans); font-size: 10px; line-height: 1.2; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+.t-strip-kicker { font-family: var(--font-sans); font-size: 9px; line-height: 1.2; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.t-stage-name { font-family: var(--font-sans); font-size: 12px; line-height: 1.2; font-weight: 800; }
+.t-tag { font-family: var(--font-sans); font-size: 10px; line-height: 1.2; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.t-button { font-family: var(--font-sans); font-size: 12.5px; line-height: 1.2; font-weight: 800; }
+.t-column-head { font-family: var(--font-sans); font-size: 10.5px; line-height: 1.2; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }

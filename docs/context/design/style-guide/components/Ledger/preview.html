@@ -1,0 +1,72 @@
+<!-- @dsCard group="Navigation" height=560 subtitle="The column at 1360 and up, and the band below it" -->
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap">
+<style>
+body { margin: 0; background: var(--bg-page); font-family: var(--font-sans); color: var(--ink); }
+.row { display: flex; gap: 24px; padding: 16px 20px; align-items: flex-start; }
+.col { width: 280px; flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--line); display: flex; flex-direction: column; }
+.body { padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+.k { font-size: 9.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.k.blue { color: var(--blue-500); }
+.line { display: flex; font-size: 12.5px; margin-top: 4px; }
+.line span:first-child { flex-grow: 1; }
+.open { color: var(--blue-700); }
+.bar { display: flex; height: 10px; border: 1px solid var(--line); margin-top: 8px; }
+.n { font-size: 28px; font-weight: 800; line-height: 1.05; margin-top: 8px; font-variant-numeric: tabular-nums; }
+.sub { font-size: 11.5px; color: var(--muted); line-height: 1.35; }
+.cap { font-size: 11px; color: var(--muted); line-height: 1.4; margin-top: 7px; }
+.foot { border-top: 1px solid var(--line); background: var(--bg-surface); padding: 13px 18px; display: flex; flex-direction: column; gap: 8px; }
+.link { background: none; border: none; padding: 0; text-align: left; font: inherit; font-size: 12px; font-weight: 800; color: var(--blue-500); text-decoration: underline; cursor: pointer; }
+.btn { background: var(--bg-card); color: var(--ink); border: 1px solid var(--line-2); padding: 9px 12px; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+.sec { border-top: 1px solid var(--line-soft); padding-top: 14px; }
+.band { flex-grow: 1; background: var(--bg-card); border: 1px solid var(--line); display: flex; align-items: stretch; padding: 0 16px; }
+.band .g { display: flex; align-items: center; gap: 10px; padding: 9px 16px 9px 0; border-right: 1px solid var(--line-soft); margin-right: 16px; font-size: 12.5px; }
+.band .g:last-of-type { border-right: none; }
+.band .k { font-size: 9px; letter-spacing: .12em; }
+.bandwrap { flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
+.note { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="col">
+    <div class="body">
+      <div><div class="k">This batch</div><div style="font-size:13px;margin-top:6px;line-height:1.5">5 files, 9 tables<br>7,412 rows received</div></div>
+      <div><div class="k">Where they stand</div>
+        <div class="bar"><div style="width:82%;background:var(--ink)"></div><div style="width:17%;background:var(--blue-500)"></div><div style="width:1%;background:var(--line-2)"></div></div>
+        <div class="line"><span>Clean</span><b>6,084</b></div>
+        <div class="line open"><span>Still open</span><b>1,232</b></div>
+        <div class="line"><span>Set aside</span><b>96</b></div>
+        <div class="cap">6,084 + 1,232 + 96 = 7,412. The books balance at every moment.</div>
+      </div>
+      <div class="sec"><div class="k blue">The two counts</div>
+        <div class="n">5,940</div><div class="sub">unique clients, a range to 5,954 until 14 pairs are decided</div>
+        <div class="n" style="margin-top:11px">7,106</div><div class="sub">unique clients by program</div>
+      </div>
+      <div class="sec"><div class="k">Locations</div>
+        <div class="line"><span>High confidence</span><b>5,802</b></div>
+        <div class="line"><span>Low confidence</span><b>198</b></div>
+        <div class="line"><span>Not matched</span><b>84</b></div>
+      </div>
+    </div>
+    <div class="foot">
+      <button class="link">This computer is ready for real data</button>
+      <div class="cap" style="margin:0">Nothing leaves this machine. Files are written only when you download them.</div>
+      <div style="display:flex;gap:12px;align-items:center"><button class="btn">Close Crosswalk</button><button class="link" style="color:var(--muted);font-size:11.5px">Start over</button></div>
+    </div>
+  </div>
+  <div class="bandwrap">
+    <div class="note">Below 1360 wide the same numbers become one band under the stage strip. Content takes the full width.</div>
+    <div class="band">
+      <div class="g"><span class="k">Batch</span><span><b>7,412</b> rows in</span></div>
+      <div class="g"><span class="k">Standing</span><span><b>6,084</b> clean · <b class="open">1,232</b> <span class="open">open</span> · <b>96</b> aside</span></div>
+      <div class="g"><span class="k blue">Counts</span><span><b>5,940</b> people · <b>7,106</b> by program</span></div>
+      <div class="g"><span class="k">Located</span><span><b>5,802</b> high · <b>198</b> low · <b>84</b> not</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

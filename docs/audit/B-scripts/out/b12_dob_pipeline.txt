@@ -1,0 +1,29 @@
+'03/04/1990'             -> ('CLEAN', '1990-03-04', ['DOB was written in a standard form for its type'])
+'13/04/1990'             -> ('CLEAN', '1990-04-13', ['DOB was written in a standard form for its type'])
+'1/2/26'                 -> ('CLEAN', '1926-01-02', ['DOB was written in a standard form for its type'])
+'1/2/45'                 -> ('CLEAN', '1945-01-02', ['DOB was written in a standard form for its type'])
+'2045-01-02'             -> ('CLEAN', '2045-01-02', [])
+'03/04/2050'             -> ('CLEAN', '2050-03-04', ['DOB was written in a standard form for its type'])
+'12345'                  -> ('CLEAN', '1933-10-18', ['DOB was written in a standard form for its type'])
+'99999'                  -> ('CLEAN', '2173-10-13', ['DOB was written in a standard form for its type'])
+'73051'                  -> ('CLEAN', '2100-01-01', ['DOB was written in a standard form for its type'])
+'60000'                  -> ('CLEAN', '2064-04-08', ['DOB was written in a standard form for its type'])
+'00000'                  -> ('CLEAN', '1899-12-30', ['DOB was written in a standard form for its type'])
+'32874'                  -> ('CLEAN', '1990-01-01', ['DOB was written in a standard form for its type'])
+'19900304'               -> ("REVIEW: DOB is not a date that can be read ('19900304')", '19900304', ["DOB is not a date that can be read ('19900304')"])
+'1990-03-04 00:00:00'    -> ("REVIEW: DOB is not a date that can be read ('1990-03-04 00:00:00')", '1990-03-04 00:00:00', ["DOB is not a date that can be read ('1990-03-04 00:00:00')"])
+'32874.0'                -> ("REVIEW: DOB is not a date that can be read ('32874.0')", '32874.0', ["DOB is not a date that can be read ('32874.0')"])
+''                       -> ('CLEAN', '', [])
+'N/A'                    -> ('CLEAN', '', [])
+'0'                      -> ("REVIEW: DOB is not a date that can be read ('0')", '0', ["DOB is not a date that can be read ('0')"])
+
+-- real xlsx date cells read through read_uploaded_file --
+  ID                  DOB
+0  1  1990-03-04 00:00:00
+1  2  1985-12-25 00:00:00
+2  3           03/04/1990
+3  4                32874
+1 REVIEW: DOB is not a date that can be read ('1990-03-04 00:00:00') 1990-03-04 00:00:00
+2 REVIEW: DOB is not a date that can be read ('1985-12-25 00:00:00') 1985-12-25 00:00:00
+3 CLEAN 1990-03-04
+4 CLEAN 1990-01-01

@@ -1,0 +1,45 @@
+
+== product sample files (Programs screen visited in the staged run)
+   staged: G1 settled=256 low=244 high=256 open=14 | G2=52 no_program=204 | rows={'input': 266, 'clean': 256, 'review': 10, 'aside': 0}
+   fast  : G1 settled=256 low=244 high=256 open=14 | G2=52 no_program=204 | rows={'input': 266, 'clean': 256, 'review': 10, 'aside': 0}
+   Final_Clean_Mapped           identical=True
+   Manual_Review_Needed         identical=True
+   Set_Aside_Records            identical=True
+   Unique_Clients               identical=True
+   Unique_Clients_By_Program    identical=True
+   Secure_Audit_Log             identical=False
+   Data_Quality_Report          identical=True
+
+== program spellings
+   staged: G1 settled=2 low=2 high=2 open=0 | G2=2 no_program=0 | rows={'input': 4, 'clean': 4, 'review': 0, 'aside': 0}
+   fast  : G1 settled=2 low=2 high=2 open=0 | G2=4 no_program=0 | rows={'input': 4, 'clean': 4, 'review': 0, 'aside': 0}
+   Final_Clean_Mapped           identical=False
+       --- staged
+       +++ fast
+       @@ -2,4 +2,4 @@
+       -Ana,,Perez,A1,7 Elm St,,New York,NY,10013,Workforce Dev.,1990-05-06,,,Unverified,,Group 1,,,,,A.csv :: A1:I3,0,Passed every check
+       -Bo,,Lee,A2,8 Elm St,,New York,NY,10013,Youth,1991-01-01,,,Unverified,,Group 2,,,,,A.csv :: A1:I3,1,Passed every check
+       -Ana,,Perez,B1,7 Elm St,,New York,NY,10013,Workforce Dev.,1990-05-06,,,Unverified,,Group 1,,,,,B.csv :: A1:I3,0,Passed every check
+       -Bo,,Lee,B2,8 Elm St,,New York,NY,10013,Youth,1991-01-01,,,Unverified,,Group 2,,,,,B.csv :: A1:I3,1,Passed every check
+       +Ana,,Perez,A1,7 Elm St,,New York,NY,10013,Workforce Development,1990-05-06,,,Unverified,,,,,,,A.csv :: A1:I3,0,Passed every check
+   Manual_Review_Needed         identical=True
+   Set_Aside_Records            identical=True
+   Unique_Clients               identical=False
+       --- staged
+       +++ fast
+       @@ -2,2 +2,2 @@
+       -M000001,Ana,Perez,7 Elm St,10013,Workforce Dev.,1,A.csv; B.csv,2,A1; B1,A.csv :: A1:I3||0; B.csv :: A1:I3||0
+       -M000002,Bo,Lee,8 Elm St,10013,Youth,1,A.csv; B.csv,2,A2; B2,A.csv :: A1:I3||1; B.csv :: A1:I3||1
+       +M000001,Ana,Perez,7 Elm St,10013,Workforce Dev.; Workforce Development,2,A.csv; B.csv,2,A1; B1,A.csv :: A1:I3||0; B.csv :: A1:I3||0
+       +M000002,Bo,Lee,8 Elm St,10013,Youth; youth,2,A.csv; B.csv,2,A2; B2,A.csv :: A1:I3||1; B.csv :: A1:I3||1
+   Unique_Clients_By_Program    identical=False
+       --- staged
+       +++ fast
+       @@ -2,2 +2,4 @@
+       -M000001,Workforce Dev.,Ana,Perez,7 Elm St,10013,A.csv; B.csv,A1; B1,2
+       -M000002,Youth,Bo,Lee,8 Elm St,10013,A.csv; B.csv,A2; B2,2
+       +M000001,Workforce Dev.,Ana,Perez,7 Elm St,10013,B.csv,B1,1
+       +M000001,Workforce Development,Ana,Perez,7 Elm St,10013,A.csv,A1,1
+       +M000002,Youth,Bo,Lee,8 Elm St,10013,A.csv,A2,1
+   Secure_Audit_Log             identical=False
+   Data_Quality_Report          identical=True

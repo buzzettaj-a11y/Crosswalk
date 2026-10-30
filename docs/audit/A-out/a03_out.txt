@@ -1,0 +1,11 @@
+run done
+run counts {'input': 4, 'clean': 1, 'review': 3}
+review groups [('idconflict', 2), ('zipbad', 1)]
+{'ok': True, 'outcome': '2 accepted as entered'}
+goal1 {'count': 2, 'low': 2, 'high': 2, 'open': 0, 'auto': 1, 'confirmed': 0} goal2 2 rows {'input': 4, 'clean': 3, 'review': 1, 'aside': 0}
+Master_ID,First_Name,Last_Name,Address_1,Zip,Programs,Program_Count,Systems,Source_Record_Count,Source_Client_IDs,Source_Rows
+M000001,Hector,Ballpeen,5 Gumdrop Ln,11201,Elder Care,1,household.csv,2,H100,household.csv :: A1:H5||0; household.csv :: A1:H5||1
+M000002,Ada,Lovelace,10 Analytical Way,11101,Workforce,1,household.csv,1,H200,household.csv :: A1:H5||2
+
+printable says final: True
+Every proposed link has been decided, so these counts are final.

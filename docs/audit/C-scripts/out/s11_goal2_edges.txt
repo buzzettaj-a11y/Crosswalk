@@ -1,0 +1,27 @@
+TRUTH: people = Ana, Bo, Cy, Di = 4.  Programs: Ana{Workforce Development}, Bo{Youth}, Cy{Housing}, Di{none}
+       Goal 1 = 4.  Goal 2 = Ana 1 + Bo 1 + Cy 1 = 3 (Cy's blank row has no program, Di has none)
+
+(e) Programs screen never opened: G1 settled=4 low=4 high=4 open=0 | G2=5 no_program=3 | rows={'input': 8, 'clean': 8, 'review': 0, 'aside': 0}
+    per-program: {'Housing': 1, 'Workforce Dev.': 1, 'Workforce Development': 1, 'Youth': 1, 'youth': 1}
+    aliases in force: {} | groups: True
+    Unique_Clients_By_Program:
+   Master_ID                Program First_Name
+0   M000001         Workforce Dev.        Ana
+1   M000001  Workforce Development        Ana
+2   M000002                  Youth         Bo
+3   M000002                  youth         Bo
+4   M000003                Housing         Cy
+
+    aliases after the Programs screen was opened: {'Workforce Dev.': 'Workforce Dev.', 'Workforce Development': 'Workforce Dev.', 'Youth': 'Youth', 'youth': 'Youth', 'Housing': 'Housing'}
+    re-run: G1 settled=4 low=4 high=4 open=0 | G2=3 no_program=3 | rows={'input': 8, 'clean': 8, 'review': 0, 'aside': 0}
+    per-program: {'Housing': 1, 'Workforce Dev.': 1, 'Youth': 1}
+
+(f) goal2.no_program = 3 (records without a program; people without ANY program: Di only = 1)
+
+(d) default 'Youth' for C.csv: G1 settled=4 low=4 high=4 open=0 | G2=4 no_program=1 | rows={'input': 8, 'clean': 8, 'review': 0, 'aside': 0}
+    per-program: {'Housing': 1, 'Workforce Dev.': 1, 'Youth': 2}
+
+(c) groups proposed: [('Youth', ['Youth', 'youth']), ('Workforce Dev.', ['Workforce Dev.', 'Workforce Development']), ('Housing', ['Housing'])]
+    after un-grouping 'Workforce Dev.' (no re-run yet): G1 settled=4 low=4 high=4 open=0 | G2=4 no_program=1 | rows={'input': 8, 'clean': 8, 'review': 0, 'aside': 0}
+    stale-summary check: per-program still {'Housing': 1, 'Workforce Dev.': 1, 'Youth': 2}
+    after re-run: G1 settled=4 low=4 high=4 open=0 | G2=4 no_program=1 | rows={'input': 8, 'clean': 8, 'review': 0, 'aside': 0} {'Housing': 1, 'Workforce Dev.': 1, 'Youth': 2}

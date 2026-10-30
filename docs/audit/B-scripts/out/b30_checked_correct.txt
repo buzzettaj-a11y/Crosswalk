@@ -1,0 +1,31 @@
+PASS  NBSP, tab, CR/LF and runs of spaces collapse to one space
+PASS  NULL, N/A, none, NA, NaN, #N/A, nil, (null) and empty become blank
+PASS  None and float NaN become blank
+PASS  07030 and 00501 keep their leading zero
+PASS  ZIP+4 and 9-digit ZIP in the ZIP column reduce to 5 digits
+PASS  4-digit, 7030.0, letters and 11201-123 are rejected (review), not repaired
+PASS  Apt 4B, #4B, 4th Floor, Basement split to the unit
+PASS  117-19 45th Ave stays whole; 14A / Apt 14A split off
+PASS  Avenue U, Avenue of the Americas, Floor St, Suite Rd, Route 9 stay whole
+PASS  123 1/2 Main St keeps the 1/2
+PASS  Brooklyn Ave / Queens Blvd / Jamaica Ave are not read as the city
+PASS  street with a city after it still splits (Brooklyn Ave, Brooklyn)
+PASS  100 New York Ave keeps New York in the street
+PASS  extra commas, New York State, country at end, ZIP+4
+PASS  Apt 4B in the street plus 4B in Address_2 collapses; Apt 4B vs Apt 5C goes to review
+PASS  blank City filled from ZIP; recognized borough that contradicts the ZIP goes to review
+PASS  typed recognized City is never overwritten (Manhattan typed + 10001)
+PASS  neighborhood Flushing folds to Queens, note recorded
+PASS  State NJ / blank-State-with-NJ-city goes to review
+PASS  Smith, John A / John A Smith / Smith, John Jr / John Smith III
+PASS  hyphenated surname and O'Brien survive, casing is preserved
+PASS  single name gives first only (then Missing Last_Name in review)
+PASS  smart_title_name keeps DiNapoli, McDonald, O'Brien, MacArthur, St. Claire
+PASS  impossible dates are rejected: 2/30/1990, 02/29/2001, 4/31/1990, 2/29/1900, 00/00/0000
+PASS  leap day 2/29/2000 accepted; 8-digit 19900304 and month names go to review
+PASS  fuzzy backend is thefuzz token_sort_ratio (order-insensitive)
+      info: ratio('100 e 10 st', '100 w 10 st') = 72 (threshold 88)
+      info: ratio('123 fulton ave', '123 fulton st') = 59 (threshold 88)
+      info: ratio('5 beach 19 st', '5 beach 9 st') = 85 (threshold 88)
+      info: ratio('1 avenue w', '1 avenue v') = 78 (threshold 88)
+PASS  transform: Rear/Front stay in the stored street (spec: ignored for geocoding only)

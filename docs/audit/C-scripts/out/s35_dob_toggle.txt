@@ -1,0 +1,2 @@
+before: G1 settled=70 low=70 high=70 open=0 | G2=84 no_program=0 | rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0} | DOB in file: True
+after : G1 settled=70 low=70 high=70 open=0 | G2=84 no_program=0 | rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0} | DOB in file: False

@@ -1,0 +1,18 @@
+            Zip Zip_calculated                              Zip_calculated_note
+0        112019          11201                 kept the ZIP the row already had
+1       11201 7          11201                 kept the ZIP the row already had
+2          1120                 no geocoder is available to look the address up
+3      11201-12          11201                 kept the ZIP the row already had
+4  123456789012          12345                 kept the ZIP the row already had
+5     1 1 2 0 1          11201                 kept the ZIP the row already had
+6      11201abc          11201                 kept the ZIP the row already had
+7    99999-0000          99999                 kept the ZIP the row already had
+guess_mapping picks Zip -> Zip_calculated
+typed ZIP '112019'         -> stored Zip='11201'  CLEAN
+typed ZIP '11201 7'        -> stored Zip='11201'  CLEAN
+typed ZIP '1120'           -> stored Zip=''       REVIEW: Invalid ZIP Code format: (blank)
+typed ZIP '11201-12'       -> stored Zip='11201'  CLEAN
+typed ZIP '123456789012'   -> stored Zip='12345'  CLEAN
+typed ZIP '1 1 2 0 1'      -> stored Zip='11201'  CLEAN
+typed ZIP '11201abc'       -> stored Zip='11201'  CLEAN
+typed ZIP '99999-0000'     -> stored Zip='99999'  CLEAN

@@ -1,0 +1,25 @@
+{
+  "v": 3,
+  "layout": "files",
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-09-22T16:30:00Z"
+  },
+  "title": "Crosswalk style guide",
+  "namespace": "Crosswalk",
+  "libraries": [],
+  "sections": {},
+  "groups": [],
+  "assetGroups": {},
+  "blobs": {},
+  "docs": {
+    "readme": "project/README.md",
+    "sections": []
+  },
+  "lastChange": {
+    "by": "Joe Buzzetta",
+    "at": "2026-09-29T15:00:00Z",
+    "via": "Claude",
+    "note": "v1.2.1. American spelling throughout. No change to the look."
+  }
+}

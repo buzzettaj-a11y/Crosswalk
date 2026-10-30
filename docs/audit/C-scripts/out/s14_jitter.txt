@@ -1,0 +1,21 @@
+usable gazetteer addresses: 30
+district index is a tuple: <class 'tuple'> -> unwrapping in memory for this test only
+geocoded rows: 30 of 33
+run 1 vs run 2 (same seed) coordinates identical: True
+seed 1338 differs from 1337: True
+households at one address:             Latitude   Longitude
+Client_ID                       
+G000       40.663800  -73.914997
+H000       40.663770  -73.915092
+fixed the ZIP of G.csv :: A1:I35||2 -> corrected | geocoded now: 31
+rows whose stored coordinates changed though their own data did not: 28 of 33
+            Latitude   Longitude    Zip             Address_1
+Client_ID                                                    
+G002       40.812282  -73.994612  10079     286 Bell Turnpike
+G003       40.739231  -73.817916  11484  17816 Clifford Plain
+G004       40.802654  -73.974598  10082    35444 Ford Streets
+            Latitude   Longitude    Zip             Address_1
+Client_ID                                                    
+G002       40.812203  -73.994735  10079     286 Bell Turnpike
+G003       40.738868  -73.816433  11484  17816 Clifford Plain
+G004       40.803081  -73.974551  10082    35444 Ford Streets

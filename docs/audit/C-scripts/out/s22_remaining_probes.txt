@@ -1,0 +1,31 @@
+== A. ungroup
+   proposed groups: [('Workforce Dev.', ['Workforce Dev.', 'Workforce Development'])]
+   confirmed: G1 settled=1 low=1 high=1 open=0 | G2=1 no_program=0 | rows={'input': 2, 'clean': 2, 'review': 0, 'aside': 0} {'Workforce Dev.': 1}
+   the operator pulls 'Workforce Dev.' (the group's own name) out to count it alone
+   groups now: [('Workforce Dev.', ['Workforce Development']), ('Workforce Dev.', ['Workforce Dev.'])]
+   alias map : {'Workforce Development': 'Workforce Dev.', 'Workforce Dev.': 'Workforce Dev.'}
+   after Process: G1 settled=1 low=1 high=1 open=0 | G2=1 no_program=0 | rows={'input': 2, 'clean': 2, 'review': 0, 'aside': 0} {'Workforce Dev.': 1} (two separate names were asked for)
+
+== B. summary row
+   rows: {'input': 2, 'clean': 1, 'review': 1, 'aside': 0}
+   export review          -> HTTP 500 Internal Server Error
+   export aside           -> HTTP 200 
+   export clean           -> HTTP 200 
+   export unique_clients  -> HTTP 200 
+   Download screen: {'input': 2, 'clean': 1, 'review': 1, 'aside': 0, 'kept': 0}
+   GET /api/audit -> 200
+
+== C. a second upload of a file with the same name but different content
+   upload response: {'ok': True}
+   frames rows now: {'x.csv :: A1:I2': 1, 'x.csv :: A1:I3': 2} | uploads bytes: {'x.csv': 182}
+   after Process: G1 settled=2 low=2 high=2 open=0 | G2=2 no_program=0 | rows={'input': 3, 'clean': 2, 'review': 1, 'aside': 0}
+
+== D. 'different' verdict on a pair that is joined through a third record
+   three identical records: G1 settled=1 low=1 high=1 open=0 | G2=3 no_program=0 | rows={'input': 3, 'clean': 3, 'review': 0, 'aside': 0} | auto links: 3
+   the operator says X and Y are different people (API verdict): {'ok': True}
+   after verdict: G1 settled=1 low=1 high=1 open=0 | G2=3 no_program=0 | rows={'input': 3, 'clean': 3, 'review': 0, 'aside': 0} <- rejected pair still in one person via Z; rejected: 1
+   proposals offered for that pair: 0
+
+== E. blank lines / all-empty rows in a CSV
+   data lines in the file: 4 (one blank line, one row of commas)
+   rows received: {'input': 1, 'clean': 1, 'review': 0, 'aside': 0} | audit 'dropped'/'blank' lines: []

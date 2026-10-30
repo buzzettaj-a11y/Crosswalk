@@ -1,0 +1,3 @@
+address taken from the shipped gazetteer: 05874 Nathan Hollow Brooklyn 11232
+run status: {'state': 'error', 'phase': '', 'progress': 0, 'error': 'list indices must be integers or slices, not str'}
+type of the district index the server holds: tuple

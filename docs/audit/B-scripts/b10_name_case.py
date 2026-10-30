@@ -1,0 +1,4 @@
+from _common import *
+for n in ["MCDONALD","mcdonald","McDonald","MACDONALD","MacDonald","MACHADO","MACARTHUR","MACKENZIE","MACKEY","MACLEOD","MACRAE","MACGREGOR","MCCOY","MCE","O'BRIEN","o'brien","O’BRIEN","O’Brien","D'ANGELO","DEJESUS","DE JESUS","DE LA CRUZ","de la cruz","LEBRON","DINAPOLI","DiNapoli","ST. CLAIRE","ST JOHN","SMITH-JONES","JEAN-LUC","VAN DER BERG","OLIVEIRA","IBN AL-HASAN","MARY ANN","MARY-ANN","JOHN III","JOHN IV","JOHN V","JOHN II","JR","SR","DR","MD","II","XII","LI","NG","Mcdonald","mCdonald","DE'SHAWN","N'DIAYE","O'NEILL-MCDONALD", "MCKINLEY JR","ELIJAH 2ND"]:
+    print(f"{n!r:22} -> {engine.smart_title_name(n)!r}")
+print(engine.smart_title_address("100 w 10 st apt 4b"), "|", engine.smart_title_address("1 AVENUE OF THE AMERICAS"), "|", engine.smart_title_address("117-19 45TH AVE"), "|", engine.smart_title_address("350 E 4TH ST #3F"), "|", engine.smart_title_address("PO BOX 12"), "|", engine.smart_title_address("1 NW 3RD ST"))

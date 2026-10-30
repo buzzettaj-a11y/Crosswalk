@@ -1,0 +1,52 @@
+First='-'                              -> CLEAN
+                                          First='-' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+Last='-'                               -> CLEAN
+                                          First='Ana' Last='-' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+First='0'                              -> REVIEW: Name field contains digits; possible column misalignment
+                                          First='0' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+Last='Na' (real surname)               -> REVIEW: Missing Last_Name
+                                          First='Ana' Last='' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+First='Nan' (real name)                -> REVIEW: Missing First_Name
+                                          First='' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+Last='None'                            -> REVIEW: Missing Last_Name
+                                          First='Ana' Last='' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+Client_ID='-'                          -> CLEAN
+                                          First='Ana' Last='Lopez' ID='-' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+Client_ID='0'                          -> CLEAN
+                                          First='Ana' Last='Lopez' ID='0' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+Client_ID="'0012345"                   -> CLEAN
+                                          First='Ana' Last='Lopez' ID="'0012345" A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+Addr='Homeless'                        -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='Homeless' A2='' City='Brooklyn' St='NY' Zip='11201'
+Addr='Unknown'                         -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='Unknown' A2='' City='Brooklyn' St='NY' Zip='11201'
+Addr='-'                               -> REVIEW: Missing Address_1
+                                          First='Ana' Last='Lopez' ID='A1' A1='' A2='' City='Brooklyn' St='NY' Zip='11201'
+Addr='0'                               -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='0' A2='' City='Brooklyn' St='NY' Zip='11201'
+Addr='N/A'                             -> REVIEW: Missing Address_1
+                                          First='Ana' Last='Lopez' ID='A1' A1='' A2='' City='Brooklyn' St='NY' Zip='11201'
+Addr2='-'                              -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='-' City='Brooklyn' St='NY' Zip='11201'
+Addr2='0'                              -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='0' City='Brooklyn' St='NY' Zip='11201'
+Zip='-'                                -> REVIEW: Invalid ZIP Code format: -
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip=''
+Zip='0'                                -> REVIEW: Invalid ZIP Code format: 0
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip=''
+Zip="'11201"                           -> REVIEW: Invalid ZIP Code format: '11201
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip=''
+Zip='11201\u200b'                      -> REVIEW: Invalid ZIP Code format: 11201​
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip=''
+First with ZWSP 'Ana\u200b'            -> CLEAN
+                                          First='Ana\u200b' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+First with leading apostrophe          -> CLEAN
+                                          First="'Ana" Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+City='-' zip=11201                     -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+City='Unknown' zip=11201               -> CLEAN
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+State='-'                              -> REVIEW: State is not NY: '-'
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='-' Zip='11201'
+State='0'                              -> REVIEW: State is not NY: '0'
+                                          First='Ana' Last='Lopez' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='0' Zip='11201'

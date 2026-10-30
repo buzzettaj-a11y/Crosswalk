@@ -1,0 +1,18 @@
+=== T4: a batch of [good, bad.docx, good2]
+HTTP 500 Internal Server Error
+tables loaded: ['first_ok.csv']
+uploads recorded (audit 'Files loaded'): ['Smith J intake.docx', 'first_ok.csv']
+source download route serves the failed file: 200
+=== T3: re-upload a corrected file under the same name
+first upload rows: [('export.csv :: A1:H3', 2)]
+after re-upload of a 4-row file under the same name, tables: [('export.csv :: A1:H3', 2), ('export.csv :: A1:H5', 4)]
+bytes held for 'Open the source file' have rows: 4
+rows the pipeline will see: 6
+=== T5: a blank line in the middle of a CSV
+ table blank.csv :: A1:H3 rows 2 kind records included True | has person fields and 4 address field(s)
+ table blank.csv :: A5:H7 rows 3 kind unknown included False | no recognizable person, address, or aggregate headers
+file has 6 data lines (excluding blank)
+run counts {'input': 2, 'clean': 2, 'review': 0}
+summary rows card: {'input': 2, 'clean': 2, 'review': 0, 'aside': 0}
+printable 'Rows received': 2
+printable books-balance line: The books balance:           2 + 0 + 0           = 2 rows received. Every row is accounted for.

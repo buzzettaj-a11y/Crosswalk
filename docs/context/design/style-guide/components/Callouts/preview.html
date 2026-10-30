@@ -1,0 +1,38 @@
+<!-- @dsCard group="Feedback" height=300 subtitle="Three hues, three meanings, one blue button inside each" -->
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap">
+<style>
+body { margin: 0; background: var(--bg-page); font-family: var(--font-sans); color: var(--ink); }
+.col { display: flex; flex-direction: column; gap: 10px; padding: 18px 20px; }
+.callout { background: var(--bg-card); border: 1px solid var(--line); border-top: 3px solid var(--ink); padding: 12px 15px; display: flex; align-items: center; gap: 16px; }
+.callout .t { flex-grow: 1; }
+.title { font-size: 13.5px; font-weight: 800; }
+.note { font-size: 12.5px; color: var(--muted); line-height: 1.45; margin-top: 3px; }
+.needs { border-color: var(--blue-300); border-top-color: var(--blue-500); }
+.decided { border-color: var(--green-300); border-top-color: var(--green-500); }
+.wrong { border-color: var(--amber-300); border-top-color: var(--amber-500); }
+.wrong .title { color: var(--amber-700); }
+button { font-family: inherit; font-size: 12.5px; font-weight: 800; padding: 10px 14px; cursor: pointer; border-radius: 0; flex-shrink: 0; background: var(--blue-500); color: #ffffff; border: 1px solid var(--blue-500); }
+.state { font-size: 11.5px; font-weight: 800; color: var(--green-700); background: var(--green-100); border: 1px solid var(--green-300); padding: 5px 9px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="col">
+  <div class="callout needs">
+    <div class="t"><div class="title">14 pairs of records may be the same person</div><div class="note">The tool will not merge people on a guess, so the first count stays a range until you decide them.</div></div>
+    <button>Decide them now</button>
+  </div>
+  <div class="callout wrong">
+    <div class="t"><div class="title">City reads from REGION, which is blank on 301 rows</div><div class="note">Those 301 would all go to review as missing. BOROUGH is filled on every row.</div></div>
+    <button>Use BOROUGH</button>
+  </div>
+  <div class="callout decided">
+    <div class="t"><div class="title">Workforce Development, counted as one program</div><div class="note">WORKFORCE and Workforce Dev joined to it. Recorded in the audit log with the three names.</div></div>
+    <span class="state">confirmed by you</span>
+  </div>
+</div>
+</body>
+</html>

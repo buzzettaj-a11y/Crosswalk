@@ -1,0 +1,75 @@
+== normalize_zip direct ==
+'07030'          ('07030', None, '')
+'7030'           ('', None, 'Invalid ZIP Code format: 7030')
+'00501'          ('00501', None, '')
+'501'            ('', None, 'Invalid ZIP Code format: 501')
+'11201-1234'     ('11201', 'Zip: trimmed ZIP+4 to 5-digit', '')
+'112011234'      ('11201', 'Zip: trimmed 9-digit ZIP to 5-digit', '')
+'11201 1234'     ('', None, 'Invalid ZIP Code format: 11201 1234')
+'11201-'         ('', None, 'Invalid ZIP Code format: 11201-')
+'7030.0'         ('', None, 'Invalid ZIP Code format: 7030.0')
+'11201.0'        ('', None, 'Invalid ZIP Code format: 11201.0')
+'1.1201E4'       ('', None, 'Invalid ZIP Code format: 1.1201E4')
+'11201 '         ('11201', None, '')
+' 11201'         ('11201', None, '')
+'11,201'         ('', None, 'Invalid ZIP Code format: 11,201')
+'NY 11201'       ('', None, 'Invalid ZIP Code format: NY 11201')
+'11201-123'      ('', None, 'Invalid ZIP Code format: 11201-123')
+'00000'          ('00000', None, '')
+'99999'          ('99999', None, '')
+'12345'          ('12345', None, '')
+'10001-0001'     ('10001', 'Zip: trimmed ZIP+4 to 5-digit', '')
+'112O1'          ('', None, 'Invalid ZIP Code format: 112O1')
+'١١٢٠١'          ('١١٢٠١', None, '')
+
+== borough_from_zip ==
+07030 ''
+10001 'New York'
+10292 'New York'
+10293 ''
+10301 'Staten Island'
+10314 'Staten Island'
+10315 ''
+10451 'Bronx'
+10475 'Bronx'
+10463 'Bronx'
+10499 ''
+11001 ''
+11004 'Queens'
+11005 'Queens'
+11101 'Queens'
+11120 'Queens'
+11201 'Brooklyn'
+11256 'Brooklyn'
+11257 ''
+11351 'Queens'
+11430 'Queens'
+11439 'Queens'
+11451 'Queens'
+11499 'Queens'
+11500 'Queens'
+11501 'Queens'
+11530 'Queens'
+11550 'Queens'
+11553 'Queens'
+11570 'Queens'
+11580 'Queens'
+11590 'Queens'
+11599 'Queens'
+11600 'Queens'
+11690 'Queens'
+11691 'Queens'
+11697 'Queens'
+11698 ''
+11701 ''
+11801 ''
+10701 ''
+10550 ''
+10801 ''
+
+== xlsx numeric ZIP ==
+  First Last ID        Addr      City State    Zip
+0     A    B  1  10 Main St   Hoboken    NJ   7030
+1     C    D  2  10 Main St  Brooklyn    NY  11201
+2     E    F  3  10 Main St    Queens    NY  11355
+3     G    H  4  10 Main St  Brooklyn    NY    501

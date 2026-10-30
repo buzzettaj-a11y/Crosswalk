@@ -1,0 +1,16 @@
+before: clean rows 86
+response: {'ok': True, 'kept': 3, 'set_aside': 4, 'note': 'kept one row for each of 3 person(s) per program and set 4 row(s) aside'}
+queue says 'removed': 4 | Set_Aside_Records rows: 2
+   C.csv :: A1:I17||15          id=C990   Cara Alvarez     'removed' on screen, but file holds it in: Final_Clean_Mapped
+   A.csv :: A1:I48||44          id=A003   Devi Alvarez     'removed' on screen, but file holds it in: ?
+   A.csv :: A1:I48||45          id=A003   Devi Alvarez     'removed' on screen, but file holds it in: ?
+   A.csv :: A1:I48||46          id=A950   Faye Alvarez     'removed' on screen, but file holds it in: Final_Clean_Mapped
+summary rows: {'input': 94, 'clean': 86, 'review': 6, 'aside': 2}
+audit log says:
+    1. Row A.csv :: A1:I48||2 id A002: approved
+    2. Row C.csv :: A1:I17||15 id C990: removed (set aside, same person as A.csv :: A1:I48||2 in the same program)
+    3. Row A.csv :: A1:I48||3 id A003: approved
+    4. Row A.csv :: A1:I48||44 id A003: removed (set aside, same person as A.csv :: A1:I48||3 in the same program)
+    5. Row A.csv :: A1:I48||45 id A003: removed (set aside, same person as A.csv :: A1:I48||3 in the same program)
+    6. Row A.csv :: A1:I48||5 id A005: approved
+    7. Row A.csv :: A1:I48||46 id A950: removed (set aside, same person as A.csv :: A1:I48||5 in the same program)

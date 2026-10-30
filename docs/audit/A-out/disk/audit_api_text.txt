@@ -1,0 +1,125 @@
+== Set-up ==
+Recorded 2026-10-30 15:48:16
+Files loaded: 6
+  canary_clients.csv
+  clinic_export.csv
+  legacy_export.xlsx
+  partner_export.tsv
+  portal_export.json
+  state_export.xml
+Table clinic_export.csv :: A1:B63: included, 62 rows, header row 1
+Table portal_export.json: included, 50 rows, header row 1
+Table legacy_export.xlsx :: Sheet1 :: A1:I58: included, 57 rows, header row 1
+Table state_export.xml: included, 45 rows, header row 1
+Table partner_export.tsv :: A1:I53: included, 52 rows, header row 1
+Table canary_clients.csv :: A1:I10: included, 9 rows, header row 1
+Columns set up: First_Name(str, required), Middle_Initial(str), Last_Name(str, required), Client_ID(str), Address_1(str, required), Address_2(str), City(str, required), State(str, required), Zip(str, required), Program(str), DOB(date)
+Tidy-up steps in force: 4
+  [auto] clinic_export.csv: Split jammed address in 'Full_Address'
+  [auto] clinic_export.csv: Split jammed name in 'Name'
+  [auto] portal_export.json: Split jammed name in 'Name'
+  [auto] state_export.xml: Split jammed name in 'Name'
+Matching for clinic_export.csv: First_Name<-Name_first, Middle_Initial<-Name_middle, Last_Name<-Name_last, Address_1<-Full_Address_street, Address_2<-Full_Address_address2, City<-Full_Address_city, State<-Full_Address_state, Zip<-Full_Address_zip
+Matching for portal_export.json: First_Name<-Name_first, Middle_Initial<-Name_middle, Last_Name<-Name_last, Address_1<-Address, City<-City, State<-State, Zip<-Zip_Code
+Matching for legacy_export.xlsx: First_Name<-FirstName, Middle_Initial<-MI, Last_Name<-LastName, Client_ID<-PatientNumber, Address_1<-Addr1, Address_2<-Addr2, City<-City, State<-State, Zip<-ZipCode
+Matching for state_export.xml: First_Name<-Name_first, Middle_Initial<-Name_middle, Last_Name<-Name_last, Address_1<-Address_1, Address_2<-Address_2, City<-City, State<-State, Zip<-Zip_Code
+Matching for partner_export.tsv: First_Name<-first, Last_Name<-last, Client_ID<-uid, Address_1<-address_line, Address_2<-apt, City<-city, State<-st, Zip<-zip, Program<-program
+Matching for canary_clients.csv: First_Name<-First_Name, Last_Name<-Last_Name, Client_ID<-Client_ID, Address_1<-Address_1, City<-City, State<-State, Zip<-Zip, Program<-Program, DOB<-DOB
+Duplicate within a file means the same: First_Name, Last_Name, Zip
+Settings: geocode required=False, jitter=True, seed=1337
+
+== Changes made while processing, by row ==
+(file, row, identifier, what was done; column names only)
+SECURE AUDIT LOG
+Generated (UTC): 2026-10-30T15:48:16+00:00
+Fuzzy backend: thefuzz
+This log references system IDs only. No client names or full street addresses are included.
+==============================================================================
+[clinic_export.csv :: A1:B63 | ID <no-id> | src-row 0] [4 Deduplication | annotated] Duplicate within file by your rule, group F1, matched on First_Name, Last_Name, Zip; kept and marked
+[clinic_export.csv :: A1:B63 | ID <no-id> | src-row 60] [4 Deduplication | segregated] Duplicate within file by your rule (matched on First_Name, Last_Name, Zip), copy of row 1; set aside
+[clinic_export.csv :: A1:B63 | ID <no-id> | src-row 61] [4 Deduplication | segregated] Duplicate within file by your rule (matched on First_Name, Last_Name, Zip), copy of row 1; set aside
+[portal_export.json | ID <no-id> | src-row 0] [2 Standardization | fixed] State: defaulted empty value to 'NY'
+[portal_export.json | ID <no-id> | src-row 0] [2 Geographic naming | fixed] City set to 'New York' from ZIP 10004
+[portal_export.json | ID <no-id> | src-row 5] [2 Standardization | fixed] State: defaulted empty value to 'NY'
+[portal_export.json | ID <no-id> | src-row 6] [2 Geographic naming | fixed] City set to 'Queens' from ZIP 11101
+[portal_export.json | ID <no-id> | src-row 10] [2 Standardization | fixed] State: defaulted empty value to 'NY'
+[portal_export.json | ID <no-id> | src-row 12] [2 Geographic naming | fixed] City set to 'Bronx' from ZIP 10458
+[portal_export.json | ID <no-id> | src-row 15] [2 Standardization | fixed] State: defaulted empty value to 'NY'
+[portal_export.json | ID <no-id> | src-row 18] [2 Geographic naming | fixed] City set to 'Staten Island' from ZIP 10301
+[portal_export.json | ID <no-id> | src-row 20] [2 Standardization | fixed] State: defaulted empty value to 'NY'
+[portal_export.json | ID <no-id> | src-row 24] [2 Geographic naming | fixed] City set to 'Brooklyn' from ZIP 11201
+[portal_export.json | ID <no-id> | src-row 25] [2 Standardization | fixed] State: defaulted empty value to 'NY'
+[portal_export.json | ID <no-id> | src-row 30] [2 Standardization | fixed] State: defaulted empty value to 'NY'
+[portal_export.json | ID <no-id> | src-row 30] [2 Geographic naming | fixed] City set to 'New York' from ZIP 10004
+[portal_export.json | ID <no-id> | src-row 35] [2 Standardization | fixed] State: defaulted empty value to 'NY'
+[portal_export.json | ID <no-id> | src-row 36] [2 Geographic naming | fixed] City set to 'Queens' from ZIP 11101
+[portal_export.json | ID <no-id> | src-row 40] [2 Standardization | fixed] State: defaulted empty value to 'NY'
+[portal_export.json | ID <no-id> | src-row 42] [2 Geographic naming | fixed] City set to 'Bronx' from ZIP 10458
+[portal_export.json | ID <no-id> | src-row 45] [2 Standardization | fixed] State: defaulted empty value to 'NY'
+[portal_export.json | ID <no-id> | src-row 48] [2 Geographic naming | fixed] City set to 'Staten Island' from ZIP 10301
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100205 | src-row 55] [4 Deduplication | annotated] Duplicate within file by your rule, group F1, matched on First_Name, Last_Name, Zip; kept and marked
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100205 | src-row 56] [4 Deduplication | segregated] Duplicate within file by your rule (matched on First_Name, Last_Name, Zip), copy of row 56; set aside
+[partner_export.tsv :: A1:I53 | ID U9500 | src-row 50] [4 Deduplication | annotated] Duplicate within file by your rule, group F1, matched on First_Name, Last_Name, Zip; kept and marked
+[partner_export.tsv :: A1:I53 | ID U9600 | src-row 51] [4 Deduplication | segregated] Duplicate within file by your rule (matched on First_Name, Last_Name, Zip), copy of row 51; set aside
+[canary_clients.csv :: A1:I10 | ID C002 | src-row 1] [1 Address parsing | fixed] Moved secondary unit from the address into Address_2
+[canary_clients.csv :: A1:I10 | ID C003 | src-row 2] [3 Verification | segregated] DOB is not a date that can be read ('not-a-real-date-ZORP')
+[canary_clients.csv :: A1:I10 | ID C004 | src-row 3] [2 Standardization | fixed] City: fuzzy-matched 'Brookln'->'Brooklyn' (93%)
+[canary_clients.csv :: A1:I10 | ID C005 | src-row 4] [3 Verification | segregated] Unrecognized City: 'Gotham'
+[canary_clients.csv :: A1:I10 | ID C005 | src-row 4] [3 Verification | segregated] Invalid ZIP Code format: 1234
+[canary_clients.csv :: A1:I10 | ID C006 | src-row 5] [3 Verification | segregated] State is not NY: 'NJ'
+[canary_clients.csv :: A1:I10 | ID C007 | src-row 6] [2 Standardization | fixed] City: normalized 'Manhattan'->'New York'
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100205 | src-row 5] [9 Duplicate | segregated] Same Client ID 'P100205' used by records with different data; review required (not merged)
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100205 | src-row 55] [9 Duplicate | segregated] Same Client ID 'P100205' used by records with different data; review required (not merged)
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100205 | src-row 56] [9 Duplicate | segregated] Same Client ID 'P100205' used by records with different data; review required (not merged)
+[canary_clients.csv :: A1:I10 | ID C007 | src-row 6] [9 Duplicate | segregated] Same Client ID 'C007' used by records with different data; review required (not merged)
+[canary_clients.csv :: A1:I10 | ID C007 | src-row 7] [9 Duplicate | segregated] Same Client ID 'C007' used by records with different data; review required (not merged)
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100200 | src-row 0] [3 Verification | segregated] Invalid ZIP Code format: (blank)
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100218 | src-row 18] [3 Verification | segregated] Invalid ZIP Code format: (blank)
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100227 | src-row 27] [3 Verification | segregated] Invalid ZIP Code format: (blank)
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100236 | src-row 36] [3 Verification | segregated] Invalid ZIP Code format: (blank)
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100245 | src-row 45] [3 Verification | segregated] Invalid ZIP Code format: (blank)
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID P100254 | src-row 54] [3 Verification | segregated] Invalid ZIP Code format: (blank)
+[canary_clients.csv :: A1:I10 | ID C009 | src-row 8] [3 Verification | segregated] Invalid ZIP Code format: (blank)
+[clinic_export.csv :: A1:B63 | ID <file> | src-row -1] [13 PII | annotated] File classified: PII (names present)
+[clinic_export.csv :: A1:B63 | ID <file> | src-row -1] [5 Quality | annotated] 60/62 clean (97%); top issue: Duplicate within file by your rule (matched on First_Name, Last_Name, Zip), copy of row 1; set aside
+[portal_export.json | ID <file> | src-row -1] [13 PII | annotated] File classified: PII (names present)
+[portal_export.json | ID <file> | src-row -1] [5 Quality | annotated] 50/50 clean (100%); top issue: none
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID <file> | src-row -1] [13 PII | annotated] File classified: PII (names present)
+[legacy_export.xlsx :: Sheet1 :: A1:I58 | ID <file> | src-row -1] [5 Quality | annotated] 48/57 clean (84%); top issue: Invalid ZIP Code format
+[state_export.xml | ID <file> | src-row -1] [13 PII | annotated] File classified: PII (names present)
+[state_export.xml | ID <file> | src-row -1] [5 Quality | annotated] 45/45 clean (100%); top issue: none
+[partner_export.tsv :: A1:I53 | ID <file> | src-row -1] [13 PII | annotated] File classified: PII (names present)
+[partner_export.tsv :: A1:I53 | ID <file> | src-row -1] [5 Quality | annotated] 51/52 clean (98%); top issue: Duplicate within file by your rule (matched on First_Name, Last_Name, Zip), copy of row 51; set aside
+[canary_clients.csv :: A1:I10 | ID <file> | src-row -1] [13 PII | annotated] File classified: PII (names present)
+[canary_clients.csv :: A1:I10 | ID <file> | src-row -1] [5 Quality | annotated] 3/9 clean (33%); top issue: Invalid ZIP Code format
+
+== Duplicates within a file, as decided ==
+clinic_export.csv: 1 group(s) copies
+legacy_export.xlsx: 1 group(s) copies
+partner_export.tsv: 1 group(s) copies
+
+== Decisions by the reviewer ==
+1. Group 'zipbad': sent (8 rows: 8 to the queue)
+     legacy_export.xlsx :: Sheet1 :: A1:I58||0 id P100200
+     legacy_export.xlsx :: Sheet1 :: A1:I58||9 id P100209
+     legacy_export.xlsx :: Sheet1 :: A1:I58||18 id P100218
+     legacy_export.xlsx :: Sheet1 :: A1:I58||27 id P100227
+     legacy_export.xlsx :: Sheet1 :: A1:I58||36 id P100236
+     legacy_export.xlsx :: Sheet1 :: A1:I58||45 id P100245
+     legacy_export.xlsx :: Sheet1 :: A1:I58||54 id P100254
+     canary_clients.csv :: A1:I10||8 id C009
+2. Group 'idconflict': accept_all (5 rows: 5 accepted as entered)
+     legacy_export.xlsx :: Sheet1 :: A1:I58||5 id P100205
+     legacy_export.xlsx :: Sheet1 :: A1:I58||55 id P100205
+     legacy_export.xlsx :: Sheet1 :: A1:I58||56 id P100205
+     canary_clients.csv :: A1:I10||6 id C007
+     canary_clients.csv :: A1:I10||7 id C007
+3. Group 'other': sent (2 rows: 2 to the queue)
+     canary_clients.csv :: A1:I10||2 id C003
+     canary_clients.csv :: A1:I10||5 id C006
+4. Group 'zipcity': accept_all (1 rows: 1 accepted as entered)
+     canary_clients.csv :: A1:I10||4 id C005
+5. Row legacy_export.xlsx :: Sheet1 :: A1:I58||0 id P100200: approved
+6. Row legacy_export.xlsx :: Sheet1 :: A1:I58||9 id P100209: corrected
+7. Row legacy_export.xlsx :: Sheet1 :: A1:I58||18 id P100218: rejected
+8. Row legacy_export.xlsx :: Sheet1 :: A1:I58||27 id P100227: removed

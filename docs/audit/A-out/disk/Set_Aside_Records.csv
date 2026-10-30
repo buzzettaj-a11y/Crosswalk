@@ -1,0 +1,2 @@
+Set_Aside_Reason,Source_File,Source_Row,First_Name,Middle_Initial,Last_Name,Client_ID,Address_1,Address_2,City,State,Zip,Program,DOB
+Invalid ZIP Code format: (blank),legacy_export.xlsx,27,Kira,,Placeholder,P100227,10 Richmond Terrace,Apt 4B,Staten Island,NY,,,

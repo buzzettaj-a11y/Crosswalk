@@ -1,0 +1,11 @@
+tidy-up steps proposed on upload: ["100% hold two to four name parts in one value. Handles Last, First M and First M Last. A suffix stays with the last name. DiNapoli and O'Brien keep their casing."]
+matched columns: {'First_Name': 'Caseworker Name_first', 'Middle_Initial': 'Caseworker Name_middle', 'Last_Name': 'Caseworker Name_last', 'Client_ID': 'Client ID', 'Address_1': 'Street Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+express check: ok = True warnings = []
+client Ana Lopez   -> stored First='Jane' Last='Doe' CLEAN
+client Bo Chen    -> stored First='Raj' Last='Patel' CLEAN
+client Cy Diaz    -> stored First='Mei' Last='Wong' CLEAN
+client Di Khan    -> stored First='Tom' Last='Hill' CLEAN
+client Ed Ortiz   -> stored First='Jane' Last='Doe' CLEAN
+client Flo Park    -> stored First='Raj' Last='Patel' CLEAN
+client Gus Reyes   -> stored First='Mei' Last='Wong' CLEAN
+client Hal Silva   -> stored First='Tom' Last='Hill' CLEAN

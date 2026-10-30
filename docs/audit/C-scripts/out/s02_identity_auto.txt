@@ -1,0 +1,19 @@
+--- unit level: identity.score_pair / _is_auto / resolve ---
+same name+DOB, different street, same ZIP (Maria Rodriguez)    pts=104  auto=True  people=1 open_proposals=0  truth=unknown (could be a move or a namesake)
+same name+DOB, different street, different ZIP                 pts=98   auto=False people=2 open_proposals=1  truth=unknown
+TWINS: Jordan/Jaden Smith same DOB same address                pts=102  auto=True  people=1 open_proposals=0  truth=2 people
+JR/SR: Robert Smith 1962-03-14 vs Jr 1992-03-14, same address  pts=112  auto=True  people=1 open_proposals=0  truth=2 people
+JR/SR: Robert Smith 1958-03-14 vs Jr 1985-07-30, same address  pts=66   auto=False people=2 open_proposals=1  truth=2 people
+JR/SR: no DOB, same address                                    pts=86   auto=False people=2 open_proposals=1  truth=2 people
+same name+address, DOB day and month swapped (05/06 vs 06/05)  pts=112  auto=True  people=1 open_proposals=0  truth=needs a person (near DOB)
+Bill vs William Smith, same DOB, same ZIP, different street    pts=100  auto=True  people=1 open_proposals=0  truth=needs a person
+same name+DOB, 'W 45th St' vs 'West 45th Street' same ZIP      pts=104  auto=True  people=1 open_proposals=0  truth=same person
+123 45th St vs 123 45th Ave same ZIP, same name+DOB            pts=128  auto=True  people=1 open_proposals=0  truth=different places
+10b: addr_key ignores street type: '45 Park Ave' vs '45 Park Pl' (name differs by sibling) pts=86   auto=False people=2 open_proposals=1  truth=different addresses
+   addr_key a: 45 park|10013 | b: 45 park|10013
+same system ID '1001', different people, same surname+ZIP      pts=100  auto=True  people=1 open_proposals=0  truth=2 people (ID reuse)
+same person: name+DOB+address, but middle name in first        pts=104  auto=True  people=1 open_proposals=0  truth=1 person
+same person: married surname, same first, DOB, address         pts=98   auto=False people=2 open_proposals=1  truth=1 person, needs a person by design
+same person: DOB year typo + same name+address                 pts=112  auto=True  people=1 open_proposals=0  truth=needs a person
+same person: name+address+ZIP, no DOB in either                pts=86   auto=False people=2 open_proposals=1  truth=needs a person (no DOB)
+same person: first-name accent José vs Jose, DOB, address      pts=128  auto=True  people=1 open_proposals=0  truth=1 person

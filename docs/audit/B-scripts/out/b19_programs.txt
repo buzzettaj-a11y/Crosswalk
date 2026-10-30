@@ -1,0 +1,101 @@
+['Youth Services', 'Youth Employment']
+    -> JOINED ['Youth Employment', 'Youth Services'] as 'Youth Employment' because 'one name is the other with more words on the end', needs_confirming=True
+['Youth Services', 'Youth Housing']
+    -> JOINED ['Youth Housing', 'Youth Services'] as 'Youth Housing' because 'one name is the other with more words on the end', needs_confirming=True
+['Youth Employment', 'Youth Housing']
+    -> no proposed join
+['Senior Housing', 'Housing']
+    -> no proposed join
+['Senior Housing', 'Senior Services']
+    -> JOINED ['Senior Services', 'Senior Housing'] as 'Senior Services' because 'one name is the other with more words on the end', needs_confirming=True
+['Senior Services', 'Senior Employment']
+    -> JOINED ['Senior Employment', 'Senior Services'] as 'Senior Employment' because 'one name is the other with more words on the end', needs_confirming=True
+['Senior Center', 'Senior Housing']
+    -> no proposed join
+['Housing', 'Housing Court Assistance']
+    -> JOINED ['Housing Court Assistance', 'Housing'] as 'Housing Court Assistance' because 'one name is the other with more words on the end', needs_confirming=True
+['Housing', 'Housing Assistance']
+    -> JOINED ['Housing Assistance', 'Housing'] as 'Housing Assistance' because 'one name is the other with more words on the end', needs_confirming=True
+['Adult Education', 'Adult Literacy']
+    -> no proposed join
+['Adult', 'Adult Day Care']
+    -> JOINED ['Adult Day Care', 'Adult'] as 'Adult Day Care' because 'one is the initials of the other', needs_confirming=True
+['Level 1', 'Level 2']
+    -> JOINED ['Level 2', 'Level 1'] as 'Level 2' because 'the names are nearly the same', needs_confirming=True
+['Tier 1', 'Tier 2']
+    -> no proposed join
+['Cohort 2023', 'Cohort 2024']
+    -> JOINED ['Cohort 2024', 'Cohort 2023'] as 'Cohort 2024' because 'the names are nearly the same', needs_confirming=True
+['Section B', 'Section C']
+    -> JOINED ['Section C', 'Section B'] as 'Section C' because 'the names are nearly the same', needs_confirming=True
+['Group A', 'Group B']
+    -> JOINED ['Group B', 'Group A'] as 'Group B' because 'one name is the other with more words on the end', needs_confirming=True
+['Class A', 'Class B']
+    -> JOINED ['Class B', 'Class A'] as 'Class B' because 'one name is the other with more words on the end', needs_confirming=True
+['Program A', 'Program B']
+    -> no proposed join
+['Head Start', 'Early Head Start']
+    -> no proposed join
+['Summer Youth Employment', 'Summer Youth Employment Program']
+    -> JOINED ['Summer Youth Employment Program', 'Summer Youth Employment'] as 'Summer Youth Employment Program' because 'the same name once wording is set aside', needs_confirming=True
+['SYEP', 'Summer Youth Employment Program']
+    -> JOINED ['Summer Youth Employment Program', 'SYEP'] as 'Summer Youth Employment Program' because 'one is the initials of the other', needs_confirming=True
+['Workforce', 'Workforce Development']
+    -> JOINED ['Workforce Development', 'Workforce'] as 'Workforce Development' because 'one name is the other with more words on the end', needs_confirming=True
+['WFD', 'Workforce Development']
+    -> JOINED ['Workforce Development', 'WFD'] as 'Workforce Development' because 'one is the initials of the other', needs_confirming=True
+['Workforce Dev.', 'Workforce Development']
+    -> JOINED ['Workforce Development', 'Workforce Dev.'] as 'Workforce Development' because 'the same name once wording is set aside', needs_confirming=True
+['Food Pantry', 'Food Stamps']
+    -> no proposed join
+['Food Pantry', 'Food Pantry Delivery']
+    -> JOINED ['Food Pantry Delivery', 'Food Pantry'] as 'Food Pantry Delivery' because 'one name is the other with more words on the end', needs_confirming=True
+['Tenant Services', 'Tenant Organizing']
+    -> JOINED ['Tenant Organizing', 'Tenant Services'] as 'Tenant Organizing' because 'one name is the other with more words on the end', needs_confirming=True
+['Housing Counseling', 'Housing Court']
+    -> no proposed join
+['Youth Employment', 'Youth Empowerment']
+    -> no proposed join
+['Adult Employment', 'Adult Empowerment']
+    -> no proposed join
+['Mental Health', 'Mental Hygiene']
+    -> no proposed join
+['Mental Health', 'Mental Health Clinic']
+    -> JOINED ['Mental Health Clinic', 'Mental Health'] as 'Mental Health Clinic' because 'one name is the other with more words on the end', needs_confirming=True
+['Senior Services', 'Senior Services II']
+    -> JOINED ['Senior Services II', 'Senior Services'] as 'Senior Services II' because 'one name is the other with more words on the end', needs_confirming=True
+['Pre-K', 'Pre-K Extended Day']
+    -> JOINED ['Pre-K Extended Day', 'Pre-K'] as 'Pre-K Extended Day' because 'one is the initials of the other', needs_confirming=True
+['3-K', 'Pre-K']
+    -> no proposed join
+['3K', '4K']
+    -> no proposed join
+['ESL 1', 'ESL 2']
+    -> no proposed join
+['ESL Level 1', 'ESL Level 2']
+    -> JOINED ['ESL Level 2', 'ESL Level 1'] as 'ESL Level 2' because 'the names are nearly the same', needs_confirming=True
+['GED', 'GED Prep']
+    -> JOINED ['GED Prep', 'GED'] as 'GED Prep' because 'one is the initials of the other', needs_confirming=True
+['GED', 'HSE']
+    -> no proposed join
+['Case Management', 'Case Management Plus']
+    -> JOINED ['Case Management Plus', 'Case Management'] as 'Case Management Plus' because 'the names are nearly the same', needs_confirming=True
+['Housing Court', 'Housing Counseling']
+    -> no proposed join
+['Resident Services', 'RS']
+    -> JOINED ['RS', 'Resident Services'] as 'RS' because 'one is the initials of the other', needs_confirming=True
+['Community Services', 'CS']
+    -> JOINED ['CS', 'Community Services'] as 'CS' because 'one is the initials of the other', needs_confirming=True
+['Health', 'Hospital Employment Assistance Linkage Training Hub']
+    -> JOINED ['Hospital Employment Assistance Linkage Training Hub', 'Health'] as 'Hospital Employment Assistance Linkage Training Hub' because 'one is the initials of the other', needs_confirming=True
+['Youth', 'Young Adult']
+    -> no proposed join
+['Veterans', 'Veterans Housing']
+    -> JOINED ['Veterans Housing', 'Veterans'] as 'Veterans Housing' because 'one name is the other with more words on the end', needs_confirming=True
+['Veterans Services', 'Veterans Employment']
+    -> JOINED ['Veterans Employment', 'Veterans Services'] as 'Veterans Employment' because 'one name is the other with more words on the end', needs_confirming=True
+
+== chains: three programs, no pair of the last two is proposed on its own ==
+   ['Youth Services', 'Youth Employment', 'Youth Housing'] -> [['Youth Employment', 'Youth Housing', 'Youth Services']] needs_confirming: [True]
+   ['Senior Services', 'Senior Housing', 'Senior Employment'] -> [['Senior Employment', 'Senior Housing', 'Senior Services']] needs_confirming: [True]
+   ['Adult Education', 'Adult', 'Adult Literacy'] -> [['Adult', 'Adult Education', 'Adult Literacy']] needs_confirming: [True]

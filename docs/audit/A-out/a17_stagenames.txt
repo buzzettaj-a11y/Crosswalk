@@ -1,0 +1,6 @@
+screen the user is on: stage 4 'Match your columns' | Saved-progress card says: 'stopped at Map, 1 source file'
+screen the user is on: stage 5 'Programs' | Saved-progress card says: 'stopped at Run, 1 source file'
+screen the user is on: stage 6 'Process' | Saved-progress card says: 'stopped at Review, 1 source file'
+screen the user is on: stage 7 'Fix problems' | Saved-progress card says: 'stopped at Export, 1 source file'
+screen the user is on: stage 8 'Results' | Saved-progress card says: 'stopped at in progress, 1 source file'
+screen the user is on: stage 9 'Download' | Saved-progress card says: 'stopped at in progress, 1 source file'

@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wholecount Run Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap">
+<style>
+/* PROTOTYPE, throwaway. Three variants of how a run shows its progress, its confidence and what happens to the data,
+   inside the cockpit frame (top bar, stage strip, ledger, content). Simulated data only.
+   Layout: cockpit frame at full width, ledger column on the left, Process stage on the right, switcher pill at the bottom.
+   Single light theme on purpose: the style guide defines only a light theme for the app. */
+:root {
+  color-scheme: light;
+  --bg-page: #f3f2f2; --bg-surface: #eae9e9; --bg-card: #ffffff;
+  --ink: #201e1d; --ink-2: #444141; --muted: #605d5d;
+  --line: #d7d3d3; --line-2: #bab6b6; --line-soft: #eae9e9;
+  --on-dark: #f3f2f2; --on-dark-muted: #d7d3d3;
+  --blue-700: #20435f; --blue-500: #2f5f88; --blue-300: #bcd3e4; --blue-100: #eef3f7;
+  --green-700: #1b4b2b; --green-500: #2a6a3f; --green-300: #b6dabe; --green-100: #e9f7ec;
+  --amber-700: #5f3400; --amber-500: #834c00; --amber-300: #f0c79a; --amber-100: #ffeed6;
+  --pill-bg: #111010; --pill-fg: #ffffff;
+  --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg-page); color: var(--ink); font-family: var(--font); font-size: 13px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 16px 96px; }
+button, input { font-family: inherit; }
+button { cursor: pointer; border-radius: 0; }
+button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 2px; }
+.tab { font-variant-numeric: tabular-nums; }
+
+.app { max-width: 1440px; margin: 0 auto; border: 1px solid var(--line); background: var(--bg-page); }
+
+/* top bar */
+.topbar { height: 48px; background: var(--ink); color: var(--on-dark); display: flex; align-items: center; gap: 12px; padding: 0 20px; position: relative; }
+.topbar .mark { width: 12px; height: 12px; background: var(--blue-500); flex-shrink: 0; }
+.topbar .word { font-size: 14px; font-weight: 800; letter-spacing: .06em; }
+.topbar .status { margin-left: auto; font-size: 11.5px; color: var(--on-dark-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.chip { border: 1px solid var(--on-dark-muted); background: transparent; color: var(--on-dark); font-size: 11.5px; font-weight: 800; padding: 5px 10px; flex-shrink: 0; }
+.chip.med { border-color: var(--amber-300); color: var(--amber-300); }
+.chip.low { background: var(--amber-300); border-color: var(--amber-300); color: var(--amber-700); }
+.popover { position: absolute; right: 20px; top: 52px; width: min(380px, calc(100vw - 48px)); background: var(--bg-card); color: var(--ink); border: 1px solid var(--line); border-top: 3px solid var(--ink); padding: 14px 16px; z-index: 30; box-shadow: 0 6px 18px rgba(32,30,29,.12); }
+
+/* stage strip */
+.strip-wrap { overflow-x: auto; background: var(--bg-card); border-bottom: 1px solid var(--line); }
+.strip { display: flex; min-width: 980px; }
+.st { flex: 1; min-width: 0; border: none; background: transparent; text-align: left; padding: 9px 7px 8px; position: relative; }
+.st .k { display: block; font-size: 9px; font-weight: 800; letter-spacing: .1em; color: var(--muted); }
+.st .n { display: block; font-size: 12px; font-weight: 800; color: var(--ink); margin-top: 2px; }
+.st .c { display: block; font-size: 10.5px; color: var(--muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.st .ul { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: transparent; }
+.st .ul i { display: block; height: 100%; width: 0; background: var(--blue-500); transition: width .25s linear; }
+.st.done .ul { background: var(--ink); }
+.st.none .ul { background: var(--line-2); }
+.st.cur { background: var(--blue-100); }
+.st.cur .k { color: var(--blue-500); } .st.cur .n, .st.cur .c { color: var(--blue-700); }
+.st.cur .ul { background: var(--blue-500); }
+.st.later .n { color: var(--muted); }
+.st.track .ul { background: var(--line-soft); }
+.st.undo { flex: 0 0 176px; border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.st.undo .n { color: var(--blue-500); }
+
+/* ticker (variant C) */
+.ticker { position: relative; background: var(--bg-card); border-bottom: 1px solid var(--line); }
+.ticker-row { display: flex; align-items: center; gap: 12px; padding: 7px 20px; min-height: 34px; }
+.ticker .what { font-size: 12px; font-weight: 800; white-space: nowrap; }
+.ticker .msg { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
+.ticker .thin { position: absolute; left: 0; bottom: -1px; height: 2px; background: var(--blue-500); width: 0; transition: width .25s linear; }
+.dropdown { position: absolute; left: 20px; top: 100%; width: min(560px, calc(100vw - 48px)); background: var(--bg-card); border: 1px solid var(--line); border-top: 3px solid var(--blue-500); padding: 12px 14px; z-index: 25; box-shadow: 0 6px 18px rgba(32,30,29,.12); }
+
+/* frame */
+.frame { display: flex; align-items: stretch; }
+.ledger { width: 280px; flex-shrink: 0; background: var(--bg-card); border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+.ledger .body { padding: 18px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+.kick { font-size: 9.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.kick.blue { color: var(--blue-500); }
+.sec { border-top: 1px solid var(--line-soft); padding-top: 14px; }
+.lrow { display: flex; font-size: 12.5px; margin-top: 4px; gap: 8px; }
+.lrow span:first-child { flex: 1; min-width: 0; }
+.lrow.open { color: var(--blue-700); }
+.bar { display: flex; height: 10px; border: 1px solid var(--line); margin-top: 8px; }
+.bar i { display: block; height: 100%; }
+.big { font-size: 28px; font-weight: 800; line-height: 1.05; margin-top: 8px; font-variant-numeric: tabular-nums; }
+.sub { font-size: 11.5px; color: var(--muted); line-height: 1.35; }
+.cap { font-size: 11px; color: var(--muted); line-height: 1.4; }
+.note { font-size: 12.5px; color: var(--muted); line-height: 1.45; margin-top: 6px; }
+.foot { border-top: 1px solid var(--line); background: var(--bg-surface); padding: 13px 18px; display: flex; flex-direction: column; gap: 8px; }
+.link { background: none; border: none; padding: 0; text-align: left; font-size: 12px; font-weight: 800; color: var(--blue-500); text-decoration: underline; }
+.link.quiet { color: var(--muted); font-size: 11.5px; }
+.btn { font-size: 12.5px; font-weight: 800; padding: 10px 14px; border: 1px solid var(--line-2); background: var(--bg-card); color: var(--ink); }
+.btn.primary { background: var(--blue-500); border-color: var(--blue-500); color: #fff; }
+.btn.held, .btn:disabled { background: var(--bg-surface); color: var(--muted); border-color: var(--line-2); cursor: not-allowed; }
+.btn.sm { font-size: 12px; padding: 8px 12px; }
+
+/* run steps (shared look, used in different places) */
+.steps { display: flex; flex-direction: column; gap: 7px; margin-top: 8px; }
+.step { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: 12px; }
+.step .nm { font-weight: 800; min-width: 0; }
+.step .ct { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.step .tr { grid-column: 1 / -1; height: 4px; background: var(--line-soft); }
+.step .tr i { display: block; height: 100%; width: 0; background: var(--blue-500); transition: width .25s linear; }
+.step .ms { grid-column: 1 / -1; font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 1.4em; }
+.step.wait .nm { color: var(--muted); font-weight: 600; }
+.step.done .tr i { background: var(--ink); }
+.step.done .nm { font-weight: 600; }
+.mk { display: inline-flex; width: 14px; height: 14px; background: var(--ink); color: #fff; font-size: 9.5px; font-weight: 800; align-items: center; justify-content: center; margin-right: 5px; vertical-align: -2px; }
+
+.log { display: flex; flex-direction: column; margin-top: 6px; }
+.log .lg { display: grid; grid-template-columns: 1fr auto; gap: 0 10px; padding: 6px 0; border-top: 1px solid var(--line-soft); font-size: 12px; }
+.log .lg b { font-weight: 800; }
+.log .lg .t { color: var(--muted); font-variant-numeric: tabular-nums; }
+.log .lg .f { grid-column: 1 / -1; color: var(--muted); font-size: 11.5px; }
+
+/* content */
+.content { flex: 1; min-width: 0; padding: 22px 26px 30px; display: flex; flex-direction: column; gap: 14px; }
+.kicker { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+h2 { margin: 4px 0 0; font-size: 25px; font-weight: 800; line-height: 1.1; text-wrap: balance; }
+.lede { font-size: 13px; color: var(--muted); margin-top: 4px; max-width: 70ch; }
+.dataline { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--ink-2); padding: 9px 12px; background: var(--bg-card); border: 1px solid var(--line); }
+.dataline b { font-weight: 800; color: var(--ink); }
+.card { background: var(--bg-card); border: 1px solid var(--line); padding: 15px 17px; }
+.card.top-blue { border-top: 3px solid var(--blue-500); }
+.card.top-ink { border-top: 3px solid var(--ink); }
+.card.top-amber { border-color: var(--amber-300); border-top: 3px solid var(--amber-500); }
+.card h3 { margin: 0; font-size: 14px; font-weight: 800; }
+.card .row { display: flex; align-items: flex-start; gap: 18px; flex-wrap: wrap; }
+.card .row > .grow { flex: 1; min-width: 220px; }
+.will { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: var(--ink-2); }
+.will li::before { content: "·"; font-weight: 800; margin-right: 8px; color: var(--muted); }
+.held-cap { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+fieldset { border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.opt { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; }
+.opt input { margin: 2px 0 0; width: 16px; height: 16px; accent-color: var(--blue-500); flex-shrink: 0; }
+.opt small { display: block; color: var(--muted); font-size: 11.5px; }
+fieldset:disabled .opt { color: var(--muted); }
+.found { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; }
+.found div { border: 1px solid var(--line-soft); padding: 9px 11px; }
+.found b { display: block; font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.found span { font-size: 11.5px; color: var(--muted); }
+.fold { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 12.5px; }
+.fold b { font-weight: 800; }
+
+/* confidence */
+.conf-word { font-size: 18px; font-weight: 800; margin-top: 6px; }
+.conf-word.med { color: var(--amber-700); } .conf-word.low { color: var(--amber-700); }
+.rules { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+.rule { display: grid; grid-template-columns: 1fr auto; gap: 0 8px; font-size: 12px; }
+.rule .v { font-weight: 800; font-variant-numeric: tabular-nums; }
+.rule .why { grid-column: 1 / -1; font-size: 11px; color: var(--muted); }
+.rule.miss .v { color: var(--amber-700); }
+.ack { display: flex; gap: 9px; align-items: flex-start; margin-top: 10px; padding: 10px 11px; background: var(--blue-100); border: 1px solid var(--blue-300); font-size: 12px; }
+.ack input { margin-top: 2px; accent-color: var(--blue-500); width: 16px; height: 16px; flex-shrink: 0; }
+
+/* data drawer */
+.scrim { position: fixed; inset: 0; background: rgba(32,30,29,.35); z-index: 40; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(520px, 100vw); background: var(--bg-card); z-index: 41; padding: calc(22px + env(safe-area-inset-top, 0px)) max(22px, env(safe-area-inset-right, 0px)) 22px 22px; overflow-y: auto; border-left: 1px solid var(--line); }
+.flow { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 14px; }
+.box { border: 1px solid var(--line); padding: 11px 13px; }
+.box b { display: block; font-size: 13px; }
+.box span { font-size: 12px; color: var(--muted); }
+.box.mem { border: 2px solid var(--ink); }
+.arrow { height: 22px; display: flex; align-items: center; padding-left: 22px; font-size: 11px; color: var(--muted); border-left: 2px solid var(--line-2); margin-left: 18px; }
+.never { margin-top: 14px; padding: 11px 13px; background: var(--bg-surface); font-size: 12px; }
+.never ul { margin: 6px 0 0; padding-left: 18px; }
+
+/* prototype switcher, deliberately not part of the design */
+.switcher { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--pill-bg); color: var(--pill-fg); display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 999px; z-index: 50; box-shadow: 0 8px 24px rgba(0,0,0,.35); font-size: 12px; max-width: calc(100vw - 32px); flex-wrap: wrap; justify-content: center; }
+.switcher button { background: transparent; color: var(--pill-fg); border: none; border-radius: 999px; padding: 7px 11px; font-weight: 800; font-size: 12px; }
+.switcher button:hover { background: rgba(255,255,255,.12); }
+.switcher .lbl { padding: 0 8px; font-weight: 800; white-space: nowrap; }
+.switcher .tag { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; padding-left: 8px; }
+.switcher select { background: #2b2a29; color: #fff; border: 1px solid #555; border-radius: 999px; padding: 5px 8px; font: inherit; font-size: 12px; }
+.switcher .sep { width: 1px; height: 18px; background: rgba(255,255,255,.25); }
+
+@media (max-width: 1100px) {
+  .frame { flex-direction: column-reverse; }
+  .ledger { width: auto; border-right: none; border-top: 1px solid var(--line); }
+}
+@media (max-width: 600px) {
+  .content { padding: 18px 14px 24px; }
+  .topbar .status { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st .ul i, .step .tr i, .ticker .thin { transition: none; }
+}
+</style>
+</head><body>
+
+<div class="app" id="app"></div>
+<div id="drawer-root"></div>
+
+<div class="switcher" role="toolbar" aria-label="Prototype controls">
+  <span class="tag">Prototype</span>
+  <button type="button" id="prev" aria-label="Previous variant">&#8592;</button>
+  <span class="lbl" id="vlabel">A, Ledger run</span>
+  <button type="button" id="next" aria-label="Next variant">&#8594;</button>
+  <span class="sep"></span>
+  <label for="outcome" class="lbl" style="font-weight:600">Result</label>
+  <select id="outcome">
+    <option value="high">High</option>
+    <option value="medium" selected>Medium</option>
+    <option value="low">Low</option>
+  </select>
+  <select id="speed" aria-label="Run speed">
+    <option value="1">1x</option>
+    <option value="3">3x</option>
+  </select>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var VARIANTS = [
+    { key: "A", hash: "ledger-run", name: "Ledger run" },
+    { key: "B", hash: "run-panel", name: "Run panel" },
+    { key: "C", hash: "strip-ticker", name: "Strip and ticker" }
+  ];
+  var FILES = [
+    ["A", "clinic_export.csv"], ["B", "legacy_export.xlsx"], ["C", "state_export.xml"],
+    ["D", "partner_export.tsv"], ["E", "portal_export.json"]
+  ];
+  var OUTCOMES = {
+    high:   { clean: 7080, open: 236,  aside: 96, pairs: 0,  g1lo: 6412, g1hi: 6412, g2: 7590, locH: 6960, locL: 90,  locN: 30,  split: 1904, copies: 9 },
+    medium: { clean: 6084, open: 1232, aside: 96, pairs: 14, g1lo: 5940, g1hi: 5954, g2: 7106, locH: 5802, locL: 198, locN: 84,  split: 1904, copies: 14 },
+    low:    { clean: 5410, open: 1906, aside: 96, pairs: 31, g1lo: 5288, g1hi: 5319, g2: 6402, locH: 4390, locL: 810, locN: 210, split: 1904, copies: 22 }
+  };
+  var ROWS = 7412;
+  function f(n) { return n.toLocaleString("en-US"); }
+  function pct(a, b) { return Math.round(a / b * 100); }
+  function mk(letter) { return '<span class="mk" aria-hidden="true">' + letter + '</span>'; }
+  function src(i) { return mk(FILES[i][0]) + FILES[i][1]; }
+
+  // Each step: what the bar is called, what it counts, how long it animates, the few-word messages it cycles through,
+  // which stage it belongs to, and how long the real run took (for the log).
+  function makeSteps(o) {
+    return [
+      { id: "read", name: "Reading files", unit: "tables", total: 9, secs: 1.2, stage: 5, took: "2.1 s",
+        msgs: [0,1,1,2,3,4].map(function (i) { return "Reading " + src(i); }),
+        found: "9 tables, " + f(ROWS) + " rows" },
+      { id: "tidy", name: "Tidying up", unit: "rows", total: ROWS, secs: 1.4, stage: 2, took: "1.4 s",
+        msgs: ["Splitting jammed addresses, " + src(1), "Splitting jammed names, " + src(0), "Cleaning columns, " + src(3)],
+        found: "2 steps, " + f(o.split) + " rows split" },
+      { id: "check", name: "Checking every row", unit: "rows", total: ROWS, secs: 2.0, stage: 5, took: "3.0 s",
+        msgs: ["Checking names and IDs, " + src(2), "Checking ZIPs and cities, " + src(1), "Checking dates of birth, " + src(4)],
+        found: f(o.clean) + " passed, " + f(o.open) + " need a decision, " + f(o.aside) + " set aside" },
+      { id: "place", name: "Placing addresses", unit: "addresses", total: o.locH + o.locL + o.locN, secs: 4.0, stage: 5, took: "18.6 s",
+        msgs: ["Looking up addresses, " + src(0), "Looking up addresses, " + src(1), "Looking up addresses, " + src(2), "Adding Council, Assembly and Senate districts"],
+        found: f(o.locH) + " high, " + f(o.locL) + " low, " + f(o.locN) + " not placed" },
+      { id: "copies", name: "Finding copies in each file", unit: "tables", total: 9, secs: 0.8, stage: 6, took: "0.9 s",
+        msgs: [0,1,3].map(function (i) { return "Comparing rows inside " + src(i); }),
+        found: o.copies + " groups of copies to decide" },
+      { id: "people", name: "Matching people across files", unit: "records", total: o.clean + o.open, secs: 2.2, stage: 7, took: "4.2 s",
+        msgs: ["Comparing names and birth dates", "Comparing addresses", "Listing pairs for you to decide"],
+        found: o.pairs ? o.pairs + " pairs for you to decide" : "No pairs left to decide" },
+      { id: "count", name: "Counting and balancing", unit: "checks", total: 3, secs: 0.5, stage: 7, took: "0.3 s",
+        msgs: ["Counting unique clients", "Counting clients by program", "Checking " + f(o.clean) + " + " + f(o.open) + " + " + f(o.aside) + " = " + f(ROWS)],
+        found: "The books balance" }
+    ];
+  }
+  function confidence(o) {
+    var rowsPct = (o.clean) / ROWS * 100, locPct = o.locH / (o.locH + o.locL + o.locN) * 100;
+    var rules = [
+      { name: "Rows that passed or were decided", v: rowsPct.toFixed(0) + "%", ok: rowsPct >= 95, low: rowsPct < 80,
+        why: f(o.clean) + " of " + f(ROWS) + ". High needs 95%. Under 80% is Low." },
+      { name: "Possible same-person pairs still open", v: String(o.pairs), ok: o.pairs === 0, low: false,
+        why: "High needs none open." },
+      { name: "Addresses placed with high confidence", v: locPct.toFixed(0) + "%", ok: locPct >= 95, low: locPct < 80,
+        why: f(o.locH) + " of " + f(o.locH + o.locL + o.locN) + ". High needs 95%. Under 80% is Low." }
+    ];
+    var level = rules.some(function (r) { return r.low; }) ? "Low" : (rules.every(function (r) { return r.ok; }) ? "High" : "Medium");
+    var reason;
+    if (level === "High") reason = f(o.clean) + " of " + f(ROWS) + " rows passed every check, no pairs are open, and " + locPct.toFixed(0) + "% of addresses were placed with high confidence.";
+    else if (level === "Medium") reason = f(o.clean) + " of " + f(ROWS) + " rows passed every check" + (o.pairs ? ", and " + o.pairs + " possible same-person pairs are still open." : ".");
+    else reason = "Only " + f(o.clean) + " of " + f(ROWS) + " rows passed every check" + (locPct < 80 ? ", and only " + locPct.toFixed(0) + "% of addresses were placed with high confidence." : ".");
+    return { level: level, reason: reason, rules: rules };
+  }
+
+  var S = { v: 0, outcome: "medium", speed: 1, phase: "ready", step: 0, frac: 0, msgIdx: 0, logOpen: false, dataOpen: false, popOpen: false, dropOpen: false, ack: false, startedAt: "" };
+  var steps = makeSteps(OUTCOMES[S.outcome]);
+  var timer = null;
+
+  function readHash() {
+    var h = (location.hash || "").replace("#", "");
+    var i = VARIANTS.findIndex(function (x) { return x.hash === h; });
+    S.v = i >= 0 ? i : 0;
+  }
+  function setVariant(i) {
+    S.v = (i + VARIANTS.length) % VARIANTS.length;
+    S.logOpen = S.popOpen = S.dropOpen = false;
+    try { history.replaceState(null, "", "#" + VARIANTS[S.v].hash); } catch (e) { location.hash = VARIANTS[S.v].hash; }
+    render();
+  }
+
+  // ---------- pieces ----------
+  var STAGES = [
+    ["01 SOURCES", "Add your files"], ["02 SCHEMA", "Your columns"], ["03 PREPARE", "Tidy up"], ["04 MAP", "Match your columns"],
+    ["05 PROGRAMS", "Programs"], ["06 RUN", "Process"], ["07 REVIEW", "Fix problems"], ["08 SUMMARY", "Results"], ["09 EXPORT", "Download"]
+  ];
+  function stageCaption(i, o) {
+    var done = S.phase === "done";
+    var caps = ["5 files, 9 tables", "nothing to decide", "2 steps kept", "45 matched, all confirmed", "6 programs, confirmed",
+      S.phase === "running" ? "running" : (done ? "done in 30.5 s" : "ready to run"),
+      done ? f(o.open) + " rows open" : "not run yet", done ? (o.pairs ? o.pairs + " pairs open" : "final") : "not run yet", done ? "7 files ready" : "not run yet"];
+    return caps[i];
+  }
+  function stageProgress(i) {
+    // Variant C: the stage underline doubles as the bar for the steps that belong to that stage.
+    var mine = steps.map(function (s, k) { return s.stage === i ? k : -1; }).filter(function (k) { return k >= 0; });
+    if (!mine.length) return null;
+    var tot = 0, got = 0;
+    mine.forEach(function (k) {
+      var w = steps[k].secs; tot += w;
+      if (S.phase === "done" || k < S.step) got += w; else if (k === S.step && S.phase === "running") got += w * S.frac;
+    });
+    return got / tot;
+  }
+  function strip(o) {
+    var html = '<div class="strip-wrap"><div class="strip">';
+    STAGES.forEach(function (st, i) {
+      var cls = i < 5 ? (i === 1 ? "none" : "done") : (i === 5 ? "cur" : (S.phase === "done" ? "done" : "later"));
+      var ul = "";
+      if (VARIANTS[S.v].key === "C" && S.phase === "running") {
+        var p = stageProgress(i);
+        if (p !== null) { cls += " track"; ul = '<i data-stage-bar="' + i + '" style="width:' + (p * 100).toFixed(1) + '%"></i>'; }
+      }
+      html += '<button type="button" class="st ' + cls + '"' + (i === 5 ? ' aria-current="step"' : "") + '><span class="k">' + st[0] + '</span><span class="n">' + st[1] +
+        '</span><span class="c">' + stageCaption(i, o) + '</span><span class="ul">' + ul + '</span></button>';
+    });
+    html += '<button type="button" class="st undo"><span class="k">UNDO</span><span class="n">' + (S.phase === "done" ? "Process 7,412 rows" : "Confirm Health Navigation") +
+      '</span><span class="c">takes back one step</span><span class="ul"></span></button></div></div>';
+    return html;
+  }
+  function topbar(c) {
+    var chip = "";
+    if (VARIANTS[S.v].key === "C" && S.phase === "done") {
+      var cls = c.level === "High" ? "" : (c.level === "Medium" ? "med" : "low");
+      chip = '<button type="button" class="chip ' + cls + '" data-act="pop" aria-expanded="' + S.popOpen + '">Confidence: ' + c.level + '</button>';
+    }
+    var pop = (S.popOpen && chip) ? '<div class="popover" role="dialog" aria-label="Confidence">' + confBlock(c, true) + '</div>' : "";
+    return '<header class="topbar"><span class="mark" aria-hidden="true"></span><span class="word">WHOLECOUNT</span>' +
+      '<span class="status">Offline &middot; Geosupport on this computer &middot; progress saved just now</span>' + chip + pop + '</header>';
+  }
+  function stepList(withMsgs) {
+    return '<div class="steps">' + steps.map(function (s, k) {
+      var state = S.phase === "done" || k < S.step ? "done" : (k === S.step && S.phase === "running" ? "now" : "wait");
+      var cnt = state === "done" ? f(s.total) + " " + s.unit : (state === "now" ? '<span data-count="' + k + '">' + f(Math.round(s.total * S.frac)) + '</span> of ' + f(s.total) : "waiting");
+      var w = state === "done" ? 100 : (state === "now" ? S.frac * 100 : 0);
+      var msg = state === "now" ? s.msgs[S.msgIdx % s.msgs.length] : (state === "done" ? s.found : "");
+      return '<div class="step ' + state + '"><span class="nm">' + s.name + '</span><span class="ct">' + cnt + '</span>' +
+        '<span class="tr"><i data-bar="' + k + '" style="width:' + w.toFixed(1) + '%"></i></span>' +
+        (withMsgs ? '<span class="ms" data-msg="' + k + '">' + msg + '</span>' : "") + '</div>';
+    }).join("") + '</div>';
+  }
+  function logList() {
+    return '<div class="log">' + steps.map(function (s) {
+      return '<div class="lg"><b>' + s.name + '</b><span class="t">' + s.took + '</span><span class="f">' + s.found + '</span></div>';
+    }).join("") + '</div>';
+  }
+  function confBlock(c, full) {
+    var cls = c.level === "High" ? "" : (c.level === "Medium" ? "med" : "low");
+    var html = '<div class="kick">Confidence in this batch</div><div class="conf-word ' + cls + '">' + c.level + '</div><div class="note" style="margin-top:2px;color:var(--ink-2)">' + c.reason + '</div>';
+    if (full) {
+      html += '<div class="rules">' + c.rules.map(function (r) {
+        return '<div class="rule ' + (r.ok ? "" : "miss") + '"><span>' + r.name + '</span><span class="v">' + r.v + '</span><span class="why">' + r.why + '</span></div>';
+      }).join("") + '</div>';
+    }
+    if (c.level === "Low") {
+      html += '<label class="ack" for="ack-' + (full ? "f" : "s") + '"><input type="checkbox" id="ack-' + (full ? "f" : "s") + '" data-act="ack"' + (S.ack ? " checked" : "") + '>' +
+        '<span>I have seen that confidence is Low. Download waits for this tick, and the tick goes to the audit log with the time.</span></label>';
+    }
+    return html;
+  }
+
+  function ledger(o, c) {
+    var key = VARIANTS[S.v].key, done = S.phase === "done", running = S.phase === "running";
+    var h = '<aside class="ledger" aria-label="Ledger"><div class="body">';
+    h += '<div><div class="kick">This batch</div><div style="font-size:13px;margin-top:6px;line-height:1.5">5 files, 9 tables<br>' + f(ROWS) + ' rows received</div></div>';
+    if (key === "A" && (running || done)) {
+      h += '<div class="sec" style="border-top-color:var(--blue-300)"><div class="kick ' + (running ? "blue" : "") + '">This run</div>';
+      if (running) h += stepList(true);
+      else {
+        h += '<div class="note" style="color:var(--ink-2)">Finished in 30.5 s. 7 steps, nothing written to disk.</div>' +
+          '<button type="button" class="link" data-act="log" aria-expanded="' + S.logOpen + '" style="margin-top:6px">' + (S.logOpen ? "Hide the log" : "Show the log") + '</button>' + (S.logOpen ? logList() : "");
+      }
+      h += '</div>';
+    }
+    h += '<div class="sec"><div class="kick">Where they stand</div>';
+    if (done) {
+      h += '<div class="bar" role="img" aria-label="Clean, open and set aside rows"><i style="width:' + (o.clean / ROWS * 100) + '%;background:var(--ink)"></i><i style="width:' + (o.open / ROWS * 100) + '%;background:var(--blue-500)"></i><i style="width:' + (o.aside / ROWS * 100) + '%;background:var(--line-2)"></i></div>' +
+        '<div class="lrow"><span>Clean</span><b class="tab">' + f(o.clean) + '</b></div><div class="lrow open"><span>Still open</span><b class="tab">' + f(o.open) + '</b></div><div class="lrow"><span>Set aside</span><b class="tab">' + f(o.aside) + '</b></div>' +
+        '<div class="cap" style="margin-top:7px">' + f(o.clean) + ' + ' + f(o.open) + ' + ' + f(o.aside) + ' = ' + f(ROWS) + '. Every row is accounted for.</div>';
+    } else h += '<div class="note">' + (running ? "Being worked out now. The numbers fill in when the run finishes." : "Not processed yet. Nothing has been cleaned, checked or placed.") + '</div>';
+    h += '</div>';
+    h += '<div class="sec"><div class="kick blue">The two counts</div>';
+    if (done) {
+      h += '<div class="big">' + f(o.g1lo) + '</div><div class="sub">unique clients' + (o.g1hi > o.g1lo ? ", a range to " + f(o.g1hi) + " until " + o.pairs + " pairs are decided" : "") + '</div>' +
+        '<div class="big" style="margin-top:11px">' + f(o.g2) + '</div><div class="sub">unique clients by program' + (o.pairs ? ", can still move with the open pairs" : "") + '</div>';
+    } else h += '<div class="note">Unique clients, and unique clients by program. Both fill in when the run finishes.</div>';
+    h += '</div>';
+    if (done) {
+      h += '<div class="sec">' + (key === "A" ? confBlock(c, true) : confBlock(c, false)) + '</div>';
+    } else {
+      h += '<div class="sec"><div class="kick">Confidence in this batch</div><div class="note">Worked out from the checks once the run finishes. It says why, in one line.</div></div>';
+    }
+    h += '<div class="sec"><div class="kick">Locations</div>' + (done ?
+      '<div class="lrow"><span>High confidence</span><b class="tab">' + f(o.locH) + '</b></div><div class="lrow"><span>Low confidence</span><b class="tab">' + f(o.locL) + '</b></div><div class="lrow"><span>Not placed</span><b class="tab">' + f(o.locN) + '</b></div>'
+      : '<div class="note">Not placed yet.</div>') + '</div>';
+    h += '</div><div class="foot"><button type="button" class="link" data-act="data">What happens to your data</button>' +
+      '<div class="cap">Nothing leaves this computer. Files are written only when you download them.</div>' +
+      '<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button type="button" class="btn sm">Close Wholecount</button><button type="button" class="link quiet">Start over</button></div></div></aside>';
+    return h;
+  }
+
+  function content(o, c) {
+    var key = VARIANTS[S.v].key, done = S.phase === "done", running = S.phase === "running";
+    var h = '<main class="content"><div><div class="kicker">Stage 06 of 09 &middot; Run</div><h2>Process</h2>' +
+      '<div class="lede">Cleans and checks every row, places each address, looks for the same person across files, then counts.</div></div>';
+    h += '<div class="dataline" aria-label="What this stage does to your data"><span><b>Reads</b> the 9 tables you included</span><span><b>Changes</b> nothing in your files</span><span><b>Writes</b> nothing to disk until you download</span></div>';
+
+    if (key === "B" && (running || done)) {
+      if (running) {
+        h += '<section class="card top-blue" aria-live="polite"><div class="row"><div class="grow"><h3>Processing ' + f(ROWS) + ' rows</h3><div class="held-cap" style="margin-top:2px">Step ' + (S.step + 1) + ' of ' + steps.length + '. You can look around. Changes wait until it finishes.</div></div></div>' + stepList(true) + '</section>';
+      } else {
+        h += '<section class="card"><div class="fold"><b>Finished in 30.5 s.</b><span style="color:var(--muted)">7 steps. Nothing was written to disk.</span><button type="button" class="link" data-act="log" aria-expanded="' + S.logOpen + '">' + (S.logOpen ? "Hide the log" : "Show the log") + '</button></div>' + (S.logOpen ? logList() : "") + '</section>';
+        var cc = c.level === "High" ? "top-ink" : "top-amber";
+        h += '<section class="card ' + cc + '">' + confBlock(c, true) + '</section>';
+      }
+    }
+
+    if (!done) {
+      var cap = running ? (key === "A" ? "Running. Follow each step in the ledger on the left." : key === "B" ? "Running. Follow each step above." : "Running. Follow each step in the bar under the stages.") : "";
+      if (!(key === "B" && running)) {
+        h += '<section class="card ' + (running ? "" : "top-blue") + '"><div class="row"><div class="grow"><h3>What this run will do</h3><ul class="will">' +
+          '<li>Clean and check ' + f(ROWS) + ' rows from 9 tables, in memory on this computer</li>' +
+          '<li>Place each address with Geosupport, on this computer, and move each point 150 to 250 feet</li>' +
+          '<li>Look for copies inside each file, and the same person across files</li>' +
+          '<li>Count unique clients, and unique clients by program</li></ul>' +
+          '<div class="held-cap">Nothing is joined on a guess. Anything the rules cannot settle comes to you in Fix problems.</div></div>' +
+          '<div><button type="button" class="btn ' + (running ? "held" : "primary") + '" data-act="run"' + (running ? " disabled" : "") + '>Process ' + f(ROWS) + ' rows</button>' +
+          (running ? '<div class="held-cap" style="max-width:220px">' + cap + '</div>' : "") + '</div></div></section>';
+      }
+    } else {
+      h += '<section class="card top-blue"><div class="row"><div class="grow"><h3>What the run found</h3><div class="found">' +
+        '<div><b>' + f(o.clean) + '</b><span>passed every check</span></div><div><b>' + f(o.open) + '</b><span>need a decision</span></div>' +
+        '<div><b>' + f(o.aside) + '</b><span>set aside, with the reason</span></div><div><b>' + o.pairs + '</b><span>same-person pairs to decide</span></div></div></div>' +
+        '<div><button type="button" class="btn primary">Go to Fix problems</button>' +
+        (c.level === "Low" && !S.ack ? '<div class="held-cap" style="max-width:220px">Download is held until the Low confidence is ticked as seen.</div>' : "") +
+        '</div></div></section>';
+    }
+    h += '<section class="card"><h3 style="margin-bottom:10px">Settings for this run</h3><fieldset' + (running ? " disabled" : "") + '>' +
+      '<label class="opt" for="o1"><input type="checkbox" id="o1" checked><span>Place addresses with Geosupport<small>The City\'s address engine, installed on this computer.</small></span></label>' +
+      '<label class="opt" for="o2"><input type="checkbox" id="o2" checked><span>Move each point 150 to 250 feet<small>So a stored point never shows the exact building.</small></span></label>' +
+      '<label class="opt" for="o3"><input type="checkbox" id="o3"><span>Send rows that cannot be placed to Fix problems<small>Otherwise they stay clean with no location.</small></span></label>' +
+      '</fieldset>' + (running ? '<div class="held-cap">Held until the run finishes. A change now would not apply to this run.</div>' : "") + '</section>';
+    h += '<div class="cap" style="padding:2px">' + (done ? "Process again after any change upstream. The ledger says when results are out of date." : "") + '</div>';
+    h += '</main>';
+    return h;
+  }
+
+  function ticker() {
+    if (VARIANTS[S.v].key !== "C" || S.phase === "ready") return "";
+    var running = S.phase === "running", s = steps[Math.min(S.step, steps.length - 1)];
+    var overall = 0, tot = 0;
+    steps.forEach(function (x, k) { tot += x.secs; if (S.phase === "done" || k < S.step) overall += x.secs; else if (k === S.step) overall += x.secs * S.frac; });
+    var h = '<div class="ticker" aria-live="polite"><div class="ticker-row">';
+    if (running) {
+      h += '<span class="what">Step ' + (S.step + 1) + ' of ' + steps.length + ' &middot; ' + s.name + ' &middot; <span class="tab" data-count="' + S.step + '">' + f(Math.round(s.total * S.frac)) + '</span> of ' + f(s.total) + '</span>' +
+        '<span class="msg" data-msg="' + S.step + '">' + s.msgs[S.msgIdx % s.msgs.length] + '</span>';
+    } else {
+      h += '<span class="what">Last run finished in 30.5 s</span><span class="msg">7 steps, nothing written to disk</span>';
+    }
+    h += '<button type="button" class="link" data-act="drop" aria-expanded="' + S.dropOpen + '">' + (S.dropOpen ? "Hide steps" : (running ? "All steps" : "Show the log")) + '</button></div>' +
+      '<span class="thin" data-overall style="width:' + (running ? overall / tot * 100 : 0).toFixed(1) + '%"></span>';
+    if (S.dropOpen) h += '<div class="dropdown">' + (running ? stepList(true) : logList()) + '</div>';
+    return h + '</div>';
+  }
+
+  function drawer() {
+    if (!S.dataOpen) return "";
+    return '<div class="scrim" data-act="data"></div><aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="dtitle">' +
+      '<div style="display:flex;align-items:flex-start;gap:12px"><div style="flex:1"><div class="kicker">Your data</div><h2 id="dtitle" style="font-size:21px">What happens to your data</h2></div><button type="button" class="btn sm" data-act="data">Close</button></div>' +
+      '<div class="flow">' +
+      '<div class="box"><b>Your files</b><span>Opened once when you add them. Wholecount never changes them.</span></div>' +
+      '<div class="arrow">read into memory</div>' +
+      '<div class="box mem"><b>Memory on this computer</b><span>Every step works here: tidying, checking, placing, matching, counting. Nothing is sent anywhere. Closing Wholecount clears it.</span></div>' +
+      '<div class="arrow">only when you press Download</div>' +
+      '<div class="box"><b>The files you download</b><span>Written to the folder you pick. The receipt lists each one and where it went.</span></div>' +
+      '</div>' +
+      '<div class="note" style="color:var(--ink-2)"><b>Saved progress</b> holds your decisions and set-up, never rows, and is encrypted for your Windows account. You can turn it off.</div>' +
+      '<div class="never"><b>Never</b><ul><li>Sent over the internet. Wholecount cannot connect to it.</li><li>Shown to or decided by AI. There is none in Wholecount.</li><li>Written to a log. The audit log holds IDs and row numbers only.</li><li>Kept after you close, unless you saved progress.</li></ul></div>' +
+      '</aside>';
+  }
+
+  function render() {
+    var o = OUTCOMES[S.outcome], c = confidence(o);
+    document.getElementById("app").innerHTML = topbar(c) + strip(o) + ticker() + '<div class="frame">' + ledger(o, c) + content(o, c) + '</div>';
+    document.getElementById("drawer-root").innerHTML = drawer();
+    var v = VARIANTS[S.v];
+    document.getElementById("vlabel").textContent = v.key + ", " + v.name;
+  }
+
+  // Updates only the moving parts during a run, so the page stays still and readable.
+  function tick() {
+    var s = steps[S.step];
+    document.querySelectorAll('[data-bar="' + S.step + '"]').forEach(function (el) { el.style.width = (S.frac * 100).toFixed(1) + "%"; });
+    document.querySelectorAll('[data-count="' + S.step + '"]').forEach(function (el) { el.textContent = f(Math.round(s.total * S.frac)); });
+    document.querySelectorAll('[data-msg="' + S.step + '"]').forEach(function (el) { el.innerHTML = s.msgs[S.msgIdx % s.msgs.length]; });
+    var i = s.stage, p = stageProgress(i);
+    document.querySelectorAll('[data-stage-bar="' + i + '"]').forEach(function (el) { el.style.width = (p * 100).toFixed(1) + "%"; });
+    var ov = document.querySelector("[data-overall]");
+    if (ov) {
+      var tot = 0, got = 0;
+      steps.forEach(function (x, k) { tot += x.secs; if (k < S.step) got += x.secs; else if (k === S.step) got += x.secs * S.frac; });
+      ov.style.width = (got / tot * 100).toFixed(1) + "%";
+    }
+  }
+  function startRun() {
+    steps = makeSteps(OUTCOMES[S.outcome]);
+    S.phase = "running"; S.step = 0; S.frac = 0; S.msgIdx = 0; S.ack = false; S.logOpen = S.popOpen = false;
+    render();
+    var last = performance.now(), msgClock = 0;
+    clearInterval(timer);
+    timer = setInterval(function () {
+      var now = performance.now(), dt = (now - last) / 1000 * S.speed; last = now;
+      var s = steps[S.step];
+      S.frac = Math.min(1, S.frac + dt / s.secs);
+      msgClock += dt;
+      var per = s.secs / s.msgs.length;
+      if (msgClock >= per) { msgClock = 0; S.msgIdx++; }
+      if (S.frac >= 1) {
+        S.step++; S.frac = 0; S.msgIdx = 0; msgClock = 0;
+        if (S.step >= steps.length) { clearInterval(timer); S.phase = "done"; S.step = steps.length; render(); return; }
+        render();
+        return;
+      }
+      tick();
+    }, 80);
+  }
+
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-act]");
+    if (!t) return;
+    var a = t.getAttribute("data-act");
+    if (a === "run" && S.phase !== "running") startRun();
+    else if (a === "log") { S.logOpen = !S.logOpen; render(); }
+    else if (a === "data") { S.dataOpen = !S.dataOpen; render(); }
+    else if (a === "pop") { S.popOpen = !S.popOpen; render(); }
+    else if (a === "drop") { S.dropOpen = !S.dropOpen; render(); }
+  });
+  document.addEventListener("change", function (e) {
+    if (e.target.matches('[data-act="ack"]')) { S.ack = e.target.checked; render(); }
+  });
+  document.getElementById("prev").addEventListener("click", function () { setVariant(S.v - 1); });
+  document.getElementById("next").addEventListener("click", function () { setVariant(S.v + 1); });
+  document.getElementById("outcome").addEventListener("change", function (e) {
+    S.outcome = e.target.value; steps = makeSteps(OUTCOMES[S.outcome]); S.ack = false; render();
+  });
+  document.getElementById("speed").addEventListener("change", function (e) { S.speed = Number(e.target.value) || 1; });
+  document.addEventListener("keydown", function (e) {
+    var el = document.activeElement;
+    if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable)) return;
+    if (e.key === "ArrowLeft") setVariant(S.v - 1);
+    else if (e.key === "ArrowRight") setVariant(S.v + 1);
+    else if (e.key === "Escape" && (S.dataOpen || S.popOpen || S.dropOpen)) { S.dataOpen = S.popOpen = S.dropOpen = false; render(); }
+  });
+  window.addEventListener("hashchange", function () { readHash(); render(); });
+
+  readHash();
+  render();
+})();
+</script>
+
+</body></html>

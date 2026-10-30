@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Direction D, by exception</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&amp;display=swap">
+<style>
+body{margin:0;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;background:#f3f2f2;color:#201e1d}
+button{font-family:inherit}
+a{color:#2f5f88}a:hover{color:#20435f}
+</style>
+</helmet>
+<div style="width: 1280px; height: 860px; box-sizing: border-box; background: #f3f2f2; display: flex; flex-direction: column;">
+
+  <div style="height: 48px; flex-shrink: 0; background: #201e1d; color: #f3f2f2; display: flex; align-items: center; padding: 0 28px; gap: 12px;">
+    <span style="width: 12px; height: 12px; background: #2f5f88; display: inline-block;"></span>
+    <span style="font-size: 14px; font-weight: 800; letter-spacing: 0.06em;">CROSSWALK</span>
+    <span style="flex-grow: 1;"></span>
+    <span style="font-size: 11.5px; color: #d7d3d3;">5 files &middot; 7,412 rows &middot; ran in 41 seconds &middot; nothing written to disk</span>
+  </div>
+
+  <div style="flex-grow: 1; padding: 30px 28px; display: flex; flex-direction: column; gap: 18px; overflow: hidden;">
+
+    <div>
+      <h1 style="margin: 0; font-size: 33px; font-weight: 800; line-height: 1.08; letter-spacing: -0.01em;">Three things need you.</h1>
+      <div style="font-size: 14px; color: #605d5d; margin-top: 7px; max-width: 760px; line-height: 1.5;">Everything else ran on its own. Each line below is a step the tool took. Open any of them to see what it did and change it.</div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 5px;">
+
+      <div style="background: #eae9e9; border: 1px solid #d7d3d3; padding: 11px 15px; display: flex; align-items: center; gap: 14px;">
+        <span style="font-size: 10.5px; font-weight: 800; color: #605d5d; min-width: 24px;">01</span>
+        <span style="font-size: 13px; font-weight: 800; color: #444141; min-width: 230px;">Read the files</span>
+        <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">9 tables across 5 files, 7,412 rows. Header rows found on all 9.</span>
+        <button style="background: transparent; color: #444141; border: 1px solid transparent; padding: 6px 4px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline;">Open</button>
+      </div>
+
+      <div style="background: #eae9e9; border: 1px solid #d7d3d3; padding: 11px 15px; display: flex; align-items: center; gap: 14px;">
+        <span style="font-size: 10.5px; font-weight: 800; color: #605d5d; min-width: 24px;">02</span>
+        <span style="font-size: 13px; font-weight: 800; color: #444141; min-width: 230px;">Built the output columns</span>
+        <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">The standard 9. Nothing custom needed.</span>
+        <button style="background: transparent; color: #444141; border: 1px solid transparent; padding: 6px 4px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline;">Open</button>
+      </div>
+
+      <div style="background: #eae9e9; border: 1px solid #d7d3d3; padding: 11px 15px; display: flex; align-items: center; gap: 14px;">
+        <span style="font-size: 10.5px; font-weight: 800; color: #605d5d; min-width: 24px;">03</span>
+        <span style="font-size: 13px; font-weight: 800; color: #444141; min-width: 230px;">Untangled what was jammed</span>
+        <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">2 steps on legacy_export.xlsx: one address column split, one name column split. Nothing removed.</span>
+        <button style="background: transparent; color: #444141; border: 1px solid transparent; padding: 6px 4px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline;">Open</button>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid #d7d3d3; border-top: 3px solid #2f5f88; padding: 14px 15px; display: flex; align-items: flex-start; gap: 14px;">
+        <span style="font-size: 10.5px; font-weight: 800; color: #2f5f88; min-width: 24px; padding-top: 3px;">04</span>
+        <div style="min-width: 230px;">
+          <div style="font-size: 13.5px; font-weight: 800;">Matched the columns</div>
+          <span style="display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #ffffff; background: #2f5f88; padding: 3px 7px; margin-top: 5px;">NEEDS YOU</span>
+        </div>
+        <div style="flex-grow: 1; font-size: 12.5px; color: #605d5d; line-height: 1.45;">45 of 45 matched, but 2 do not look like the field they were matched to. On clinic_export.csv, City reads from a column that is blank on 301 rows while a column named Borough sits beside it.</div>
+        <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 9px 14px; font-size: 12.5px; font-weight: 800; cursor: pointer; flex-shrink: 0;">Open</button>
+      </div>
+
+      <div style="background: #eae9e9; border: 1px solid #d7d3d3; padding: 11px 15px; display: flex; align-items: center; gap: 14px;">
+        <span style="font-size: 10.5px; font-weight: 800; color: #605d5d; min-width: 24px;">05</span>
+        <span style="font-size: 13px; font-weight: 800; color: #444141; min-width: 230px;">Cleaned, checked and located</span>
+        <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">Geosupport, privacy jitter on, districts assigned. 6,180 rows passed everything.</span>
+        <button style="background: transparent; color: #444141; border: 1px solid transparent; padding: 6px 4px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline;">Open</button>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid #d7d3d3; border-top: 3px solid #2f5f88; padding: 14px 15px; display: flex; align-items: flex-start; gap: 14px;">
+        <span style="font-size: 10.5px; font-weight: 800; color: #2f5f88; min-width: 24px; padding-top: 3px;">06</span>
+        <div style="min-width: 230px;">
+          <div style="font-size: 13.5px; font-weight: 800;">Rows that failed a check</div>
+          <span style="display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #ffffff; background: #2f5f88; padding: 3px 7px; margin-top: 5px;">NEEDS YOU</span>
+        </div>
+        <div style="flex-grow: 1; font-size: 12.5px; color: #605d5d; line-height: 1.45;">1,232 rows in 4 causes. The biggest is 486 rows whose ZIP is not five digits, and 412 of those have a street the tool can look up in one go.</div>
+        <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 9px 14px; font-size: 12.5px; font-weight: 800; cursor: pointer; flex-shrink: 0;">Open</button>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid #d7d3d3; border-top: 3px solid #2f5f88; padding: 14px 15px; display: flex; align-items: flex-start; gap: 14px;">
+        <span style="font-size: 10.5px; font-weight: 800; color: #2f5f88; min-width: 24px; padding-top: 3px;">07</span>
+        <div style="min-width: 230px;">
+          <div style="font-size: 13.5px; font-weight: 800;">Worked out who is who</div>
+          <span style="display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #ffffff; background: #2f5f88; padding: 3px 7px; margin-top: 5px;">NEEDS YOU</span>
+        </div>
+        <div style="flex-grow: 1; font-size: 12.5px; color: #605d5d; line-height: 1.45;">5,940 people, 7,106 enrollments. 14 pairs could be the same person and the tool will not guess, so the first count is a range until you say.</div>
+        <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 9px 14px; font-size: 12.5px; font-weight: 800; cursor: pointer; flex-shrink: 0;">Open</button>
+      </div>
+
+    </div>
+
+    <div style="background: #201e1d; color: #f3f2f2; padding: 18px 20px; display: flex; align-items: center; gap: 24px; margin-top: auto;">
+      <div>
+        <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: #bcd3e4;">UNIQUE CLIENTS</div>
+        <div style="font-size: 30px; font-weight: 800; line-height: 1.05;">5,940</div>
+      </div>
+      <div style="width: 1px; height: 46px; background: #444141;"></div>
+      <div>
+        <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: #bcd3e4;">BY PROGRAM</div>
+        <div style="font-size: 30px; font-weight: 800; line-height: 1.05;">7,106</div>
+      </div>
+      <div style="flex-grow: 1; font-size: 12.5px; color: #d7d3d3; line-height: 1.45; max-width: 420px;">You can download now. The 1,232 open rows go out as Manual_Review_Needed with their reasons, and the counts move if you decide them first.</div>
+      <button style="background: #f3f2f2; color: #201e1d; border: 1px solid #f3f2f2; padding: 12px 18px; font-size: 13px; font-weight: 800; cursor: pointer; flex-shrink: 0;">Download 7 files</button>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":860}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

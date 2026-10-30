@@ -1,0 +1,38 @@
+from _common import *
+cases = [
+ ("Brooklyn + NJ ZIP 07030 (Hoboken)",      dict(City="Brooklyn", Zip="07030")),
+ ("Brooklyn + ZIP 99999",                    dict(City="Brooklyn", Zip="99999")),
+ ("Brooklyn + ZIP 12345",                    dict(City="Brooklyn", Zip="12345")),
+ ("Brooklyn + ZIP 00000",                    dict(City="Brooklyn", Zip="00000")),
+ ("Hempstead + Nassau ZIP 11550",            dict(City="Hempstead", Zip="11550", Addr="123 Fulton Ave")),
+ ("City blank + Nassau ZIP 11550",           dict(City="", Zip="11550", Addr="123 Fulton Ave")),
+ ("Garden City + ZIP 11530",                 dict(City="Garden City", Zip="11530", Addr="1 Franklin Ave")),
+ ("Valley Stream + ZIP 11580",               dict(City="Valley Stream", Zip="11580")),
+ ("Mineola + 11501, state blank",            dict(City="Mineola", Zip="11501", State="")),
+ ("Brooklyn + Nassau ZIP 11550 (conflict)",  dict(City="Brooklyn", Zip="11550")),
+ ("Hoboken + 10001 (NYC ZIP)",               dict(City="Hoboken", Zip="10001", State="NJ")),
+ ("Hoboken + 10001, state blank",            dict(City="Hoboken", Zip="10001", State="")),
+ ("Yonkers + 10001",                         dict(City="Yonkers", Zip="10001")),
+ ("Yonkers + ZIP 10701",                     dict(City="Yonkers", Zip="10701")),
+ ("Chelsea (MA) + ZIP 02150, state blank",   dict(City="Chelsea", Zip="02150", State="")),
+ ("Brookline (MA) + 02446, state blank",     dict(City="Brookline", Zip="02446", State="")),
+ ("Riverdale (MD) + 20737, state blank",     dict(City="Riverdale", Zip="20737", State="")),
+ ("Flushing (MI) + 48433, state blank",      dict(City="Flushing", Zip="48433", State="")),
+ ("Jamaica (VT) + 05343, state blank",       dict(City="Jamaica", Zip="05343", State="")),
+ ("Newark NJ + 07102, state NJ",             dict(City="Newark", Zip="07102", State="NJ")),
+ ("Newark + 07102, state blank",             dict(City="Newark", Zip="07102", State="")),
+ ("Manhattan + 10001",                       dict(City="Manhattan", Zip="10001")),
+ ("Brooklyn + 10001 (conflict)",             dict(City="Brooklyn", Zip="10001")),
+ ("Queens + 11201 (conflict)",               dict(City="Queens", Zip="11201")),
+ ("Queens + ZIP 11001 (Floral Park)",        dict(City="Floral Park", Zip="11001")),
+ ("Ny + ZIP 11201 (city typed NY)",          dict(City="NY", Zip="11201")),
+ ("NYC + 11201",                             dict(City="NYC", Zip="11201")),
+ ("New York + 11201",                        dict(City="New York", Zip="11201")),
+ ("Brooklyn + 10463 Marble Hill",            dict(City="Manhattan", Zip="10463", Addr="5 Marble Hill Ave")),
+ ("City='SI' ZIP 10001",                     dict(City="SI", Zip="10001")),
+ ("City='Rockaway' 11691",                   dict(City="Rockaway", Zip="11691")),
+ ("City='Rockaway NJ' 07866",                dict(City="Rockaway NJ", Zip="07866", State="")),
+]
+for label, kw in cases:
+    st, r = final(**kw)
+    show(label, st, r)

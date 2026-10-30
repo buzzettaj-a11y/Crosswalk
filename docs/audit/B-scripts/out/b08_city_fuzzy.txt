@@ -1,0 +1,91 @@
+'Brookline'                -> 'Brooklyn'       note="City: fuzzy-matched 'Brookline'->'Brooklyn' (82%)" err=''
+'Brooklin'                 -> 'Brooklyn'       note="City: fuzzy-matched 'Brooklin'->'Brooklyn' (88%)" err=''
+'Brooklyn Heights'         -> 'Brooklyn Heights' note=None err="Unrecognized City: 'Brooklyn Heights'"
+'Brooklyn Park'            -> 'Brooklyn Park'  note=None err="Unrecognized City: 'Brooklyn Park'"
+'Brookyn'                  -> 'Brooklyn'       note="City: fuzzy-matched 'Brookyn'->'Brooklyn' (93%)" err=''
+'Brooklynn'                -> 'Brooklyn'       note="City: fuzzy-matched 'Brooklynn'->'Brooklyn' (94%)" err=''
+'Bronxville'               -> 'Bronxville'     note=None err="Unrecognized City: 'Bronxville'"
+'Queensbury'               -> 'Queensbury'     note=None err="Unrecognized City: 'Queensbury'"
+'Queens Village'           -> 'Queens'         note="City: mapped neighborhood 'Queens Village' to borough 'Queens'" err=''
+"Queen's"                  -> 'Queens'         note="City: fuzzy-matched 'Queen's'->'Queens' (92%)" err=''
+'Newark'                   -> 'Newark'         note=None err="Unrecognized City: 'Newark'"
+'New Rochelle'             -> 'New Rochelle'   note=None err="Unrecognized City: 'New Rochelle'"
+'New Hyde Park'            -> 'New Hyde Park'  note=None err="Unrecognized City: 'New Hyde Park'"
+'New Britain'              -> 'New Britain'    note=None err="Unrecognized City: 'New Britain'"
+'New Yorker'               -> 'New York'       note="City: fuzzy-matched 'New Yorker'->'New York' (89%)" err=''
+'Newyork'                  -> 'New York'       note="City: normalized 'Newyork'->'New York'" err=''
+'Newyork City'             -> 'Newyork City'   note=None err="Unrecognized City: 'Newyork City'"
+'Staten'                   -> 'Staten'         note=None err="Unrecognized City: 'Staten'"
+'Statenville'              -> 'Statenville'    note=None err="Unrecognized City: 'Statenville'"
+'Staten Isle'              -> 'Staten Island'  note="City: fuzzy-matched 'Staten Isle'->'Staten Island' (83%)" err=''
+'Staten Island NY'         -> 'Staten Island'  note="City: fuzzy-matched 'Staten Island NY'->'Staten Island' (90%)" err=''
+'Manhatten'                -> 'Manhatten'      note=None err="Unrecognized City: 'Manhatten'"
+'Manhattan Beach'          -> 'Manhattan Beach' note=None err="Unrecognized City: 'Manhattan Beach'"
+'Mt Vernon'                -> 'Mt Vernon'      note=None err="Unrecognized City: 'Mt Vernon'"
+'Mount Vernon'             -> 'Mount Vernon'   note=None err="Unrecognized City: 'Mount Vernon'"
+'Yonkers'                  -> 'Yonkers'        note=None err="Unrecognized City: 'Yonkers'"
+'Jersey City'              -> 'Jersey City'    note=None err="Unrecognized City: 'Jersey City'"
+'Hoboken'                  -> 'Hoboken'        note=None err="Unrecognized City: 'Hoboken'"
+'Elmont'                   -> 'Elmont'         note=None err="Unrecognized City: 'Elmont'"
+'Elmhurst'                 -> 'Queens'         note="City: mapped neighborhood 'Elmhurst' to borough 'Queens'" err=''
+'Elmira'                   -> 'Elmira'         note=None err="Unrecognized City: 'Elmira'"
+'Flushing'                 -> 'Queens'         note="City: mapped neighborhood 'Flushing' to borough 'Queens'" err=''
+'Bayonne'                  -> 'Bayonne'        note=None err="Unrecognized City: 'Bayonne'"
+'Bronx River'              -> 'Bronx River'    note=None err="Unrecognized City: 'Bronx River'"
+'Bronxdale'                -> 'Bronxdale'      note=None err="Unrecognized City: 'Bronxdale'"
+'Throggs Neck'             -> 'Throggs Neck'   note=None err="Unrecognized City: 'Throggs Neck'"
+'Ozone Park'               -> 'Queens'         note="City: mapped neighborhood 'Ozone Park' to borough 'Queens'" err=''
+'Woodhaven'                -> 'Woodhaven'      note=None err="Unrecognized City: 'Woodhaven'"
+'Brooklyn Hts'             -> 'Brooklyn'       note="City: fuzzy-matched 'Brooklyn Hts'->'Brooklyn' (80%)" err=''
+'Bklyn Hts'                -> 'Bklyn Hts'      note=None err="Unrecognized City: 'Bklyn Hts'"
+'W Brighton'               -> 'W Brighton'     note=None err="Unrecognized City: 'W Brighton'"
+'Brighton'                 -> 'Brighton'       note=None err="Unrecognized City: 'Brighton'"
+'Jamaica Plain'            -> 'Jamaica Plain'  note=None err="Unrecognized City: 'Jamaica Plain'"
+'Kew Gardens Hills'        -> 'Kew Gardens Hills' note=None err="Unrecognized City: 'Kew Gardens Hills'"
+'Great Neck'               -> 'Great Neck'     note=None err="Unrecognized City: 'Great Neck'"
+'Long Beach'               -> 'Long Beach'     note=None err="Unrecognized City: 'Long Beach'"
+'Lawrence'                 -> 'Lawrence'       note=None err="Unrecognized City: 'Lawrence'"
+'Rockville Centre'         -> 'Rockville Centre' note=None err="Unrecognized City: 'Rockville Centre'"
+'Mineola'                  -> 'Mineola'        note=None err="Unrecognized City: 'Mineola'"
+'Hempstead'                -> 'Hempstead'      note=None err="Unrecognized City: 'Hempstead'"
+'Freeport'                 -> 'Freeport'       note=None err="Unrecognized City: 'Freeport'"
+'Valley Stream'            -> 'Valley Stream'  note=None err="Unrecognized City: 'Valley Stream'"
+'Lynbrook'                 -> 'Lynbrook'       note=None err="Unrecognized City: 'Lynbrook'"
+'Island Park'              -> 'Island Park'    note=None err="Unrecognized City: 'Island Park'"
+'New York Mills'           -> 'New York Mills' note=None err="Unrecognized City: 'New York Mills'"
+'Port Richmond'            -> 'Staten Island'  note="City: mapped neighborhood 'Port Richmond' to borough 'Staten Island'" err=''
+'Richmond'                 -> 'Richmond'       note=None err="Unrecognized City: 'Richmond'"
+'Richmond Hill'            -> 'Queens'         note="City: mapped neighborhood 'Richmond Hill' to borough 'Queens'" err=''
+'Richmond VA'              -> 'Richmond VA'    note=None err="Unrecognized City: 'Richmond VA'"
+'Queens NY'                -> 'Queens'         note="City: fuzzy-matched 'Queens NY'->'Queens' (80%)" err=''
+'NY NY'                    -> 'NY NY'          note=None err="Unrecognized City: 'NY NY'"
+'New York, NY'             -> 'New York'       note="City: fuzzy-matched 'New York, NY'->'New York' (84%)" err=''
+'Brooklyn, NY'             -> 'Brooklyn'       note="City: fuzzy-matched 'Brooklyn, NY'->'Brooklyn' (84%)" err=''
+'Brooklyn NY'              -> 'Brooklyn'       note="City: fuzzy-matched 'Brooklyn NY'->'Brooklyn' (84%)" err=''
+'Brooklyn NY 11201'        -> 'Brooklyn NY 11201' note=None err="Unrecognized City: 'Brooklyn NY 11201'"
+'Brooklyn.'                -> 'Brooklyn'       note="City: fuzzy-matched 'Brooklyn.'->'Brooklyn' (100%)" err=''
+'brooklyn,'                -> 'Brooklyn'       note="City: fuzzy-matched 'brooklyn,'->'Brooklyn' (100%)" err=''
+'BROOKLYN '                -> 'Brooklyn'       note="City: normalized 'BROOKLYN'->'Brooklyn'" err=''
+'Brooklyn (Bed-Stuy)'      -> 'Brooklyn (Bed-Stuy)' note=None err="Unrecognized City: 'Brooklyn (Bed-Stuy)'"
+'Bed-Stuy'                 -> 'Bed-Stuy'       note=None err="Unrecognized City: 'Bed-Stuy'"
+'Bed Stuy'                 -> 'Brooklyn'       note="City: mapped neighborhood 'Bed Stuy' to borough 'Brooklyn'" err=''
+'Bedford-Stuyvesant'       -> 'Bedford-Stuyvesant' note=None err="Unrecognized City: 'Bedford-Stuyvesant'"
+"Hell's Kitchen"           -> 'New York'       note="City: mapped neighborhood 'Hell's Kitchen' to borough 'New York'" err=''
+'Harlem'                   -> 'New York'       note="City: mapped neighborhood 'Harlem' to borough 'New York'" err=''
+'Spanish Harlem'           -> 'Spanish Harlem' note=None err="Unrecognized City: 'Spanish Harlem'"
+'Kips Bay'                 -> 'Kips Bay'       note=None err="Unrecognized City: 'Kips Bay'"
+'Washington Hts'           -> 'Washington Hts' note=None err="Unrecognized City: 'Washington Hts'"
+'E Harlem'                 -> 'E Harlem'       note=None err="Unrecognized City: 'E Harlem'"
+'South Bronx'              -> 'South Bronx'    note=None err="Unrecognized City: 'South Bronx'"
+'S. Bronx'                 -> 'Bronx'          note="City: fuzzy-matched 'S. Bronx'->'Bronx' (83%)" err=''
+'North Bronx'              -> 'North Bronx'    note=None err="Unrecognized City: 'North Bronx'"
+'Upper Manhattan'          -> 'Upper Manhattan' note=None err="Unrecognized City: 'Upper Manhattan'"
+'Lower Manhattan'          -> 'Lower Manhattan' note=None err="Unrecognized City: 'Lower Manhattan'"
+'Downtown Brooklyn'        -> 'Downtown Brooklyn' note=None err="Unrecognized City: 'Downtown Brooklyn'"
+'North Brooklyn'           -> 'North Brooklyn' note=None err="Unrecognized City: 'North Brooklyn'"
+'SI NY'                    -> 'SI NY'          note=None err="Unrecognized City: 'SI NY'"
+'SI, NY'                   -> 'SI, NY'         note=None err="Unrecognized City: 'SI, NY'"
+'Staten Is.'               -> 'Staten Island'  note="City: fuzzy-matched 'Staten Is.'->'Staten Island' (82%)" err=''
+'S.I.'                     -> 'Staten Island'  note="City: normalized 'S.I.'->'Staten Island'" err=''
+'Stat Island'              -> 'Staten Island'  note="City: fuzzy-matched 'Stat Island'->'Staten Island' (92%)" err=''
+'Staten Isl'               -> 'Staten Island'  note="City: fuzzy-matched 'Staten Isl'->'Staten Island' (87%)" err=''

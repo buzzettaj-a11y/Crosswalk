@@ -1,0 +1,15 @@
+== person key across two files: accents and punctuation ==
+   Maria 'Garcia'       vs Maria 'Garcia'       -> paired as possible duplicate: True
+   Maria 'Garcia'       vs MARIA 'GARCIA'       -> paired as possible duplicate: True
+   Maria 'Garcia'       vs María 'García'       -> paired as possible duplicate: False
+   Pat 'OBrien'       vs Pat "O'Brien"      -> paired as possible duplicate: False
+   Ana Maria 'Lopez'        vs Ana-Maria 'Lopez'        -> paired as possible duplicate: False
+   Jose 'Nunez'        vs José 'Núñez'        -> paired as possible duplicate: False
+
+== _corr_value (reads cells of a corrections file) ==
+   'Na'     -> 'Na'
+   'Nan'    -> ''
+   'None'   -> ''
+   'nan'    -> ''
+   'N/A'    -> 'N/A'
+   'Null'   -> 'Null'

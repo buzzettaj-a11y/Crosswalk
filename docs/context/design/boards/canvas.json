@@ -1,0 +1,172 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "A_Three_Acts.dc.html": {
+      "h": 860,
+      "title": "A · Three acts",
+      "w": 1280,
+      "x": 0,
+      "y": 1280
+    },
+    "B_Worklist.dc.html": {
+      "h": 860,
+      "title": "B · Worklist, not wizard",
+      "w": 1280,
+      "x": 1360,
+      "y": 1280
+    },
+    "C1_Files.dc.html": {
+      "h": 980,
+      "title": "01 Add your files",
+      "w": 1440,
+      "x": 0,
+      "y": 2740
+    },
+    "C1b_Tidy_By_Rule.dc.html": {
+      "h": 1340,
+      "title": "03 Tidy up, grouped by rule",
+      "w": 1440,
+      "x": 1520,
+      "y": 2740
+    },
+    "C1c_Tidy_By_Source.dc.html": {
+      "h": 1300,
+      "title": "03 Tidy up, grouped by source",
+      "w": 1440,
+      "x": 3040,
+      "y": 2740
+    },
+    "C2_Matching.dc.html": {
+      "h": 980,
+      "title": "04 Match your columns",
+      "w": 1440,
+      "x": 4560,
+      "y": 2740
+    },
+    "C2b_Program_Names.dc.html": {
+      "h": 1720,
+      "title": "05 Programs",
+      "w": 1440,
+      "x": 6080,
+      "y": 2740
+    },
+    "C3_Fix_Groups.dc.html": {
+      "h": 980,
+      "title": "07 Fix problems, step 1",
+      "w": 1440,
+      "x": 7600,
+      "y": 2740
+    },
+    "C4_Fix_Queue.dc.html": {
+      "h": 1280,
+      "title": "07 Fix problems, step 2",
+      "w": 1440,
+      "x": 9120,
+      "y": 2740
+    },
+    "C5_Results.dc.html": {
+      "h": 980,
+      "title": "08 Results",
+      "w": 1440,
+      "x": 10640,
+      "y": 2740
+    },
+    "C6_Narrow_1280.dc.html": {
+      "h": 1320,
+      "title": "1280 wide, ledger as a band",
+      "w": 1280,
+      "x": 0,
+      "y": 5060
+    },
+    "C_Cockpit.dc.html": {
+      "h": 860,
+      "title": "C · Cockpit",
+      "w": 1280,
+      "x": 2720,
+      "y": 1280
+    },
+    "D_By_Exception.dc.html": {
+      "h": 860,
+      "title": "D · By exception",
+      "w": 1280,
+      "x": 4080,
+      "y": 1280
+    },
+    "Main.dc.html": {
+      "h": 840,
+      "title": "Today, and where it bites",
+      "w": 1440,
+      "x": 1960,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-09-18T15:00:00Z",
+    "v": 1
+  },
+  "designSystems": [
+    {
+      "title": "Crosswalk style guide",
+      "namespace": "crosswalk",
+      "artifact": "https://claude.ai/artifact/Pp4gkW8gT8TRbBW2fFdEQN",
+      "version": null,
+      "copiedAt": "2026-09-22T16:50:00Z"
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "built": {
+      "kind": "title1",
+      "maxW": 8000,
+      "text": "C, the cockpit, built out",
+      "w": 240,
+      "x": 0,
+      "y": 2440
+    },
+    "diag": {
+      "kind": "title1",
+      "maxW": 1440,
+      "text": "Where it gets clunky today",
+      "w": 240,
+      "x": 1960,
+      "y": -300
+    },
+    "dirs": {
+      "kind": "title1",
+      "maxW": 5360,
+      "text": "Four ways to shape it",
+      "w": 240,
+      "x": 0,
+      "y": 920
+    },
+    "narrow": {
+      "kind": "title1",
+      "maxW": 1280,
+      "text": "Under 1360 wide, nothing scrolls sideways",
+      "w": 240,
+      "x": 0,
+      "y": 4760
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "A_Three_Acts.dc.html",
+    "B_Worklist.dc.html",
+    "C_Cockpit.dc.html",
+    "D_By_Exception.dc.html",
+    "C1_Files.dc.html",
+    "C1b_Tidy_By_Rule.dc.html",
+    "C1c_Tidy_By_Source.dc.html",
+    "C2_Matching.dc.html",
+    "C2b_Program_Names.dc.html",
+    "C3_Fix_Groups.dc.html",
+    "C4_Fix_Queue.dc.html",
+    "C5_Results.dc.html",
+    "C6_Narrow_1280.dc.html"
+  ],
+  "pages": [],
+  "title": "Crosswalk workflow redesign"
+}

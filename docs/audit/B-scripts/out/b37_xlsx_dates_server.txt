@@ -1,0 +1,10 @@
+frame intake.xlsx :: Sheet :: A1:H5
+  First Name Last Name Client ID Street Address      City State    Zip         DOB
+0        Ana     Lopez      6001     10 Main St  Brooklyn    NY  11201  1990-03-04
+1         Bo      Chen      6002     12 Oak Ave    Queens    NY  11355  1985-12-25
+2         Cy      Diaz      6003      14 Elm St     Bronx    NY  10452  03/04/1990
+3         Di      Khan      6004     16 Pine St  Brooklyn    NY  11201       32874
+6001 CLEAN | DOB stored: '1990-03-04'
+6002 CLEAN | DOB stored: '1985-12-25'
+6003 CLEAN | DOB stored: '1990-03-04'
+6004 CLEAN | DOB stored: '1990-01-01'

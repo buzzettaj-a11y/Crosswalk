@@ -1,0 +1,23 @@
+== 1. Tier-1 / same-ID rule across FILES (spec says: within one file) ==
+   A.csv 1001 Maria Lopez -> REVIEW: Same Client ID '1001' used by records with different data; review required (not merged)
+   B.csv 1001 John Chen -> REVIEW: Same Client ID '1001' used by records with different data; review required (not merged)
+
+== 2. identical person key + same ID across two systems: second file's row is set aside ==
+   A.csv 1001 -> CLEAN
+   B.csv 1001 -> REVIEW: Confirmed duplicate: identical record with the same Client ID
+
+== 3. same ID, same name/address/ZIP/program but DIFFERENT date of birth: engine says 'identical record' ==
+   1001 1990-03-04 -> CLEAN
+   1001 1955-09-09 -> REVIEW: Confirmed duplicate: identical record with the same Client ID
+
+== 4. same ID, different middle initial / suffix only ==
+   77 Smith -> REVIEW: Same Client ID '77' used by records with different data; review required (not merged)
+   77 Smith Jr -> REVIEW: Same Client ID '77' used by records with different data; review required (not merged)
+
+== 5. within-file rule: default fields First+Last+Zip group two different people ==
+  groups (row positions): [[0, 1], [3, 4]]
+
+== 6. stale decision: a 'copies' decision made for 2 rows silently covers a third person added later ==
+  group shown to the reviewer: [1, 2] gid bc6648ad10
+  same gid after a third, different person is added: True
+  __dup_drop__ column: ['', 'copy of row 1', 'copy of row 1']

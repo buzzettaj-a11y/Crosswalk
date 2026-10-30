@@ -1,0 +1,21 @@
+G1 settled=7 low=7 high=7 open=0 | G2=9 no_program=0 | rows={'input': 12, 'clean': 12, 'review': 0, 'aside': 0}
+truth: rows=12 -> people: P1(2 rows) + P2 + P3 + P4 + P5 + P6(2 rows) + P7 + P7b + P8 + P9 = 10 people
+Goal 1 reported: {'count': 7, 'low': 7, 'high': 7, 'open': 0, 'auto': 5, 'confirmed': 0}
+  Master_ID First_Name  Last_Name Source_Record_Count                           Source_Rows
+0   M000001      Maria  Rodriguez                   2  A.csv :: A1:I7||0; B.csv :: A1:I7||0
+1   M000002     Jordan      Smith                   2  A.csv :: A1:I7||1; B.csv :: A1:I7||1
+2   M000003     Robert      Smith                   2  A.csv :: A1:I7||2; B.csv :: A1:I7||2
+3   M000004        Ana      Perez                   2  A.csv :: A1:I7||3; B.csv :: A1:I7||3
+4   M000005       Luis       Diaz                   2  A.csv :: A1:I7||4; B.csv :: A1:I7||4
+5   M000006     Carlos       Vega                   1                     A.csv :: A1:I7||5
+6   M000007      Elena       Vega                   1                     B.csv :: A1:I7||5
+
+auto_links (not shown on the screen except as a count):
+   ('A.csv :: A1:I7||0', 'B.csv :: A1:I7||0') 128 ['date of birth matches exactly', 'surname matches', 'given name matches', 'address matches']
+   ('A.csv :: A1:I7||4', 'B.csv :: A1:I7||4') 128 ['date of birth matches exactly', 'surname matches', 'given name matches', 'address matches']
+   ('A.csv :: A1:I7||2', 'B.csv :: A1:I7||2') 112 ['dates of birth differ by a single digit', 'surname matches', 'given name matches', 'address matches']
+   ('A.csv :: A1:I7||3', 'B.csv :: A1:I7||3') 112 ['day and month are the other way round', 'surname matches', 'given name matches', 'address matches']
+   ('A.csv :: A1:I7||1', 'B.csv :: A1:I7||1') 102 ['date of birth matches exactly', 'surname matches', 'address matches']
+open proposals (shown on screen):
+API proposals payload keys: None
+proposal payload carries points: False

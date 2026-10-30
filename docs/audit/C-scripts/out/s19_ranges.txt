@@ -1,0 +1,13 @@
+== product sample files
+   open proposals: 14
+   screen Goal 1: settled/high=256 low=244 | independent low=244 -> OK
+   screen Goal 2: single number 52 (no range) | independent: high=52 low-if-all-accepted=51
+   Goal 2 range that should be shown: 51 to 52  -> screen shows only 52
+   programs whose per-program count would change if all open pairs are accepted: {'Housing': (14, 15)}
+   e.g. Ada Sample clinic_export.csv  | Ada Sample clinic_export.csv  | surname matches | points 86
+   e.g. Ada Sample clinic_export.csv  | Ada Sample clinic_export.csv  | surname matches | points 86
+
+== only accepted rows count: set-aside and in-review rows are excluded
+   clean=86 review=8 aside=0; Unique_Clients covers 86 source rows -> OK
+   after accept_all + aside: clean=88 review=4 aside=2; covered 88 -> OK
+   any in-review/aside row counted as a person: False

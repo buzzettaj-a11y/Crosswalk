@@ -1,0 +1,40 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap">
+<style>
+body { margin: 0; background: var(--bg-page); font-family: var(--font-sans); }
+.cover { position: relative; width: 960px; height: 288px; background: var(--bg-page); overflow: hidden; }
+.cover svg { position: absolute; left: 0; top: 0; }
+.b { fill: var(--blue-500); } .k { fill: var(--ink); } .g { fill: var(--green-500); } .a { fill: var(--amber-500); } .t { fill: var(--bg-surface); }
+.p { stroke: var(--bg-page); stroke-width: 1; fill: none; }
+.name { position: absolute; left: 32px; bottom: 58px; margin: 0; font-size: 72px; font-weight: 800; line-height: .92; letter-spacing: -0.01em; color: var(--ink); max-width: 440px; }
+.tag { position: absolute; left: 32px; bottom: 32px; margin: 0; font-size: 13px; line-height: 1.3; color: var(--muted); max-width: 440px; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <!--
+    blocks: blue-500 480x120, ink 480x72, green-500 480x48, amber-500 480x24, bg-surface 480x24; heights are space-6 x 5, 3, 2, 1, 1
+    arrangement: a strip of unequal bands stacked down the right half, biggest for the brand hue, in the order the ledger bar stacks its states
+    pattern: the precise, technical row; a plus grid in bg-page over the blue band, chosen because the app is a grid of one-pixel rules and live counts, and the strip caption reads like an instrument
+    scales: pitch 48 = 2 x space-6, arms 8 = 2 x space-1, corners radius-none
+  -->
+  <svg width="960" height="288" viewBox="0 0 960 288" aria-hidden="true">
+    <rect class="b" x="480" y="0" width="480" height="120"/>
+    <rect class="k" x="480" y="120" width="480" height="72"/>
+    <rect class="g" x="480" y="192" width="480" height="48"/>
+    <rect class="a" x="480" y="240" width="480" height="24"/>
+    <rect class="t" x="480" y="264" width="480" height="24"/>
+    <g class="p">
+      <path d="M500 24h8M504 20v8M548 24h8M552 20v8M596 24h8M600 20v8M644 24h8M648 20v8M692 24h8M696 20v8M740 24h8M744 20v8M788 24h8M792 20v8M836 24h8M840 20v8M884 24h8M888 20v8M932 24h8M936 20v8"/>
+      <path d="M500 72h8M504 68v8M548 72h8M552 68v8M596 72h8M600 68v8M644 72h8M648 68v8M692 72h8M696 68v8M740 72h8M744 68v8M788 72h8M792 68v8M836 72h8M840 68v8M884 72h8M888 68v8M932 72h8M936 68v8"/>
+    </g>
+  </svg>
+  <h1 class="name">Crosswalk</h1>
+  <p class="tag">Offline client data cleaning, matching and counting.</p>
+</div>
+</body>
+</html>

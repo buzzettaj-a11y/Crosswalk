@@ -1,0 +1,10 @@
+Client_ID,First_Name,Last_Name,Address_1,City,State,Zip,Program,DOB
+C001,Zebulon,Quillfeather,742 Evergreen Terrace,Brooklyn,NY,11201,Elder Care,1961-03-14
+C002,Marigold,Thistlewood,19 Pomegranate Ln Apt 5C,Bronx,NY,10451,Elder Care,1975-07-02
+C003,Ignatius,Wobblesworth,88 Kumquat Way,Queens,NY,11101,Workforce,not-a-real-date-ZORP
+C004,Philomena,Dingleberry,5 Zucchini Ct,Brookln,NY,11201,Workforce,1980-01-01
+C005,Barnaby,Fiddlesticks,31 Rhubarb Rd,Gotham,NY,1234,Youth,1999-12-31
+C006,Octavia,Pemberton,60 Turnip St,Staten Island,NJ,10301,Youth,1990-05-05
+C007,Leopold,Snodgrass,12 Parsnip Pl,Manhattan,NY,10001,Elder Care,1944-11-11
+C007,Wilhelmina,Grumblethorpe,900 Radish Blvd,Brooklyn,NY,11215,Elder Care,1952-02-02
+C009,Cornelius,Bumblefoot,77 Beetroot Ave,Brooklyn,NY,,Workforce,1970-10-10

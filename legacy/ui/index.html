@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crosswalk</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="shell">
+  <div id="busy" class="busy" hidden>
+    <div class="busy-bar"><i></i></div>
+    <div class="busy-label"><span class="spin"></span><span id="busy-text">Working</span></div>
+  </div>
+  <div id="working" class="working" hidden aria-live="polite">
+    <div class="working-card">
+      <div class="spin big"></div>
+      <div class="working-title" id="working-title">Processing</div>
+      <div class="working-msg" id="working-msg"></div>
+      <div class="working-left" id="working-left"></div>
+      <div class="working-bar"><i id="working-fill"></i></div>
+      <div class="working-note">You can get back to work as soon as this finishes. Nothing is being written to disk.</div>
+    </div>
+  </div>
+  <aside class="rail" id="rail"></aside>
+  <main class="content" id="content"></main>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

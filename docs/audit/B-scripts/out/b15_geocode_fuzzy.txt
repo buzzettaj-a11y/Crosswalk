@@ -1,0 +1,45 @@
+W vs E: ask 100 E 10 St (ZIP typo 10011), ref has only 100 W 10 St
+    CLEAN | status='Unverified' conf='' geo=no_match latlon=('', '')
+    []
+house no: ask 111 Main St, ref has 11 Main St only
+    CLEAN | status='Verified (low confidence)' conf='Low' geo=fuzzy latlon=('40.704000', '-73.980000')
+    []
+house no: ask 1 Main St, ref has 11 Main St only
+    CLEAN | status='Verified (low confidence)' conf='Low' geo=fuzzy latlon=('40.704000', '-73.980000')
+    []
+avenue letter: ask Avenue U, ref has Avenue V only
+    CLEAN | status='Verified (low confidence)' conf='Low' geo=fuzzy latlon=('40.595000', '-73.960000')
+    []
+avenue letter: ask 1 Avenue W, ref has Avenue V only
+    CLEAN | status='Unverified' conf='' geo=no_match latlon=('', '')
+    []
+swapped numbers: ask 40 W 100 St, ref has 100 W 40 St
+    CLEAN | status='Verified (low confidence)' conf='Low' geo=fuzzy latlon=('40.754000', '-73.986000')
+    []
+Fulton St vs Fulton Ave: ask 123 Fulton Ave, ref has Fulton St
+    CLEAN | status='Unverified' conf='' geo=no_match latlon=('', '')
+    []
+Beach 9 vs Beach 19: ask 5 Beach 19 St, ref has 5 Beach 9 St
+    CLEAN | status='Unverified' conf='' geo=no_match latlon=('', '')
+    []
+typo only: ask 123 Fultin St, ref has 123 Fulton St (should match)
+    CLEAN | status='Verified (low confidence)' conf='Low' geo=fuzzy latlon=('40.692000', '-73.987000')
+    []
+unit left in street: 123 Fulton St Apt B (should match)
+    CLEAN | status='Unverified' conf='' geo=no_match latlon=('', '')
+    []
+numbered street: ask 100 W 100 St, ref has 100 W 10 St only
+    CLEAN | status='Verified (low confidence)' conf='Low' geo=fuzzy latlon=('40.735000', '-73.999000')
+    []
+numbered street: ask 12 W 40 St, ref has 12 W 4 St only
+    CLEAN | status='Verified (low confidence)' conf='Low' geo=fuzzy latlon=('40.730000', '-73.995000')
+    []
+numbered street: ask 45 Beach 90 St, ref has 45 Beach 9 St only
+    CLEAN | status='Verified (low confidence)' conf='Low' geo=fuzzy latlon=('40.590000', '-73.820000')
+    []
+exact: 100 W 10 St
+    CLEAN | status='Verified' conf='High' geo=exact latlon=('40.735000', '-73.999000')
+    []
+exact w/ require_geocode, fuzzy wrong building
+    CLEAN | status='Verified (low confidence)' conf='Low' geo=fuzzy latlon=('40.704000', '-73.980000')
+    []

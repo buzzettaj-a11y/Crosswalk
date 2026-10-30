@@ -1,0 +1,10 @@
+tables: [{'key': 'b.csv :: A1:I2', 'rows': 1, 'cols': 9, 'headerRow': 1}, {'key': 'b.csv :: A5:I6', 'rows': 2, 'cols': 9, 'headerRow': 0}]
+frame b.csv :: A1:I2 rows: 1
+  Client_ID First_Name Last_Name
+0        A1        Ada       Lee
+frame b.csv :: A5:I6 rows: 2
+  Column_1 Column_2 Column_3
+0       A2      Ben      Cho
+1       A3       Cy      Roe
+Process -> {'input': 1, 'clean': 1, 'review': 0, 'aside': 0} | Final_Clean ids: ['A1']
+audit mentions of this table: ['  b.csv', 'Table b.csv :: A1:I2: included, 1 rows, header row 1', 'Table b.csv :: A5:I6: not included, 2 rows, header row 0', 'Matching for b.csv: First_Name<-First_Name, Last_Name<-Last_Name, Client_ID<-Client_ID, Address_1<-Address, City<-City, ']

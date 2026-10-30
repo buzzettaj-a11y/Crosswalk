@@ -1,0 +1,3 @@
+BEFORE deciding any open pair: goal1 {'count': 265, 'low': 251, 'high': 265, 'open': 17, 'auto': 1, 'confirmed': 0} | goal2 shown as one number: 52 | goal2 object keys: ['count', 'more', 'no_program', 'programs', 'rows', 'totals']
+AFTER every open pair is decided 'same': goal1 {'count': 251, 'low': 251, 'high': 251, 'open': 0, 'auto': 1, 'confirmed': 17} | goal2 51
+AFTER every open pair is decided 'different': goal1 {'count': 265, 'low': 265, 'high': 265, 'open': 0, 'auto': 1, 'confirmed': 0} | goal2 52

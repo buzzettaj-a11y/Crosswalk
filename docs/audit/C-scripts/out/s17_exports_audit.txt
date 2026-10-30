@@ -1,0 +1,17 @@
+audit bytes: 5923
+data values found inside Secure_Audit_Log, by column: {'Address_2': ['Apt 7F']}
+    [P.csv :: A1:J8 | ID P3 | src-row 2] [1 Address parsing | segregated] Unit conflict: the address says 'Apt 4D' but Address_2 says 'Apt 7F'; confirm which is correct
+    [P.csv :: A1:J8 | ID P4 | src-row 3] [2 Standardization | fixed] Zip: trimmed ZIP+4 to 5-digit
+    [P.csv :: A1:J8 | ID P6 | src-row 5] [3 Verification | segregated] City/ZIP conflict: City says 'Queens' but ZIP 10451 is in Bronx; confirm which is correct
+    [A.csv :: A1:I48 | ID A902 | src-row 42] [3 Verification | segregated] City/ZIP conflict: City says 'Queens' but ZIP 10451 is in Bronx; confirm which is correct
+    [P.csv :: A1:J8 | ID <file> | src-row -1] [5 Quality | annotated] 4/7 clean (57%); top issue: Unit conflict
+
+Download screen column chips : ['First_Name', 'Middle_Initial', 'Last_Name', 'Client_ID', 'Address_1', 'Address_2', 'City', 'State', 'Zip', 'Program', 'DOB', 'Latitude', 'Longitude', 'Verification_Status', 'Geocode_Confidence', 'Possible_Duplicate', 'Duplicate_In_File', 'Senate_District', 'Assembly_District', 'Council_District', 'Source_File', 'Source_Row']
+Final_Clean_Mapped columns   : ['First_Name', 'Middle_Initial', 'Last_Name', 'Client_ID', 'Address_1', 'Address_2', 'City', 'State', 'Zip', 'Program', 'DOB', 'Latitude', 'Longitude', 'Verification_Status', 'Geocode_Confidence', 'Possible_Duplicate', 'Duplicate_In_File', 'Senate_District', 'Assembly_District', 'Council_District', 'Source_File', 'Source_Row', 'Resolution_Status']
+in file, not on screen       : ['Resolution_Status']
+after switching Resolution_Status off, still in file: False
+after switching DOB off, DOB in clean file: False | DOB still used for identity: 74
+Unique_Clients columns: ['Master_ID', 'First_Name', 'Last_Name', 'Address_1', 'Zip', 'Programs', 'Program_Count', 'Systems', 'Source_Record_Count', 'Source_Client_IDs', 'Source_Rows']
+Set_Aside columns     : ['Set_Aside_Reason', 'Source_File', 'Source_Row', 'First_Name', 'Middle_Initial', 'Last_Name', 'Client_ID', 'Address_1', 'Address_2', 'City', 'State', 'Zip', 'Program', 'DOB']
+Manual_Review columns (head): ['Source_File', 'Source_Row', 'Resolution_Status', 'Error_Reason', 'Scenario_Flags', 'orig::Client_ID']
+Quality columns       : ['Source_File', 'Total_Rows', 'Clean_Rows', 'Review_Rows', 'Clean_Rate', 'Top_Issue', 'Carries_PII']

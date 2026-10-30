@@ -1,0 +1,24 @@
+baseline: G1 settled=71 low=71 high=71 open=0 | G2=86 no_program=0 | rows={'input': 94, 'clean': 88, 'review': 4, 'aside': 2}
+
+1. C.csv excluded, no re-run
+   sources screen says rows staged: 78 | Results says rows received: 94
+   Download screen:  {'input': 94, 'clean': 88, 'review': 4, 'aside': 2, 'kept': 2}
+   audit set-up says C.csv: ['Table C.csv :: A1:I17: not included, 16 rows, header row 1']
+   Final_Clean_Mapped still contains C.csv rows: 16
+
+2. Last_Name remapped to the Address column (a wrong choice), no re-run
+   Results: G1 settled=71 low=71 high=71 open=0 | G2=86 no_program=0 | rows={'input': 94, 'clean': 88, 'review': 4, 'aside': 2}
+   audit set-up Matching for B.csv: ['Matching for B.csv: First_Name<-First_Name, Last_Name<-Address, Client_ID<-Client_ID, Addr']
+   Final_Clean_Mapped B.csv Last_Name sample: ['Alvarez', 'Alvarez']
+
+3. header row set to 2 on A.csv (drops the first data row), no re-run
+   response: {'ok': True, 'columns': ['A000', 'Ada', 'Alvarez', '1950-01-01', '125 Worth St', 'New York', 'NY', '10013', 'Housing'], 'rows': 46}
+   S['tables'] rows column still says: 47 | frame now has: 46
+   Results rows received: 94 | sources screen rows: 93
+   audit says: ['Table A.csv :: A1:I48: included, 47 rows, header row 2']
+   actions still held: 3 -> rids now point at different rows
+
+4. (fresh) program group changed after the run, no re-run
+   baseline: G1 settled=71 low=71 high=71 open=0 | G2=86 no_program=0 | rows={'input': 94, 'clean': 88, 'review': 4, 'aside': 2}
+   Youth merged into Housing, Results still say: G1 settled=71 low=71 high=71 open=0 | G2=86 no_program=0 | rows={'input': 94, 'clean': 88, 'review': 4, 'aside': 2} {'Housing': 21, 'Older Adult Services': 20, 'Workforce': 22, 'Youth': 23}
+   audit set-up says: ['Matching for A.csv: First_Name<-First_Name, Last_Name<-Last_Name, Client_ID<-Client_ID, Address_1<-Address, City<-City, State<-State, Zip<-Zip, Program<-Program, DOB<-DOB', 'Matching for B.csv: First_Name<-First_Name, Last_Name<-Last_Name, Client_ID<-Client_ID, Address_1<-Address, City<-City, State<-State, Zip<-Zip, Program<-Program, DOB<-DOB', 'Matching for C.csv: First_Name<-First_Name, Last_Name<-Last_Name, Client_ID<-Client_ID, Address_1<-Address, City<-City, State<-State, Zip<-Zip, Program<-Program, DOB<-DOB']

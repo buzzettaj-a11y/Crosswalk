@@ -1,0 +1,7 @@
+proposed groups shown on Programs stage:
+    Youth Employment ['Youth Employment', 'Youth Services'] needs_confirming = True
+    Level 2 ['Level 2', 'Level 1'] needs_confirming = True
+server alias map after only LOADING the screen: {'Youth Employment': 'Youth Employment', 'Youth Services': 'Youth Employment', 'Level 2': 'Level 2', 'Level 1': 'Level 2'}
+run: done
+Program stored on the processed rows (no person confirmed anything): Counter({'Youth Employment': 16, 'Level 2': 7})
+flags example: ["Program 'Youth Services' recorded as 'Youth Employment', the agreed name for it"]

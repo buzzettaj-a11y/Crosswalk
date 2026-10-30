@@ -1,0 +1,30 @@
+<!-- @dsCard group="Controls" height=120 subtitle="Primary, secondary, quiet, held" -->
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap">
+<style>
+body { margin: 0; background: var(--bg-page); font-family: var(--font-sans); color: var(--ink); }
+.row { display: flex; align-items: flex-start; gap: 20px; padding: 20px; flex-wrap: wrap; }
+.stack { display: flex; flex-direction: column; gap: 6px; }
+.lbl { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+button { font-family: inherit; font-size: 12.5px; font-weight: 800; padding: 10px 14px; cursor: pointer; border-radius: 0; }
+.primary { background: var(--blue-500); color: #ffffff; border: 1px solid var(--blue-500); }
+.secondary { background: var(--bg-card); color: var(--ink); border: 1px solid var(--line-2); }
+.quiet { background: transparent; border: 1px solid transparent; color: var(--blue-500); text-decoration: underline; padding: 10px 6px; }
+.quiet.lesser { color: var(--ink-2); }
+.held { background: var(--bg-surface); color: var(--muted); border: 1px solid var(--line-2); }
+.cap { font-size: 11px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="stack"><span class="lbl">Primary</span><button class="primary">Look up all 412</button></div>
+  <div class="stack"><span class="lbl">Secondary</span><button class="secondary">Send to row by row</button></div>
+  <div class="stack"><span class="lbl">Quiet, navigation</span><button class="quiet">Preview</button></div>
+  <div class="stack"><span class="lbl">Quiet, lesser action</span><button class="quiet lesser">Accept all as they are</button></div>
+  <div class="stack"><span class="lbl">Held</span><button class="held">Continue to Process</button><span class="cap">held until 2 groups are confirmed</span></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+express check: ok = True | warnings = [] | blockers = []
+typed José Núñez    -> stored First='Jos�' Last='N��ez'  CLEAN
+typed Zoë Müller   -> stored First='Zo�' Last='M�ller'  CLEAN
+typed Ana Peña     -> stored First='Ana' Last='Pe�a'  CLEAN
+typed Renée O'Brien  -> stored First='Ren�e' Last="O'Brien"  CLEAN
+typed Bo Chen     -> stored First='Bo' Last='Chen'  CLEAN
+typed Cy Diaz     -> stored First='Cy' Last='Diaz'  CLEAN
+typed Di Khan     -> stored First='Di' Last='Khan'  CLEAN
+typed Ed Ortiz    -> stored First='Ed' Last='Ortiz'  CLEAN

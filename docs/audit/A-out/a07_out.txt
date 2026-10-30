@@ -1,0 +1,17 @@
+groups: [('zipbad', 7), ('idconflict', 3)]
+BEFORE preview: actions = 2 | rows {'input': 266, 'clean': 266, 'review': 0, 'aside': 0} | goal1 265 goal2 52
+   review tallies: {'flagged': 10, 'failed': 10, 'cleared': 10, 'queue': 10, 'undecided': 0, 'decided': 2, 'groups_total': 2}
+--- T1: press 'Preview the counts' on the Programs stage
+   HTTP 200
+AFTER  preview: actions = 0 | tallies: {'flagged': 10, 'failed': 10, 'cleared': 0, 'queue': 0, 'undecided': 10, 'decided': 0, 'groups_total': 2}
+   rows {'input': 266, 'clean': 256, 'review': 10, 'aside': 0} | goal1 256 goal2 52
+--- T2: decisions, program grouping, then close and resume
+   session id s20261030-160013 | id_decisions 6 | program_aliases 4 | actions 2
+   BEFORE close: goal1 {'count': 261, 'low': 251, 'high': 261, 'open': 11, 'auto': 1, 'confirmed': 6} goal2 51
+   keys in the saved file: ['actions', 'cols_off', 'confirmed', 'dedupe_rules', 'dup_decisions', 'dup_fields', 'fmt', 'gde_fields', 'header_row', 'included', 'map_ov', 'max_stage', 'mode', 'ops', 'queue_edits', 'schema', 'settings', 'source_defaults', 'stage']
+   saved file has id_decisions: False | program_groups: False | program_aliases: False
+   resume said: {'ok': True, 'sources': ['clinic_export.csv', 'legacy_export.xlsx', 'partner_export.tsv', 'portal_export.json', 'state_export.xml'], 'stage': 1, 'decisions': 2}
+   after resume: id_decisions 0 | program_aliases 0 | actions 2
+   files back; actions still 2
+   after Process: actions 0 | queue_edits 0
+   AFTER resume + Process: rows {'input': 266, 'clean': 256, 'review': 10, 'aside': 0} goal1 {'count': 256, 'low': 244, 'high': 256, 'open': 14, 'auto': 0, 'confirmed': 0} goal2 52

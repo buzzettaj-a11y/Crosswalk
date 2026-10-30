@@ -1,0 +1,7 @@
+group: [(6, 'A005'), (47, 'A950')] on table A.csv :: A1:I48
+decision copies:47: A950 -> clean | A005 -> review/aside: Pending
+resume -> {'ok': True, 'sources': ['A.csv', 'B.csv', 'C.csv'], 'stage': 1, 'decisions': 0}
+dup_decisions restored: {'A.csv :: A1:I48': {'8903f66758': 'copies:47'}}
+same group now shows rows: [(8, 'A005'), (9, 'A950')] | decision: copies:47
+after changed file:  A950 -> review/aside: Pending | A005 -> clean
+(the reviewer chose to keep A950's row and set A005 aside; the opposite happened)

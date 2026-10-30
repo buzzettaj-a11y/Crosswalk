@@ -1,0 +1,7 @@
+frame zeros.csv :: A1:G5
+  First Name Last Name             Client ID Street Address        City State    Zip
+0        Ana     Lopez               0012345     10 Main St     Hoboken    NJ  07030
+1         Bo      Chen  12345678901234567890     12 Oak Ave      Queens    NY  11355
+2         Cy      Diaz                   1E5      14 Elm St       Bronx    NY  10452
+3         Di      Khan                 00501     16 Pine St  Holtsville    NY  00501
+dtypes: {'First Name': 'str', 'Last Name': 'str', 'Client ID': 'str', 'Street Address': 'str', 'City': 'str', 'State': 'str', 'Zip': 'str'}

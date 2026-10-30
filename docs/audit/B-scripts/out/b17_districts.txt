@@ -1,0 +1,5 @@
+districts are from the true point, not the jittered one (5 Edge St is 5 ft inside A; jitter moves it 150-250 ft):
+   40 seeds: district always A (10/20/30); stored point landed in B on 16 of 40 seeds, so the stored point and its district disagree on those rows
+
+ask '1 Main St' (truly district A, 10/20/30) with only '11 Main St' (district B) in the reference:
+   ('CLEAN', 'Verified (low confidence)', 'Low', '40.703431', '-73.980159', ('11', '21', '31'))

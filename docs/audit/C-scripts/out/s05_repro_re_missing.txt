@@ -1,0 +1,3 @@
+GET /api/ui?screen=review -> 500 Internal Server Error
+GET /api/ui?screen=summary -> 200
+summary rows: {'input': 2, 'clean': 1, 'review': 1, 'aside': 0}

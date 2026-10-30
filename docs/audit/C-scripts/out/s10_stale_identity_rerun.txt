@@ -1,0 +1,7 @@
+A. first run         : G1 settled=70 low=70 high=70 open=0 | G2=84 no_program=0 | rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0}
+B. C.csv excluded + Process again (before opening Results):
+   rows: {'input': 78, 'clean': 70, 'review': 8, 'aside': 0}
+    G1 settled=70 low=70 high=70 open=0 | G2=84 no_program=0 | rows={'input': 78, 'clean': 70, 'review': 8, 'aside': 0}
+[B] rows={'input': 78, 'clean': 70, 'review': 8, 'aside': 0} G1(low,settled,high)=(70, 70, 70) G2=84 files(clean,review,aside)=(70, 8, 0) frames=78
+    FAIL -> COUNTED ROWS: Unique_Clients covers 86 source rows but Final_Clean_Mapped has 70
+C. same state, identity recomputed from scratch: G1 settled=55 low=55 high=55 open=0 | G2=69 no_program=0 | rows={'input': 78, 'clean': 70, 'review': 8, 'aside': 0}

@@ -1,0 +1,265 @@
+First_Name,Middle_Initial,Last_Name,Client_ID,Address_1,Address_2,City,State,Zip,Program,DOB,Latitude,Longitude,Verification_Status,Geocode_Confidence,Possible_Duplicate,Duplicate_In_File,Senate_District,Assembly_District,Council_District,Source_File,Source_Row,Resolution_Status
+Ada,,Sample,,125 Worth St,Apt 4B,New York,NY,10013,,,,,Unverified,,,F1,,,,clinic_export.csv :: A1:B63,0,Passed every check
+Ben,,Sample,,1 Bowling Green,#3L,New York,NY,10004,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,1,Passed every check
+Cara,,Sample,,851 Grand Concourse,Suite 200,Bronx,NY,10451,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,2,Passed every check
+Devi,,Sample,,2488 Grand Concourse,Fl 3,Bronx,NY,10458,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,3,Passed every check
+Evan,,Sample,,209 Joralemon St,Unit 5,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,4,Passed every check
+Faye,,Sample,,360 Adams St,Penthouse,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,5,Passed every check
+Gus,,Sample,,118 Nassau Ave,,Brooklyn,NY,11222,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,6,Passed every check
+Hana,,Sample,,40-22 24th St,Apt 4B,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,7,Passed every check
+Ivo,,Sample,,30-30 Northern Blvd,#3L,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,8,Passed every check
+Jae,,Sample,,10 Richmond Terrace,Suite 200,Staten Island,NY,10301,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,9,Passed every check
+Kira,,Sample,,125 Worth St,Fl 3,New York,NY,10013,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,10,Passed every check
+Leo,,Sample,,1 Bowling Green,Unit 5,New York,NY,10004,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,11,Passed every check
+Mira,,Sample,,851 Grand Concourse,Penthouse,Bronx,NY,10451,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,12,Passed every check
+Nate,,Sample,,2488 Grand Concourse,,Bronx,NY,10458,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,13,Passed every check
+Opal,,Sample,,209 Joralemon St,Apt 4B,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,14,Passed every check
+Pia,,Sample,,360 Adams St,#3L,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,15,Passed every check
+Quinn,,Sample,,118 Nassau Ave,Suite 200,Brooklyn,NY,11222,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,16,Passed every check
+Rex,,Sample,,40-22 24th St,Fl 3,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,17,Passed every check
+Sena,,Sample,,30-30 Northern Blvd,Unit 5,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,18,Passed every check
+Tomas,,Sample,,10 Richmond Terrace,Penthouse,Staten Island,NY,10301,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,19,Passed every check
+Uma,,Sample,,125 Worth St,,New York,NY,10013,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,20,Passed every check
+Vik,,Sample,,1 Bowling Green,Apt 4B,New York,NY,10004,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,21,Passed every check
+Ada,,Placeholder,,851 Grand Concourse,#3L,Bronx,NY,10451,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,22,Passed every check
+Ben,,Placeholder,,2488 Grand Concourse,Suite 200,Bronx,NY,10458,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,23,Passed every check
+Cara,,Placeholder,,209 Joralemon St,Fl 3,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,24,Passed every check
+Devi,,Placeholder,,360 Adams St,Unit 5,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,25,Passed every check
+Evan,,Placeholder,,118 Nassau Ave,Penthouse,Brooklyn,NY,11222,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,26,Passed every check
+Faye,,Placeholder,,40-22 24th St,,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,27,Passed every check
+Gus,,Placeholder,,30-30 Northern Blvd,Apt 4B,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,28,Passed every check
+Hana,,Placeholder,,10 Richmond Terrace,#3L,Staten Island,NY,10301,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,29,Passed every check
+Ivo,,Placeholder,,125 Worth St,Suite 200,New York,NY,10013,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,30,Passed every check
+Jae,,Placeholder,,1 Bowling Green,Fl 3,New York,NY,10004,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,31,Passed every check
+Kira,,Placeholder,,851 Grand Concourse,Unit 5,Bronx,NY,10451,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,32,Passed every check
+Leo,,Placeholder,,2488 Grand Concourse,Penthouse,Bronx,NY,10458,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,33,Passed every check
+Mira,,Placeholder,,209 Joralemon St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,34,Passed every check
+Nate,,Placeholder,,360 Adams St,Apt 4B,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,35,Passed every check
+Opal,,Placeholder,,118 Nassau Ave,#3L,Brooklyn,NY,11222,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,36,Passed every check
+Pia,,Placeholder,,40-22 24th St,Suite 200,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,37,Passed every check
+Quinn,,Placeholder,,30-30 Northern Blvd,Fl 3,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,38,Passed every check
+Rex,,Placeholder,,10 Richmond Terrace,Unit 5,Staten Island,NY,10301,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,39,Passed every check
+Sena,,Placeholder,,125 Worth St,Penthouse,New York,NY,10013,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,40,Passed every check
+Tomas,,Placeholder,,1 Bowling Green,,New York,NY,10004,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,41,Passed every check
+Uma,,Placeholder,,851 Grand Concourse,Apt 4B,Bronx,NY,10451,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,42,Passed every check
+Vik,,Placeholder,,2488 Grand Concourse,#3L,Bronx,NY,10458,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,43,Passed every check
+Ada,,Example,,209 Joralemon St,Suite 200,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,44,Passed every check
+Ben,,Example,,360 Adams St,Fl 3,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,45,Passed every check
+Cara,,Example,,118 Nassau Ave,Unit 5,Brooklyn,NY,11222,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,46,Passed every check
+Devi,,Example,,40-22 24th St,Penthouse,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,47,Passed every check
+Evan,,Example,,30-30 Northern Blvd,,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,48,Passed every check
+Faye,,Example,,10 Richmond Terrace,Apt 4B,Staten Island,NY,10301,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,49,Passed every check
+Gus,,Example,,125 Worth St,#3L,New York,NY,10013,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,50,Passed every check
+Hana,,Example,,1 Bowling Green,Suite 200,New York,NY,10004,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,51,Passed every check
+Ivo,,Example,,851 Grand Concourse,Fl 3,Bronx,NY,10451,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,52,Passed every check
+Jae,,Example,,2488 Grand Concourse,Unit 5,Bronx,NY,10458,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,53,Passed every check
+Kira,,Example,,209 Joralemon St,Penthouse,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,54,Passed every check
+Leo,,Example,,360 Adams St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,55,Passed every check
+Mira,,Example,,118 Nassau Ave,Apt 4B,Brooklyn,NY,11222,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,56,Passed every check
+Nate,,Example,,40-22 24th St,#3L,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,57,Passed every check
+Opal,,Example,,30-30 Northern Blvd,Suite 200,Queens,NY,11101,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,58,Passed every check
+Pia,,Example,,10 Richmond Terrace,Fl 3,Staten Island,NY,10301,,,,,Unverified,,,,,,,clinic_export.csv :: A1:B63,59,Passed every check
+Devi,,Sample,,1 Bowling Green,,New York,NY,10004,,,,,Unverified,,,,,,,portal_export.json,0,Passed every check
+Evan,,Sample,,851 Grand Concourse,,Bronx,NY,10451,,,,,Unverified,,,,,,,portal_export.json,1,Passed every check
+Faye,,Sample,,2488 Grand Concourse,,Bronx,NY,10458,,,,,Unverified,,,,,,,portal_export.json,2,Passed every check
+Gus,,Sample,,209 Joralemon St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,portal_export.json,3,Passed every check
+Hana,,Sample,,360 Adams St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,portal_export.json,4,Passed every check
+Ivo,,Sample,,118 Nassau Ave,,Brooklyn,NY,11222,,,,,Unverified,,,,,,,portal_export.json,5,Passed every check
+Jae,,Sample,,40-22 24th St,,Queens,NY,11101,,,,,Unverified,,,,,,,portal_export.json,6,Passed every check
+Kira,,Sample,,30-30 Northern Blvd,,Queens,NY,11101,,,,,Unverified,,,,,,,portal_export.json,7,Passed every check
+Leo,,Sample,,10 Richmond Terrace,,Staten Island,NY,10301,,,,,Unverified,,,,,,,portal_export.json,8,Passed every check
+Mira,,Sample,,125 Worth St,,New York,NY,10013,,,,,Unverified,,,,,,,portal_export.json,9,Passed every check
+Nate,,Sample,,1 Bowling Green,,New York,NY,10004,,,,,Unverified,,,,,,,portal_export.json,10,Passed every check
+Opal,,Sample,,851 Grand Concourse,,Bronx,NY,10451,,,,,Unverified,,,,,,,portal_export.json,11,Passed every check
+Pia,,Sample,,2488 Grand Concourse,,Bronx,NY,10458,,,,,Unverified,,,,,,,portal_export.json,12,Passed every check
+Quinn,,Sample,,209 Joralemon St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,portal_export.json,13,Passed every check
+Rex,,Sample,,360 Adams St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,portal_export.json,14,Passed every check
+Sena,,Sample,,118 Nassau Ave,,Brooklyn,NY,11222,,,,,Unverified,,,,,,,portal_export.json,15,Passed every check
+Tomas,,Sample,,40-22 24th St,,Queens,NY,11101,,,,,Unverified,,,,,,,portal_export.json,16,Passed every check
+Uma,,Sample,,30-30 Northern Blvd,,Queens,NY,11101,,,,,Unverified,,,,,,,portal_export.json,17,Passed every check
+Vik,,Sample,,10 Richmond Terrace,,Staten Island,NY,10301,,,,,Unverified,,,,,,,portal_export.json,18,Passed every check
+Ada,,Placeholder,,125 Worth St,,New York,NY,10013,,,,,Unverified,,,,,,,portal_export.json,19,Passed every check
+Ben,,Placeholder,,1 Bowling Green,,New York,NY,10004,,,,,Unverified,,,,,,,portal_export.json,20,Passed every check
+Cara,,Placeholder,,851 Grand Concourse,,Bronx,NY,10451,,,,,Unverified,,,,,,,portal_export.json,21,Passed every check
+Devi,,Placeholder,,2488 Grand Concourse,,Bronx,NY,10458,,,,,Unverified,,,,,,,portal_export.json,22,Passed every check
+Evan,,Placeholder,,209 Joralemon St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,portal_export.json,23,Passed every check
+Faye,,Placeholder,,360 Adams St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,portal_export.json,24,Passed every check
+Gus,,Placeholder,,118 Nassau Ave,,Brooklyn,NY,11222,,,,,Unverified,,,,,,,portal_export.json,25,Passed every check
+Hana,,Placeholder,,40-22 24th St,,Queens,NY,11101,,,,,Unverified,,,,,,,portal_export.json,26,Passed every check
+Ivo,,Placeholder,,30-30 Northern Blvd,,Queens,NY,11101,,,,,Unverified,,,,,,,portal_export.json,27,Passed every check
+Jae,,Placeholder,,10 Richmond Terrace,,Staten Island,NY,10301,,,,,Unverified,,,,,,,portal_export.json,28,Passed every check
+Kira,,Placeholder,,125 Worth St,,New York,NY,10013,,,,,Unverified,,,,,,,portal_export.json,29,Passed every check
+Leo,,Placeholder,,1 Bowling Green,,New York,NY,10004,,,,,Unverified,,,,,,,portal_export.json,30,Passed every check
+Mira,,Placeholder,,851 Grand Concourse,,Bronx,NY,10451,,,,,Unverified,,,,,,,portal_export.json,31,Passed every check
+Nate,,Placeholder,,2488 Grand Concourse,,Bronx,NY,10458,,,,,Unverified,,,,,,,portal_export.json,32,Passed every check
+Opal,,Placeholder,,209 Joralemon St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,portal_export.json,33,Passed every check
+Pia,,Placeholder,,360 Adams St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,portal_export.json,34,Passed every check
+Quinn,,Placeholder,,118 Nassau Ave,,Brooklyn,NY,11222,,,,,Unverified,,,,,,,portal_export.json,35,Passed every check
+Rex,,Placeholder,,40-22 24th St,,Queens,NY,11101,,,,,Unverified,,,,,,,portal_export.json,36,Passed every check
+Sena,,Placeholder,,30-30 Northern Blvd,,Queens,NY,11101,,,,,Unverified,,,,,,,portal_export.json,37,Passed every check
+Tomas,,Placeholder,,10 Richmond Terrace,,Staten Island,NY,10301,,,,,Unverified,,,,,,,portal_export.json,38,Passed every check
+Uma,,Placeholder,,125 Worth St,,New York,NY,10013,,,,,Unverified,,,,,,,portal_export.json,39,Passed every check
+Vik,,Placeholder,,1 Bowling Green,,New York,NY,10004,,,,,Unverified,,,,,,,portal_export.json,40,Passed every check
+Ada,,Example,,851 Grand Concourse,,Bronx,NY,10451,,,,,Unverified,,,,,,,portal_export.json,41,Passed every check
+Ben,,Example,,2488 Grand Concourse,,Bronx,NY,10458,,,,,Unverified,,,,,,,portal_export.json,42,Passed every check
+Cara,,Example,,209 Joralemon St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,portal_export.json,43,Passed every check
+Devi,,Example,,360 Adams St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,portal_export.json,44,Passed every check
+Evan,,Example,,118 Nassau Ave,,Brooklyn,NY,11222,,,,,Unverified,,,,,,,portal_export.json,45,Passed every check
+Faye,,Example,,40-22 24th St,,Queens,NY,11101,,,,,Unverified,,,,,,,portal_export.json,46,Passed every check
+Gus,,Example,,30-30 Northern Blvd,,Queens,NY,11101,,,,,Unverified,,,,,,,portal_export.json,47,Passed every check
+Hana,,Example,,10 Richmond Terrace,,Staten Island,NY,10301,,,,,Unverified,,,,,,,portal_export.json,48,Passed every check
+Ivo,,Example,,125 Worth St,,New York,NY,10013,,,,,Unverified,,,,,,,portal_export.json,49,Passed every check
+Gus,,Sample,P100201,2488 Grand Concourse,Suite 200,Bronx,NY,10458,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,1,Passed every check
+Hana,,Sample,P100202,209 Joralemon St,Fl 3,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,2,Passed every check
+Ivo,,Sample,P100203,360 Adams St,Unit 5,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,3,Passed every check
+Jae,,Sample,P100204,118 Nassau Ave,Penthouse,Brooklyn,NY,11222,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,4,Passed every check
+Leo,,Sample,P100206,30-30 Northern Blvd,Apt 4B,Queens,NY,11101,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,6,Passed every check
+Mira,,Sample,P100207,10 Richmond Terrace,#3L,Staten Island,NY,10301,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,7,Passed every check
+Nate,,Sample,P100208,125 Worth St,Suite 200,New York,NY,10013,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,8,Passed every check
+Opal,,Sample,P100209,1 Bowling Green,Fl 3,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,9,Passed every check
+Pia,,Sample,P100210,851 Grand Concourse,Unit 5,Bronx,NY,10451,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,10,Passed every check
+Quinn,,Sample,P100211,2488 Grand Concourse,Penthouse,Bronx,NY,10458,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,11,Passed every check
+Rex,,Sample,P100212,209 Joralemon St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,12,Passed every check
+Sena,,Sample,P100213,360 Adams St,Apt 4B,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,13,Passed every check
+Tomas,,Sample,P100214,118 Nassau Ave,#3L,Brooklyn,NY,11222,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,14,Passed every check
+Uma,,Sample,P100215,40-22 24th St,Suite 200,Queens,NY,11101,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,15,Passed every check
+Vik,,Sample,P100216,30-30 Northern Blvd,Fl 3,Queens,NY,11101,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,16,Passed every check
+Ada,,Placeholder,P100217,10 Richmond Terrace,Unit 5,Staten Island,NY,10301,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,17,Passed every check
+Cara,,Placeholder,P100219,1 Bowling Green,,New York,NY,10004,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,19,Passed every check
+Devi,,Placeholder,P100220,851 Grand Concourse,Apt 4B,Bronx,NY,10451,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,20,Passed every check
+Evan,,Placeholder,P100221,2488 Grand Concourse,#3L,Bronx,NY,10458,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,21,Passed every check
+Faye,,Placeholder,P100222,209 Joralemon St,Suite 200,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,22,Passed every check
+Gus,,Placeholder,P100223,360 Adams St,Fl 3,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,23,Passed every check
+Hana,,Placeholder,P100224,118 Nassau Ave,Unit 5,Brooklyn,NY,11222,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,24,Passed every check
+Ivo,,Placeholder,P100225,40-22 24th St,Penthouse,Queens,NY,11101,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,25,Passed every check
+Jae,,Placeholder,P100226,30-30 Northern Blvd,,Queens,NY,11101,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,26,Passed every check
+Leo,,Placeholder,P100228,125 Worth St,#3L,New York,NY,10013,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,28,Passed every check
+Mira,,Placeholder,P100229,1 Bowling Green,Suite 200,New York,NY,10004,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,29,Passed every check
+Nate,,Placeholder,P100230,851 Grand Concourse,Fl 3,Bronx,NY,10451,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,30,Passed every check
+Opal,,Placeholder,P100231,2488 Grand Concourse,Unit 5,Bronx,NY,10458,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,31,Passed every check
+Pia,,Placeholder,P100232,209 Joralemon St,Penthouse,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,32,Passed every check
+Quinn,,Placeholder,P100233,360 Adams St,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,33,Passed every check
+Rex,,Placeholder,P100234,118 Nassau Ave,Apt 4B,Brooklyn,NY,11222,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,34,Passed every check
+Sena,,Placeholder,P100235,40-22 24th St,#3L,Queens,NY,11101,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,35,Passed every check
+Uma,,Placeholder,P100237,10 Richmond Terrace,Fl 3,Staten Island,NY,10301,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,37,Passed every check
+Vik,,Placeholder,P100238,125 Worth St,Unit 5,New York,NY,10013,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,38,Passed every check
+Ada,,Example,P100239,1 Bowling Green,Penthouse,New York,NY,10004,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,39,Passed every check
+Ben,,Example,P100240,851 Grand Concourse,,Bronx,NY,10451,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,40,Passed every check
+Cara,,Example,P100241,2488 Grand Concourse,Apt 4B,Bronx,NY,10458,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,41,Passed every check
+Devi,,Example,P100242,209 Joralemon St,#3L,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,42,Passed every check
+Evan,,Example,P100243,360 Adams St,Suite 200,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,43,Passed every check
+Faye,,Example,P100244,118 Nassau Ave,Fl 3,Brooklyn,NY,11222,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,44,Passed every check
+Hana,,Example,P100246,30-30 Northern Blvd,Penthouse,Queens,NY,11101,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,46,Passed every check
+Ivo,,Example,P100247,10 Richmond Terrace,,Staten Island,NY,10301,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,47,Passed every check
+Jae,,Example,P100248,125 Worth St,Apt 4B,New York,NY,10013,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,48,Passed every check
+Kira,,Example,P100249,1 Bowling Green,#3L,New York,NY,10004,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,49,Passed every check
+Leo,,Example,P100250,851 Grand Concourse,Suite 200,Bronx,NY,10451,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,50,Passed every check
+Mira,,Example,P100251,2488 Grand Concourse,Fl 3,Bronx,NY,10458,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,51,Passed every check
+Nate,,Example,P100252,209 Joralemon St,Unit 5,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,52,Passed every check
+Opal,,Example,P100253,360 Adams St,Penthouse,Brooklyn,NY,11201,,,,,Unverified,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,53,Passed every check
+Ivo,,Sample,,2488 Grand Concourse Rear,Suite 200,Bronx,NY,10458,,,,,Unverified,,,,,,,state_export.xml,0,Passed every check
+Jae,,Sample,,209 Joralemon St,Fl 3,Brooklyn,NY,11201,,,,,Unverified,,,,,,,state_export.xml,1,Passed every check
+Kira,,Sample,,360 Adams St,Unit 5,Brooklyn,NY,11201,,,,,Unverified,,,,,,,state_export.xml,2,Passed every check
+Leo,,Sample,,118 Nassau Ave,Penthouse,Brooklyn,NY,11222,,,,,Unverified,,,,,,,state_export.xml,3,Passed every check
+Mira,,Sample,,40-22 24th St,,Queens,NY,11101,,,,,Unverified,,,,,,,state_export.xml,4,Passed every check
+Nate,,Sample,,30-30 Northern Blvd,Apt 4B,Queens,NY,11101,,,,,Unverified,,,,,,,state_export.xml,5,Passed every check
+Opal,,Sample,,10 Richmond Terrace,#3L,Staten Island,NY,10301,,,,,Unverified,,,,,,,state_export.xml,6,Passed every check
+Pia,,Sample,,125 Worth St,Suite 200,New York,NY,10013,,,,,Unverified,,,,,,,state_export.xml,7,Passed every check
+Quinn,,Sample,,1 Bowling Green Rear,Fl 3,New York,NY,10004,,,,,Unverified,,,,,,,state_export.xml,8,Passed every check
+Rex,,Sample,,851 Grand Concourse,Unit 5,Bronx,NY,10451,,,,,Unverified,,,,,,,state_export.xml,9,Passed every check
+Sena,,Sample,,2488 Grand Concourse,Penthouse,Bronx,NY,10458,,,,,Unverified,,,,,,,state_export.xml,10,Passed every check
+Tomas,,Sample,,209 Joralemon St Front,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,state_export.xml,11,Passed every check
+Uma,,Sample,,360 Adams St,Apt 4B,Brooklyn,NY,11201,,,,,Unverified,,,,,,,state_export.xml,12,Passed every check
+Vik,,Sample,,118 Nassau Ave,#3L,Brooklyn,NY,11222,,,,,Unverified,,,,,,,state_export.xml,13,Passed every check
+Ada,,Placeholder,,40-22 24th St,Suite 200,Queens,NY,11101,,,,,Unverified,,,,,,,state_export.xml,14,Passed every check
+Ben,,Placeholder,,30-30 Northern Blvd,Fl 3,Queens,NY,11101,,,,,Unverified,,,,,,,state_export.xml,15,Passed every check
+Cara,,Placeholder,,10 Richmond Terrace Rear,Unit 5,Staten Island,NY,10301,,,,,Unverified,,,,,,,state_export.xml,16,Passed every check
+Devi,,Placeholder,,125 Worth St,Penthouse,New York,NY,10013,,,,,Unverified,,,,,,,state_export.xml,17,Passed every check
+Evan,,Placeholder,,1 Bowling Green,,New York,NY,10004,,,,,Unverified,,,,,,,state_export.xml,18,Passed every check
+Faye,,Placeholder,,851 Grand Concourse,Apt 4B,Bronx,NY,10451,,,,,Unverified,,,,,,,state_export.xml,19,Passed every check
+Gus,,Placeholder,,2488 Grand Concourse,#3L,Bronx,NY,10458,,,,,Unverified,,,,,,,state_export.xml,20,Passed every check
+Hana,,Placeholder,,209 Joralemon St,Suite 200,Brooklyn,NY,11201,,,,,Unverified,,,,,,,state_export.xml,21,Passed every check
+Ivo,,Placeholder,,360 Adams St Front,Fl 3,Brooklyn,NY,11201,,,,,Unverified,,,,,,,state_export.xml,22,Passed every check
+Jae,,Placeholder,,118 Nassau Ave,Unit 5,Brooklyn,NY,11222,,,,,Unverified,,,,,,,state_export.xml,23,Passed every check
+Kira,,Placeholder,,40-22 24th St Rear,Penthouse,Queens,NY,11101,,,,,Unverified,,,,,,,state_export.xml,24,Passed every check
+Leo,,Placeholder,,30-30 Northern Blvd,,Queens,NY,11101,,,,,Unverified,,,,,,,state_export.xml,25,Passed every check
+Mira,,Placeholder,,10 Richmond Terrace,Apt 4B,Staten Island,NY,10301,,,,,Unverified,,,,,,,state_export.xml,26,Passed every check
+Nate,,Placeholder,,125 Worth St,#3L,New York,NY,10013,,,,,Unverified,,,,,,,state_export.xml,27,Passed every check
+Opal,,Placeholder,,1 Bowling Green,Suite 200,New York,NY,10004,,,,,Unverified,,,,,,,state_export.xml,28,Passed every check
+Pia,,Placeholder,,851 Grand Concourse,Fl 3,Bronx,NY,10451,,,,,Unverified,,,,,,,state_export.xml,29,Passed every check
+Quinn,,Placeholder,,2488 Grand Concourse,Unit 5,Bronx,NY,10458,,,,,Unverified,,,,,,,state_export.xml,30,Passed every check
+Rex,,Placeholder,,209 Joralemon St,Penthouse,Brooklyn,NY,11201,,,,,Unverified,,,,,,,state_export.xml,31,Passed every check
+Sena,,Placeholder,,360 Adams St Rear,,Brooklyn,NY,11201,,,,,Unverified,,,,,,,state_export.xml,32,Passed every check
+Tomas,,Placeholder,,118 Nassau Ave Front,Apt 4B,Brooklyn,NY,11222,,,,,Unverified,,,,,,,state_export.xml,33,Passed every check
+Uma,,Placeholder,,40-22 24th St,#3L,Queens,NY,11101,,,,,Unverified,,,,,,,state_export.xml,34,Passed every check
+Vik,,Placeholder,,30-30 Northern Blvd,Suite 200,Queens,NY,11101,,,,,Unverified,,,,,,,state_export.xml,35,Passed every check
+Ada,,Example,,10 Richmond Terrace,Fl 3,Staten Island,NY,10301,,,,,Unverified,,,,,,,state_export.xml,36,Passed every check
+Ben,,Example,,125 Worth St,Unit 5,New York,NY,10013,,,,,Unverified,,,,,,,state_export.xml,37,Passed every check
+Cara,,Example,,1 Bowling Green,Penthouse,New York,NY,10004,,,,,Unverified,,,,,,,state_export.xml,38,Passed every check
+Devi,,Example,,851 Grand Concourse,,Bronx,NY,10451,,,,,Unverified,,,,,,,state_export.xml,39,Passed every check
+Evan,,Example,,2488 Grand Concourse Rear,Apt 4B,Bronx,NY,10458,,,,,Unverified,,,,,,,state_export.xml,40,Passed every check
+Faye,,Example,,209 Joralemon St,#3L,Brooklyn,NY,11201,,,,,Unverified,,,,,,,state_export.xml,41,Passed every check
+Gus,,Example,,360 Adams St,Suite 200,Brooklyn,NY,11201,,,,,Unverified,,,,,,,state_export.xml,42,Passed every check
+Hana,,Example,,118 Nassau Ave,Fl 3,Brooklyn,NY,11222,,,,,Unverified,,,,,,,state_export.xml,43,Passed every check
+Ivo,,Example,,40-22 24th St Front,Unit 5,Queens,NY,11101,,,,,Unverified,,,,,,,state_export.xml,44,Passed every check
+Cara,,Sample,U9000,209 Joralemon St,Fl 3,Brooklyn,NY,11201,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,0,Passed every check
+Devi,,Sample,U9001,360 Adams St,Unit 5,Brooklyn,NY,11201,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,1,Passed every check
+Evan,,Sample,U9002,118 Nassau Ave,Penthouse,Brooklyn,NY,11222,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,2,Passed every check
+Faye,,Sample,U9003,40-22 24th St,,Queens,NY,11101,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,3,Passed every check
+Gus,,Sample,U9004,30-30 Northern Blvd,Apt 4B,Queens,NY,11101,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,4,Passed every check
+Hana,,Sample,U9005,10 Richmond Terrace,#3L,Staten Island,NY,10301,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,5,Passed every check
+Ivo,,Sample,U9006,125 Worth St,Suite 200,New York,NY,10013,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,6,Passed every check
+Jae,,Sample,U9007,1 Bowling Green,Fl 3,New York,NY,10004,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,7,Passed every check
+Kira,,Sample,U9008,851 Grand Concourse,Unit 5,Bronx,NY,10451,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,8,Passed every check
+Leo,,Sample,U9009,2488 Grand Concourse,Penthouse,Bronx,NY,10458,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,9,Passed every check
+Mira,,Sample,U9010,209 Joralemon St,,Brooklyn,NY,11201,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,10,Passed every check
+Nate,,Sample,U9011,360 Adams St,Apt 4B,Brooklyn,NY,11201,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,11,Passed every check
+Opal,,Sample,U9012,118 Nassau Ave,#3L,Brooklyn,NY,11222,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,12,Passed every check
+Pia,,Sample,U9013,40-22 24th St,Suite 200,Queens,NY,11101,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,13,Passed every check
+Quinn,,Sample,U9014,30-30 Northern Blvd,Fl 3,Queens,NY,11101,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,14,Passed every check
+Rex,,Sample,U9015,10 Richmond Terrace,Unit 5,Staten Island,NY,10301,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,15,Passed every check
+Sena,,Sample,U9016,125 Worth St,Penthouse,New York,NY,10013,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,16,Passed every check
+Tomas,,Sample,U9017,1 Bowling Green,,New York,NY,10004,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,17,Passed every check
+Uma,,Sample,U9018,851 Grand Concourse,Apt 4B,Bronx,NY,10451,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,18,Passed every check
+Vik,,Sample,U9019,2488 Grand Concourse,#3L,Bronx,NY,10458,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,19,Passed every check
+Ada,,Placeholder,U9020,209 Joralemon St,Suite 200,Brooklyn,NY,11201,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,20,Passed every check
+Ben,,Placeholder,U9021,360 Adams St,Fl 3,Brooklyn,NY,11201,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,21,Passed every check
+Cara,,Placeholder,U9022,118 Nassau Ave,Unit 5,Brooklyn,NY,11222,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,22,Passed every check
+Devi,,Placeholder,U9023,40-22 24th St,Penthouse,Queens,NY,11101,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,23,Passed every check
+Evan,,Placeholder,U9024,30-30 Northern Blvd,,Queens,NY,11101,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,24,Passed every check
+Faye,,Placeholder,U9025,10 Richmond Terrace,Apt 4B,Staten Island,NY,10301,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,25,Passed every check
+Gus,,Placeholder,U9026,125 Worth St,#3L,New York,NY,10013,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,26,Passed every check
+Hana,,Placeholder,U9027,1 Bowling Green,Suite 200,New York,NY,10004,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,27,Passed every check
+Ivo,,Placeholder,U9028,851 Grand Concourse,Fl 3,Bronx,NY,10451,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,28,Passed every check
+Jae,,Placeholder,U9029,2488 Grand Concourse,Unit 5,Bronx,NY,10458,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,29,Passed every check
+Kira,,Placeholder,U9030,209 Joralemon St,Penthouse,Brooklyn,NY,11201,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,30,Passed every check
+Leo,,Placeholder,U9031,360 Adams St,,Brooklyn,NY,11201,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,31,Passed every check
+Mira,,Placeholder,U9032,118 Nassau Ave,Apt 4B,Brooklyn,NY,11222,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,32,Passed every check
+Nate,,Placeholder,U9033,40-22 24th St,#3L,Queens,NY,11101,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,33,Passed every check
+Opal,,Placeholder,U9034,30-30 Northern Blvd,Suite 200,Queens,NY,11101,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,34,Passed every check
+Pia,,Placeholder,U9035,10 Richmond Terrace,Fl 3,Staten Island,NY,10301,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,35,Passed every check
+Quinn,,Placeholder,U9036,125 Worth St,Unit 5,New York,NY,10013,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,36,Passed every check
+Rex,,Placeholder,U9037,1 Bowling Green,Penthouse,New York,NY,10004,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,37,Passed every check
+Sena,,Placeholder,U9038,851 Grand Concourse,,Bronx,NY,10451,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,38,Passed every check
+Tomas,,Placeholder,U9039,2488 Grand Concourse,Apt 4B,Bronx,NY,10458,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,39,Passed every check
+Uma,,Placeholder,U9040,209 Joralemon St,#3L,Brooklyn,NY,11201,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,40,Passed every check
+Vik,,Placeholder,U9041,360 Adams St,Suite 200,Brooklyn,NY,11201,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,41,Passed every check
+Ada,,Example,U9042,118 Nassau Ave,Fl 3,Brooklyn,NY,11222,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,42,Passed every check
+Ben,,Example,U9043,40-22 24th St,Unit 5,Queens,NY,11101,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,43,Passed every check
+Cara,,Example,U9044,30-30 Northern Blvd,Penthouse,Queens,NY,11101,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,44,Passed every check
+Devi,,Example,U9045,10 Richmond Terrace,,Staten Island,NY,10301,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,45,Passed every check
+Evan,,Example,U9046,125 Worth St,Apt 4B,New York,NY,10013,Workforce,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,46,Passed every check
+Faye,,Example,U9047,1 Bowling Green,#3L,New York,NY,10004,Youth,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,47,Passed every check
+Gus,,Example,U9048,851 Grand Concourse,Suite 200,Bronx,NY,10451,Older Adult Services,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,48,Passed every check
+Hana,,Example,U9049,2488 Grand Concourse,Fl 3,Bronx,NY,10458,Housing,,,,Unverified,,,,,,,partner_export.tsv :: A1:I53,49,Passed every check
+Cara,,Example,U9500,209 Joralemon St,,Brooklyn,NY,11201,Housing,,,,Unverified,,,F1,,,,partner_export.tsv :: A1:I53,50,Passed every check
+Zebulon,,Quillfeather,C001,742 Evergreen Terrace,,Brooklyn,NY,11201,Elder Care,1961-03-14,,,Unverified,,,,,,,canary_clients.csv :: A1:I10,0,Passed every check
+Marigold,,Thistlewood,C002,19 Pomegranate Ln,Apt 5C,Bronx,NY,10451,Elder Care,1975-07-02,,,Unverified,,,,,,,canary_clients.csv :: A1:I10,1,Passed every check
+Philomena,,Dingleberry,C004,5 Zucchini Ct,,Brooklyn,NY,11201,Workforce,1980-01-01,,,Unverified,,,,,,,canary_clients.csv :: A1:I10,3,Passed every check
+Faye,,Sample,P100200,851 Grand Concourse,#3L,Bronx,NY,,,,,,Needs Review,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,0,Approved as entered by reviewer
+Kira,,Sample,P100205,40-22 24th St,,Queens,NY,11101,,,,,Needs Review,,,,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,5,Approved as entered by reviewer
+Ben,,Placeholder,P100205,360 Adams St,Apt 4B,Brooklyn,NY,11201,,,,,Needs Review,,,F1,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,55,Approved as entered by reviewer
+Ben,,Placeholder,P100205,360 Adams St,Apt 4B,Brooklyn,NY,11201,,,,,Needs Review,,,F1,,,,legacy_export.xlsx :: Sheet1 :: A1:I58,56,Approved as entered by reviewer
+Barnaby,,Fiddlesticks,C005,31 Rhubarb Rd,,Gotham,NY,,Youth,1999-12-31,,,Needs Review,,,,,,,canary_clients.csv :: A1:I10,4,Approved as entered by reviewer
+Leopold,,Snodgrass,C007,12 Parsnip Pl,,New York,NY,10001,Elder Care,1944-11-11,,,Needs Review,,,,,,,canary_clients.csv :: A1:I10,6,Approved as entered by reviewer
+Wilhelmina,,Grumblethorpe,C007,900 Radish Blvd,,Brooklyn,NY,11215,Elder Care,1952-02-02,,,Needs Review,,,,,,,canary_clients.csv :: A1:I10,7,Approved as entered by reviewer

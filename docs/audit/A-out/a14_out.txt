@@ -1,0 +1,5 @@
+upload 200
+table: headerless.csv :: A1:G3 | header row chosen by the tool: 0 | columns: 7
+save setup: {'ok': True, 'name': 'NoHeader'}
+setups/NoHeader.json -> client values found: []
+sessions/s20261030-160341.json -> client values found: []

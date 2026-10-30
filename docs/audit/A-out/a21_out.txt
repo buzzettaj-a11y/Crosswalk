@@ -1,0 +1,4 @@
+run 1: {'clean': 'edc58e70d495', 'review': 'a8ae1a690b29', 'unique_clients': '666bb428ff43', 'unique_by_program': 'e3c017748e08', 'goals': (256, 52)}
+run 2: {'clean': 'edc58e70d495', 'review': 'a8ae1a690b29', 'unique_clients': '666bb428ff43', 'unique_by_program': 'e3c017748e08', 'goals': (256, 52)}
+identical: True
+8-day-old session removed: True | fresh session kept: True | removed list: ['s20200101-000000']

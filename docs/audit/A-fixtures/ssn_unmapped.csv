@@ -1,0 +1,4 @@
+Client_ID,First_Name,Last_Name,Address_1,City,State,Zip,Program,SSN,Phone
+S001,Una,Alpha,1 Alpha St,Brooklyn,NY,11201,Youth,078-05-1120,555-0101
+S002,Uno,Beta,2 Beta St,Brooklyn,NY,,Youth,219-09-9999,555-0102
+S003,Unu,Gamma,3 Gamma St,Bronx,NY,10451,Youth,457-55-5462,555-0103

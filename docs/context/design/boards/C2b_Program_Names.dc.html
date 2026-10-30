@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cockpit, programs</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&amp;display=swap">
+<style>
+body{margin:0;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;background:#f3f2f2;color:#201e1d}
+button{font-family:inherit}
+select,input{font-family:inherit}
+a{color:#2f5f88}a:hover{color:#20435f}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1720px; box-sizing: border-box; background: #f3f2f2; display: flex; flex-direction: column;">
+
+  <div style="height: 48px; flex-shrink: 0; background: #201e1d; color: #f3f2f2; display: flex; align-items: center; padding: 0 20px; gap: 12px;">
+    <span style="width: 12px; height: 12px; background: #2f5f88; display: inline-block;"></span>
+    <span style="font-size: 14px; font-weight: 800; letter-spacing: 0.06em;">CROSSWALK</span>
+    <span style="flex-grow: 1;"></span>
+    <span style="font-size: 11.5px; color: #d7d3d3;">Offline &middot; Geosupport active &middot; progress saved 1 min ago</span>
+  </div>
+
+  <div style="flex-shrink: 0; background: #ffffff; border-bottom: 1px solid #d7d3d3; display: flex; align-items: stretch;">
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #201e1d; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">01 SOURCES</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Add your files</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">5 files, 9 tables</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #bab6b6; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">02 SCHEMA</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Set up your columns</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">nothing to decide</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #201e1d; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">03 PREPARE</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Tidy up</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">8 steps kept</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #201e1d; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">04 MAP</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Match your columns</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">45 matched, all confirmed</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: #eef3f7; border: none; border-bottom: 3px solid #2f5f88; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #2f5f88;">05 PROGRAMS</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #20435f; margin-top: 2px;">Programs</span>
+      <span style="display: block; font-size: 10.5px; color: #20435f; margin-top: 1px; font-weight: 600;">2 groups to confirm</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid transparent; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">06 RUN</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #605d5d; margin-top: 2px;">Process</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">not run yet</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid transparent; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">07 REVIEW</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #605d5d; margin-top: 2px;">Fix problems</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">not run yet</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid transparent; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">08 SUMMARY</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #605d5d; margin-top: 2px;">Results</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">not run yet</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid transparent; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">09 EXPORT</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #605d5d; margin-top: 2px;">Download</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">not run yet</span>
+    </button>
+    <button style="flex-shrink: 0; width: 176px; background: transparent; border: none; border-left: 1px solid #eae9e9; border-bottom: 3px solid transparent; padding: 9px 14px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">UNDO</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #2f5f88; margin-top: 2px;">Confirm Health Navigation</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">takes back one decision</span>
+    </button>
+  </div>
+
+  <div style="flex-grow: 1; display: flex; overflow: hidden;">
+
+    <div style="width: 280px; flex-shrink: 0; background: #ffffff; border-right: 1px solid #d7d3d3; display: flex; flex-direction: column;">
+      <div style="padding: 18px; display: flex; flex-direction: column; gap: 18px; flex-grow: 1;">
+        <div>
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">This batch</div>
+          <div style="font-size: 13px; margin-top: 6px; line-height: 1.5;">5 files, 9 tables<br>7,412 rows staged</div>
+        </div>
+        <div>
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Where they stand</div>
+          <div style="font-size: 12.5px; color: #605d5d; margin-top: 6px; line-height: 1.45;">Not processed yet. A preview ran, and it decided nothing.</div>
+        </div>
+        <div>
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Programs</div>
+          <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 7px; font-size: 12.5px;">
+            <div style="display: flex;"><span>Files with a program column</span><span style="flex-grow: 1;"></span><b>4 of 5</b></div>
+            <div style="display: flex;"><span>Names found</span><span style="flex-grow: 1;"></span><b>11</b></div>
+            <div style="display: flex;"><span>Counted as programs</span><span style="flex-grow: 1;"></span><b>6</b></div>
+            <div style="display: flex; color: #20435f;"><span>Groups to confirm</span><span style="flex-grow: 1;"></span><b>2</b></div>
+            <div style="display: flex; color: #1b4b2b;"><span>Confirmed by you</span><span style="flex-grow: 1;"></span><b>1</b></div>
+          </div>
+        </div>
+        <div style="border-top: 1px solid #eae9e9; padding-top: 15px;">
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #2f5f88;">The two counts</div>
+          <div style="margin-top: 9px;">
+            <div style="font-size: 28px; font-weight: 800; line-height: 1.05; color: #444141;">6,312</div>
+            <div style="font-size: 11.5px; color: #605d5d; line-height: 1.35; margin-top: 1px;">unique clients, from the preview</div>
+          </div>
+          <div style="margin-top: 11px;">
+            <div style="font-size: 28px; font-weight: 800; line-height: 1.05; color: #444141;">7,588</div>
+            <div style="font-size: 11.5px; color: #605d5d; line-height: 1.35; margin-top: 1px;">unique clients by program, from the preview</div>
+          </div>
+          <div style="font-size: 11px; color: #5f3400; margin-top: 8px; line-height: 1.4;">Preview taken at 2:14 pm, before your last change. Refresh it below.</div>
+        </div>
+        <div style="border-top: 1px solid #eae9e9; padding-top: 15px;">
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Locations</div>
+          <div style="font-size: 12.5px; color: #605d5d; margin-top: 6px; line-height: 1.45;">Not located yet.</div>
+        </div>
+      </div>
+      <div style="border-top: 1px solid #d7d3d3; background: #eae9e9; padding: 13px 18px; display: flex; flex-direction: column; gap: 9px;">
+        <button style="background: transparent; border: none; padding: 0; text-align: left; cursor: pointer; font-size: 12px; font-weight: 800; color: #2f5f88; text-decoration: underline;">This computer is ready for real data</button>
+        <div style="font-size: 11px; color: #605d5d; line-height: 1.4;">Nothing leaves this machine. Files are written only when you download them.</div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 9px 12px; font-size: 12px; font-weight: 800; cursor: pointer;">Close Crosswalk</button>
+          <button style="background: transparent; color: #605d5d; border: none; padding: 0; font-size: 11.5px; font-weight: 800; cursor: pointer; text-decoration: underline;">Start over</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex-grow: 1; padding: 22px 26px; display: flex; flex-direction: column; gap: 14px; overflow: hidden;">
+
+      <div style="display: flex; align-items: flex-end; gap: 20px;">
+        <div style="flex-grow: 1;">
+          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Stage 05 of 09 &middot; Programs</div>
+          <h2 style="margin: 4px 0 0; font-size: 25px; font-weight: 800; line-height: 1.1;">Programs</h2>
+          <div style="font-size: 13px; color: #605d5d; margin-top: 4px;">The count of clients per program is only right if every file's program column is matched and the same program is spelled one way. Set that up here and watch the count take shape.</div>
+        </div>
+        <div style="text-align: right; flex-shrink: 0;">
+          <button style="background: #eae9e9; color: #605d5d; border: 1px solid #bab6b6; padding: 11px 16px; font-size: 13px; font-weight: 800; cursor: pointer;">Continue to Process</button>
+          <div style="font-size: 11px; color: #605d5d; margin-top: 4px;">held until 2 groups are confirmed</div>
+        </div>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid #bcd3e4; border-top: 3px solid #2f5f88; padding: 13px 16px;">
+        <div style="font-size: 13.5px; font-weight: 800;">Goal 2 depends on this stage, and nothing is merged until you say so</div>
+        <div style="font-size: 12.5px; color: #605d5d; line-height: 1.45; margin-top: 3px;">Clients are counted once per program. A file with no program column drops its people from the per-program count. A program spelled two ways is counted as two. Fix both here and preview the counts as often as you like. The name as recorded stays on every row, and every substitution goes to the audit log.</div>
+      </div>
+
+      <div style="font-size: 14px; font-weight: 800; margin-top: 2px;">1. Which column holds the program in each file</div>
+
+      <div style="background: #ffffff; border: 1px solid #d7d3d3;">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 7px 14px; background: #eae9e9; border-bottom: 1px solid #d7d3d3;">
+          <span style="font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: #444141; width: 220px;">SOURCE</span>
+          <span style="font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: #444141; width: 230px;">PROGRAM COLUMN</span>
+          <span style="font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: #444141; flex-grow: 1;">WHAT IT HOLDS</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 8px 14px; border-bottom: 1px solid #eae9e9;">
+          <span style="width: 220px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800;"><span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">A</span>clinic_export.csv</span>
+          <select aria-label="Program column for clinic_export.csv" style="width: 230px; border: 1px solid #bab6b6; background: #ffffff; padding: 7px 10px; font-size: 12.5px; color: #201e1d;"><option>SERVICE_AREA</option></select>
+          <span style="font-size: 12px; color: #605d5d; flex-grow: 1;">4 names, for example <span style="color: #201e1d;">Workforce Development &middot; Resident Services &middot; Health Navigation</span></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 8px 14px; border-bottom: 1px solid #eae9e9;">
+          <span style="width: 220px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800;"><span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">B</span>legacy_export.xlsx</span>
+          <select aria-label="Program column for legacy_export.xlsx" style="width: 230px; border: 1px solid #bab6b6; background: #ffffff; padding: 7px 10px; font-size: 12.5px; color: #201e1d;"><option>PROGRAM</option></select>
+          <span style="font-size: 12px; color: #605d5d; flex-grow: 1;">3 names, for example <span style="color: #201e1d;">WORKFORCE &middot; Res. Svcs &middot; PROPERTY MGMT</span></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 8px 14px; border-bottom: 1px solid #eae9e9; background: #ffeed6;">
+          <span style="width: 220px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800;"><span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">C</span>state_export.xml</span>
+          <select aria-label="Program column for state_export.xml" style="width: 230px; border: 1px solid #f0c79a; background: #ffffff; padding: 7px 10px; font-size: 12.5px; color: #201e1d;"><option>Prog_Code</option></select>
+          <span style="font-size: 12px; color: #5f3400; flex-grow: 1;"><b>These look like codes, not names:</b> WF01 &middot; RS02 &middot; PM03. The count needs names. <span style="color: #444141;">Program_Name on this file holds Workforce Development, Resident Services, Property Management.</span></span>
+          <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 7px 11px; font-size: 11.5px; font-weight: 800; cursor: pointer; flex-shrink: 0;">Use Program_Name</button>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 8px 14px; border-bottom: 1px solid #eae9e9;">
+          <span style="width: 220px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800;"><span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">D</span>partner_export.tsv</span>
+          <select aria-label="Program column for partner_export.tsv" style="width: 230px; border: 1px solid #bab6b6; background: #ffffff; padding: 7px 10px; font-size: 12.5px; color: #201e1d;"><option>Prog</option></select>
+          <span style="font-size: 12px; color: #605d5d; flex-grow: 1;">2 names, for example <span style="color: #201e1d;">Workforce Dev &middot; Youth Services</span></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 8px 14px; background: #ffeed6;">
+          <span style="width: 220px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800;"><span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">E</span>portal_export.json</span>
+          <select aria-label="Program column for portal_export.json" style="width: 230px; border: 1px solid #f0c79a; background: #ffffff; padding: 7px 10px; font-size: 12.5px; color: #605d5d;"><option>(no program column)</option></select>
+          <span style="font-size: 12px; color: #5f3400; flex-grow: 1;"><b>No program column.</b> These 852 rows will be in the overall count but not in any program's count.</span>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-top: 2px;">
+        <div style="font-size: 14px; font-weight: 800;">2. Which names are the same program</div>
+        <div style="font-size: 12px; color: #605d5d; flex-grow: 1;">11 different names across 4 files, grouped into 6 programs. Click a name to pick it up, then click the group it belongs to. Click its own group to put it down. Type over a group's name to change what it is counted under.</div>
+        <button style="background: transparent; color: #2f5f88; border: none; padding: 0; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline; flex-shrink: 0;">Start again from the proposal</button>
+      </div>
+
+      <div style="background: #eef3f7; border: 1px solid #bcd3e4; padding: 10px 14px; display: flex; align-items: center; gap: 12px;">
+        <span style="font-size: 12.5px;">Holding <b>Res. Svcs</b>. Click the group it belongs to, or</span>
+        <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 7px 11px; font-size: 12px; font-weight: 800; cursor: pointer;">count it on its own</button>
+        <button style="background: transparent; color: #2f5f88; border: none; padding: 7px 4px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline;">put it back</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+
+        <div style="background: #ffffff; border: 1px solid #bcd3e4; border-top: 3px solid #2f5f88; padding: 13px 16px; display: flex; flex-direction: column; gap: 9px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <input type="text" value="Workforce Development" aria-label="Name this program is counted under" style="width: 300px; border: 1px solid #bab6b6; background: #ffffff; padding: 7px 10px; font-size: 14px; font-weight: 800; color: #201e1d;">
+            <span style="font-size: 12px; color: #605d5d;">2,412 rows across 3 files</span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #20435f; background: #ffffff; border: 1px solid #2f5f88; padding: 3px 7px;">CLICK TO MOVE RES. SVCS HERE</span>
+            <span style="flex-grow: 1;"></span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #ffffff; background: #2f5f88; padding: 3px 7px;">NEEDS YOUR SAY</span>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button style="display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid #d7d3d3; padding: 6px 10px; font-size: 12px; cursor: pointer; text-align: left;"><b>Workforce Development</b><span style="color: #605d5d;">1,844</span><span style="font-size: 10.5px; color: #605d5d;">A, C</span></button>
+            <button style="display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid #d7d3d3; padding: 6px 10px; font-size: 12px; cursor: pointer; text-align: left;"><b>WORKFORCE</b><span style="color: #605d5d;">402</span><span style="font-size: 10.5px; color: #605d5d;">B</span></button>
+            <button style="display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid #d7d3d3; padding: 6px 10px; font-size: 12px; cursor: pointer; text-align: left;"><b>Workforce Dev</b><span style="color: #605d5d;">166</span><span style="font-size: 10.5px; color: #605d5d;">D</span></button>
+          </div>
+          <div style="font-size: 12px; color: #605d5d;">Grouped because the names share the word workforce, and dev is development shortened.</div>
+          <div style="display: flex; gap: 8px; align-items: center; border-top: 1px solid #eae9e9; padding-top: 9px;">
+            <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 9px 14px; font-size: 12.5px; font-weight: 800; cursor: pointer;">These are one program</button>
+            <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 9px 14px; font-size: 12.5px; font-weight: 800; cursor: pointer;">Keep them separate</button>
+            <span style="font-size: 11.5px; color: #605d5d; margin-left: 6px;">Either way is recorded, with the three names, in the audit log.</span>
+          </div>
+        </div>
+
+        <div style="background: #ffffff; border: 1px solid #bcd3e4; border-top: 3px solid #2f5f88; padding: 13px 16px; display: flex; flex-direction: column; gap: 9px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <input type="text" value="Resident Services" aria-label="Name this program is counted under" style="width: 300px; border: 1px solid #bab6b6; background: #ffffff; padding: 7px 10px; font-size: 14px; font-weight: 800; color: #201e1d;">
+            <span style="font-size: 12px; color: #605d5d;">1,986 rows across 2 files</span>
+            <span style="flex-grow: 1;"></span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: #ffffff; background: #2f5f88; padding: 3px 7px;">NEEDS YOUR SAY</span>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button style="display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid #d7d3d3; padding: 6px 10px; font-size: 12px; cursor: pointer; text-align: left;"><b>Resident Services</b><span style="color: #605d5d;">1,720</span><span style="font-size: 10.5px; color: #605d5d;">A, C</span></button>
+            <button style="display: flex; align-items: center; gap: 8px; background: #eef3f7; border: 1px solid #2f5f88; padding: 6px 10px; font-size: 12px; cursor: pointer; text-align: left;"><b style="color: #20435f;">Res. Svcs</b><span style="color: #20435f;">266</span><span style="font-size: 10.5px; color: #20435f;">B</span><span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #20435f;">HELD</span></button>
+          </div>
+          <div style="font-size: 12px; color: #605d5d;">Grouped because svcs is services shortened, and res is resident shortened.</div>
+          <div style="display: flex; gap: 8px; align-items: center; border-top: 1px solid #eae9e9; padding-top: 9px;">
+            <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 9px 14px; font-size: 12.5px; font-weight: 800; cursor: pointer;">These are one program</button>
+            <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 9px 14px; font-size: 12.5px; font-weight: 800; cursor: pointer;">Keep them separate</button>
+          </div>
+        </div>
+
+        <div style="background: #ffffff; border: 1px solid #d7d3d3; padding: 11px 16px; display: flex; align-items: center; gap: 12px;">
+          <input type="text" value="Health Navigation" aria-label="Name this program is counted under" style="width: 300px; border: 1px solid #d7d3d3; background: #ffffff; padding: 7px 10px; font-size: 14px; font-weight: 800; color: #201e1d;">
+          <span style="font-size: 12px; color: #605d5d;">908 rows</span>
+          <span style="display: flex; align-items: center; gap: 8px; border: 1px solid #d7d3d3; padding: 5px 9px; font-size: 12px;"><b>Health Navigation</b><span style="color: #605d5d;">790</span></span>
+          <span style="display: flex; align-items: center; gap: 8px; border: 1px solid #d7d3d3; padding: 5px 9px; font-size: 12px;"><b>Health Nav</b><span style="color: #605d5d;">118</span></span>
+          <span style="flex-grow: 1;"></span>
+          <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #1b4b2b; background: #e9f7ec; border: 1px solid #b6dabe; padding: 3px 7px;">CONFIRMED BY YOU</span>
+          <button style="background: transparent; color: #2f5f88; border: none; padding: 0; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline;">undo</button>
+        </div>
+
+        <div style="font-size: 12px; color: #605d5d; padding: 2px 2px;">3 more, Property Management, Youth Services and Senior Services, each a single name with nothing to confirm. <button style="background: transparent; border: none; padding: 0; font-size: 12px; font-weight: 800; color: #2f5f88; cursor: pointer; text-decoration: underline;">Show them</button></div>
+
+      </div>
+
+      <div style="font-size: 14px; font-weight: 800; margin-top: 2px;">3. Preview the counts</div>
+
+      <div style="background: #ffffff; border: 1px solid #f0c79a; border-top: 3px solid #834c00; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div style="flex-grow: 1;">
+            <div style="font-size: 13.5px; font-weight: 800;">What the counts would be</div>
+            <div style="font-size: 12px; color: #5f3400; margin-top: 2px;">With the programs as they stood at 2:14 pm, before your latest change. Nothing was decided by running it.</div>
+          </div>
+          <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 10px 15px; font-size: 12.5px; font-weight: 800; cursor: pointer; flex-shrink: 0;">Refresh the preview</button>
+        </div>
+        <div style="display: flex; gap: 2px; background: #d7d3d3; border: 1px solid #d7d3d3;">
+          <div style="flex: 1; background: #ffffff; padding: 12px 16px;">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: #2f5f88;">GOAL 1</div>
+            <div style="font-size: 13.5px; font-weight: 800; margin-top: 2px;">Unique clients</div>
+            <div style="font-size: 32px; font-weight: 800; line-height: 1.05; margin-top: 3px; font-variant-numeric: tabular-nums;">6,312</div>
+            <div style="font-size: 12px; color: #605d5d; margin-top: 3px;">Between 6,312 and 6,326 until open matches are decided on Results.</div>
+          </div>
+          <div style="flex: 1; background: #ffffff; padding: 12px 16px;">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: #2f5f88;">GOAL 2</div>
+            <div style="font-size: 13.5px; font-weight: 800; margin-top: 2px;">Unique clients by program</div>
+            <div style="font-size: 32px; font-weight: 800; line-height: 1.05; margin-top: 3px; font-variant-numeric: tabular-nums;">7,588</div>
+            <div style="font-size: 12px; color: #605d5d; margin-top: 3px;">One per person per program. This is the count your grouping shapes.</div>
+          </div>
+        </div>
+        <div style="border: 1px solid #d7d3d3;">
+          <div style="display: flex; gap: 12px; padding: 7px 12px; background: #eae9e9; border-bottom: 1px solid #d7d3d3;">
+            <span style="flex-grow: 1; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: #444141;">PROGRAM, AS COUNTED</span>
+            <span style="width: 130px; text-align: right; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: #444141;">UNIQUE CLIENTS</span>
+            <span style="width: 90px; text-align: right; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: #444141;">ROWS</span>
+          </div>
+          <div style="display: flex; gap: 12px; padding: 7px 12px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;"><span style="flex-grow: 1;">Workforce Development</span><span style="width: 130px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums;">2,412</span><span style="width: 90px; text-align: right; color: #605d5d; font-variant-numeric: tabular-nums;">2,590</span></div>
+          <div style="display: flex; gap: 12px; padding: 7px 12px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;"><span style="flex-grow: 1;">Resident Services</span><span style="width: 130px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums;">1,720</span><span style="width: 90px; text-align: right; color: #605d5d; font-variant-numeric: tabular-nums;">1,838</span></div>
+          <div style="display: flex; gap: 12px; padding: 7px 12px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;"><span style="flex-grow: 1;">Res. Svcs <span style="color: #5f3400;">&middot; still counted apart from Resident Services</span></span><span style="width: 130px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums;">266</span><span style="width: 90px; text-align: right; color: #605d5d; font-variant-numeric: tabular-nums;">266</span></div>
+          <div style="display: flex; gap: 12px; padding: 7px 12px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;"><span style="flex-grow: 1;">Property Management</span><span style="width: 130px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums;">1,344</span><span style="width: 90px; text-align: right; color: #605d5d; font-variant-numeric: tabular-nums;">1,402</span></div>
+          <div style="display: flex; gap: 12px; padding: 7px 12px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;"><span style="flex-grow: 1;">Health Navigation</span><span style="width: 130px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums;">908</span><span style="width: 90px; text-align: right; color: #605d5d; font-variant-numeric: tabular-nums;">951</span></div>
+          <div style="display: flex; gap: 12px; padding: 7px 12px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;"><span style="flex-grow: 1;">Youth Services</span><span style="width: 130px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums;">622</span><span style="width: 90px; text-align: right; color: #605d5d; font-variant-numeric: tabular-nums;">640</span></div>
+          <div style="display: flex; gap: 12px; padding: 7px 12px; border-bottom: 1px solid #eae9e9; font-size: 12.5px;"><span style="flex-grow: 1;">Senior Services</span><span style="width: 130px; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums;">316</span><span style="width: 90px; text-align: right; color: #605d5d; font-variant-numeric: tabular-nums;">322</span></div>
+          <div style="display: flex; gap: 12px; padding: 7px 12px; font-size: 12.5px; color: #605d5d;"><span style="flex-grow: 1;">no program recorded</span><span style="width: 130px; text-align: right; font-variant-numeric: tabular-nums;">852</span><span style="width: 90px; text-align: right; font-variant-numeric: tabular-nums;">852</span></div>
+        </div>
+        <div style="font-size: 11.5px; color: #605d5d; line-height: 1.45;">Counted from the 6,560 rows that passed every check. 852 rows still need fixing and are not counted yet. If two lines above should be one program, pick a name up and move it, then refresh.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1720}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

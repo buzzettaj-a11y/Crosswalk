@@ -1,0 +1,5 @@
+0 after Process                  : G1 settled=70 low=70 high=70 open=0 | G2=84 no_program=0 | rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0}
+1 after 'accept all' on idconflict: G1 settled=71 low=71 high=71 open=0 | G2=86 no_program=0 | rows={'input': 94, 'clean': 88, 'review': 6, 'aside': 0}
+2 after Undo, as the screen shows : G1 settled=71 low=71 high=71 open=0 | G2=86 no_program=0 | rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0}
+2 same state, computed from scratch: G1 settled=70 low=70 high=70 open=0 | G2=84 no_program=0 | rows={'input': 94, 'clean': 86, 'review': 8, 'aside': 0}
+   Unique_Clients covers 86 source rows; Final_Clean_Mapped has 86

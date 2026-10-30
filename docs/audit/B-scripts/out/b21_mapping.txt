@@ -1,0 +1,55 @@
+== guess_mapping ==
+['First Name', 'Last Name', 'Client ID', 'Mailing Address', 'Mailing City', 'Mailing State', 'Mailing Zip', 'Home Address', 'Home City', 'Home State', 'Home Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Mailing Address', 'City': 'Mailing City', 'State': 'Mailing State', 'Zip': 'Mailing Zip'}
+['First Name', 'Last Name', 'Client ID', 'Home Address', 'Home Zip', 'Mailing Address', 'Mailing Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Home Address', 'Zip': 'Home Zip'}
+['First Name', 'Last Name', 'Client ID', 'Address Line 2', 'Address Line 1', 'City', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address Line 2', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Client ID', 'Street Address 2', 'Street Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Street Address 2', 'Address_2': 'Street Address 2', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Client ID', 'Apt', 'Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'Address_2': 'Apt', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Surname', 'Last Visit', 'Client ID', 'Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Visit', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Seen', 'Last Name', 'Client ID', 'Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Case ID', 'Client ID', 'Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Program ID', 'Household ID', 'Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Program ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Parent ID', 'Client ID', 'Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Client ID', 'Address', 'City', 'State', 'Zip Plus 4', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Client ID', 'Address', 'City', 'State', 'Zip', 'ZIP Code of Employer']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Client ID', 'Address', 'Birth City', 'City', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Client ID', 'Address', 'Birth State', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Client ID', 'Address', 'Place of Birth City', 'City of Residence', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'Place of Birth City', 'State': 'State', 'Zip': 'Zip'}
+['First Name', 'Last Name', 'Client ID', 'Address', 'City', 'State', 'Zip', 'Program Start Date', 'Program']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Program'}
+['First Name', 'Last Name', 'Client ID', 'Address', 'City', 'State', 'Zip', 'Program Start Date']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Program Start Date'}
+['First Name', 'Last Name', 'Client ID', 'Address', 'City', 'State', 'Zip', 'Service Date', 'Service Provider']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Service Date'}
+['First Name', 'Last Name', 'Client ID', 'Address', 'City', 'State', 'Zip', 'Referral Source', 'Program Status', 'Program Name']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Program Name'}
+['First Name', 'Last Name', 'Client ID', 'Address', 'City', 'State', 'Zip', 'Service Notes', 'Service']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Service'}
+['Provider First Name', 'Provider Last Name', 'Client First Name', 'Client Last Name', 'Client ID', 'Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'Provider First Name', 'Last_Name': 'Provider Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['Caseworker First', 'Caseworker Last', 'First Name', 'Last Name', 'Client ID', 'Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['Emergency Contact First Name', 'Emergency Contact Last Name', 'First Name', 'Last Name', 'ID', 'Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'Emergency Contact First Name', 'Last_Name': 'Emergency Contact Last Name', 'Client_ID': 'ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['Name First', 'Name Last', 'ID', 'Address', 'City', 'State', 'Zip']
+    -> {'First_Name': 'Name First', 'Last_Name': 'Name Last', 'Client_ID': 'ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['FNAME', 'LNAME', 'ID', 'Address', 'City', 'State', 'Zip']
+    -> {'Client_ID': 'ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+['Given Name', 'Family Name', 'ID', 'Street', 'Borough', 'ST', 'Postal Code']
+    -> {'First_Name': 'Given Name', 'Last_Name': 'Family Name', 'Client_ID': 'ID', 'Address_1': 'Street', 'City': 'Borough', 'State': 'ST', 'Zip': 'Postal Code'}
+['Forename', 'Surname', 'ID', 'Street', 'Borough', 'ST', 'Postal Code']
+    -> {'Client_ID': 'ID', 'Address_1': 'Street', 'City': 'Borough', 'State': 'ST', 'Zip': 'Postal Code'}

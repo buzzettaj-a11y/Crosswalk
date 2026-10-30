@@ -1,0 +1,10 @@
+mapped columns: {'First_Name': 'First_Name', 'Last_Name': 'Last_Name', 'Client_ID': 'Client_ID', 'Address_1': 'Address_1', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Program'}
+SSN / Phone mapped to anything? False
+clean              contains unmapped SSN/phone values: []
+review             contains unmapped SSN/phone values: ['219-09-9999', '555-0102']
+   header: Source_File,Source_Row,Resolution_Status,Error_Reason,Scenario_Flags,orig::Client_ID,orig::First_Name,orig::Last_Name,orig::Address_1,orig::City,orig::State,orig::Zip,orig::Program,orig::SSN,orig::Pho
+aside              contains unmapped SSN/phone values: []
+unique_clients     contains unmapped SSN/phone values: []
+unique_by_program  contains unmapped SSN/phone values: []
+audit              contains unmapped SSN/phone values: []
+quality            contains unmapped SSN/phone values: []

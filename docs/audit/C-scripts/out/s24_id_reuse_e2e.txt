@@ -1,0 +1,8 @@
+after Process        : G1 settled=1 low=1 high=1 open=0 | G2=1 no_program=0 | rows={'input': 3, 'clean': 1, 'review': 2, 'aside': 0}
+groups               : [('idconflict', 2, 'One identifier used for records that do not match')]
+reviewer accepts     : G1 settled=2 low=2 high=2 open=0 | G2=2 no_program=0 | rows={'input': 3, 'clean': 3, 'review': 0, 'aside': 0} (truth: 3 people, Ana and Beth Perez are different)
+auto_links           : [(('one.csv :: A1:I4||0', 'one.csv :: A1:I4||1'), 100, ['the same one.csv identifier 77'])]
+open proposals       : 0
+what the Results screen offers to decide: 0 pairs
+UI code that lists auto-joined pairs (search 'auto_links' in app.js): 0 hits
+API-only escape hatch /api/identity/decide 'different': {'ok': True} -> G1 settled=3 low=3 high=3 open=0 | G2=3 no_program=0 | rows={'input': 3, 'clean': 3, 'review': 0, 'aside': 0}

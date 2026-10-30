@@ -1,0 +1,6 @@
+same ID, same name/address/ZIP, middle initial A vs B (two different people):
+   MI='A' Addr2='' -> CLEAN
+   MI='B' Addr2='' -> REVIEW: Confirmed duplicate: identical record with the same Client ID
+same ID, same name/street/ZIP, Address_2 'Apt 1' vs 'Apt 2' (two apartments):
+   MI='' Addr2='Apt 1' -> REVIEW: Same Client ID '77' used by records with different data; review required (not merged)
+   MI='' Addr2='Apt 2' -> REVIEW: Same Client ID '77' used by records with different data; review required (not merged)

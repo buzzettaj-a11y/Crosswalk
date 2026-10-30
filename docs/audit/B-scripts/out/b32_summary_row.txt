@@ -1,0 +1,12 @@
+Last name 'Sum' (Cambodian/Chinese surname), no street -> REVIEW: Summary row, not a client record (a total, count or heading); set aside
+                                          First='' Last='' ID='' A1='' A2='' City='' St='' Zip=''
+      summary flag: True
+Last name 'Sum', street present        -> CLEAN
+                                          First='Sokha' Last='Sum' ID='A1' A1='10 Main St' A2='' City='Brooklyn' St='NY' Zip='11201'
+      summary flag: False
+Last name 'Mean', no street            -> REVIEW: Summary row, not a client record (a total, count or heading); set aside
+                                          First='' Last='' ID='' A1='' A2='' City='' St='' Zip=''
+      summary flag: True
+First name 'Count' no street           -> REVIEW: Summary row, not a client record (a total, count or heading); set aside
+                                          First='' Last='' ID='' A1='' A2='' City='' St='' Zip=''
+      summary flag: True

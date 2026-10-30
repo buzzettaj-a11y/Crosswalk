@@ -1,0 +1,33 @@
+== Emergency-contact name columns come first in the file
+   mapped: {'First_Name': 'Emergency Contact First Name', 'Last_Name': 'Emergency Contact Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Street Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+   express check ok = True | warnings = [] | blockers = []
+   stored First='Rosa' Last='Diaz' ID='5001' A1='10 Main St' City='Brooklyn' Zip='11201' Program=''  CLEAN
+   stored First='Luis' Last='Perez' ID='5002' A1='11 Main St' City='Brooklyn' Zip='11201' Program=''  CLEAN
+== Mailing address columns come before Home address columns
+   mapped: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Mailing Address', 'City': 'Mailing City', 'State': 'Mailing State', 'Zip': 'Mailing Zip'}
+   express check ok = True | warnings = [] | blockers = []
+   stored First='Ana' Last='Lopez' ID='5101' A1='99 Elm St' City='Brooklyn' Zip='11202' Program=''  CLEAN
+   stored First='Bo' Last='Chen' ID='5102' A1='98 Elm St' City='Queens' Zip='11355' Program=''  CLEAN
+== 'Last Visit' comes before 'Surname'
+   mapped: {'First_Name': 'First Name', 'Last_Name': 'Last Visit', 'Client_ID': 'Client ID', 'Address_1': 'Street Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+   express check ok = True | warnings = [{'table': 'case.csv :: A1:H3', 'short': 'case.csv', 'field': 'Last_Name', 'text': 'case.csv, Last_Name: Names should not contain numbers.', 'better': None}] | blockers = []
+   (express run did not produce results)
+== No Program column, but 'Program Start Date' with US-format dates
+   mapped: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Street Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Program Start Date'}
+   express check ok = True | warnings = [] | blockers = []
+   stored First='Ana' Last='Lopez' ID='5301' A1='10 Main St' City='Brooklyn' Zip='11201' Program='03/04/2024'  CLEAN
+   stored First='Bo' Last='Chen' ID='5302' A1='12 Oak Ave' City='Queens' Zip='11355' Program='06/15/2024'  CLEAN
+== 'Program ID' is the only ID-like column; 'Household ID' is the client's
+   mapped: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Program ID', 'Address_1': 'Street Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Program ID'}
+   express check ok = True | warnings = [{'table': 'case.csv :: A1:G3', 'short': 'case.csv', 'field': 'Client_ID', 'text': "case.csv, Client_ID: Most rows share the same identifier, so this cannot identify a person. 'p-7' appears 2 times in the sample.", 'better': None}] | blockers = []
+   (express run did not produce results)
+== 'Place of Birth City' comes before 'City of Residence'
+   mapped: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Street Address', 'City': 'Place of Birth City', 'State': 'State', 'Zip': 'Zip'}
+   express check ok = True | warnings = [] | blockers = []
+   stored First='Ana' Last='Lopez' ID='5401' A1='10 Main St' City='Brooklyn' Zip='11201' Program=''  CLEAN
+   stored First='Bo' Last='Chen' ID='5402' A1='12 Oak Ave' City='Queens' Zip='11355' Program=''  CLEAN
+== 'Program ID' is the only ID-like column, values unique per row (enrollment numbers)
+   mapped: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Program ID', 'Address_1': 'Street Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Program ID'}
+   express check ok = True | warnings = [] | blockers = []
+   stored First='Ana' Last='Lopez' ID='P-7' A1='10 Main St' City='Brooklyn' Zip='11201' Program='P-7'  CLEAN
+   stored First='Bo' Last='Chen' ID='P-8' A1='12 Oak Ave' City='Queens' Zip='11355' Program='P-8'  CLEAN

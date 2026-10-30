@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cockpit, tidy up, grouped by rule</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&amp;display=swap">
+<style>
+body{margin:0;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;background:#f3f2f2;color:#201e1d}
+button{font-family:inherit}
+select,input{font-family:inherit}
+a{color:#2f5f88}a:hover{color:#20435f}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1340px; box-sizing: border-box; background: #f3f2f2; display: flex; flex-direction: column;">
+
+  <div style="height: 48px; flex-shrink: 0; background: #201e1d; color: #f3f2f2; display: flex; align-items: center; padding: 0 20px; gap: 12px;">
+    <span style="width: 12px; height: 12px; background: #2f5f88; display: inline-block;"></span>
+    <span style="font-size: 14px; font-weight: 800; letter-spacing: 0.06em;">CROSSWALK</span>
+    <span style="flex-grow: 1;"></span>
+    <span style="font-size: 11.5px; color: #d7d3d3;">Offline &middot; Geosupport active &middot; progress saved 1 min ago</span>
+  </div>
+
+  <div style="flex-shrink: 0; background: #ffffff; border-bottom: 1px solid #d7d3d3; display: flex; align-items: stretch;">
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #201e1d; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">01 SOURCES</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Add your files</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">5 files, 9 tables</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid #bab6b6; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">02 SCHEMA</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #201e1d; margin-top: 2px;">Set up your columns</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">nothing to decide</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: #eef3f7; border: none; border-bottom: 3px solid #2f5f88; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #2f5f88;">03 PREPARE</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #20435f; margin-top: 2px;">Tidy up</span>
+      <span style="display: block; font-size: 10.5px; color: #20435f; margin-top: 1px; font-weight: 600;">8 steps, 1 does nothing</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid transparent; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">04 MAP</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #605d5d; margin-top: 2px;">Match your columns</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">proposed, not confirmed</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid transparent; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">05 PROGRAMS</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #605d5d; margin-top: 2px;">Programs</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">not set up yet</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid transparent; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">06 RUN</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #605d5d; margin-top: 2px;">Process</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">not run yet</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid transparent; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">07 REVIEW</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #605d5d; margin-top: 2px;">Fix problems</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">not run yet</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid transparent; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">08 SUMMARY</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #605d5d; margin-top: 2px;">Results</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">not run yet</span>
+    </button>
+    <button style="flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 3px solid transparent; padding: 9px 7px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">09 EXPORT</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #605d5d; margin-top: 2px;">Download</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">not run yet</span>
+    </button>
+    <button style="flex-shrink: 0; width: 176px; background: transparent; border: none; border-left: 1px solid #eae9e9; border-bottom: 3px solid transparent; padding: 9px 14px; text-align: left; cursor: pointer;">
+      <span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: #605d5d;">UNDO</span>
+      <span style="display: block; font-size: 12px; font-weight: 800; color: #2f5f88; margin-top: 2px;">Remove split on PROGRAMS</span>
+      <span style="display: block; font-size: 10.5px; color: #605d5d; margin-top: 1px;">takes back one step</span>
+    </button>
+  </div>
+
+  <div style="flex-grow: 1; display: flex; overflow: hidden;">
+
+    <div style="width: 280px; flex-shrink: 0; background: #ffffff; border-right: 1px solid #d7d3d3; display: flex; flex-direction: column;">
+      <div style="padding: 18px; display: flex; flex-direction: column; gap: 18px; flex-grow: 1;">
+        <div>
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">This batch</div>
+          <div style="font-size: 13px; margin-top: 6px; line-height: 1.5;">5 files, 9 tables<br>7,412 rows staged</div>
+        </div>
+        <div>
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Where they stand</div>
+          <div style="font-size: 12.5px; color: #605d5d; margin-top: 6px; line-height: 1.45;">Not processed yet.</div>
+        </div>
+        <div>
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Tidy up</div>
+          <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 7px; font-size: 12.5px;">
+            <div style="display: flex;"><span>Proposed by the tool</span><span style="flex-grow: 1;"></span><b>6</b></div>
+            <div style="display: flex; color: #1b4b2b;"><span>Added by you</span><span style="flex-grow: 1;"></span><b>3</b></div>
+            <div style="display: flex; color: #605d5d;"><span>Removed</span><span style="flex-grow: 1;"></span><b>1</b></div>
+            <div style="display: flex; color: #5f3400;"><span>Do nothing here</span><span style="flex-grow: 1;"></span><b>1</b></div>
+          </div>
+          <div style="font-size: 11px; color: #605d5d; margin-top: 7px; line-height: 1.4;">Steps add columns. Nothing is removed or overwritten.</div>
+        </div>
+        <div style="border-top: 1px solid #eae9e9; padding-top: 15px;">
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #2f5f88;">The two counts</div>
+          <div style="font-size: 12.5px; color: #605d5d; margin-top: 6px; line-height: 1.45;">Unique clients, and unique clients by program. Both fill in the moment you process.</div>
+        </div>
+        <div style="border-top: 1px solid #eae9e9; padding-top: 15px;">
+          <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Locations</div>
+          <div style="font-size: 12.5px; color: #605d5d; margin-top: 6px; line-height: 1.45;">Not located yet.</div>
+        </div>
+      </div>
+      <div style="border-top: 1px solid #d7d3d3; background: #eae9e9; padding: 13px 18px; display: flex; flex-direction: column; gap: 9px;">
+        <button style="background: transparent; border: none; padding: 0; text-align: left; cursor: pointer; font-size: 12px; font-weight: 800; color: #2f5f88; text-decoration: underline;">This computer is ready for real data</button>
+        <div style="font-size: 11px; color: #605d5d; line-height: 1.4;">Nothing leaves this machine. Files are written only when you download them.</div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 9px 12px; font-size: 12px; font-weight: 800; cursor: pointer;">Close Crosswalk</button>
+          <button style="background: transparent; color: #605d5d; border: none; padding: 0; font-size: 11.5px; font-weight: 800; cursor: pointer; text-decoration: underline;">Start over</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex-grow: 1; padding: 22px 26px; display: flex; flex-direction: column; gap: 14px; overflow: hidden;">
+
+      <div style="display: flex; align-items: flex-end; gap: 20px;">
+        <div style="flex-grow: 1;">
+          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #605d5d;">Stage 03 of 09 &middot; Prepare</div>
+          <h2 style="margin: 4px 0 0; font-size: 25px; font-weight: 800; line-height: 1.1;">Tidy up</h2>
+          <div style="font-size: 13px; color: #605d5d; margin-top: 4px;">Some files need untangling first, for example an address and a ZIP squashed into one column. Every step adds columns and removes nothing.</div>
+        </div>
+        <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 11px 16px; font-size: 13px; font-weight: 800; cursor: pointer; flex-shrink: 0;">Continue to Match your columns</button>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid #d7d3d3; padding: 16px 18px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: baseline; gap: 12px;">
+          <div style="font-size: 15px; font-weight: 800;">Add a step</div>
+          <div style="font-size: 12.5px; color: #605d5d;">Pick what to do, then where.</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px;">
+          <button style="background: #ffffff; border: 1px solid #d7d3d3; border-top: 3px solid #d7d3d3; padding: 11px 13px; text-align: left; cursor: pointer;">
+            <span style="display: block; font-size: 13px; font-weight: 800; color: #201e1d;">Calculate the ZIP from the address</span>
+            <span style="display: block; font-size: 11.5px; color: #605d5d; line-height: 1.4; margin-top: 3px;">Looks every address up and adds a ZIP column, with the reason on every row.</span>
+          </button>
+          <button style="background: #eef3f7; border: 1px solid #bcd3e4; border-top: 3px solid #2f5f88; padding: 11px 13px; text-align: left; cursor: pointer;">
+            <span style="display: block; font-size: 13px; font-weight: 800; color: #20435f;">Clean columns</span>
+            <span style="display: block; font-size: 11.5px; color: #444141; line-height: 1.4; margin-top: 3px;">Case, junk characters and edge punctuation, on the columns you pick.</span>
+          </button>
+          <button style="background: #ffffff; border: 1px solid #d7d3d3; border-top: 3px solid #d7d3d3; padding: 11px 13px; text-align: left; cursor: pointer;">
+            <span style="display: block; font-size: 13px; font-weight: 800; color: #201e1d;">Split by a delimiter</span>
+            <span style="display: block; font-size: 11.5px; color: #605d5d; line-height: 1.4; margin-top: 3px;">One column into several at a comma, a pipe or a mark of your own.</span>
+          </button>
+          <button style="background: #ffffff; border: 1px solid #d7d3d3; border-top: 3px solid #d7d3d3; padding: 11px 13px; text-align: left; cursor: pointer;">
+            <span style="display: block; font-size: 13px; font-weight: 800; color: #201e1d;">Split a jammed address</span>
+            <span style="display: block; font-size: 11.5px; color: #605d5d; line-height: 1.4; margin-top: 3px;">Street, unit, city, state and ZIP out of one address column.</span>
+          </button>
+          <button style="background: #ffffff; border: 1px solid #d7d3d3; border-top: 3px solid #d7d3d3; padding: 11px 13px; text-align: left; cursor: pointer;">
+            <span style="display: block; font-size: 13px; font-weight: 800; color: #201e1d;">Split a jammed name</span>
+            <span style="display: block; font-size: 11.5px; color: #605d5d; line-height: 1.4; margin-top: 3px;">First, middle and last out of one name column. Last, First M works too.</span>
+          </button>
+        </div>
+
+        <div style="display: flex; gap: 14px; align-items: flex-start;">
+          <div style="width: 220px; flex-shrink: 0;">
+            <label for="t-src" style="display: block; font-size: 11.5px; font-weight: 800; margin-bottom: 4px;">Source</label>
+            <select id="t-src" style="width: 100%; border: 1px solid #bab6b6; background: #ffffff; padding: 9px 10px; font-size: 12.5px; color: #201e1d;"><option>A &middot; clinic_export.csv</option></select>
+          </div>
+          <div style="flex-grow: 1;">
+            <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px;">
+              <span style="font-size: 11.5px; font-weight: 800;">Columns to clean</span>
+              <button style="background: transparent; color: #2f5f88; border: none; padding: 0; font-size: 11.5px; font-weight: 800; cursor: pointer; text-decoration: underline;">all</button>
+              <button style="background: transparent; color: #2f5f88; border: none; padding: 0; font-size: 11.5px; font-weight: 800; cursor: pointer; text-decoration: underline;">none</button>
+              <button style="background: transparent; color: #2f5f88; border: none; padding: 0; font-size: 11.5px; font-weight: 800; cursor: pointer; text-decoration: underline;">invert</button>
+              <span style="font-size: 11.5px; color: #605d5d;">3 of 14 picked</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+              <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">CLIENT_NO</button>
+              <button style="background: #201e1d; color: #ffffff; border: 1px solid #201e1d; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">FNAME</button>
+              <button style="background: #201e1d; color: #ffffff; border: 1px solid #201e1d; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">LNAME</button>
+              <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">MI</button>
+              <button style="background: #201e1d; color: #ffffff; border: 1px solid #201e1d; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">STREET</button>
+              <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">APT_NO</button>
+              <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">REGION</button>
+              <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">BOROUGH</button>
+              <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">ZIPCODE</button>
+              <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">SERVICE_AREA</button>
+              <button style="background: #ffffff; color: #201e1d; border: 1px solid #bab6b6; padding: 6px 10px; font-size: 12px; font-weight: 600; cursor: pointer;">PROGRAMS</button>
+              <button style="background: transparent; color: #2f5f88; border: none; padding: 6px 4px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline;">3 more</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px; align-items: flex-end; border-top: 1px solid #eae9e9; padding-top: 13px;">
+          <div style="width: 160px; flex-shrink: 0;">
+            <label for="t-case" style="display: block; font-size: 11.5px; font-weight: 800; margin-bottom: 4px;">Case</label>
+            <select id="t-case" style="width: 100%; border: 1px solid #bab6b6; background: #ffffff; padding: 9px 10px; font-size: 12.5px; color: #201e1d;"><option>Title case</option></select>
+          </div>
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; padding-bottom: 9px; cursor: pointer;"><input type="checkbox" checked style="margin: 0; width: 16px; height: 16px;"> Strip junk characters <span style="color: #605d5d;">(control and zero-width characters, smart quotes to plain)</span></label>
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; padding-bottom: 9px; cursor: pointer;"><input type="checkbox" style="margin: 0; width: 16px; height: 16px;"> Strip edge punctuation</label>
+          <span style="flex-grow: 1;"></span>
+          <button style="background: #2f5f88; color: #ffffff; border: 1px solid #2f5f88; padding: 11px 16px; font-size: 12.5px; font-weight: 800; cursor: pointer; flex-shrink: 0;">Add this step</button>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; margin-top: 4px;">
+        <div style="font-size: 13.5px; font-weight: 800;">9 steps across 4 sources</div>
+        <span style="flex-grow: 1;"></span>
+        <span style="font-size: 11.5px; color: #605d5d;">Group by</span>
+        <div style="display: flex; gap: 2px; background: #d7d3d3; border: 1px solid #d7d3d3;">
+          <button style="background: #201e1d; color: #f3f2f2; border: none; padding: 8px 13px; font-size: 12px; font-weight: 800; cursor: pointer;">Rule</button>
+          <button style="background: #ffffff; color: #201e1d; border: none; padding: 8px 13px; font-size: 12px; font-weight: 800; cursor: pointer;">Source</button>
+          <button style="background: #ffffff; color: #201e1d; border: none; padding: 8px 13px; font-size: 12px; font-weight: 800; cursor: pointer;">Who added it</button>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+
+        <div style="border: 1px solid #d7d3d3; background: #ffffff;">
+          <div style="display: flex; align-items: baseline; gap: 12px; padding: 10px 14px; background: #eae9e9; border-bottom: 1px solid #d7d3d3;">
+            <span style="font-size: 13.5px; font-weight: 800;">Calculate the ZIP from the address</span>
+            <span style="font-size: 12px; color: #605d5d;">1 source</span>
+            <span style="font-size: 12px; color: #605d5d; flex-grow: 1;">Looks every address up and adds the ZIP where the address settles it, with the reason on every row. A row that already has a ZIP keeps it.</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px;">
+            <span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">D</span>
+            <span style="font-size: 12.5px; font-weight: 800; width: 190px;">partner_export.tsv</span>
+            <span style="font-size: 12px; color: #444141; width: 230px;">Addr, City &rarr; Zip_calculated</span>
+            <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">612 rows got a ZIP, 388 kept theirs, 104 could not be placed and carry the reason into review.</span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #1b4b2b; background: #e9f7ec; border: 1px solid #b6dabe; padding: 3px 7px;">ADDED BY YOU</span>
+            <button style="background: transparent; color: #444141; border: none; padding: 4px 2px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline; width: 60px; text-align: right;">Remove</button>
+          </div>
+        </div>
+
+        <div style="border: 1px solid #d7d3d3; background: #ffffff;">
+          <div style="display: flex; align-items: baseline; gap: 12px; padding: 10px 14px; background: #eae9e9; border-bottom: 1px solid #d7d3d3;">
+            <span style="font-size: 13.5px; font-weight: 800;">Clean columns</span>
+            <span style="font-size: 12px; color: #605d5d;">3 sources</span>
+            <span style="font-size: 12px; color: #605d5d; flex-grow: 1;">Case, junk characters and edge punctuation on the columns listed. The original column is kept beside the cleaned one.</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid #eae9e9;">
+            <span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">B</span>
+            <span style="font-size: 12.5px; font-weight: 800; width: 190px;">legacy_export.xlsx</span>
+            <span style="font-size: 12px; color: #444141; width: 230px;">FNAME, LNAME, STREET</span>
+            <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">Title case, junk stripped.</span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #444141; border: 1px solid #bab6b6; padding: 3px 7px;">PROPOSED BY THE TOOL</span>
+            <button style="background: transparent; color: #444141; border: none; padding: 4px 2px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline; width: 60px; text-align: right;">Remove</button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid #eae9e9;">
+            <span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">A</span>
+            <span style="font-size: 12.5px; font-weight: 800; width: 190px;">clinic_export.csv</span>
+            <span style="font-size: 12px; color: #444141; width: 230px;">all 14 columns</span>
+            <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">Junk stripped, edge punctuation stripped. Case left as entered.</span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #444141; border: 1px solid #bab6b6; padding: 3px 7px;">PROPOSED BY THE TOOL</span>
+            <button style="background: transparent; color: #444141; border: none; padding: 4px 2px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline; width: 60px; text-align: right;">Remove</button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px;">
+            <span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">C</span>
+            <span style="font-size: 12.5px; font-weight: 800; width: 190px;">state_export.xml</span>
+            <span style="font-size: 12px; color: #444141; width: 230px;">Program_Name</span>
+            <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">Title case.</span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #1b4b2b; background: #e9f7ec; border: 1px solid #b6dabe; padding: 3px 7px;">ADDED BY YOU</span>
+            <button style="background: transparent; color: #444141; border: none; padding: 4px 2px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline; width: 60px; text-align: right;">Remove</button>
+          </div>
+        </div>
+
+        <div style="border: 1px solid #d7d3d3; background: #ffffff;">
+          <div style="display: flex; align-items: baseline; gap: 12px; padding: 10px 14px; background: #eae9e9; border-bottom: 1px solid #d7d3d3;">
+            <span style="font-size: 13.5px; font-weight: 800;">Split a jammed address</span>
+            <span style="font-size: 12px; color: #605d5d;">2 sources</span>
+            <span style="font-size: 12px; color: #605d5d; flex-grow: 1;">Makes street, unit, city, state and ZIP columns. A row that was already clean keeps its street and leaves the new columns blank.</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid #eae9e9;">
+            <span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">B</span>
+            <span style="font-size: 12.5px; font-weight: 800; width: 190px;">legacy_export.xlsx</span>
+            <span style="font-size: 12px; color: #444141; width: 230px;">ADDRESS</span>
+            <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">1,206 of 2,208 rows were jammed.</span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #444141; border: 1px solid #bab6b6; padding: 3px 7px;">PROPOSED BY THE TOOL</span>
+            <button style="background: transparent; color: #444141; border: none; padding: 4px 2px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline; width: 60px; text-align: right;">Remove</button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px;">
+            <span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">D</span>
+            <span style="font-size: 12.5px; font-weight: 800; width: 190px;">partner_export.tsv</span>
+            <span style="font-size: 12px; color: #444141; width: 230px;">Addr</span>
+            <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">388 of 1,104 rows were jammed.</span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #444141; border: 1px solid #bab6b6; padding: 3px 7px;">PROPOSED BY THE TOOL</span>
+            <button style="background: transparent; color: #444141; border: none; padding: 4px 2px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline; width: 60px; text-align: right;">Remove</button>
+          </div>
+        </div>
+
+        <div style="border: 1px solid #d7d3d3; background: #ffffff;">
+          <div style="display: flex; align-items: baseline; gap: 12px; padding: 10px 14px; background: #eae9e9; border-bottom: 1px solid #d7d3d3;">
+            <span style="font-size: 13.5px; font-weight: 800;">Split a jammed name</span>
+            <span style="font-size: 12px; color: #605d5d;">2 sources</span>
+            <span style="font-size: 12px; color: #605d5d; flex-grow: 1;">Handles Last, First M and First M Last. A suffix stays with the last name. DiNapoli and O'Brien keep their casing.</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid #eae9e9;">
+            <span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">B</span>
+            <span style="font-size: 12.5px; font-weight: 800; width: 190px;">legacy_export.xlsx</span>
+            <span style="font-size: 12px; color: #444141; width: 230px;">CLIENT</span>
+            <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">2,208 rows, written Last, First M.</span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #444141; border: 1px solid #bab6b6; padding: 3px 7px;">PROPOSED BY THE TOOL</span>
+            <button style="background: transparent; color: #444141; border: none; padding: 4px 2px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline; width: 60px; text-align: right;">Remove</button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #ffeed6; border-top: 1px solid #f0c79a;">
+            <span style="width: 16px; height: 16px; background: #201e1d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">D</span>
+            <span style="font-size: 12.5px; font-weight: 800; width: 190px;">partner_export.tsv</span>
+            <span style="font-size: 12px; color: #444141; width: 230px;">FULL_NAME</span>
+            <span style="font-size: 12.5px; color: #5f3400; flex-grow: 1;"><b>0 of 1,104 rows were jammed.</b> This step does nothing here. It is safe to keep and safe to remove.</span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #444141; border: 1px solid #bab6b6; padding: 3px 7px;">PROPOSED BY THE TOOL</span>
+            <button style="background: transparent; color: #444141; border: none; padding: 4px 2px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline; width: 60px; text-align: right;">Remove</button>
+          </div>
+        </div>
+
+        <div style="border: 1px solid #d7d3d3; background: #ffffff;">
+          <div style="display: flex; align-items: baseline; gap: 12px; padding: 10px 14px; background: #eae9e9; border-bottom: 1px solid #d7d3d3;">
+            <span style="font-size: 13.5px; font-weight: 800;">Split by a delimiter</span>
+            <span style="font-size: 12px; color: #605d5d;">1 source</span>
+            <span style="font-size: 12px; color: #605d5d; flex-grow: 1;">One column into several at the mark you choose.</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #eae9e9;">
+            <span style="width: 16px; height: 16px; background: #605d5d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; flex-shrink: 0;">A</span>
+            <span style="font-size: 12.5px; font-weight: 800; width: 190px; color: #444141;">clinic_export.csv</span>
+            <span style="font-size: 12px; color: #605d5d; width: 230px;">PROGRAMS at &ldquo;;&rdquo;</span>
+            <span style="font-size: 12.5px; color: #605d5d; flex-grow: 1;">Into PROGRAMS_1 and PROGRAMS_2. Removed, so it will not run.</span>
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #605d5d; border: 1px solid #bab6b6; padding: 3px 7px;">REMOVED</span>
+            <button style="background: transparent; color: #2f5f88; border: none; padding: 4px 2px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: underline; width: 60px; text-align: right;">Restore</button>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; color: #605d5d; padding: 2px 2px;">E &middot; portal_export.json has no steps and passes through as it is.</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1340}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

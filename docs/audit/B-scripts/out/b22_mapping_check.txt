@@ -1,0 +1,48 @@
+
+1. Mailing address listed before home address (all values look like addresses)
+   mapping: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Mailing Address', 'City': 'Mailing City', 'State': 'Mailing State', 'Zip': 'Mailing Zip'}
+   verdict: ok (0 problems, 0 checks)
+
+2. Provider/emergency-contact name columns listed before the client's own
+   mapping: {'First_Name': 'Emergency Contact First Name', 'Last_Name': 'Emergency Contact Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+   verdict: ok (0 problems, 0 checks)
+
+3. No Program column, but 'Program Start Date' with US-format dates
+   mapping: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Program Start Date'}
+   verdict: ok (0 problems, 0 checks)
+
+3b. same, ISO dates
+   mapping: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip', 'Program': 'Program Start Date'}
+   verdict: problem (1 problems, 0 checks)
+   Program: problem - These are numbers, which look like program codes rather than program names. The count by program needs names.
+
+4. 'Address Line 2' listed before 'Address Line 1' (Line 2 mostly filled)
+   mapping: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address Line 2', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+   verdict: problem (1 problems, 0 checks)
+   Address_1: problem - These look like apartment or floor numbers rather than street addresses. This column probably belongs in Addre
+
+4b. 'Address Line 2' listed before 'Address Line 1' (Line 2 mostly blank)
+   mapping: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address Line 2', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+   verdict: problem (1 problems, 0 checks)
+   Address_1: problem - Only about 18% of rows have a value in 'Address Line 2'. The rest would fail as missing. The column named 'Add
+
+5. 'Street Address' and 'Street Address 2'
+   mapping: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Street Address 2', 'Address_2': 'Street Address 2', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+   verdict: problem (1 problems, 0 checks)
+   Address_1: problem - Only about 35% of rows have a value in 'Street Address 2'. The rest would fail as missing. The column named 'S
+
+6. 'City of Residence' and 'Place of Birth City'
+   mapping: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'Place of Birth City', 'State': 'State', 'Zip': 'Zip'}
+   verdict: ok (0 problems, 0 checks)
+
+7. Household ID before Client ID is absent: 'Program ID', 'Household ID' only
+   mapping: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Program ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+   verdict: ok (0 problems, 0 checks)
+
+8. Zip: employer ZIP before client ZIP
+   mapping: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Zip'}
+   verdict: ok (0 problems, 0 checks)
+
+9. 'Zip Code' and 'Mailing Zip Code' (mailing first)
+   mapping: {'First_Name': 'First Name', 'Last_Name': 'Last Name', 'Client_ID': 'Client ID', 'Address_1': 'Address', 'City': 'City', 'State': 'State', 'Zip': 'Mailing Zip Code'}
+   verdict: ok (0 problems, 0 checks)
