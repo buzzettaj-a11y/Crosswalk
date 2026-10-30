@@ -1,0 +1,43 @@
+# Linux checks for every milestone (M00). The Windows job arrives in M14.
+name: ci
+
+on:
+  push:
+    branches: [main, "build/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install the Qt runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libegl1 libgl1 libxkbcommon0 libdbus-1-3 libfontconfig1 libglib2.0-0
+
+      - name: Install the dev lock
+        run: python -m pip install --require-hashes --no-deps --only-binary=:all: -r requirements-dev.lock
+
+      - name: make test
+        run: make test
+
+      - name: make offline
+        run: make offline
+
+      - name: make copy
+        run: make copy
+
+      # The only step that needs the network: it proves every runtime pin has a Windows wheel whose hash is in the lock.
+      - name: Download the runtime lock for Windows
+        run: >
+          python -m pip download --platform win_amd64 --python-version 3.12 --implementation cp --abi cp312
+          --only-binary=:all: --require-hashes -r requirements.lock -d "$RUNNER_TEMP/wheels-win"
