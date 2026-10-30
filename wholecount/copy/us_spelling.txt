@@ -1,0 +1,22 @@
+# British spellings the copy lint rejects (H16). One word per line, matched whole-word and case-insensitive.
+# These words are written only in this file, so the lint never trips on the list itself.
+colour
+favour
+behaviour
+honour
+labour
+centre
+theatre
+organise
+recognise
+realise
+analyse
+licence
+defence
+offence
+catalogue
+programme
+labelled
+organisation
+travelled
+whilst

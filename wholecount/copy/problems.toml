@@ -1,0 +1,9 @@
+# Problem reasons shown on Fix problems and in the review file, one table per reason code.
+#
+# Every reason has these four keys:
+#   title  the reason in a few plain words
+#   means  what the problem means for the row
+#   check  what to check in the source data
+#   excel  how to find and fix it in Excel
+#
+# Later milestones add reasons. The same wording rules as en.toml apply (H16).
