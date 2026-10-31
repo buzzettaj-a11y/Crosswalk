@@ -1,0 +1,9 @@
+{
+  "provider": "local_cert",
+  "publisher": "Joe Buzzetta",
+  "thumbprint": "",
+  "timestamp_url": "http://timestamp.digicert.com",
+  "azure_endpoint": "",
+  "azure_account": "",
+  "azure_profile": ""
+}

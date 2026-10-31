@@ -1,7 +1,7 @@
 # Same target names on every platform (CLAUDE.md). Run inside the activated .venv.
 PYTHON ?= python
 
-.PHONY: test offline copy screens run bundle lock
+.PHONY: test offline copy screens run bundle lock installer sign release
 
 # Exported by make rather than written before the command, so it works in cmd.exe as well as sh.
 test: export QT_QPA_PLATFORM = offscreen
@@ -22,7 +22,15 @@ screens:
 	$(PYTHON) -m tools.screens
 
 bundle:
-	@echo "make bundle arrives in M14"
+	$(PYTHON) tools/make_version_info.py
+	$(PYTHON) tools/make_icon.py
+	$(PYTHON) tools/collect_licenses.py
+	$(PYTHON) -m PyInstaller --noconfirm --clean --distpath dist --workpath build build/wholecount.spec
+	$(PYTHON) tools/check_bundle.py dist/Wholecount build/wholecount
+
+# Windows only. Elsewhere they say so and fail, so a stub never looks green.
+installer sign release:
+	@echo "Windows only"; exit 1
 	@exit 1
 
 # Recompiles both lockfiles. pip-tools is not in either lock, so it runs from a throwaway venv on Python 3.12:

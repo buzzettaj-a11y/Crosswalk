@@ -1,0 +1,7 @@
+NYC reference data shipped with Wholecount
+
+ZIP code table (wholecount/engine/geo/data/nyc_zips.csv):
+  Source: NYC Health ZIP table, copy at https://raw.githubusercontent.com/erikgregorywebb/nyc-housing/master/Data/nyc-zip-codes.csv retrieved 2026-10-31
+  Source: SPEC.md P-STD-3
+
+District boundary files: none are shipped in this build. See the README in the districts folder.

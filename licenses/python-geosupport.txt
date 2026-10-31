@@ -1,0 +1,4 @@
+python-geosupport 1.1.0
+License: MIT
+
+No license file is included in this package's distribution. The license named above applies.
