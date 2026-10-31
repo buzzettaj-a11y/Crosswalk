@@ -161,12 +161,19 @@ def write_download(session, folder, settings, environ=None):
 
 
 def log_download(session, receipt):
+    """After a download is written: the DOWNLOAD entry, then the saved crosswalk's commit (XW-6). Returns the receipt, with
+    a note added when the commit rolled back. Both download routes end here."""
+    import dataclasses
     import pathlib
 
     from wholecount.engine.outputs.audit_entry import entry
+    from wholecount.session.crosswalk import commit_after_download
 
     session.log(entry("DOWNLOAD", file_name=[pathlib.Path(f.path).name for f in receipt.files], count=len(receipt.files),
                       reviewer=session.reviewer or None))
+    if commit_after_download(session) == "failed":
+        receipt = dataclasses.replace(receipt, notes=tuple(receipt.notes) + (("outputs.note.crosswalk_failed", {}),))
+    return receipt
 
 
 def _band_rate(b, labeled, same):

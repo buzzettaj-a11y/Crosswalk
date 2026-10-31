@@ -222,7 +222,7 @@ class DownloadJob:
 
         kind, value = result
         if kind == "done":
-            log_download(session, value)
+            value = log_download(session, value)
         self.on_done(kind, value)
 
 

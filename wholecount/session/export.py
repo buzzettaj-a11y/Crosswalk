@@ -214,16 +214,9 @@ def download(session, folder, settings=None, clock=None, confirmed_synced=False,
         raise DownloadHeld(gate.reasons)
     view = build_view(session, settings)
     receipt = writer.write_outputs(view, folder, settings, clock or session.clock, confirmed_synced, overwrite, environ)
-    import pathlib
-    session.log(entry("DOWNLOAD", file_name=[pathlib.Path(f.path).name for f in receipt.files], count=len(receipt.files),
-                      reviewer=session.reviewer or None))
-    from wholecount.session.crosswalk import commit_after_download
+    from wholecount.session.frame import log_download
 
-    if commit_after_download(session) == "failed":
-        import dataclasses
-
-        receipt = dataclasses.replace(receipt, notes=tuple(receipt.notes) + (("outputs.note.crosswalk_failed", {}),))
-    return receipt
+    return log_download(session, receipt)
 
 
 def save_summary(session, path, include_file_names=False, overwrite=False):
