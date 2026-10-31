@@ -414,31 +414,37 @@ def files_section(pl, total_row):
 
 
 def map_section():
-    before = {
-        CSV: {"fields": {"Client_ID": "Client_ID", "Date_of_Birth": "DOB", "Program": "Program"},
-              "unmapped": ["Name", "Full_Address"], "blockers": ["First_Name", "Last_Name"]},
-        XLSX: {"fields": {"Client_ID": "Client ID", "First_Name": "First Name", "Last_Name": "Last Name", "Middle_Initial": "MI",
+    """The auto-mapping before any tidy-up step (M02), and after the proposed steps (M03). Blockers name fields only."""
+    auto = {
+        CSV: {"sheet": None, "fields": {"Client_ID": "Client_ID", "Address_1": "Full_Address", "Date_of_Birth": "DOB",
+                                        "Program": "Program"},
+              "blockers": ["First_Name", "Last_Name"]},
+        XLSX: {"sheet": "Clients", "header_row": len(XLSX_TITLES) + 1,
+               "fields": {"Client_ID": "Client ID", "First_Name": "First Name", "Last_Name": "Last Name", "Middle_Initial": "MI",
                           "Address_1": "Address", "Address_2": "Apt", "City": "City", "State": "State", "Zip": "ZIP",
-                          "Date_of_Birth": "Date of Birth", "Program": "Program"}, "unmapped": [], "blockers": []},
-        TSV: {"fields": {"Client_ID": "uid", "First_Name": "first", "Last_Name": "last", "Date_of_Birth": "dob",
-                         "Address_1": "address_line", "Address_2": "apt", "City": "city", "State": "st", "Zip": "zip",
-                         "Program": "program"}, "unmapped": [], "blockers": []},
-        JSON_: {"fields": {"Client_ID": "id", "First_Name": "first_name", "Last_Name": "last_name", "Date_of_Birth": "birth_date",
-                           "Address_1": "address.street", "Address_2": "address.unit", "City": "address.city",
-                           "State": "address.state", "Zip": "address.zip", "Program": "program"}, "unmapped": [], "blockers": []},
-        XML: {"fields": {"Client_ID": "ClientNumber", "First_Name": "FirstName", "Last_Name": "LastName",
-                         "Middle_Initial": "MiddleInitial", "Date_of_Birth": "BirthDate", "Address_1": "Street", "Address_2": "Apt",
-                         "City": "City", "State": "State", "Zip": "Zip"}, "unmapped": [], "blockers": []},
+                          "Date_of_Birth": "Date of Birth", "Program": "Program"}, "blockers": []},
+        TSV: {"sheet": None, "fields": {"Client_ID": "uid", "First_Name": "first", "Last_Name": "last", "Date_of_Birth": "dob",
+                                        "Address_1": "address_line", "Address_2": "apt", "City": "city", "State": "st", "Zip": "zip",
+                                        "Program": "program"}, "blockers": []},
+        JSON_: {"sheet": None, "fields": {"Client_ID": "id", "First_Name": "first_name", "Last_Name": "last_name",
+                                          "Date_of_Birth": "birth_date", "Address_1": "address.street", "Address_2": "address.unit",
+                                          "City": "address.city", "State": "address.state", "Zip": "address.zip", "Program": "program"},
+                "blockers": []},
+        XML: {"sheet": None, "fields": {"Client_ID": "ClientNumber", "First_Name": "FirstName", "Last_Name": "LastName",
+                                        "Middle_Initial": "MiddleInitial", "Date_of_Birth": "BirthDate", "Address_1": "Street",
+                                        "Address_2": "Apt", "City": "City", "State": "State", "Zip": "Zip"}, "blockers": []},
     }
-    after = {f: dict(v) for f, v in before.items()}
+    after = {f: dict(v) for f, v in auto.items()}
     after[CSV] = {
+        "sheet": None,
         "steps": [{"step": "split_name", "column": "Name", "form": "last_comma_first"},
                   {"step": "split_address", "column": "Full_Address"}],
+        "fields": {"Client_ID": "Client_ID", "Date_of_Birth": "DOB", "Program": "Program"},
         "fields_from_steps": {"First_Name": "Name", "Middle_Initial": "Name", "Last_Name": "Name", "Address_1": "Full_Address",
                               "Address_2": "Full_Address", "City": "Full_Address", "State": "Full_Address", "Zip": "Full_Address"},
-        "fields": before[CSV]["fields"], "blockers": [],
+        "blockers": [],
     }
-    return {"before_steps": before, "after_steps": after,
+    return {"auto": auto, "after_steps": after,
             "note": "Column names made by the split steps are M03's to name. fields_from_steps gives the source column."}
 
 
@@ -591,7 +597,7 @@ def generate(seed, out):
     pl = build_plan(seed)
     ssn_rng = random.Random(seed + 1)
     write_csv(pl, out)
-    total_row = write_xlsx(pl, out)
+    total_row = _write_xlsx_if_changed(pl, out)
     write_tsv(pl, out, ssn_rng)
     write_json(pl, out)
     write_xml(pl, out)
@@ -599,6 +605,17 @@ def generate(seed, out):
     exp["seed"] = seed
     (out / "EXPECTED.json").write_bytes((json.dumps(exp, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
     return exp
+
+
+def _write_xlsx_if_changed(pl, out):
+    """openpyxl stamps times into the zip, so an unchanged workbook is kept as it is rather than rewritten."""
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = pathlib.Path(tmp)
+        total_row = write_xlsx(pl, tmp)
+        target = out / XLSX
+        if not target.exists() or _cells(target) != _cells(tmp / XLSX):
+            target.write_bytes((tmp / XLSX).read_bytes())
+    return total_row
 
 
 def _cells(path):

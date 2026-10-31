@@ -50,9 +50,9 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-18 | High | M05 | arrives in M05 | pending |
 | B-19 | High | M05 | arrives in M05 | pending |
 | B-20 | High | M07 | arrives in M07 | pending |
-| B-21 | High | M02 | arrives in M02 | pending |
-| B-22 | High | M02 | arrives in M02 | pending |
-| B-23 | High | M02 | arrives in M02 | pending |
+| B-21 | High | M02 | `tests/audit/test_B21_first_match_by_position.py` | done |
+| B-22 | High | M02 | `tests/audit/test_B22_program_date_and_id.py` | done |
+| B-23 | High | M02 | `tests/audit/test_B23_split_does_not_hijack.py` | done |
 | B-24 | Medium | M01 | `tests/audit/test_B24_invisible_characters.py` | done |
 | B-25 | Medium | M04 | arrives in M04 | pending |
 | B-26 | Medium | M04 | arrives in M04 | pending |
@@ -77,8 +77,8 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-45 | Low | M05 | arrives in M05 | pending |
 | B-46 | Low | M05 | arrives in M05 | pending |
 | B-47 | Low | M06 | arrives in M06 | pending |
-| B-48 | Low | M02 | arrives in M02 | pending |
-| B-49 | Low | M02 | arrives in M02 | pending |
+| B-48 | Low | M02 | `tests/audit/test_B48_last_visit.py` | done |
+| B-49 | Low | M02 | `tests/audit/test_B49_address_line_2.py` | done |
 | C-01 | High | M06 | arrives in M06 | pending |
 | C-02 | High | M06 | arrives in M06 | pending |
 | C-03 | High | M08 | arrives in M08 | pending |
