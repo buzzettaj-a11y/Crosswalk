@@ -165,6 +165,24 @@ class CountLabel(enum.Enum):
     DECISIONS_MADE = "decisions_made"
     DECISIONS_KEPT = "decisions_kept"
     NO_LONGER_APPLY = "no_longer_apply"
+    # M09 outputs and saved progress
+    DPAPI_ROUND_TRIP = "dpapi_round_trip"
+    CHANGED_BYTE_DETECTED = "changed_byte_detected"
+    FILES_WRITTEN = "files_written"
+    CLEAN_ROWS = "clean_rows"
+    REVIEW_ROWS = "review_rows"
+    SET_ASIDE_ROWS = "set_aside_rows"
+    UNIQUE_CLIENTS_ROWS = "unique_clients_rows"
+    BY_PROGRAM_ROWS = "by_program_rows"
+    FOLDER_WARNING = "folder_warning"
+    CORRECTIONS_ACCEPTED = "corrections_accepted"
+    CORRECTIONS_REFUSED = "corrections_refused"
+    REFUSED_OTHER_COLUMN = "refused_other_column"
+    FILE_BYTES = "file_bytes"
+    DECRYPTS_FOR_THIS_USER = "decrypts_for_this_user"
+    CELL_VALUES_FOUND = "cell_values_found"
+    DECISIONS_RESTORED = "decisions_restored"
+    DELETED = "deleted"
 
 
 def emit(label, value, scope=None, out=None, field=None, reason=None, grouped=True):
@@ -961,11 +979,205 @@ def cmd_session_check(args):
     return 0
 
 
+def cmd_dpapi_roundtrip(args):
+    """Protect and unprotect a short made-up value with this Windows user's DPAPI, then flip one byte. Writes nothing."""
+    from wholecount.session import dpapi
+
+    data = b"wholecount dpapi check"
+    blob = dpapi.protect(data)
+    ok = dpapi.unprotect(blob) == data
+    bad = bytearray(blob)
+    bad[len(bad) // 2] ^= 0x01
+    try:
+        dpapi.unprotect(bytes(bad))
+        detected = False
+    except dpapi.DpapiError:
+        detected = True
+    emit(CountLabel.DPAPI_ROUND_TRIP, int(ok))
+    emit(CountLabel.CHANGED_BYTE_DETECTED, int(detected))
+    emit(CountLabel.FILES_WRITTEN, 0)
+    return 0
+
+
+_DEMO_ROWS = [list(r) for r in _R_ROWS]
+_DEMO_ROWS[0][0] = "00123"
+_DEMO_ROWS[5][2] = "Gíl"
+
+
+def _demo_session(folder, state, practice=False, secret=None):
+    """The made-up R and S fixture (with Fay Gíl and Client ID 00123) in a session, in its base or decided state."""
+    import csv
+    import json as _json
+    import datetime as dt
+
+    from wholecount.engine.geo.districts import DistrictIndex
+    from wholecount.engine.geo.reference import ReferenceBackend
+    from wholecount.session import commands as C
+    from wholecount.session.runner import process
+    from wholecount.session.state import Session
+
+    folder.mkdir(parents=True, exist_ok=True)
+    paths = []
+    for name, rows in (("R.csv", _DEMO_ROWS), ("S.csv", _S_ROWS)):
+        path = folder / name
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(_R_HEADER)
+            w.writerows(rows)
+        paths.append(path)
+    ref = ReferenceBackend.from_text("house_number,street,zip,borough,latitude,longitude\n"
+                                     + "".join(",".join(map(str, p)) + "\n" for p in _R_POINTS), is_sample=practice)
+    square = [[-74.0, 40.68], [-73.97, 40.68], [-73.97, 40.71], [-74.0, 40.71], [-74.0, 40.68]]
+    gj = folder / "demo_districts.geojson"
+    gj.write_text(_json.dumps({"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {
+        "senate_district": 26, "assembly_district": 52, "council_district": 33}, "geometry": {"type": "Polygon", "coordinates": [square]}}]}))
+    if secret is None:
+        import secrets
+        from wholecount.session.secret_store import InstallSecret
+        secret = InstallSecret(secrets.token_bytes(32))
+    s = Session(secret, paths, backend=ref, districts=DistrictIndex.from_files([gj]), today=lambda: dt.date(2026, 10, 30),
+                getuser=lambda: "demo", allow_sample=practice)
+    process(s)
+
+    def rk(cid):
+        return min(k for k, r in s.results.rows.items() if r.value("Client_ID") == cid)
+
+    def grp(kind):
+        return next(g for g in s.results.groups if g.kind == kind)
+
+    if state == "decided":
+        for make in (lambda: C.KeepOneInCopyGroup(grp("identical").group_id, grp("identical").members[0]),
+                     lambda: C.MarkNotCopies(grp("possible").group_id),
+                     lambda: C.DecideSameIdConflict(grp("same_id_different").group_id, "approved_as_entered"),
+                     lambda: C.AcceptFills([rk("R13")]), lambda: C.SetAsideRows([rk("R14")], "out_of_scope")):
+            s.history.execute(make())
+    if s.results.confidence.level == "low":
+        s.history.execute(C.AcknowledgeLowConfidence())
+    return s
+
+
+def cmd_outputs_demo(args):
+    """Write the made-up fixture's files: --state base|decided --out FOLDER [--map-points] [--exact-coordinates] [--practice]."""
+    import tempfile
+
+    from wholecount.engine.outputs.view import ExportSettings
+    from wholecount.session.export import download
+
+    out = pathlib.Path(_option(args, "--out") or tempfile.mkdtemp())
+    out.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory() as tmp:
+        s = _demo_session(pathlib.Path(tmp), _option(args, "--state") or "base", "--practice" in args)
+        fmts = {n: "xlsx" for n in ("Final_Clean_Mapped", "Unique_Clients", "Unique_Clients_By_Program", "Manual_Review_Needed",
+                                    "Set_Aside_Records", "Map_Counts", "Map_Points")}
+        settings = ExportSettings(formats=fmts, map_points="--map-points" in args, exact_coordinates="--exact-coordinates" in args)
+        receipt = download(s, out, settings, overwrite=True, confirmed_synced=True)
+    rows = {pathlib.Path(f.path).stem.replace("PRACTICE_", ""): f.rows for f in receipt.files}
+    emit(CountLabel.CLEAN_ROWS, rows.get("Final_Clean_Mapped", 0))
+    emit(CountLabel.REVIEW_ROWS, rows.get("Manual_Review_Needed", 0))
+    emit(CountLabel.SET_ASIDE_ROWS, rows.get("Set_Aside_Records", 0))
+    emit(CountLabel.UNIQUE_CLIENTS_ROWS, rows.get("Unique_Clients", 0))
+    emit(CountLabel.BY_PROGRAM_ROWS, rows.get("Unique_Clients_By_Program", 0))
+    emit(CountLabel.FILES_WRITTEN, len(receipt.files))
+    return 0
+
+
+def cmd_folder_check(args):
+    """--path P: 1 when the folder is synced or on a network, else 0. Prints no path."""
+    import os
+
+    from wholecount.engine.outputs.folders import folder_warning
+
+    emit(CountLabel.FOLDER_WARNING, int(folder_warning(_option(args, "--path") or "", os.environ) is not None))
+    return 0
+
+
+def _install_secret():
+    from wholecount.session.secret_store import default_store, get_or_create_secret
+
+    return get_or_create_secret(default_store())[0]
+
+
+def cmd_corrections_demo(args):
+    """--out FOLDER writes the base state's review file as Excel. --apply FILE reads a returned one and applies it."""
+    from wholecount.engine.outputs.corrections_in import read_corrections
+    from wholecount.engine.outputs.view import ExportSettings
+    from wholecount.engine.read.reader import read_path
+    from wholecount.session import commands as C
+    from wholecount.session.export import build_view, download
+
+    out = pathlib.Path(_option(args, "--out") or ".")
+    s = _demo_session(out / "inputs", "base", secret=_install_secret())
+    apply = _option(args, "--apply")
+    if not apply:
+        receipt = download(s, out, ExportSettings(formats={"Manual_Review_Needed": "xlsx"}), overwrite=True, confirmed_synced=True)
+        emit(CountLabel.FILES_WRITTEN, len(receipt.files))
+        return 0
+    rf = read_path(pathlib.Path(apply))
+    grid = rf.grids[0].rows
+    read = read_corrections(grid, s.secret.mac, build_view(s), pathlib.Path(apply).name, rf.fingerprint)
+    if read.accepted:
+        s.history.execute(C.ApplyCorrections(read.accepted, rf.fingerprint, pathlib.Path(apply).name))
+    emit(CountLabel.CORRECTIONS_ACCEPTED, len(read.accepted))
+    emit(CountLabel.CORRECTIONS_REFUSED, len(read.refused))
+    emit(CountLabel.REFUSED_OTHER_COLUMN, sum(1 for r in read.refused if r.code == "other_column_changed"))
+    return 0
+
+
+def cmd_saved_progress_demo(args):
+    """Saved progress for the made-up decided state, with this user's DPAPI: --resume, --age-days N --purge, --clean."""
+    import datetime as dt
+    import json as _json
+    import os
+
+    from wholecount.paths import data_dir
+    from wholecount.session.store import Store, snapshot
+    from wholecount.session.resume import resume
+
+    base = data_dir()
+    store = Store(base)
+    work = base / "saved_progress_demo_inputs"
+    path = store.sessions / "demo.wcs"
+    if "--clean" in args:
+        if path.exists():
+            path.unlink()
+        emit(CountLabel.DELETED, 1)
+        return 0
+    if "--purge" in args:
+        days = int(_option(args, "--age-days") or 0)
+        if path.exists() and days:
+            old = path.stat().st_mtime - days * 86400
+            os.utime(path, (old, old))
+        emit(CountLabel.DELETED, store.purge_expired(dt.datetime.now(dt.timezone.utc)))
+        return 0
+    secret = _install_secret()
+    if "--resume" in args:
+        saved = store.load(path)
+        from wholecount.session.state import Session
+        s = Session(secret, [], today=lambda: dt.date(2026, 10, 30), getuser=lambda: "demo")
+        demo = _demo_session(work, "base", secret=secret)
+        s.backend, s.districts = demo.backend, demo.districts
+        plan = resume(s, saved, [work / "R.csv", work / "S.csv"])
+        emit(CountLabel.DECISIONS_RESTORED, plan.kept)
+        emit(CountLabel.NO_LONGER_APPLY, plan.lapsed)
+        return 0
+    s = _demo_session(work, "decided", secret=secret)
+    store.save("demo", snapshot(s))
+    data = store.load(path)
+    text = _json.dumps(data)
+    values = {v for row in _DEMO_ROWS + _S_ROWS for v in row[1:] if len(v) > 3} - {"Brooklyn", "Housing", "Youth", "Workforce"}
+    emit(CountLabel.FILE_BYTES, path.stat().st_size)
+    emit(CountLabel.DECRYPTS_FOR_THIS_USER, 1)
+    emit(CountLabel.CELL_VALUES_FOUND, sum(1 for v in values if v in text))
+    return 0
+
+
 COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy,
             "standardize": cmd_standardize, "geo-status": cmd_geo_status, "geo-check": cmd_geo_check,
             "offset-demo": cmd_offset_demo, "map-demo": cmd_map_demo, "people-demo": cmd_people_demo,
             "people-check": cmd_people_check, "programs-demo": cmd_programs_demo, "programs-check": cmd_programs_check,
-            "session-demo": cmd_session_demo, "session-check": cmd_session_check}
+            "session-demo": cmd_session_demo, "session-check": cmd_session_check, "dpapi-roundtrip": cmd_dpapi_roundtrip,
+            "outputs-demo": cmd_outputs_demo, "folder-check": cmd_folder_check, "corrections-demo": cmd_corrections_demo,
+            "saved-progress-demo": cmd_saved_progress_demo}
 
 
 def main(argv=None):
