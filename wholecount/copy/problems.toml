@@ -7,3 +7,21 @@
 #   excel  how to find and fix it in Excel
 #
 # Later milestones add reasons. The same wording rules as en.toml apply (H16).
+
+[address_extra_text]
+title = "Address has extra text: check it"
+means = "Part of the address isn't a street, a unit, a city, a state or a ZIP, so it was kept in its own column. The row can still be counted, but it isn't placed on the map until someone checks it."
+check = "Look at the extra text. A care-of name or a building note belongs in another column, and a misspelled city is worth fixing."
+excel = "Filter the address column for the text shown, then move it to a notes column or correct it, and save the file."
+
+[name_order_unclear]
+title = "Name has three or more words: check which is the surname"
+means = "A name with three or more words and no comma can't be split with certainty, because a two-word surname looks like a middle name. Every word was kept: the first is the first name, the last is the surname, and the rest are in the middle."
+check = "Check which words are the surname. If the split is right, accept it as it is."
+excel = "Write the name as Last, First in the source, or put the surname in its own column, and save the file."
+
+[name_extra_tokens]
+title = "Name has extra words: check them"
+means = "Part of the name didn't fit first, middle or last, such as a nickname in brackets or a second given name after the initial. It was kept in its own column, and nothing was dropped."
+check = "Look at the extra words and decide whether they belong in the name."
+excel = "Remove nicknames and notes from the name column, or move them to their own column, and save the file."

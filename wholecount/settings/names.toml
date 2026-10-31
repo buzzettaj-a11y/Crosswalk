@@ -1,0 +1,17 @@
+# Name lists for the jammed-name split (P-PREP-4) and name casing (P-STD-1). Compared lowercase, without periods.
+# Beyond the spec's lists: credentials msw, dds and jd; suffixes vii to x and 5th (B-12 asks for II to X and 2nd to 5th);
+# and the compound given name mary jane (B-11).
+
+titles = ["mr", "mrs", "ms", "miss", "mx", "dr", "rev", "fr", "sr", "hon"]
+credentials = ["md", "do", "phd", "edd", "esq", "rn", "lpn", "np", "lcsw", "lmsw", "msw", "dds", "jd", "cpa"]
+suffixes = ["jr", "sr", "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "2nd", "3rd", "4th", "5th"]
+particles = ["de la", "van der", "de", "del", "della", "di", "da", "do", "dos", "du", "van", "von", "la", "le", "st", "bin", "ibn", "al"]
+compound_given = ["mary ann", "mary jane", "jose luis", "juan carlos", "maria elena"]
+mac_names = ["macdonald", "macarthur", "mackenzie", "macmillan", "macgregor", "macleod", "macintosh", "macintyre", "macneil", "macpherson", "macdougall", "mackay", "maclean", "macknight"]
+# Middle initial values that mean "none" (B-33). Suffixes are on the list too.
+middle_stop = ["nmi", "nmn", "no", "none", "unknown", "n/a", "na", "(none)", "."]
+
+[casing_exceptions]
+DINAPOLI = "DiNapoli"
+DEJESUS = "DeJesus"
+LEBRON = "LeBron"
