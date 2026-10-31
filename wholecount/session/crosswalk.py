@@ -177,3 +177,13 @@ def commit_after_download(session):
                       reviewer=session.reviewer or None, time_iso=session.now_iso()))
     r.fingerprints = session.live_fingerprints()
     return counts
+
+
+def inherited_program_decisions(session, names):
+    """Program groups saved in earlier batches, for the Programs stage's survey. Empty while off, orphaned or practice."""
+    from wholecount.engine.crosswalk.apply import inherited_programs
+
+    if not in_use(session, session.backend.name == "reference_sample"):
+        return []
+    with open_store(session) as st:
+        return inherited_programs(st, {n for n in names if n})

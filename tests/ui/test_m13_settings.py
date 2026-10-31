@@ -311,3 +311,22 @@ def test_every_band_sentence_renders():
         assert _band_text("matching.draw.band", b, n=3)
         assert _band_text("matching.results.band", b, same=1, labeled=2, population=9)
         assert _band_text("matching.results.unmeasured", b, population=9)
+
+
+def test_a_program_group_from_an_earlier_batch_is_tagged(qtbot, qapp, tmp_path):
+    from wholecount.session import commands as C
+    xw = tmp_path / "data" / "crosswalk.db"
+    one = X.session(tmp_path / "b1", xw, ["batch1_a.csv", "batch1_b.csv"])
+    X.turn_on(one)
+    X.run(one)
+    names = sorted({n.name for n in one.results.program_names})[:2]
+    one.history.execute(C.DecideProgramGroup("merge", tuple(names), "Combined"))
+    from tests.support.files_run import ack
+    from tests.support.outputs import write
+    ack(one)
+    write(one, tmp_path / "o1")
+    two = X.session(tmp_path / "b2", xw, ["batch1_a.csv", "batch1_b.csv"], day=1)
+    X.run(two)
+    w = window_for(qtbot, qapp, two, stage="programs", ui=UI)
+    settle(qapp)
+    assert copy.get("prog.s2.earlier") in texts(w.stage_widget)

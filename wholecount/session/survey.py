@@ -142,8 +142,10 @@ def _file_facts(o, tables):
 def _key(session):
     """The survey's own inputs only. A review decision changes none of them, so it never re-reads or re-checks a file."""
     own = session.own_inputs()
+    from wholecount.session.crosswalk import fingerprint
+
     return (tuple(own[n] for n in ("sources", "tables", "steps", "mappings", "standardized", "programs")),
-            repr(sorted(session.keep_sensitive)), session.backend.name)
+            repr(sorted(session.keep_sensitive)), session.backend.name, fingerprint(session))
 
 
 def survey(session, sink=None):
@@ -192,6 +194,9 @@ def survey(session, sink=None):
         tk = next((k for k, f in file_of.items() if f == (name, idx)), None)
         if tk:
             overrides[tk] = v
+    from wholecount.session.crosswalk import inherited_program_decisions
+
+    decisions += inherited_program_decisions(session, {r.value("Program") for w in works_list for r in w.rows})
     names, proposals, pm, _ = pl.programs_step(works_list, all_rows, decisions, overrides)
     s = Survey(files=files, tables=facts, works=works, steps=steps, proposed_steps=proposed, blocks=blocks, dates=dates,
                pivots=pivots, program_names=tuple(names), program_proposals=tuple(proposals), program_map=pm,
