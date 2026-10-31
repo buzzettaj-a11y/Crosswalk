@@ -861,7 +861,160 @@
     }
   },
   "locations": {
-    "note": "M05 fills this when it adds sample_reference.csv."
+    "note": "Counted rows only, at standardize. Rows not counted yet are looked up too, so looked_up covers every row.",
+    "reference": "wholecount/sample_data/sample_reference.csv",
+    "reference_rows": 270,
+    "planned_not_found_rows": [
+      [
+        "example_clinic.csv",
+        17
+      ],
+      [
+        "example_housing.xlsx",
+        38
+      ],
+      [
+        "example_portal.json",
+        20
+      ]
+    ],
+    "looked_up": 281,
+    "practice_run": {
+      "example_clinic.csv": {
+        "mapped_high": 55,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 0,
+          "outside_nyc": 0,
+          "address_problem": 0,
+          "not_found": 1,
+          "no_geocoder": 0
+        }
+      },
+      "example_housing.xlsx": {
+        "mapped_high": 59,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 1,
+          "outside_nyc": 0,
+          "address_problem": 1,
+          "not_found": 1,
+          "no_geocoder": 0
+        }
+      },
+      "example_partner.tsv": {
+        "mapped_high": 52,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 0,
+          "outside_nyc": 1,
+          "address_problem": 0,
+          "not_found": 0,
+          "no_geocoder": 0
+        }
+      },
+      "example_portal.json": {
+        "mapped_high": 49,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 0,
+          "outside_nyc": 0,
+          "address_problem": 2,
+          "not_found": 1,
+          "no_geocoder": 0
+        }
+      },
+      "example_state.xml": {
+        "mapped_high": 48,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 0,
+          "outside_nyc": 0,
+          "address_problem": 0,
+          "not_found": 0,
+          "no_geocoder": 0
+        }
+      },
+      "total": {
+        "mapped_high": 263,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 1,
+          "outside_nyc": 1,
+          "address_problem": 3,
+          "not_found": 3,
+          "no_geocoder": 0
+        }
+      }
+    },
+    "no_backend_run": {
+      "example_clinic.csv": {
+        "mapped_high": 0,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 0,
+          "outside_nyc": 0,
+          "address_problem": 0,
+          "not_found": 0,
+          "no_geocoder": 56
+        }
+      },
+      "example_housing.xlsx": {
+        "mapped_high": 0,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 1,
+          "outside_nyc": 0,
+          "address_problem": 1,
+          "not_found": 0,
+          "no_geocoder": 60
+        }
+      },
+      "example_partner.tsv": {
+        "mapped_high": 0,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 0,
+          "outside_nyc": 1,
+          "address_problem": 0,
+          "not_found": 0,
+          "no_geocoder": 52
+        }
+      },
+      "example_portal.json": {
+        "mapped_high": 0,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 0,
+          "outside_nyc": 0,
+          "address_problem": 2,
+          "not_found": 0,
+          "no_geocoder": 50
+        }
+      },
+      "example_state.xml": {
+        "mapped_high": 0,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 0,
+          "outside_nyc": 0,
+          "address_problem": 0,
+          "not_found": 0,
+          "no_geocoder": 48
+        }
+      },
+      "total": {
+        "mapped_high": 0,
+        "mapped_low": 0,
+        "not_mapped": {
+          "no_fixed_address": 1,
+          "outside_nyc": 1,
+          "address_problem": 3,
+          "not_found": 0,
+          "no_geocoder": 266
+        }
+      }
+    }
   },
   "outputs": {
     "practice_run": {

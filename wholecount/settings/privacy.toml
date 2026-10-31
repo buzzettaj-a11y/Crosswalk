@@ -1,0 +1,2 @@
+# Map_Counts (SPEC 6.6 P-GEO-6). Any count from 1 to this number is blanked and shown as "fewer than 11".
+small_cell_max = 10

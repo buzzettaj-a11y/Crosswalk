@@ -1,0 +1,97 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "senate_district": 1,
+    "assembly_district": 1,
+    "council_district": 1
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -74.0,
+       40.6
+      ],
+      [
+       -73.9,
+       40.6
+      ],
+      [
+       -73.9,
+       40.8
+      ],
+      [
+       -74.0,
+       40.8
+      ],
+      [
+       -74.0,
+       40.6
+      ]
+     ],
+     [
+      [
+       -73.97,
+       40.68
+      ],
+      [
+       -73.93,
+       40.68
+      ],
+      [
+       -73.93,
+       40.72
+      ],
+      [
+       -73.97,
+       40.72
+      ],
+      [
+       -73.97,
+       40.68
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "senate_district": 2,
+    "assembly_district": 2,
+    "council_district": 2
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -73.97,
+       40.68
+      ],
+      [
+       -73.93,
+       40.68
+      ],
+      [
+       -73.93,
+       40.72
+      ],
+      [
+       -73.97,
+       40.72
+      ],
+      [
+       -73.97,
+       40.68
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

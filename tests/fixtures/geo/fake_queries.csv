@@ -1,0 +1,16 @@
+case,house_number,street,borough_or_zip,expect_confidence,expect_reason,expect_lat,expect_lon,expect_districts,audit_id
+exact_zip,100,W 10 St,10011,high,matched_building,40.7350,-73.9990,47/66/3,B-17
+exact_spelled_out,100,West 10 Street,New York,high,matched_building,40.7350,-73.9990,47/66/3,B-17
+main_1,1,Main St,11201,high,matched_building,40.7000,-73.9900,10/20/30,B-17
+main_11,11,Main St,11201,high,matched_building,40.7040,-73.9800,11/21/31,B-17
+main_111,111,Main St,11201,not_placed,not_found,,,,B-17
+swapped_numbers,40,W 100 St,10025,not_placed,not_found,,,,B-17
+avenue_u,1,Avenue U,11223,not_placed,not_found,,,,B-17
+other_house,12,W 40 St,10025,not_placed,not_found,,,,B-17
+misspelled,123,Fultin St,11201,not_placed,not_found,,,,B-17
+beach_19,5,Beach 19 St,11691,not_placed,not_found,,,,B-17
+broadway,9999,Broadway,New York,not_placed,not_found,,,,B-17
+fulton_ave,123,Fulton Ave,11201,high,matched_building,40.6800,-73.9800,26/52/33,C-24
+warning,77,Warning Pl,11201,low,matched_with_warning,40.6900,-73.9900,26/52/33,
+saint_marks,7,St Marks Pl,10003,high,matched_building,40.7290,-73.9890,27/74/2,
+queens_hyphen,118-19,Queens Blvd,11375,high,matched_building,40.7200,-73.8300,11/28/29,
