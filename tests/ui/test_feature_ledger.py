@@ -22,10 +22,28 @@ FEATURES = [
     ("details", "M10", "narrow", "details"),
     ("run ticker", "M10", "every stage", "ticker"),
     ("practice tag", "M10", "top bar", "topbar.practice"),
+    ("fast path with blockers and warnings", "M11", "01 fast path card", "stage:sources.process_all"),
+    ("example data, drop and browse", "M11", "01 drop zone", "stage:sources.zone"),
+    ("corrections file recognition and sensitive columns", "M11", "01 notices", "stage:sources.notices"),
+    ("include and exclude tables, Show data", "M11", "01 list", "stage:sources.list"),
+    ("header row picker", "M11", "DataPreview", "preview"),
+    ("resume notice and saved set-ups", "M11", "01 resume card, SetupsPanel", "stage:sources.setups"),
+    ("schema editing", "M11", "02", "stage:schema.add_button"),
+    ("five tidy-up rules, origin tags, remove and restore, three groupings", "M11", "03", "stage:prepare.rule_cards"),
+    ("per-table matching, column check, defaults, date order, two-digit rule, blocked band", "M11", "04",
+     "stage:map.confirm"),
+    ("program columns, name groups, preview", "M11", "05", "stage:programs.refresh_btn"),
+    ("rename a built-in field", "M11", "dropped by SPEC 4.1", "dropped"),
 ]
 
 
 def _resolve(w, path):
+    if path == "dropped":
+        return "dropped by SPEC 4.1"
+    if path.startswith("stage:"):
+        stage, attr = path[6:].split(".", 1)
+        w.go_to(stage)
+        return getattr(w.stage_widget, attr, None)
     if path == "help_button_factory":
         from wholecount.ui.widgets.help import HelpButton
         return HelpButton

@@ -5,7 +5,7 @@ from tests.support.session import base
 from wholecount.session import commands as C
 from wholecount.session.state import SECTIONS
 
-VALUES = {"sources": ("x.csv", True), "tables": (("R.csv", 0, "included"), False), "steps": (("R.csv", 0), ()),
+VALUES = {"sources": ("x.csv", True), "systems": (("name", "R.csv"), "Clinic"), "tables": (("R.csv", 0, "included"), False), "steps": (("R.csv", 0), ()),
           "mappings": (("R.csv", 0, "Program"), ""), "defaults": (("R.csv", 0, "Program"), "Youth"),
           "date_orders": (("R.csv", 0, "Date_of_Birth"), None), "program_columns": (("R.csv", 0), "none"),
           "run_settings": ("extra_fields", frozenset({"census_tract"})), "export_settings": ("x", 1)}

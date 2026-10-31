@@ -10,7 +10,7 @@ from PySide6.QtWidgets import QFrame, QWidget
 from wholecount import copy
 from wholecount.ui.theme import color
 from wholecount.ui.widgets.confidence import ConfidenceBlock
-from wholecount.ui.widgets.style import WrapScroll, button, clear, hbox, label, rule, set_prop, vbox
+from wholecount.ui.widgets.style import WrapButton, WrapScroll, button, clear, hbox, label, rule, set_prop, vbox
 
 WIDTH = 280
 
@@ -130,13 +130,14 @@ class LedgerPanel(QFrame):
         f = QFrame()
         f.setObjectName("ledgerFooter")
         lay = vbox(f, (18, 12, 18, 14), 6)
-        self.check_line = button("", "quiet", "nav", name="checkLine")
+        self.check_line = WrapButton("", name="checkLine")
         self.check_line.clicked.connect(self.open_check)
         self.your_data = button(copy.get("ledger.foot.your_data"), "quiet", "nav", name="yourDataLink")
         self.your_data.clicked.connect(self.open_your_data)
         self.settings = button(copy.get("ledger.foot.settings"), "quiet", "nav", name="settingsLink")
         self.settings.clicked.connect(self.open_settings)
-        for b in (self.check_line, self.your_data, self.settings):
+        lay.addWidget(self.check_line)
+        for b in (self.your_data, self.settings):
             lay.addWidget(b, 0, Qt.AlignLeft)
         self.trust = label("", role="micro", wrap=True, name="trustSentence")
         lay.addWidget(self.trust)
@@ -285,7 +286,7 @@ class LedgerPanel(QFrame):
     def _foot(self, v):
         ok = v.can_place
         self.check_line.setText(copy.get("ledger.foot.check_ok" if ok else "ledger.foot.check_warn"))
-        set_prop(self.check_line, "tone", "nav" if ok else "amber")
+        self.check_line.set_tone("nav" if ok else "amber")
         trust = copy.get("ledger.foot.trust_offline") + " " + copy.get("ledger.foot.trust_disk")
         if v.saved_progress:
             trust += " " + copy.get("ledger.foot.trust_saved")

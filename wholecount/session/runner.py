@@ -35,7 +35,7 @@ class Blocked(Exception):
 
 
 def _load(session, sink):
-    key = session.setup.stable("sources")
+    key = session.setup.stable("sources") + repr(sorted(session.keep_sensitive))
     if session._load_cache is not None and session._load_cache[0] == key:
         return session._load_cache[1]
     load = load_files(session.setup.paths(), sink, session.secret, keep=session.keep_sensitive)
@@ -75,8 +75,23 @@ def _accounting(load, tables):
     }
 
 
+def system_names(session, load):
+    """Letter -> system name. A file joins another file's system, or keeps its own, from the set-up's systems section
+    (SPEC 5.2). Names default to the file name without its extension."""
+    ok = [o for o in load.files if o.status == "ok"]
+    base = {s.letters[0]: s.display_name for s in default_systems([(o.letter, o.name) for o in ok])}
+    by_name = {o.name: o.letter for o in ok}
+    out = {}
+    for o in ok:
+        owner = session.setup.get("systems", ("member", o.name))
+        owner_letter = by_name.get(owner, o.letter)
+        owner_name = next(x.name for x in ok if x.letter == owner_letter)
+        out[o.letter] = session.setup.get("systems", ("name", owner_name)) or base[owner_letter]
+    return out
+
+
 def _works(session, load, tables, file_of, sink):
-    systems = {s.letters[0]: s.display_name for s in default_systems([(o.letter, o.name) for o in load.files if o.status == "ok"])}
+    systems = system_names(session, load)
     schema = session.schema()
     works = []
     for t in tables:

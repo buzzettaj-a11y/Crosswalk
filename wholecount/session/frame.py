@@ -30,3 +30,22 @@ def files_ready(practice):
     from wholecount.engine.outputs.writer import files_to_write
 
     return len(files_to_write(SimpleNamespace(practice=practice), ExportSettings()))
+
+
+def sample_backend():
+    """The sample address reference beside the example files (P-GEO-4a). Only Try example data uses it."""
+    import pathlib
+
+    from wholecount.engine.geo.reference import ReferenceBackend
+
+    return ReferenceBackend.from_path(pathlib.Path(__file__).resolve().parents[1] / "sample_data" / "sample_reference.csv")
+
+
+CORRECTIONS_HEADER = {"Record_Key", "Run_ID", "Signature"}
+
+
+def corrections_files(load):
+    """Names of loaded files that are a Manual_Review_Needed file sent back: a table whose header has Record_Key, Run_ID
+    and Signature. They are corrections, never a source (SPEC 9.3)."""
+    letters = {t.letter for t in load.tables if CORRECTIONS_HEADER <= set(t.headers)}
+    return [o.name for o in load.files if o.letter in letters]

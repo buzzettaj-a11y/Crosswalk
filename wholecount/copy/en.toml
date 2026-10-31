@@ -658,7 +658,7 @@ text = "Split {count} names from a program group"
 text = "Merge {count} program names"
 
 [commands.program_rename]
-text = "Rename a program group"
+text = "Rename a program group of {count} names"
 
 [commands.apply_corrections]
 text = "Apply {count} corrections"
@@ -698,6 +698,33 @@ text = "Change a program column"
 
 [commands.setup.run_settings]
 text = "Change the run settings"
+
+[commands.setup.systems]
+text = "Change a source system"
+
+[commands.add_sources]
+text = "Add {count} files"
+
+[commands.use_example_data]
+text = "Load the example data"
+
+[commands.keep_sensitive]
+text = "Keep a sensitive column"
+
+[commands.drop_sensitive]
+text = "Drop a sensitive column"
+
+[commands.load_setup]
+text = "Load a saved set-up"
+
+[commands.program_withdraw]
+text = "Take back a program decision"
+
+[commands.confirm_stage]
+text = "Keep the tidy-up steps"
+
+[commands.confirm_table]
+text = "Confirm a table's columns"
 
 [commands.setup.export_settings]
 text = "Change the download settings"
@@ -1728,3 +1755,766 @@ text = "stopped at {stage}"
 text = "{n} files"
 [saved_card.decisions]
 text = "{k} decisions"
+
+# Shared stage pieces (M11)
+
+[grid.page_size]
+text = "{n} a page"
+[grid.prev]
+text = "Previous"
+[grid.next]
+text = "Next"
+[grid.page_of]
+text = "Page {page} of {pages}"
+
+[preview.kicker]
+text = "Show data"
+[preview.title]
+text = "{name}"
+[preview.header_wrong]
+text = "The header row may be wrong"
+[preview.header_reason.numbers_in_header]
+text = "The row picked as the header holds numbers, so it looks like data."
+[preview.header_reason.blank_header]
+text = "The row picked as the header is mostly blank."
+[preview.header_reason.title_row]
+text = "The row picked as the header looks like a title above the table."
+[preview.pick]
+text = "Which row holds the column names?"
+[preview.none]
+text = "None of them. Number the columns instead."
+[preview.row]
+text = "Row {n}: {cells}"
+[preview.continues]
+text = "This table continues in {n} more blocks lower in the sheet, with the same columns. They are read as part of it."
+
+[setups.title]
+text = "Saved set-ups"
+[setups.show]
+text = "Show"
+[setups.hide]
+text = "Hide"
+[setups.no_client_data]
+text = "No client data is saved in a set-up. Column names are its only link to your data."
+claim = "CL-SETUP-NODATA-01"
+[setups.name_placeholder]
+text = "Name this set-up"
+[setups.note_placeholder]
+text = "A note, if you like"
+[setups.save]
+text = "Save current set-up"
+[setups.need_name]
+text = "Give the set-up a name first."
+[setups.saved]
+text = "Saved as {name}."
+[setups.row]
+text = "{name}, made for {files}"
+[setups.check]
+text = "Check"
+[setups.load]
+text = "Load this set-up"
+[setups.load_fitting]
+text = "Load what fits and skip the rest"
+[setups.delete]
+text = "Delete"
+[setups.delete_title]
+text = "Delete this set-up?"
+[setups.delete_confirm]
+text = "{name} is deleted from this computer. Your files and results are not touched."
+[setups.fit]
+text = "Fits: {fits}. Not loaded now: {missing}."
+[setups.export]
+text = "Export to a file"
+[setups.import]
+text = "Import from a file"
+[setups.filter]
+text = "Wholecount set-up (*.json)"
+
+# Add your files (M11 section 1)
+
+[src.fast.title]
+text = "Do the whole thing now"
+[src.fast.body]
+text = "Keep the tidy-ups and the column matching the tool has proposed, process every row, and land on whatever needs a decision. Every stage stays open afterward."
+[src.fast.button]
+text = "Process everything"
+[src.fast.or]
+text = "Or work through the stages yourself."
+[src.fast.continue]
+text = "Continue to Your columns"
+[src.fast.wrong]
+text = "{n} matched columns don't look like the field they were matched to."
+[src.fast.fix_first]
+text = "Fix them first"
+[src.fast.run_anyway]
+text = "Run anyway"
+[src.fast.programs]
+text = "The tool has proposed {n} program groups. Confirm or split them before the run."
+claim = "CL-FAST-PROGRAMS-01"
+[src.fast.client_id_optional]
+text = "Make Client ID optional for this batch"
+[src.fast.match_myself]
+text = "Match the columns myself"
+[src.hold.no_table]
+text = "Held until at least one table is included."
+claim = "CL-HOLD-NOTABLE-01"
+[src.hold.unbalanced]
+text = "Held until every row in every file is accounted for."
+claim = "CL-HOLD-ACCOUNTED-01"
+[src.hold.blocker]
+text = "Held until {table} has a column for {field}."
+claim = "CL-HOLD-BLOCKER-01"
+[src.hold.blocker_more]
+text = "Held until {table} has a column for {field}, and {n} more."
+claim = "CL-HOLD-BLOCKER-02"
+
+[src.drop.title]
+text = "Drop more files here, or browse"
+[src.drop.note]
+text = "csv, tsv, txt, xlsx, json, xml. A Manual_Review_Needed file you send back is recognized as corrections, never as a source."
+claim = "CL-CORRECTIONS-RECOGNIZED-01"
+[src.drop.browse]
+text = "Browse"
+[src.drop.example]
+text = "Try example data"
+[src.drop.filter]
+text = "Client lists (*.csv *.tsv *.txt *.xlsx *.json *.xml)"
+[src.drop.over]
+text = "Drop to add {n} files"
+claim = "CL-DROP-WORKS-01"
+[src.drop.not_local]
+text = "Only files on this computer can be added."
+[src.drop.network_address]
+text = "Wholecount cannot open files by network address. Map the share to a drive letter, or copy the file to this computer."
+claim = "CL-DROP-UNC-01"
+
+[src.example_loaded]
+text = "Example data loaded. These are made-up people. Everything you see or download from them is marked PRACTICE, because the address reference used with them is a small sample, so locations are for practice only."
+claim = "CL-EXAMPLE-FAKE-01"
+[src.unreadable]
+text = "{name} could not be read. {reason}"
+[src.already_added]
+text = "{name} is already added."
+[src.sensitive.title]
+text = "Columns in {name} that look sensitive were dropped as the file was read"
+[src.sensitive.drop]
+text = "Drop {column} at load. {reason}"
+[src.sensitive.name]
+text = "The name suggests sensitive data."
+[src.sensitive.values]
+text = "The values look like Social Security numbers."
+[src.sensitive.keep_title]
+text = "Keep this column?"
+[src.sensitive.keep_q]
+text = "Keep {column} in memory? It stays out of every download unless you match it to a field."
+claim = "CL-SENSITIVE-KEEP-01"
+[src.sensitive.keep]
+text = "Keep it"
+[src.network_drive]
+text = "{name} is on a network drive. Wholecount reads it once into memory and never writes there. Copy it to this computer if the drive is slow."
+[src.corrections_file]
+text = "{name} is a corrections file, not a source. It is applied on Fix problems, by Record_Key."
+claim = "CL-CORRECTIONS-RECOGNIZED-02"
+[src.resume]
+text = "Resume"
+[src.resume_pick]
+text = "Add the same files again. Wholecount matches them by their contents, because no rows are saved."
+claim = "CL-RESUME-MATCH-01"
+[src.resume_changed]
+text = "{name} has changed since it was saved. Your decisions are applied again by record key, and anything that no longer fits is listed on Fix problems under No longer apply."
+claim = "CL-RESUME-CHANGED-01"
+[src.resume_delete]
+text = "Delete saved progress"
+[src.systems.title]
+text = "Which files come from the same system?"
+[src.systems.body]
+text = "Two exports from one system, for example two ETO exports, share one set of Client IDs. Wholecount looks for the same Client ID within one system, never across systems."
+claim = "CL-SYSTEMS-01"
+[src.systems.own]
+text = "Its own system"
+[src.systems.with]
+text = "Same system as {name}"
+[src.include]
+text = "Include {name}"
+[src.tag.records]
+text = "RECORDS"
+[src.tag.not_records]
+text = "NOT RECORDS"
+[src.tag.dob]
+text = "DOB PRESENT"
+[src.tag.header]
+text = "CHECK THE HEADER ROW"
+[src.tag.continues]
+text = "CONTINUES IN {n} BLOCKS"
+[src.table_line]
+text = "{rows} rows, {cols} columns, {pct}% filled."
+[src.recognized]
+text = "Recognized as client records."
+[src.not_records]
+text = "Looks like a note sheet rather than client records, so it is left out. Tick it to include it."
+[src.show_data]
+text = "Show data"
+[src.remove_file]
+text = "Remove file"
+[src.remove_title]
+text = "Remove this file?"
+[src.remove_q]
+text = "{name} and its tables leave this batch. The file itself is not touched."
+[src.more_tables]
+text = "{n} more tables."
+[src.show_them]
+text = "Show them"
+[src.accounted.title]
+text = "Rows accounted for"
+[src.accounted.file]
+text = "{name}. {a} rows in included tables, {b} in excluded tables, {c} in blocks that are not tables, {d} above the header, {h} header rows. These add up to {total}, the non-empty rows in the file."
+claim = "CL-ACCOUNTED-01"
+[src.accounted.batch]
+text = "The batch: {a} in included tables, {b} in excluded tables, {c} not in tables, {d} above the header, {h} header rows, {total} in all."
+[src.accounted.wrong]
+text = "These rows don't add up, so Process is held until the files are read again."
+
+# Your columns (M11 section 2)
+
+[schema.continue]
+text = "Continue to Tidy up"
+[schema.fields.title]
+text = "Fields"
+[schema.col.field]
+text = "FIELD"
+[schema.col.handling]
+text = "HOW IT IS HANDLED"
+[schema.col.type]
+text = "TYPE"
+[schema.col.longest]
+text = "LONGEST VALUE"
+[schema.col.default]
+text = "DEFAULT"
+[schema.col.required]
+text = "REQUIRED"
+[schema.any]
+text = "any"
+[schema.required_mark]
+text = "required"
+[schema.required_client_id]
+text = "Client ID is required"
+[schema.required_for]
+text = "{name} is required"
+[schema.client_id_default]
+text = "none, because a shared identifier would make different people look like copies"
+[schema.handling.first_name]
+text = "Trimmed and title-cased. Nicknames are matched across files, never changed."
+[schema.handling.middle_initial]
+text = "One letter, upper case."
+[schema.handling.last_name]
+text = "Trimmed and title-cased. Suffixes are kept."
+[schema.handling.client_id]
+text = "Compared within one system, never across systems."
+[schema.handling.address_1]
+text = "Placed on the map. Units are moved to line 2."
+[schema.handling.address_2]
+text = "The unit or apartment."
+[schema.handling.city]
+text = "Can be filled from the ZIP."
+[schema.handling.state]
+text = "Two letters. Can be filled from the ZIP."
+[schema.handling.zip]
+text = "Five digits. ZIP+4 is trimmed. Fills the city."
+[schema.handling.program]
+text = "Drives the second count. Names, never codes."
+[schema.handling.date_of_birth]
+text = "A real date in the past. Helps tell people apart."
+[schema.handling.custom]
+text = "Checked against its type and length, never changed."
+[schema.ftype.plain]
+text = "Text"
+[schema.ftype.whole_number]
+text = "Whole number"
+[schema.ftype.decimal]
+text = "Decimal"
+[schema.ftype.date]
+text = "Date"
+[schema.ftype.yes_no]
+text = "Yes or no"
+[schema.remove]
+text = "Remove"
+[schema.remove_title]
+text = "Remove this field?"
+[schema.remove_mapped]
+text = "{n} tables match a column to this field. They lose that match."
+claim = "CL-SCHEMA-REMOVE-01"
+[schema.add.title]
+text = "Add a custom field"
+[schema.add.name]
+text = "Name"
+[schema.add.default]
+text = "Default, if any"
+[schema.add.button]
+text = "Add field"
+[schema.add.need_name]
+text = "Held until the field has a name."
+[schema.add.taken]
+text = "A field with this name already exists."
+[schema.add.bad_name]
+text = "Use letters, numbers and underscores, and start with a letter."
+[schema.add.bad_default]
+text = "The default is not a {type}."
+claim = "CL-SCHEMA-DEFAULT-01"
+[schema.reset]
+text = "Reset to the standard fields"
+[schema.reset_title]
+text = "Reset the fields?"
+[schema.reset_q]
+text = "Custom fields are removed, and Client ID is required again. Matches to removed fields are dropped."
+[schema.rules.title]
+text = "How a row is tested"
+[schema.rules.type]
+text = "A value that is not the field's type fails the row's check, and the field is named."
+claim = "CL-SCHEMA-TYPE-01"
+[schema.rules.length]
+text = "A value longer than the limit fails the check. It is never cut short."
+claim = "CL-SCHEMA-LENGTH-01"
+[schema.rules.required]
+text = "A row with no name, or with neither a Client ID nor a date of birth, goes to Fix problems and isn't counted yet. City and State can be filled from the ZIP."
+claim = "CL-SCHEMA-REQUIRED-01"
+[schema.fit.title]
+text = "Test fit by source"
+[schema.fit.none]
+text = "Include tables on Add your files first."
+[schema.fit.line]
+text = "{have} of {total} fields have a column"
+
+# Tidy up (M11 section 3)
+
+[tidy.continue]
+text = "Continue to Match your columns"
+[tidy.add.title]
+text = "Add a step"
+[tidy.add.note]
+text = "Pick what to do, then where."
+[tidy.add.button]
+text = "Add this step"
+[tidy.rule.calc_zip.name]
+text = "Calculate the ZIP from the address"
+[tidy.rule.calc_zip.desc]
+text = "Looks every address up and adds a ZIP column, with the reason on every row."
+[tidy.rule.clean.name]
+text = "Clean columns"
+[tidy.rule.clean.desc]
+text = "Case, junk characters and edge punctuation, on the columns you pick."
+[tidy.rule.split_delim.name]
+text = "Split by a delimiter"
+[tidy.rule.split_delim.desc]
+text = "One column into several at a comma, a pipe or a mark of your own."
+[tidy.rule.split_address.name]
+text = "Split a jammed address"
+[tidy.rule.split_address.desc]
+text = "Street, unit, city, state and ZIP out of one address column."
+[tidy.rule.split_name.name]
+text = "Split a jammed name"
+[tidy.rule.split_name.desc]
+text = "First, middle and last out of one name column. Last, First M works too."
+[tidy.form.source]
+text = "Source"
+[tidy.form.none]
+text = "(none)"
+[tidy.form.street_col]
+text = "Street address column"
+[tidy.form.city_col]
+text = "City or borough column, if any"
+[tidy.form.zip_col]
+text = "Existing ZIP column, if any"
+[tidy.form.mode]
+text = "Calculate"
+[tidy.mode.blanks]
+text = "Only where the existing ZIP is blank"
+[tidy.mode.all]
+text = "Every row"
+[tidy.form.new_name]
+text = "New column name"
+[tidy.form.columns]
+text = "Columns to clean"
+[tidy.form.case]
+text = "Case"
+[tidy.form.strip_junk]
+text = "Strip junk characters (control and zero-width characters, smart quotes to plain)"
+[tidy.form.strip_edge_punctuation]
+text = "Strip edge punctuation"
+[tidy.form.column]
+text = "Column"
+[tidy.form.delimiter]
+text = "Split at"
+[tidy.form.custom]
+text = "The mark"
+[tidy.form.maxsplit]
+text = "Most splits (0 means all)"
+[tidy.form.names]
+text = "New column names, separated by commas"
+[tidy.form.form]
+text = "The name is written"
+[tidy.case.none]
+text = "Leave as entered"
+[tidy.case.title]
+text = "Title case"
+[tidy.case.upper]
+text = "UPPER CASE"
+[tidy.case.lower]
+text = "lower case"
+[tidy.delim.comma]
+text = "Comma"
+[tidy.delim.semicolon]
+text = "Semicolon"
+[tidy.delim.pipe]
+text = "Pipe"
+[tidy.delim.tab]
+text = "Tab"
+[tidy.delim.space]
+text = "Space"
+[tidy.delim.custom]
+text = "Another mark"
+[tidy.form.last_first_m]
+text = "Last, First M"
+[tidy.form.first_m_last]
+text = "First M Last"
+[tidy.form.last_first]
+text = "Last First"
+[tidy.chips.all]
+text = "all"
+[tidy.chips.none]
+text = "none"
+[tidy.chips.invert]
+text = "invert"
+[tidy.chips.count]
+text = "{n} of {m} picked"
+[tidy.chips.more]
+text = "{n} more"
+[tidy.zip.backend.geosupport]
+text = "Looks each address up with Geosupport."
+[tidy.zip.backend.reference]
+text = "Looks each address up in the reference file, exact matches only."
+[tidy.zip.adds]
+text = "Adds {name}, and {name}_note with the reason on every row. A street it cannot place, or one that runs through several ZIPs without a house number, is left blank and reaches Fix problems carrying that reason. No value the file already has is changed."
+claim = "CL-TIDY-ZIP-01"
+[tidy.address.adds]
+text = "Adds {prefix}street, {prefix}unit, {prefix}city, {prefix}state, {prefix}zip and {prefix}extra."
+[tidy.name.adds]
+text = "Adds {prefix}first, {prefix}middle, {prefix}last, {prefix}title, {prefix}credential, {prefix}suffix and {prefix}extra."
+[tidy.hold.source]
+text = "Held until you pick a source."
+[tidy.hold.street_col]
+text = "Held until you pick the street address column."
+[tidy.hold.columns]
+text = "Held until you pick at least one column."
+[tidy.hold.column]
+text = "Held until you pick a column."
+[tidy.hold.custom]
+text = "Held until you type the mark to split at."
+[tidy.list.title]
+text = "{n} steps across {m} sources"
+[tidy.group.rule]
+text = "Rule"
+[tidy.group.source]
+text = "Source"
+[tidy.group.who]
+text = "Who added it"
+[tidy.group.src.one]
+text = "{n} source"
+[tidy.group.src.many]
+text = "{n} sources"
+[tidy.group.in_order]
+text = "{n} steps, in the order they run"
+[tidy.who.proposed]
+text = "Proposed by the tool"
+[tidy.who.added]
+text = "Added by you"
+[tidy.who.removed]
+text = "Removed"
+[tidy.origin.proposed]
+text = "PROPOSED BY THE TOOL"
+[tidy.origin.added]
+text = "ADDED BY YOU"
+[tidy.origin.removed]
+text = "REMOVED"
+[tidy.remove]
+text = "Remove"
+[tidy.restore]
+text = "Restore"
+[tidy.removed]
+text = "Removed, so it will not run."
+claim = "CL-TIDY-REMOVED-01"
+[tidy.checking]
+text = "Checking..."
+[tidy.amber.safe]
+text = "It does nothing here across {rows} rows. It is safe to keep and safe to remove."
+[tidy.result.changed]
+text = "{n} of {rows} rows changed."
+[tidy.result.split]
+text = "{n} of {rows} rows split."
+[tidy.result.zip]
+text = "{found} ZIPs found, {kept} kept as they were, {missing} could not be worked out."
+[tidy.no_steps]
+text = "{name} has no steps and passes through as it is."
+
+# Match your columns (M11 section 4)
+
+[map.continue]
+text = "Continue to Programs"
+[map.band.title]
+text = "Process cannot run yet"
+[map.band.line]
+text = "{table} has no column for {field}."
+[map.band.match_it]
+text = "Match it"
+[map.band.other]
+text = "Match another column"
+[map.band.drop]
+text = "Drop this column"
+[map.ssn]
+text = "These identifiers look like Social Security numbers. Map a different identifier, or drop this column."
+claim = "CL-MAP-SSN-01"
+[map.check.title]
+text = "{n} matched columns do not look like the field they were matched to"
+[map.check.body]
+text = "The tool reads a sample of every matched column and says when the values do not fit. It will not stop you, since you may have a reason. Nothing else catches a column in the wrong place, and a column in the wrong place processes without complaint."
+claim = "CL-MAP-CHECK-01"
+[map.tables]
+text = "Tables"
+[map.table_line]
+text = "{rows} rows · {wrong} look wrong · {state}"
+[map.state.confirmed]
+text = "confirmed"
+[map.state.mapped]
+text = "mapped"
+[map.required_suffix]
+text = " · required"
+[map.none]
+text = "(none)"
+[map.made_on_tidy]
+text = "Made on Tidy up"
+[map.samples]
+text = "For example {a}, {b}, {c}"
+[map.use]
+text = "Use {column}"
+[map.note.first_name]
+text = "Nicknames are matched across files, never changed."
+[map.note.middle_initial]
+text = "One letter."
+[map.note.last_name]
+text = "Suffixes are kept."
+[map.note.client_id]
+text = "Never matched across systems. Duplicates are checked within one system."
+[map.note.address_1]
+text = "Placed on the map. Units are moved to line 2."
+[map.note.address_2]
+text = "The unit or apartment."
+[map.note.city]
+text = "Can be left empty. The ZIP fills it."
+[map.note.state]
+text = "Can be left empty. The ZIP fills it."
+[map.note.zip]
+text = "Five digits. ZIP+4 trimmed. Fills the city."
+[map.note.program]
+text = "Drives the second count. Names, never codes."
+[map.note.date_of_birth]
+text = "Helps tell people apart. Never guessed."
+[map.date.counts]
+text = "Date order: {a} can only be month first, {b} can only be day first, {c} could be either"
+[map.date.ask]
+text = "This table writes dates as month/day or day/month?"
+[map.date.month_first]
+text = "Month first"
+[map.date.day_first]
+text = "Day first"
+[map.date.until]
+text = "Until you answer, dates that could be either go to Fix problems."
+claim = "CL-MAP-DATE-01"
+[map.two_digit.label]
+text = "Two-digit years"
+[map.two_digit.review]
+text = "Send to Fix problems (default)"
+[map.two_digit.rule]
+text = "Use a rule"
+[map.two_digit.up_to]
+text = "Two-digit years up to this number mean 20NN, otherwise 19NN."
+[map.two_digit.use]
+text = "Use {nn}"
+[map.two_digit.example]
+text = "With {nn}, a year of {nn} reads as {y1} and a year of {next} reads as {y2}."
+claim = "CL-MAP-PIVOT-01"
+[map.confirm]
+text = "Confirm and next table"
+[map.all_confirmed]
+text = "All {n} tables are confirmed."
+[map.fill_link]
+text = "Fill a field for this source only"
+[map.defaults.title]
+text = "Fill a field for this source only"
+[map.defaults.note]
+text = "Where one file leaves a field out entirely and you know the value for every row in it, set it here. It applies to this table alone, fills only blanks, and never replaces a value the file supplied. Every use is recorded in the audit log."
+claim = "CL-MAP-DEFAULT-01"
+[map.defaults.placeholder]
+text = "leave empty for none"
+[map.promo.title]
+text = "Program names are decided on the next stage"
+[map.promo.body]
+text = "Programs sets which column carries the program in each file and which spellings are one program, then previews the second count before anything is processed. A column calculated on Tidy up is chosen for ZIP by itself."
+[map.promo.go]
+text = "Go to Programs"
+[map.footer]
+text = "Unmapped columns never enter the output."
+claim = "CL-MAP-UNMAPPED-01"
+[map.footer_names]
+text = "{names} are not matched, so they stay out of every download."
+
+# Programs (M11 section 5)
+
+[prog.continue]
+text = "Continue to Process"
+[prog.hold]
+text = "Held until {n} groups are confirmed or kept separate."
+claim = "CL-PROG-HOLD-01"
+[prog.lead.title]
+text = "Goal 2 depends on this stage, and nothing is merged until you say so"
+[prog.lead.body]
+text = "Clients are counted once per program. A file with no program column drops its people from the per-program count. A program spelled two ways is counted as two. Fix both here and preview the counts as often as you like. The name as recorded stays on every row, and every substitution goes to the audit log."
+claim = "CL-PROG-LEAD-01"
+[prog.s1.title]
+text = "Which column holds the program in each file"
+[prog.s1.col.source]
+text = "SOURCE"
+[prog.s1.col.column]
+text = "PROGRAM COLUMN"
+[prog.s1.col.holds]
+text = "WHAT IT HOLDS"
+[prog.s1.none]
+text = "(no program column)"
+[prog.s1.one_name]
+text = "One program name for the whole file..."
+[prog.s1.one_name_placeholder]
+text = "The program every row in this file belongs to"
+[prog.s1.codes]
+text = "These look like codes, not names: {a} · {b} · {c}. The count needs names."
+[prog.s1.better]
+text = "{column} on this file holds names."
+[prog.s1.no_column]
+text = "No program column. These {n} rows will be in the overall count but not in any program's count."
+claim = "CL-PROG-NOCOLUMN-01"
+[prog.s2.title]
+text = "Which names are the same program"
+[prog.s2.note]
+text = "{n} different names across {m} files, grouped into {k} programs. Click a name to pick it up, then click the group it belongs to. Click its own group to put it down. Type over a group's name to change what it is counted under."
+[prog.s2.reset]
+text = "Start again from the proposal"
+[prog.s2.reset_title]
+text = "Start again?"
+[prog.s2.reset_q]
+text = "Every program decision on this stage is taken back, and the tool's proposal shows again."
+[prog.s2.holding]
+text = "Holding {name}. Click the group it belongs to, or"
+[prog.s2.own]
+text = "count it on its own"
+[prog.s2.put_back]
+text = "put it back"
+[prog.s2.group_name]
+text = "Group name"
+[prog.s2.rows]
+text = "{rows} rows across {n} files"
+[prog.s2.needs]
+text = "NEEDS YOUR SAY"
+[prog.s2.confirmed]
+text = "CONFIRMED BY YOU"
+[prog.s2.move_here]
+text = "CLICK TO MOVE {name} HERE"
+[prog.s2.chip]
+text = "{name} {rows} {letters}"
+[prog.s2.held]
+text = "HELD"
+[prog.s2.one]
+text = "These are one program"
+[prog.s2.separate]
+text = "Keep them separate"
+[prog.s2.recorded]
+text = "Either way is recorded, with the names, in the audit log."
+claim = "CL-PROG-RECORDED-01"
+[prog.s2.undo]
+text = "undo"
+[prog.s2.singles]
+text = "{n} more, {names}, each a single name with nothing to confirm."
+[prog.s2.picked]
+text = "Picked up {name}."
+[prog.s2.moved]
+text = "Moved {name}."
+[prog.s2.put_down]
+text = "Put {name} back."
+[prog.reason.same_name]
+text = "Grouped because {a} and {b} are the same name written differently."
+[prog.reason.initials]
+text = "Grouped because {a} looks like the initials of {b}."
+[prog.reason.nearly_same]
+text = "Grouped because {a} and {b} are spelled nearly the same."
+[prog.reason.more_words]
+text = "Grouped because {b} is {a} with more words."
+[prog.s3.title]
+text = "Preview the counts"
+[prog.s3.card]
+text = "What the counts would be"
+[prog.s3.stale]
+text = "With the programs as they stood at {time}, before your latest change. Nothing was decided by running it."
+claim = "CL-PROG-PREVIEW-01"
+[prog.s3.refresh]
+text = "Refresh the preview"
+[prog.s3.none]
+text = "No preview yet. Refresh the preview to see what the counts would be."
+[prog.s3.goal1]
+text = "GOAL 1"
+[prog.s3.goal2]
+text = "GOAL 2"
+[prog.s3.goal1_note]
+text = "Between {lo} and {hi} until open matches are decided on Results."
+[prog.s3.goal2_note]
+text = "One person per program. This is the count your grouping shapes."
+[prog.s3.col.program]
+text = "PROGRAM, AS COUNTED"
+[prog.s3.col.clients]
+text = "UNIQUE CLIENTS"
+[prog.s3.col.rows]
+text = "ROWS"
+[prog.s3.no_program]
+text = "no program recorded"
+[prog.s3.apart]
+text = "still counted apart from {group}"
+[prog.s3.foot]
+text = "Counted from the {n} rows that passed every check. {m} rows still need fixing and are not counted yet. If two lines above should be one program, pick a name up and move it, then refresh."
+
+# Help for stages 01 to 05 (M11). M15 builds the guide from the same keys.
+
+[help.stage.sources.title]
+text = "Add your files"
+[help.stage.sources.purpose]
+text = "Brings in the client lists you exported and finds the tables in them."
+[help.stage.sources.how]
+text = "Drop files or browse. Untick a table to leave it out. Show data lets you check the header row."
+[help.stage.schema.title]
+text = "Your columns"
+[help.stage.schema.purpose]
+text = "Sets the fields every file is matched to."
+[help.stage.schema.how]
+text = "The standard fields work for most work. Add a custom field with a type and a longest value."
+[help.stage.prepare.title]
+text = "Tidy up"
+[help.stage.prepare.purpose]
+text = "Adds clean columns where a file has values jammed together."
+[help.stage.prepare.how]
+text = "Pick a rule, then a source and its columns. A step only adds columns, and you can remove it at any time."
+[help.stage.map.title]
+text = "Match your columns"
+[help.stage.map.purpose]
+text = "Says which of your columns holds each field, table by table."
+[help.stage.map.how]
+text = "Check each amber callout. The blue button inside picks the column the tool found that fits better."
+[help.stage.programs.title]
+text = "Programs"
+[help.stage.programs.purpose]
+text = "Sets up the second count: clients per program."
+[help.stage.programs.how]
+text = "Pick each file's program column, confirm or split the proposed groups, then preview the counts."

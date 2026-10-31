@@ -5,6 +5,7 @@ moves into the Details drawer when that opens. Crossing the breakpoint keeps scr
 held state.
 """
 import datetime as dt
+import pathlib
 
 from PySide6.QtCore import QSize, Qt, QTimer
 from PySide6.QtGui import QGuiApplication
@@ -67,6 +68,13 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(brand.PRODUCT_NAME)
         self.setMinimumSize(MIN_W, MIN_H)
         self.run_hold = RunHold(self)
+        from wholecount.ui.stages.sources.drop import guard
+        from wholecount.ui.widgets.grid import GridStates
+
+        self.drop_guard = guard()
+        self.grid_states = GridStates()
+        self.program_notice = None
+        self._after_job = None
         self.model = None
         self.current = "sources"
         self.compact = None
@@ -104,7 +112,10 @@ class MainWindow(QMainWindow):
         self.your_data = YourDataDrawer(central)
         self.check = SystemCheckDrawer(central)
         self.settings = SettingsDrawer(central)
-        self.drawers = (self.details, self.your_data, self.check, self.settings)
+        from wholecount.ui.widgets.preview import DataPreview
+
+        self.preview = DataPreview(central, self)
+        self.drawers = (self.details, self.your_data, self.check, self.settings, self.preview)
         self.details.closed.connect(self._details_closed)
         a11y.install(central)
 
@@ -217,7 +228,9 @@ class MainWindow(QMainWindow):
         self.check.update_view(v)
         self.settings.update_view(v.with_(now=now))
         head = getattr(self.stage_widget, "head", None)
-        if head is not None:
+        if hasattr(self.stage_widget, "update_view"):
+            self.stage_widget.update_view(v)
+        elif head is not None:
             head.dataline.update_view(v.saved_progress, v.data_notes)
         self.stage_area.fit()
         if self.model is not None and self.bridge.runner.running:
@@ -263,6 +276,8 @@ class MainWindow(QMainWindow):
         return True
 
     def _step_begun(self, step, index, count, total, unit):
+        if self.model.index_of(step) is None:
+            return
         self.model.begin(step, total)
         a11y.announce(copy.get(f"progress.step.{step.value}"))
         self._show_progress()
@@ -283,6 +298,70 @@ class MainWindow(QMainWindow):
         if self.dropdown.isVisible() and hasattr(self.dropdown.content, "show_model"):
             self.dropdown.content.show_model(self.model)
 
+    # Actions the stage bodies start (M11)
+
+    def add_files(self, paths):
+        from wholecount.ui.jobs.actions import AddFilesJob
+
+        s = self.bridge.session
+        if s is None or self.run_hold.active:
+            return False
+        refused = [p for p in paths if str(p).startswith("\\\\") or str(p).startswith("//")]
+        paths = [p for p in paths if p not in refused]
+        msgs = [("src.drop.network_address", {})] if refused else []
+        known = {pathlib.Path(p).name for p in s.setup.paths()}
+        msgs += [("src.already_added", {"name": p.name}) for p in paths if p.name in known]
+        paths = [p for p in paths if p.name not in known]
+        self.bridge.ui["add_messages"] = tuple(msgs)
+        if not paths:
+            self.refresh()
+            return False
+        return self.start_job(AddFilesJob(s, paths, self.bridge.ui))
+
+    def use_example_data(self, paths):
+        from wholecount.session.frame import sample_backend
+        from wholecount.session.commands import UseExampleData
+
+        if self.run_hold.active or self.bridge.session is None:
+            return
+        self.bridge.ui["example_loaded"] = True
+        self.bridge.ui["practice"] = True
+        self.bridge.dispatch(UseExampleData(paths, sample_backend()))
+
+    def start_process(self, then=None):
+        from wholecount.ui.jobs.actions import ProcessJob
+
+        if self.bridge.session is None:
+            return False
+        self._after_job = then
+        return self.start_job(ProcessJob(self.bridge.session))
+
+    def show_data(self, table_key):
+        self.preview.show_table(table_key)
+        self.preview.open_()
+
+    def resume(self, entry, paths=None):
+        """Add the same files again; they are matched by their contents, because no rows are saved (SPEC 10.2)."""
+        from PySide6.QtWidgets import QFileDialog
+
+        from wholecount.ui.jobs.actions import ResumeJob
+
+        if self.run_hold.active or self.bridge.session is None:
+            return False
+        if paths is None:
+            picked, _ = QFileDialog.getOpenFileNames(self, copy.get("src.resume_pick"), "", copy.get("src.drop.filter"))
+            paths = [pathlib.Path(p) for p in picked]
+        if not paths:
+            return False
+
+        def done(plan):
+            self.bridge.ui["resume_plan"] = plan
+        return self.start_job(ResumeJob(self.bridge.store(), entry, paths, done))
+
+    def delete_saved(self, entry):
+        self.bridge.delete_saved(entry)
+        self.refresh()
+
     def _job_over(self):
         self.run_hold.release()
         self.strip.set_run_fractions(None)
@@ -291,6 +370,9 @@ class MainWindow(QMainWindow):
     def _finished(self, outcome):
         self.ticker.finished(outcome, self.view.saved_progress)
         self._job_over()
+        then, self._after_job = self._after_job, None
+        if then:
+            self.go_to(then)
         a11y.announce(self.ticker.left.text())
 
     def _cancelled(self):

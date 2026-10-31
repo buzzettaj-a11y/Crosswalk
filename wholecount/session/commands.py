@@ -519,9 +519,171 @@ class SetupChange:
         return entry("SETUP_CHANGE", reason_code=self.section)
 
 
+class AddSources:
+    """Add several files in one step, so one Undo takes them all back (SPEC 5.1)."""
+
+    invalidates = staleness.downstream("sources")
+
+    def __init__(self, paths):
+        self.paths = tuple(str(p) for p in paths)
+        self.old = {}
+        self.label = CopyRef("commands.add_sources", (("count", len(self.paths)),))
+
+    def apply(self, s):
+        self.old = {p: s.setup.set("sources", p, True) for p in self.paths}
+        return CommandResult()
+
+    def undo(self, s):
+        for p, v in self.old.items():
+            s.setup.set("sources", p, v)
+
+    def audit_entry(self):
+        return entry("SETUP_CHANGE", reason_code="sources", count=len(self.paths))
+
+
+class UseExampleData:
+    """Load the example files with the sample reference beside them (P-GEO-4a). The run is practice from then on."""
+
+    invalidates = staleness.downstream("sources")
+
+    def __init__(self, paths, backend):
+        self.add = AddSources(paths)
+        self.backend = backend
+        self.old = None
+        self.label = CopyRef("commands.use_example_data", ())
+
+    def apply(self, s):
+        self.old = (s.backend, s.allow_sample)
+        s.backend, s.allow_sample = self.backend, True
+        return self.add.apply(s)
+
+    def undo(self, s):
+        self.add.undo(s)
+        s.backend, s.allow_sample = self.old
+
+    def audit_entry(self):
+        return entry("SETUP_CHANGE", reason_code="example_data", count=len(self.add.paths))
+
+
+class SetKeepSensitive:
+    """Keep or drop one sensitive column at load (P-READ-9). The file is read again; a dropped column isn't held."""
+
+    invalidates = staleness.downstream("sources")
+
+    def __init__(self, column, keep):
+        self.column, self.keep = column, bool(keep)
+        self.old = None
+        self.label = CopyRef("commands.keep_sensitive" if keep else "commands.drop_sensitive", ())
+
+    def apply(self, s):
+        self.old = s.keep_sensitive
+        s.keep_sensitive = (s.keep_sensitive | {self.column}) if self.keep else (s.keep_sensitive - {self.column})
+        return CommandResult()
+
+    def undo(self, s):
+        s.keep_sensitive = self.old
+
+    def audit_entry(self):
+        return entry("SETUP_CHANGE", reason_code="sensitive_kept" if self.keep else "sensitive_dropped")
+
+
+class ConfirmTable:
+    """Match your columns: this table's matching is confirmed. A view fact; it changes no result."""
+
+    invalidates = frozenset()
+
+    def __init__(self, table, confirmed=True):
+        self.table, self.confirmed = tuple(table), confirmed
+        self.was = None
+        self.label = CopyRef("commands.confirm_table", ())
+
+    def apply(self, s):
+        self.was = self.table in s.confirmed_tables
+        (s.confirmed_tables.add if self.confirmed else s.confirmed_tables.discard)(self.table)
+        return CommandResult()
+
+    def undo(self, s):
+        (s.confirmed_tables.add if self.was else s.confirmed_tables.discard)(self.table)
+
+    def audit_entry(self):
+        return entry("SETUP_CHANGE", reason_code="table_confirmed")
+
+
+class LoadSetup:
+    """Apply a saved set-up, whole or only what fits the files loaded now (SPEC 10.3). One Undo takes it back."""
+
+    invalidates = staleness.downstream("tables")
+
+    def __init__(self, setup_json_, name=""):
+        self.data = setup_json_
+        self.before = None
+        self.label = CopyRef("commands.load_setup", ())
+
+    def apply(self, s):
+        import copy as _copy
+
+        from wholecount.session.store import apply_setup_json
+
+        self.before = _copy.deepcopy({k: dict(v) for k, v in s.setup.sections.items()})
+        apply_setup_json(s.setup, self.data)
+        return CommandResult()
+
+    def undo(self, s):
+        for k, v in self.before.items():
+            s.setup.sections[k] = v
+
+    def audit_entry(self):
+        return entry("SETUP_CHANGE", reason_code="setup_loaded")
+
+
+class ConfirmStage:
+    """Continue on Tidy up: the steps as they stand are kept (the strip then reads {n} steps kept). A view fact."""
+
+    invalidates = frozenset()
+
+    def __init__(self, stage_id):
+        self.stage_id = stage_id
+        self.was = None
+        self.label = CopyRef("commands.confirm_stage", ())
+
+    def apply(self, s):
+        self.was = self.stage_id in s.confirmed_stages
+        s.confirmed_stages.add(self.stage_id)
+        return CommandResult()
+
+    def undo(self, s):
+        if not self.was:
+            s.confirmed_stages.discard(self.stage_id)
+
+    def audit_entry(self):
+        return entry("SETUP_CHANGE", reason_code=f"{self.stage_id}_confirmed")
+
+
+class WithdrawProgramDecision(_DecisionCommand):
+    """Take back one program decision, such as one confirmation, without undoing what came after it (P-PROG-3)."""
+
+    code = "PROGRAM"
+    invalidates = staleness.downstream("programs")
+
+    def __init__(self, decision_id):
+        super().__init__()
+        self.decision_id = decision_id
+        self.label = CopyRef("commands.program_withdraw", ())
+
+    def apply(self, s):
+        d = next(x for x in s.decisions if x.decision_id == self.decision_id)
+        s.decisions.remove([d])
+        self.removed = [d]
+        return CommandResult()
+
+    def audit_entry(self):
+        return entry("PROGRAM", decision_id=[self.decision_id], reason_code="withdrawn")
+
+
 ALL_COMMANDS = (ApproveRows, AcceptGroup, SetAsideRows, AcceptFills, KeepOneInCopyGroup, MarkNotCopies, DecideSameIdConflict,
                 KeepOnePerProgram, SendToRowByRow, ReturnToOpen, DecidePair, DecideProgramGroup, ApplyCorrections,
-                AcknowledgeLowConfidence, SetReviewer, FinishReview, SetupChange)
+                AcknowledgeLowConfidence, SetReviewer, FinishReview, SetupChange, AddSources, UseExampleData,
+                SetKeepSensitive, ConfirmTable, LoadSetup, ConfirmStage, WithdrawProgramDecision)
 
 
 class JobCommand:
