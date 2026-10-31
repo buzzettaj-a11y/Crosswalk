@@ -138,6 +138,8 @@ class Session:
         self.store = None                 # a session.store.Store when saved progress is wanted (STORE-3)
         self.session_id = hashlib.sha256(self.now_iso().encode("utf-8")).hexdigest()[:16]
         self._load_cache = None
+        self.thresholds = None            # (possible_min, likely_min) from prefs.json, or None for identity.toml's (CAL-7)
+        self.calibration_dir = None       # the calibration folder; the app sets it
         self.crosswalk_path = None        # crosswalk.db's path; the app sets it, and the crosswalk is on when the file exists
 
     @property
@@ -172,7 +174,7 @@ class Session:
             "standardized": s.stable("defaults", "date_orders") + repr(self.today()),
             "geo": s.stable("run_settings") + repr((self.backend.name, self.backend.release, self.allow_sample)),
             "decisions": repr(sorted(d.decision_id for d in review)) + repr(sorted(self.correction_texts)),
-            "identity": repr(sorted(d.decision_id for d in self.decisions.of_kind("pair"))) + "|xw:" + self._crosswalk_fp(),
+            "identity": repr(sorted(d.decision_id for d in self.decisions.of_kind("pair"))) + "|xw:" + self._crosswalk_fp() + "|t:" + repr(self.thresholds),
             "programs": repr(sorted(d.decision_id for d in self.decisions.of_kind("program"))) + s.stable("program_columns"),
             "exports": s.stable("export_settings"),
         }

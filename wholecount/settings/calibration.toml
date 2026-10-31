@@ -1,0 +1,11 @@
+# Matching calibration (SPEC 8.8, M13 CAL-1 to CAL-8). Measures the matching weights and lines; changes neither.
+floor = 40                       # pairs scoring under this are never measured, and the floor is never reported (H5)
+band_edges = [40, 62, 80, 100]   # band 1 is 40 to 61, band 2 is 62 to 79, band 3 is 80 to 99, band 4 is 100 or more
+per_band = 100                   # pairs drawn per band, from 3 to 200 on screen
+joins_sample = 200               # automatic joins drawn to check
+recall_target_pct = 98           # the suggested line catches at least this share of true matches
+joins_target_tenths = 995        # automatic joins are confirmed when at least 99.5% are right
+possible_min_lowest = 40         # the lowest proposal line Settings accepts
+known_pairs_advice = 50          # about this many known pairs is useful
+per_band_min = 3
+per_band_max = 200

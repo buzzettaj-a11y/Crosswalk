@@ -199,7 +199,8 @@ def run(session, sink=None):
     xw = _crosswalk_read(session, backend, load, by_person, nla)
     if xw is not None:
         verdicts += list(xw.verdicts)
-    identity = resolve(prows, verdicts, known=xw.known if xw else None,
+    bands = {"possible_min": session.thresholds[0], "likely_min": session.thresholds[1]} if session.thresholds else None
+    identity = resolve(prows, verdicts, known=xw.known if xw else None, settings={"bands": bands} if bands else None,
                        open_copy_groups=[tuple(m for m in g.members if m in counted) for g in open_groups])
 
     # Step 10: programs.

@@ -197,7 +197,13 @@ def build_view(session, settings=None):
         masters=master_rows, tables=tuple(tables), sources=sources, counts=r.counts, balance=r.balance, confidence=r.confidence,
         map_entries=tuple(entries), map_points=tuple(points), run_id=rid, events=build_events(session, r),
         share_keys={x.record_key: share_key(mac, x.record_key) for x in rows},
-        reviewer_counts=decisions_by_reviewer(session.decisions), problem_ids=_problem_ids())
+        reviewer_counts=decisions_by_reviewer(session.decisions), problem_ids=_problem_ids(), calibration=_methods(session))
+
+
+def _methods(session):
+    from wholecount.session.frame import methods_note
+
+    return methods_note(session)
 
 
 def download(session, folder, settings=None, clock=None, confirmed_synced=False, overwrite=False, environ=None):

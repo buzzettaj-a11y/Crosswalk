@@ -133,7 +133,9 @@ def confidence_view(session):
     r = session.results
     conf = r.confidence
     acked = session.acknowledged is not None and session.acknowledged[0] == r.version
-    return ConfidenceView(conf.level, conf.parts, conf.measures, _thresholds(), conf.calibration, acked)
+    from wholecount.session.frame import calibration_line
+
+    return ConfidenceView(conf.level, conf.parts, conf.measures, _thresholds(), calibration_line(session), acked)
 
 
 def stale_stages(session):

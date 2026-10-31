@@ -3318,3 +3318,25 @@ text = "Nothing has been written yet."
 claim = "CL-RECEIPT-ONLY-02"
 [export.footer.after]
 text = "Your own files were not changed. {product} wrote only the files listed here."
+
+[calibration.band_rate]
+text = "{same} of {labeled} were the same person at scores {lo} to {hi}"
+[calibration.band_rate_top]
+text = "{same} of {labeled} were the same person at scores {lo} and up"
+[calibration.earlier_weights]
+text = "These rates were measured with earlier matching weights."
+claim = "CL-CAL-EARLIER-01"
+[calibration.methods]
+text = "Matching was measured on {date}. Two staff labeled pairs on this computer: {rates}."
+claim = "CL-CAL-METHODS-01"
+[calibration.joins.confirmed]
+text = "{wrong} of {n} sampled automatic joins were wrong, which meets the 99.5% check. A small sample is a weak check."
+claim = "CL-CAL-JOINS-01"
+[calibration.joins.not_confirmed]
+text = "{wrong} of {n} sampled automatic joins were wrong, which misses the 99.5% check."
+claim = "CL-CAL-JOINS-02"
+[calibration.joins.no_joins]
+text = "No automatic joins were sampled."
+[calibration.recall]
+text = "At the proposal line of {line}, about {pct}% of true matches are proposed."
+claim = "CL-CAL-RECALL-01"
