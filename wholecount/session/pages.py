@@ -308,13 +308,25 @@ class ExportPlan:
 
 
 def export_plan(session, settings):
+    """What Download would write. Building it means building every output table, so the last plan is reused while the
+    results, the download settings, the log and the reviewer are the same (M15: the stage drew it twice per visit)."""
+    key = (session.results, repr(settings), len(session.audit_log), session.reviewer)
+    cached = getattr(session, "_plan_cache", None)
+    if cached is not None and cached[0][0] is key[0] and cached[0][1:] == key[1:]:
+        return cached[1]
+    plan = _export_plan(session, settings)
+    session._plan_cache = (key, plan)
+    return plan
+
+
+def _export_plan(session, settings):
     from dataclasses import replace
 
     from wholecount.engine.outputs import writer
     from wholecount.engine.outputs.columns import LOG_FILES, FileId, chip_columns, output_columns
-    from wholecount.session.export import build_view
+    from wholecount.session import export
 
-    view = build_view(session, settings)
+    view = export.build_view(session, settings)
     files = []
     for fid in writer.files_to_write(view, settings):
         if fid in LOG_FILES:

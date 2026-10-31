@@ -368,6 +368,10 @@ def locations_section(pl, not_found, reference_count):
         "looked_up": len(looked_up),
         "practice_run": {f: _split(pl.records[f], practice) for f in FILES} | {"total": _split(all_records(pl), practice)},
         "no_backend_run": {f: _split(pl.records[f], no_backend) for f in FILES} | {"total": _split(all_records(pl), no_backend)},
+        # M15: the split once the planned decisions are made, for the guide's second balance. The copies a person keeps one
+        # of are set aside, and the same-ID conflict rows are counted once decided as different people.
+        "practice_run_after_decisions": _split([r for r in all_records(pl)
+                                                if not any(r is rs[1] for _, rs in pl.copy_groups)], practice),
     }
 
 
@@ -530,6 +534,10 @@ def files_section(pl, total_row):
             "total_row": total_row, "balanced": True,
         },
     }
+    # Each file is its own source system by default (SPEC 3.1), named by its file name without the extension. The
+    # independent check reads it here, because Final_Clean_Mapped has no system column.
+    for name in out:
+        out[name]["system"] = name.rsplit(".", 1)[0]
     return out
 
 

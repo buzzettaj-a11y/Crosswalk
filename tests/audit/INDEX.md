@@ -29,7 +29,7 @@ A finding listed under more than one milestone names every test that closes it. 
 | A-22 | Low | M08 | `tests/audit/test_A22_one_equation.py` | done |
 | A-23 | Low | M10 | `tests/audit/test_A23_trust_and_close_visible.py` | done |
 | A-24 | Low | M09 | `tests/audit/test_A24_no_audit_cap.py` | done |
-| A-25 | Low | M00, M15 | arrives in M15 | pending |
+| A-25 | Low | M00, M15 | `tests/audit/test_A25_doc_refs.py` | done |
 | B-01 | High | M04 | `tests/audit/test_B01_placeholders.py` | done |
 | B-02 | High | M01 | `tests/audit/test_B02_cp1252_names.py` | done |
 | B-03 | High | M04 | `tests/audit/test_B03_nassau_zips.py` | done |

@@ -127,12 +127,31 @@ def program_decision(d):
     return ProgramDecision(d.get("program_kind"), d.all("program"), d.get("label"), inherited=False)
 
 
-def run(session, sink=None):
+def _before_decisions(session, load, fps, sink, reuse):
+    """Steps 2 to 7: tables, tidy, match, standardize, place, fills and the copy search. None of them depends on a decision,
+    so a run after a decision reuses them, the way loading is reused. The key is the fingerprint of every node before
+    decisions, plus the backend, the district files and the load themselves. Process passes reuse=False and runs them all."""
+    key = (fps["copies"], session.backend, session.districts, load)
+    cached = getattr(session, "_before_cache", None)
+    if reuse and cached is not None and cached[0][0] == key[0] and all(a is b for a, b in zip(cached[0][1:], key[1:])):
+        tables, file_of, works, placement, fills, groups = cached[1]
+        return tables, file_of, works, dict(placement), fills, groups
+    tables, file_of = _tables(session, load)
+    works = _works(session, load, tables, file_of, sink)
+    rows = [r for w in works for r in w.rows]
+    options = GeoOptions(frozenset(session.setup.get("run_settings", "extra_fields", frozenset())))
+    placement = place_rows(rows, session.backend, session.districts, options, sink).results
+    fills = pl.fill_proposals(rows, session.backend)
+    groups, _ = pl.copies_step(works)
+    session._before_cache = (key, (tables, file_of, works, dict(placement), fills, groups))
+    return tables, file_of, works, placement, fills, groups
+
+
+def run(session, sink=None, reuse=False):
     sink = sink or NullSink()
     fps = session.live_fingerprints()
     load = _load(session, sink)
-    tables, file_of = _tables(session, load)
-    works = _works(session, load, tables, file_of, sink)
+    tables, file_of, works, placement, fills, groups = _before_decisions(session, load, fps, sink, reuse)
     rows = {r.record_key: r for w in works for r in w.rows}
     inputs = {i.record_key: (i, w) for w in works for i in w.inputs}
     system_of = {r.record_key: w.system for w in works for r in w.rows}
@@ -143,9 +162,6 @@ def run(session, sink=None):
     def place(rs, with_sink):
         return place_rows(rs, backend, session.districts, options, sink if with_sink else None).results
 
-    placement = place(list(rows.values()), True)
-    fills = pl.fill_proposals(rows.values(), backend)
-    groups, _ = pl.copies_step(works)
     same_id_rows = {m for g in groups if g.kind == "same_id_different" for m in g.members}
     outcomes = pl.base_outcomes(rows.values(), placement, same_id_rows)
 
@@ -312,16 +328,16 @@ def _crosswalk_read(session, backend, load, by_person, nla):
     return xw
 
 
-def process(session, sink=None):
+def process(session, sink=None, reuse=False):
     """Process: run and swap the results in. A cancel raises Cancelled and leaves the session as it was."""
-    results = run(session, sink)
+    results = run(session, sink, reuse)
     session.remember(results)
     return results
 
 
 def recompute_from(session, node=None):
-    """Re-run after a decision. Loading is cached by the sources fingerprint, so only later steps do real work."""
-    return process(session)
+    """Re-run after a decision. Loading and the steps before decisions are reused while their inputs are unchanged."""
+    return process(session, reuse=True)
 
 
 def fast_path(session, sink=None):
@@ -348,7 +364,7 @@ def preview_counts(session, program_decisions):
     shadow.decisions = dmod.DecisionStore(session.decisions.snapshot())
     shadow.results = session.results
     shadow.decisions.add(program_decisions)
-    return run(shadow).counts
+    return run(shadow, reuse=True).counts
 
 
 def causes_for(results):

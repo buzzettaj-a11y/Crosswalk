@@ -1,0 +1,882 @@
+# The final feature ledger (M15). One row per feature from the decisions doc, the build brief and M10 to M14's tables,
+# and legacy/tests/test_parity.py. `widget` is an objectName found in the built stage, or code:<dotted path> for a part that
+# only exists once opened (a dialog, the queue, the record panel). A dropped row names what drops it.
+
+[[feature]]
+name = "fast path with its blockers and warnings"
+stage = "sources"
+widget = "fastPath"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "example data"
+stage = "sources"
+widget = "example"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "drop and browse"
+stage = "sources"
+widget = "dropZone"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "corrections file recognition"
+stage = "sources"
+widget = "code:wholecount.session.frame.corrections_files"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "include and exclude tables"
+stage = "sources"
+widget = "include_A_0"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "header row warning"
+stage = "sources"
+widget = "tableRow"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "show data"
+stage = "sources"
+widget = "show_A_0"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "tidy-up steps with origin"
+stage = "prepare"
+widget = "stepRow"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "remove and restore"
+stage = "prepare"
+widget = "remove_proposed-address"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "add a step for all five rule types with every option (columns, case, junk, edge punctuation, delimiter, custom delimiter, max splits, new names, street, city, existing ZIP, mode, calculated column name)"
+stage = "prepare"
+widget = "addStep"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "per-table column matching with the column check and one-click fix"
+stage = "map"
+widget = "table_A_0"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "blocked run band"
+stage = "map"
+widget = "code:wholecount.ui.stages.map.MapBody"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "confirm and next table"
+stage = "map"
+widget = "confirmTable"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "fill a field for this source only"
+stage = "map"
+widget = "fillLink"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "unmapped columns stay out of exports"
+stage = "map"
+widget = "unmappedLine"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "program column per source with samples and warning"
+stage = "programs"
+widget = "programColumn_A_0"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "program name groups with rename"
+stage = "programs"
+widget = "groupName_Workforce Development"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "pick up"
+stage = "programs"
+widget = "chip_Workforce Dev."
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "move"
+stage = "programs"
+widget = "programGroup"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "count on its own"
+stage = "programs"
+widget = "separate_Workforce Development"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "put back and start again"
+stage = "programs"
+widget = "resetPrograms"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "the preview of the counts with refresh and out-of-date state"
+stage = "programs"
+widget = "refreshPreview"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "grouped decisions with per-group actions"
+stage = "review"
+widget = "cause_name_missing"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "accept all as they are"
+stage = "review"
+widget = "accept_name_missing"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "send to row by row"
+stage = "review"
+widget = "route_name_missing"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "preview"
+stage = "review"
+widget = "preview_name_missing"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "fill from street"
+stage = "review"
+widget = "code:wholecount.ui.stages.review.dialogs.FillPreview"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "the matching diagnosis with one-click fix"
+stage = "review"
+widget = "code:wholecount.ui.frame.window.MainWindow.fix_mapping_and_run"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "cross-file note"
+stage = "review"
+widget = "code:wholecount.session.pages.other_files_people"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "finish review"
+stage = "review"
+widget = "finishReview"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "the queue with status filter"
+stage = "review"
+widget = "code:wholecount.ui.stages.review.queue.QueueView"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "problem and source facets"
+stage = "review"
+widget = "code:wholecount.ui.stages.review.queue.QueueView"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "search"
+stage = "review"
+widget = "code:wholecount.session.pages.queue_page"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "page size"
+stage = "review"
+widget = "code:wholecount.ui.widgets.pagebar.PageBar"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "select page and all matching"
+stage = "review"
+widget = "code:wholecount.ui.stages.review.queue.QueueView.selection_keys"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "bulk approve"
+stage = "review"
+widget = "code:wholecount.session.commands.ApproveRows"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "reject"
+stage = "review"
+widget = "dropped"
+source = "decisions: kept and drawn"
+status = "dropped"
+dropped_by = "SPEC 17 Q7: Reject is dropped because it breaks H7"
+kept_item = true
+
+[[feature]]
+name = "remove"
+stage = "review"
+widget = "code:wholecount.session.commands.SetAsideRows"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "pending"
+stage = "review"
+widget = "code:wholecount.session.commands.ReturnToOpen"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "keep one per program"
+stage = "review"
+widget = "code:wholecount.ui.stages.review.queue.QueueView.keep_one"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "set a field on all selected"
+stage = "review"
+widget = "dropped"
+source = "decisions: kept and drawn"
+status = "dropped"
+dropped_by = "SPEC 17 Q7: Set a field on all selected is dropped because it breaks H7"
+kept_item = true
+
+[[feature]]
+name = "the record panel with meaning"
+stage = "review"
+widget = "code:wholecount.ui.stages.review.record.RecordPanel"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "original row"
+stage = "review"
+widget = "code:wholecount.ui.stages.review.record.RecordPanel"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "unmatched columns"
+stage = "review"
+widget = "code:wholecount.session.pages.unmatched_columns"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "shared identifier context"
+stage = "review"
+widget = "code:wholecount.session.pages.sharing_identifier"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "suggestion"
+stage = "review"
+widget = "code:wholecount.ui.stages.review.record.RecordPanel"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "approve"
+stage = "review"
+widget = "code:wholecount.session.commands.ApproveRows"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "set aside"
+stage = "review"
+widget = "aside_name_missing"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "open the source file"
+stage = "review"
+widget = "code:wholecount.session.pages.source_path"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "the two counts with range"
+stage = "summary"
+widget = "goal1Card"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "open pairs"
+stage = "summary"
+widget = "pairsCallout"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "program bars"
+stage = "summary"
+widget = "programsCard"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "person table"
+stage = "summary"
+widget = "peopleCard"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "print page"
+stage = "summary"
+widget = "openPrintable"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "undo"
+stage = "frame"
+widget = "strip"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "close"
+stage = "frame"
+widget = "topClose"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "start over"
+stage = "frame"
+widget = "startOver"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "saved progress line"
+stage = "frame"
+widget = "topSaved"
+source = "decisions: kept and drawn"
+status = "built"
+kept_item = true
+
+[[feature]]
+name = "the system check table"
+stage = "frame"
+widget = "checkLine"
+source = "decisions: moved, not drawn yet"
+status = "built"
+
+[[feature]]
+name = "the header row picker"
+stage = "sources"
+widget = "code:wholecount.ui.widgets.preview.DataPreview"
+source = "decisions: moved, not drawn yet"
+status = "built"
+
+[[feature]]
+name = "the fill lookup list"
+stage = "review"
+widget = "code:wholecount.ui.stages.review.dialogs.FillPreview"
+source = "decisions: moved, not drawn yet"
+status = "built"
+
+[[feature]]
+name = "the side by side duplicate compare"
+stage = "review"
+widget = "compare_copies_identical"
+source = "decisions: moved, not drawn yet"
+status = "built"
+
+[[feature]]
+name = "the proposals screen for open pairs"
+stage = "summary"
+widget = "decidePairs"
+source = "decisions: moved, not drawn yet"
+status = "built"
+
+[[feature]]
+name = "keep this row for possible duplicates"
+stage = "review"
+widget = "compare_copies_possible"
+source = "decisions: moved, not drawn yet"
+status = "built"
+
+[[feature]]
+name = "per-row fill"
+stage = "review"
+widget = "code:wholecount.ui.stages.review.record.RecordPanel"
+source = "decisions: moved, not drawn yet"
+status = "built"
+
+[[feature]]
+name = "resume notice"
+stage = "sources"
+widget = "code:wholecount.ui.frame.window.MainWindow.resume"
+source = "decisions: moved, not drawn yet"
+status = "built"
+
+[[feature]]
+name = "sorting on tables"
+stage = "frame"
+widget = "code:wholecount.ui.widgets.grid"
+source = "decisions: moved, not drawn yet"
+status = "built"
+
+[[feature]]
+name = "Set up your columns stage"
+stage = "schema"
+widget = "addField"
+source = "decisions: stages not drawn yet, needs a home"
+status = "built"
+
+[[feature]]
+name = "Process stage"
+stage = "run"
+widget = "processAll"
+source = "decisions: stages not drawn yet, needs a home"
+status = "built"
+
+[[feature]]
+name = "Download stage"
+stage = "export"
+widget = "downloadFiles"
+source = "decisions: stages not drawn yet, needs a home"
+status = "built"
+
+[[feature]]
+name = "editing the schema"
+stage = "schema"
+widget = "resetSchema"
+source = "decisions: stages not drawn yet, needs a home"
+status = "built"
+
+[[feature]]
+name = "choosing export columns"
+stage = "export"
+widget = "columnsToggle"
+source = "decisions: stages not drawn yet, needs a home"
+status = "built"
+
+[[feature]]
+name = "system check line"
+stage = "frame"
+widget = "checkLine"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "trust sentence"
+stage = "frame"
+widget = "trustSentence"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "what happens to your data"
+stage = "frame"
+widget = "yourDataLink"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "settings"
+stage = "frame"
+widget = "settingsLink"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "reviewer"
+stage = "frame"
+widget = "reviewerLine"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "run ticker"
+stage = "frame"
+widget = "ticker"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "practice tag"
+stage = "frame"
+widget = "practiceTag"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "help buttons"
+stage = "frame"
+widget = "code:wholecount.ui.widgets.help.HelpButton"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "user guide"
+stage = "frame"
+widget = "openGuide"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "source systems"
+stage = "sources"
+widget = "systemsCard"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "rows accounted for"
+stage = "sources"
+widget = "accounted"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "saved set-ups"
+stage = "sources"
+widget = "setupsToggle"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "sensitive columns"
+stage = "sources"
+widget = "sensitive"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "run settings and pre-run summary"
+stage = "run"
+widget = "runSettings"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "confidence callout"
+stage = "run"
+widget = "confidenceCallout"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "rows found with both balances"
+stage = "run"
+widget = "foundBalance"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "signed corrections file"
+stage = "review"
+widget = "applyCorrections"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "automatic joins with split"
+stage = "summary"
+widget = "joinsCard"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "locations"
+stage = "summary"
+widget = "locationsCard"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "exact coordinates"
+stage = "export"
+widget = "exactCoordinates"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "Map_Points"
+stage = "export"
+widget = "writeMapPoints"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "download receipt"
+stage = "export"
+widget = "exportFooter"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "calibration"
+stage = "frame"
+widget = "measureCard"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "matching lines"
+stage = "frame"
+widget = "linesCard"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "saved crosswalk"
+stage = "frame"
+widget = "crosswalkCard"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "secret backup"
+stage = "frame"
+widget = "secretCard"
+source = "build brief and M10 to M15 tables"
+status = "built"
+
+[[feature]]
+name = "rename a built-in field"
+stage = "schema"
+widget = "dropped"
+source = "build brief and M10 to M15 tables"
+status = "dropped"
+dropped_by = "SPEC 4.1: the canonical fields are fixed; custom fields are added beside them"
+
+[[feature]]
+name = "reject a row, set a field on all selected"
+stage = "review"
+widget = "dropped"
+source = "build brief and M10 to M15 tables"
+status = "dropped"
+dropped_by = "SPEC 17 Q7: both break H7"
+
+[[feature]]
+name = "privacy offset switch and seed"
+stage = "run"
+widget = "dropped"
+source = "build brief and M10 to M15 tables"
+status = "dropped"
+dropped_by = "P-GEO-7: there is no seed setting, and the offset always applies to Map_Points"
+
+[[feature]]
+name = "send unplaced rows to review"
+stage = "run"
+widget = "dropped"
+source = "build brief and M10 to M15 tables"
+status = "dropped"
+dropped_by = "P-VAL-2: whether a row counts never depends on its address"
+
+[[feature]]
+name = "schema editor: label, type, length, required, delete, add, reset"
+stage = "schema"
+widget = "addField"
+source = "legacy/tests/test_parity.py"
+status = "built"
+
+[[feature]]
+name = "prepare: case modes and smart title"
+stage = "prepare"
+widget = "form_case"
+source = "legacy/tests/test_parity.py"
+status = "built"
+
+[[feature]]
+name = "prepare: sanitize and strip punctuation"
+stage = "prepare"
+widget = "form_strip_junk"
+source = "legacy/tests/test_parity.py"
+status = "built"
+
+[[feature]]
+name = "prepare: delimiter split with max splits and names"
+stage = "prepare"
+widget = "rule_split_delim"
+source = "legacy/tests/test_parity.py"
+status = "built"
+
+[[feature]]
+name = "optional Geosupport fields"
+stage = "run"
+widget = "extra_census_tract"
+source = "legacy/tests/test_parity.py"
+status = "built"
+
+[[feature]]
+name = "guided and advanced modes"
+stage = "frame"
+widget = "dropped"
+source = "legacy/tests/test_parity.py"
+status = "dropped"
+dropped_by = "decisions doc: the Guided and Advanced toggle goes"
+
+[[feature]]
+name = "system check reachable"
+stage = "frame"
+widget = "checkLine"
+source = "legacy/tests/test_parity.py"
+status = "built"
+
+[[feature]]
+name = "table selection"
+stage = "sources"
+widget = "include_B_0"
+source = "legacy/tests/test_parity.py"
+status = "built"
+
+[[feature]]
+name = "corrections re-import"
+stage = "review"
+widget = "applyCorrections"
+source = "legacy/tests/test_parity.py"
+status = "built"
+
+[[feature]]
+name = "require geocode"
+stage = "run"
+widget = "dropped"
+source = "legacy/tests/test_parity.py"
+status = "dropped"
+dropped_by = "P-VAL-2: whether a row counts never depends on its address"
+
+[[feature]]
+name = "jitter and its seed"
+stage = "run"
+widget = "dropped"
+source = "legacy/tests/test_parity.py"
+status = "dropped"
+dropped_by = "P-GEO-7: there is no seed setting, and the offset always applies to Map_Points"
+
+[[feature]]
+name = "all three export formats"
+stage = "export"
+widget = "allFormat_xlsx"
+source = "legacy/tests/test_parity.py"
+status = "built"
+
+[[feature]]
+name = "export column selection"
+stage = "export"
+widget = "columns_all"
+source = "legacy/tests/test_parity.py"
+status = "built"
+
+[[feature]]
+name = "every output file downloadable"
+stage = "export"
+widget = "fileName_Final_Clean_Mapped"
+source = "legacy/tests/test_parity.py"
+status = "built"

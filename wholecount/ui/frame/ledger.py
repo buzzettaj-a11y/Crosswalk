@@ -74,7 +74,12 @@ class Section(QWidget):
         if not first:
             outer.addWidget(rule())
         self.kicker = label(copy.get(kicker_key).upper(), role="ledger-kicker", tone="blue" if blue else None)
-        outer.addWidget(self.kicker)
+        if first:   # M15: the ledger's help sits on its first section
+            from wholecount.ui.widgets.help import titled
+
+            outer.addLayout(titled(self.kicker, "el.ledger"))
+        else:
+            outer.addWidget(self.kicker)
         self.body = vbox(spacing=6)
         outer.addLayout(self.body)
 

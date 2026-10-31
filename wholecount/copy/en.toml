@@ -1777,12 +1777,20 @@ text = "Show data"
 text = "{name}"
 [preview.header_wrong]
 text = "The header row may be wrong"
-[preview.header_reason.numbers_in_header]
-text = "The row picked as the header holds numbers, so it looks like data."
-[preview.header_reason.blank_header]
+[preview.header_reason.header_row_empty]
+text = "The row picked as the header is empty."
+[preview.header_reason.header_mostly_blank]
 text = "The row picked as the header is mostly blank."
-[preview.header_reason.title_row]
-text = "The row picked as the header looks like a title above the table."
+[preview.header_reason.header_looks_like_data]
+text = "The row picked as the header holds numbers or dates, so it looks like data."
+[preview.header_reason.header_duplicate_name]
+text = "Two columns in the row picked as the header have the same name."
+[preview.header_reason.header_same_shape_as_row_below]
+text = "The row picked as the header looks like the rows under it, so it may be data."
+[preview.header_reason.header_row_below_is_better]
+text = "The row under the one picked looks more like column names."
+[preview.header_reason.no_header_but_row_looks_like_names]
+text = "No header row was picked, but one of the first rows looks like column names."
 [preview.pick]
 text = "Which row holds the column names?"
 [preview.none]
@@ -2524,6 +2532,97 @@ text = "Programs"
 text = "Sets up the second count: clients per program."
 [help.stage.programs.how]
 text = "Pick each file's program column, confirm or split the proposed groups, then preview the counts."
+[help.stage.run.title]
+text = "Process"
+[help.stage.run.purpose]
+text = "Checks every row, places the addresses, finds copies and the same person across files, and counts."
+[help.stage.run.how]
+text = "Press Process everything. It reads your files and changes nothing in them. Rows with a problem wait on Fix problems and aren't counted yet."
+claim = "CL-HELP-RUN-01"
+[help.stage.review.title]
+text = "Fix problems"
+[help.stage.review.purpose]
+text = "Decides the rows the checks could not settle, a group of rows at a time and then one row at a time."
+[help.stage.review.how]
+text = "Decide the causes on step 1 first. Finish review is held until every cause that affects the counts is decided. Your name is saved with each decision."
+claim = "CL-HELP-REVIEW-01"
+[help.stage.summary.title]
+text = "Results"
+[help.stage.summary.purpose]
+text = "Shows the two counts and where they come from."
+[help.stage.summary.how]
+text = "A count shows as a range while same-person pairs are open. It becomes one number once every pair is decided."
+claim = "CL-HELP-RESULTS-01"
+[help.stage.export.title]
+text = "Download"
+[help.stage.export.purpose]
+text = "Writes the files you choose into a folder you pick."
+[help.stage.export.how]
+text = "Nothing is written until you press Download. A practice run writes no map files. Each data file can be CSV, Excel or JSON."
+claim = "CL-HELP-EXPORT-01"
+[help.el.confidence.title]
+text = "Confidence"
+[help.el.confidence.purpose]
+text = "Says how far to trust this batch's counts: High, Medium or Low."
+[help.el.confidence.how]
+text = "It comes from checked facts: how many rows are counted, how many pairs are open and how many addresses were placed. Low holds Download until you tick that you saw it."
+claim = "CL-HELP-CONF-01"
+[help.el.pairs.title]
+text = "Same-person matches"
+[help.el.pairs.purpose]
+text = "Pairs of records that may be one person, found across your files."
+[help.el.pairs.how]
+text = "Nothing is joined on a guess. Each pair waits until you say same or different, and the count shows a range until then."
+claim = "CL-HELP-PAIRS-01"
+[help.el.program_groups.title]
+text = "Program groups"
+[help.el.program_groups.purpose]
+text = "Program names that may be one program, spelled differently."
+[help.el.program_groups.how]
+text = "Confirm a group to count its names as one program. Nothing is grouped until you confirm it."
+claim = "CL-HELP-PROGRAMS-01"
+[help.el.map_points.title]
+text = "Moved points and small counts"
+[help.el.map_points.purpose]
+text = "How the map files keep people from being found."
+[help.el.map_points.how]
+text = "Map_Points moves each point 150 to 250 feet, and everyone at one building gets the same moved point. Map_Counts leaves any count from 1 to 10 blank."
+claim = "CL-HELP-MAP-01"
+[help.el.record_keys.title]
+text = "Record keys"
+[help.el.record_keys.purpose]
+text = "Each row's own key, made from its table and its contents."
+[help.el.record_keys.how]
+text = "Decisions are saved against record keys, never row positions, so sorting a file again keeps them. The keys mean nothing on another computer."
+claim = "CL-HELP-KEYS-01"
+[help.el.balances.title]
+text = "The two balances"
+[help.el.balances.purpose]
+text = "Two equations that prove no row was lost."
+[help.el.balances.how]
+text = "Rows received equal counted plus not counted yet plus set aside. Counted equals mapped plus counted but not mapped."
+claim = "CL-HELP-BALANCE-01"
+[help.el.not_mapped.title]
+text = "Counted but not mapped"
+[help.el.not_mapped.purpose]
+text = "People with no usable address."
+[help.el.not_mapped.how]
+text = "They are in both counts. They are not on the map."
+claim = "CL-HELP-NOTMAPPED-01"
+[help.el.set_aside.title]
+text = "Set aside"
+[help.el.set_aside.purpose]
+text = "Rows kept out of the counts, each with a reason."
+[help.el.set_aside.how]
+text = "A set-aside row is never deleted. It goes to the set-aside file with its reason, and Return to open puts it back."
+claim = "CL-HELP-ASIDE-01"
+[help.el.reviewer.title]
+text = "Reviewer names"
+[help.el.reviewer.purpose]
+text = "Who made each decision."
+[help.el.reviewer.how]
+text = "Your name goes on each decision and in both audit logs. Accepting more than 200 rows at once needs a second reviewer's name."
+claim = "CL-HELP-REVIEWER-01"
 
 [common.ok]
 text = "OK"
@@ -3594,3 +3693,161 @@ claim = "CL-CRASH-01"
 text = "Copy the error code"
 [crash.close]
 text = "Close"
+
+# The user guide (M15). The guide is built from these entries and the help, data line, Your data and Download entries, by
+# wholecount/copy/guide.py only, so the app and docs/USER_GUIDE.md can't differ.
+[guide.title]
+text = "{product} user guide"
+[guide.contents]
+text = "Contents"
+[guide.open]
+text = "Open the user guide"
+[guide.close]
+text = "Close"
+[guide.what.title]
+text = "What {product} does"
+[guide.what.p1]
+text = "{product} merges your organization's client lists from different systems into one master list, on this computer only."
+[guide.what.p2]
+text = "It gives two numbers. Goal 1 is how many different people you served. Goal 2 is how many people each program served, so a person in two programs counts once in each."
+[guide.before.title]
+text = "Before you start"
+[guide.before.p1]
+text = "Export the client lists you want to count from each system, and save them in one folder on this computer."
+[guide.before.p2]
+text = "{product} reads CSV, tab-separated text, Excel workbooks, JSON and XML."
+claim = "CL-GUIDE-TYPES-01"
+[guide.before.p3]
+text = "To place addresses on the map it needs Geosupport Desktop Edition or an address reference file. Without either, every row is still checked and counted, and nothing is placed."
+claim = "CL-GUIDE-NOGEO-01"
+[guide.before.p4]
+text = "A batch is usually one quarter's exports, often a few files to fifteen."
+[guide.stages.title]
+text = "The nine stages"
+[guide.stages.p1]
+text = "Work left to right along the stage strip. Each stage says what it reads, what it changes and what it writes."
+[guide.stages.decide]
+text = "What you decide: {text}"
+[guide.stages.held]
+text = "A held button: {text}"
+[guide.stage.sources.decide]
+text = "which files and tables to count, and which header row each table has."
+[guide.stage.sources.held]
+text = "Process everything is held while a file has a blocker, and its caption says which one."
+[guide.stage.schema.decide]
+text = "whether you need custom fields beyond the standard ones."
+[guide.stage.schema.held]
+text = "a change to the fields is held while a run is going."
+[guide.stage.prepare.decide]
+text = "which tidy-up steps to keep. Each one adds columns and never changes your own."
+[guide.stage.prepare.held]
+text = "Continue is held while a step is being previewed."
+[guide.stage.map.decide]
+text = "which of your columns holds each field, table by table."
+[guide.stage.map.held]
+text = "Process is held while a required field has no column, and the blocked band names it."
+[guide.stage.programs.decide]
+text = "each file's program column, and which program names are one program."
+[guide.stage.programs.held]
+text = "Process is held until every proposed program group is confirmed or split."
+[guide.stage.run.decide]
+text = "only when to run, and whether to add extra Geosupport fields."
+[guide.stage.run.held]
+text = "Process everything is held while something before it needs your decision."
+[guide.stage.review.decide]
+text = "each cause on step 1, then any row left on step 2."
+[guide.stage.review.held]
+text = "Finish review is held until every cause that affects the counts is decided."
+[guide.stage.review.extra]
+text = "The first time this stage opens it asks who is reviewing. It has three tabs: Affects the counts, Location and Worth a look. Accept all as they are shows five sample rows and asks you to type the number of rows and pick a reason, and more than 200 rows needs a second reviewer's name."
+[guide.stage.summary.decide]
+text = "the same-person pairs still open, and any automatic join you want to split."
+[guide.stage.summary.held]
+text = "the results are held while anything is out of date, and Process again releases them."
+[guide.stage.export.decide]
+text = "each file's format, which columns the clean file keeps, and the folder."
+[guide.stage.export.held]
+text = "Download is held while the results are out of date, while the numbers don't add up, or while a Low confidence isn't ticked."
+[guide.results.title]
+text = "Reading the results"
+[guide.results.range]
+text = "While same-person pairs are open, each count is a range: the low end if every open pair is one person, the high end if none are. Deciding every pair makes it one number."
+[guide.results.final]
+text = "A count is final when nothing is left to decide: no open pair, no open copy group and no row waiting."
+[guide.results.confidence]
+text = "Confidence is High, Medium or Low, from checked facts only. Same-person matches show as Certain, Likely or Possible. Green marks something a person decided, and never confidence."
+[guide.results.balances]
+text = "Two balances must always hold. Rows received equal counted plus not counted yet plus set aside. Counted equals mapped plus counted but not mapped."
+[guide.results.noaddr]
+text = "A person with no usable address is counted in both goals and is not on the map."
+[guide.files.title]
+text = "The output files"
+[guide.files.count]
+text = "A download writes {default} files by default, {with_points} with Map_Points, and {practice} in a practice run, which writes no map files."
+claim = "CL-GUIDE-FILES-01"
+[guide.files.formats]
+text = "Each data file can be CSV, Excel or JSON. The two audit logs are plain text and the quality report is CSV."
+[guide.files.logs]
+text = "The internal audit log is for your organization and names files and rows. The shareable log uses source letters and different record keys, so it can go to a funder or an auditor."
+[guide.files.practice]
+text = "A practice run names every file PRACTICE_ and marks its first column and first line PRACTICE, so it is never mistaken for real counts."
+[guide.data.title]
+text = "What happens to your data"
+[guide.data.secret]
+text = "The install secret is a key kept on this computer, encrypted for your Windows account. Settings can back it up with a passphrase and restore it."
+[guide.words.title]
+text = "Words used"
+[guide.trouble.title]
+text = "If something goes wrong"
+[guide.trouble.code]
+text = "If {product} stops, it shows an error code and nothing else. Copy the code and send it to whoever supports {product}. The code never holds a value from your files."
+[guide.trouble.held]
+text = "A gray, held button always has a caption under it that says what releases it."
+[guide.trouble.read]
+text = "If a file won't read, Add your files says why in one sentence and counts every row it couldn't read."
+[guide.trouble.geo]
+text = "If Geosupport isn't found, the system check line in the ledger footer says so, and rows are still checked and counted."
+[guide.trouble.firewall]
+text = "The installer adds two Windows Firewall rules that block {product} from the network. If they couldn't be added, the installer's last page says so."
+[guide.example.title]
+text = "What you should see with the example data"
+[guide.example.p1]
+text = "Try example data loads five made-up files, one table each once the workbook's header row is chosen. The run is marked PRACTICE and writes no map files."
+[guide.example.numbers]
+text = "With the planned decisions made, {received} rows are received: {counted} counted, {not_counted_yet} not counted yet and {aside} set aside. Of the counted rows, {mapped} are mapped and {not_mapped} are counted but not mapped. Goal 1 is {goal1} people and Goal 2 is {goal2}."
+claim = "CL-GUIDE-EXAMPLE-01"
+
+[glossary.add_your_files]
+text = "Add your files: the files added and the tables found in them."
+[glossary.your_columns]
+text = "Your columns: the fields every file is matched to."
+[glossary.tidy_up]
+text = "Tidy up: steps that add clean columns."
+[glossary.match]
+text = "Match your columns: which of your columns holds each field, table by table."
+[glossary.process]
+text = "Process: the run over every included table."
+[glossary.fix_problems]
+text = "Fix problems: open rows grouped by cause, then the queue."
+[glossary.results]
+text = "Results: Goal 1, Goal 2 and the open pairs."
+[glossary.download]
+text = "Download: the output files and the receipt."
+[glossary.set_aside]
+text = "Set aside: out of the clean list, kept and recoverable, with a reason."
+[glossary.copies]
+text = "Copies: rows in one table a person decided are one client."
+[glossary.may_be_one_person]
+text = "May be one person: a same-person pair waiting for a decision."
+[glossary.look_up]
+text = "Look up from the street: a value worked out from the row's own address."
+[glossary.setup]
+text = "Set-up: everything saved for reuse except decisions."
+[glossary.master_id]
+text = "Master ID: one ID per person, the unit of Goal 1."
+[glossary.record_key]
+text = "Record key: a row's stable identity."
+[glossary.source_system]
+text = "Source system: a group of files that share one identifier space."
+[glossary.run_ticker]
+text = "Run ticker: the progress line under the stage strip."

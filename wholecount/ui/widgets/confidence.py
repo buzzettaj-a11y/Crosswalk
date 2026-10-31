@@ -98,6 +98,9 @@ class ConfidenceBlock(QWidget):
             self.lay.addWidget(label(copy.get("ledger.conf.before"), role="note", wrap=True, name="confBefore"))
             return
         self.conf = conf
+        from wholecount.ui.widgets.help import HelpButton
+        self.help = HelpButton("el.confidence")
+        self.lay.addWidget(self.help)
         self.level = label(level_word(conf), role="level", tone="ink" if conf.level == "high" else "amber", name="confLevel")
         self.lay.addWidget(self.level)
         self.reason = label(confidence_reason(conf), role="note", tone="ink-2", wrap=True, name="confReason")

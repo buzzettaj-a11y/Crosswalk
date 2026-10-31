@@ -197,6 +197,15 @@ class CountLabel(enum.Enum):
     WAL_FILES = "wal_files"
     LABELED_PAIRS = "labeled_pairs"
     REGRESSION_DROPPED = "regression_dropped"
+    # perf (M15): times in milliseconds, memory in MB
+    ADD_FILES_MS = "add_files_ms"
+    PROCESS_MS = "process_ms"
+    PREVIEW_MS = "preview_ms"
+    DOWNLOAD_MS = "download_ms"
+    REDRAW_MAX_MS = "redraw_max_ms"
+    DECISION_MS = "decision_ms"
+    PEAK_MEMORY_MB = "peak_memory_mb"
+    FILES = "files"
 
 
 def emit(label, value, scope=None, out=None, field=None, reason=None, grouped=True):
@@ -1282,7 +1291,175 @@ def cmd_calibration_check(args):
     return 0
 
 
-COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy,
+PERF_BACKENDS = ("geosupport", "reference", "none", "fake")
+PERF_SUFFIXES = (".csv", ".tsv", ".txt", ".xlsx", ".xls", ".json", ".xml")
+PERF_SKIP = ("truth.json", "fake_gazetteer.csv")
+
+
+def peak_memory_mb():
+    """The process's peak memory. Windows: K32GetProcessMemoryInfo in kernel32, already on the guard's list. Linux:
+    getrusage, which reports kilobytes."""
+    if sys.platform == "win32":
+        import ctypes
+        from ctypes import wintypes
+
+        class Counters(ctypes.Structure):
+            _fields_ = [("cb", wintypes.DWORD), ("PageFaultCount", wintypes.DWORD), ("PeakWorkingSetSize", ctypes.c_size_t),
+                        ("WorkingSetSize", ctypes.c_size_t), ("QuotaPeakPagedPoolUsage", ctypes.c_size_t),
+                        ("QuotaPagedPoolUsage", ctypes.c_size_t), ("QuotaPeakNonPagedPoolUsage", ctypes.c_size_t),
+                        ("QuotaNonPagedPoolUsage", ctypes.c_size_t), ("PagefileUsage", ctypes.c_size_t),
+                        ("PeakPagefileUsage", ctypes.c_size_t)]
+        c = Counters()
+        c.cb = ctypes.sizeof(c)
+        k32 = ctypes.WinDLL("kernel32")
+        k32.GetCurrentProcess.restype = wintypes.HANDLE
+        k32.K32GetProcessMemoryInfo(k32.GetCurrentProcess(), ctypes.byref(c), c.cb)
+        return int(c.PeakWorkingSetSize // (1024 * 1024))
+    import resource
+
+    return int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss // 1024)
+
+
+def _perf_backend(folder, fake):
+    """(backend, word). --fake uses the set's fake_gazetteer.csv; otherwise whatever this computer has, as a real batch
+    would: Geosupport, then a real reference file, then none."""
+    import datetime as dt
+    import os
+
+    from wholecount.paths import data_dir
+
+    if fake:
+        from wholecount.engine.geo.fake import FakeGeoBackend
+
+        return FakeGeoBackend(folder / "fake_gazetteer.csv"), "fake"
+    from wholecount.engine.geo.backend import preflight
+
+    b = preflight(os.environ, data_dir(), dt.date.today()).backend
+    return b, {"geosupport": "geosupport", "reference": "reference"}.get(b.name, "none")
+
+
+def _ms(start):
+    import time
+
+    return int(round((time.perf_counter() - start) * 1000))
+
+
+def perf_run(folder, fake=False, stage_rounds=3):
+    """Runs a set through the real session calls and jobs, and returns {label: int} plus the backend word. Nothing it
+    prints holds a client value (H8). The download goes to a temporary folder that is removed."""
+    import os
+    import tempfile
+    import time
+
+    os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+    from wholecount.engine.progress import NullSink
+    from wholecount.session import commands as C
+    from wholecount.session.frame import export_settings, log_download, write_download
+    from wholecount.session.runner import preview_counts
+    from wholecount.session.secret_store import InstallSecret
+    from wholecount.session.state import Session
+    from wholecount.session.survey import survey
+    from wholecount.ui.jobs.actions import AddFilesJob, ProcessJob
+
+    folder = pathlib.Path(folder)
+    backend, word = _perf_backend(folder, fake)
+    paths = sorted(p for p in folder.iterdir() if p.suffix.lower() in PERF_SUFFIXES and p.name not in PERF_SKIP)
+    s = Session(InstallSecret(os.urandom(32)), (), backend=backend, getuser=lambda: "")
+    out = {}
+
+    def job(j):
+        res = j.run(NullSink())
+        s.history.execute(C.JobCommand(j, res))
+
+    t = time.perf_counter()
+    job(AddFilesJob(s, paths))
+    out[CountLabel.ADD_FILES_MS] = _ms(t)
+    # Include and match as a person would: the suggested header rows, and each proposed program group as one program.
+    for tf in survey(s).tables:
+        if tf.suggested_header_row and not tf.included:
+            s.history.execute(C.SetupChange("tables", (tf.file_name, tf.idx, "header_row"), tf.suggested_header_row))
+    for prop in survey(s).program_map.unconfirmed:
+        s.history.execute(C.DecideProgramGroup("confirm", prop.members, prop.label))
+    t = time.perf_counter()
+    job(ProcessJob(s))
+    out[CountLabel.PROCESS_MS] = _ms(t)
+    t = time.perf_counter()
+    preview_counts(s, [])
+    out[CountLabel.PREVIEW_MS] = _ms(t)
+    group = next((g for g in s.results.open_groups if g.kind == "identical"), None)
+    if group is not None:
+        t = time.perf_counter()
+        s.history.execute(C.KeepOneInCopyGroup(group.group_id, min(group.members)))
+        out[CountLabel.DECISION_MS] = _ms(t)
+    if s.results.confidence.level == "low":
+        s.history.execute(C.AcknowledgeLowConfidence())
+    with tempfile.TemporaryDirectory() as tmp:
+        t = time.perf_counter()
+        log_download(s, write_download(s, pathlib.Path(tmp), export_settings(s)))
+        out[CountLabel.DOWNLOAD_MS] = _ms(t)
+    out[CountLabel.REDRAW_MAX_MS] = _redraw_max(s, stage_rounds)
+    out[CountLabel.PEAK_MEMORY_MB] = peak_memory_mb()
+    out[CountLabel.ROWS] = int(s.results.counts.received)
+    out[CountLabel.FILES] = len(paths)
+    return out, word
+
+
+def _redraw_max(session, rounds):
+    """Switches through all nine stages `rounds` times in the real window, offscreen, and keeps the slowest redraw."""
+    import time
+
+    from PySide6.QtWidgets import QApplication
+
+    from wholecount.ui.frame.bridge import SessionBridge
+    from wholecount.ui.frame.stages import STAGES
+    from wholecount.ui.frame.window import MainWindow
+
+    app = QApplication.instance() or QApplication([sys.argv[0]])
+    w = MainWindow(SessionBridge(session, {"saved_progress": False, "reviewer_asked": True}))
+    w.resize(1440, 900)
+    w.show()
+    app.processEvents()
+    worst = 0
+    for _ in range(rounds):
+        for st in STAGES:
+            t = time.perf_counter()
+            w.go_to(st.id)
+            app.processEvents()
+            worst = max(worst, _ms(t))
+    w.hide()          # not close(): closing asks the person first (A-16), and nobody is there to answer
+    w.deleteLater()
+    app.processEvents()
+    return worst
+
+
+def cmd_perf(args):
+    """--set DIR [--fake] [--report PATH]: the performance run (SPEC 15). Counts-only output with integer labels, then the
+    backend word. --report also writes the budget table that tools/perf_report.py writes."""
+    folder, fake, report = None, False, None
+    it = iter(args)
+    for a in it:
+        if a == "--set":
+            folder = next(it)
+        elif a == "--fake":
+            fake = True
+        elif a == "--report":
+            report = next(it)
+    if folder is None:
+        print("usage: python -m wholecount.dev perf --set DIR [--fake] [--report PATH]", file=sys.stderr)
+        return 2
+    out, word = perf_run(folder, fake)
+    for label, value in out.items():
+        emit(label, value, grouped=False)
+    assert word in PERF_BACKENDS
+    print("backend " + word)
+    if report:
+        from tools import perf_report
+
+        pathlib.Path(report).write_text(perf_report.render({k.value: v for k, v in out.items()}, word), encoding="utf-8")
+    return 0
+
+
+COMMANDS = {"perf": cmd_perf, "check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy,
             "standardize": cmd_standardize, "geo-status": cmd_geo_status, "geo-check": cmd_geo_check,
             "offset-demo": cmd_offset_demo, "map-demo": cmd_map_demo, "people-demo": cmd_people_demo,
             "people-check": cmd_people_check, "programs-demo": cmd_programs_demo, "programs-check": cmd_programs_check,

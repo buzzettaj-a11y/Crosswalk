@@ -16,6 +16,7 @@ from wholecount.ui.widgets.held import HeldAction, HoldReason
 from wholecount.ui.widgets.setups import SetupsPanel
 from wholecount.ui.widgets.style import button, clear, hbox, label, narrow_combo, set_prop, vbox
 from wholecount.ui.widgets.tag import tag
+from wholecount.ui.widgets.help import HelpButton, titled
 
 FORMATS = ("csv", "xlsx", "json")
 CLEAN = "Final_Clean_Mapped"
@@ -181,6 +182,7 @@ class ExportBody(QWidget):
         if practice or not st.map_points:
             # Map_Points isn't in the plan while it's off (or in a practice run), so its switch gets a card of its own.
             card = Card()
+            card.body.addLayout(titled(label(copy.get("help.el.map_points.title"), role="caption"), "el.map_points"))
             card.body.addWidget(label(copy.get("export.file.map_points"), role="note", wrap=True))
             card.body.addWidget(self._map_points_box(st.map_points and not practice, practice))
             self.body.addWidget(card)

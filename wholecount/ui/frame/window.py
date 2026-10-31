@@ -138,6 +138,13 @@ class MainWindow(QMainWindow):
         self.m13 = install(self)
         self.band.details.connect(self.open_details)
         self.your_data.saved_toggled.connect(self.toggle_saved)
+        # M15: the user guide opens from the Your data link and from F1.
+        from PySide6.QtGui import QKeySequence, QShortcut
+
+        self.your_data.open_guide.connect(self.open_guide)
+        self.guide_shortcut = QShortcut(QKeySequence(Qt.Key_F1), self)
+        self.guide_shortcut.activated.connect(self.open_guide)
+        self.guide = None
         self.settings.saved_toggled.connect(self.toggle_saved)
         self.settings.change_reviewer.connect(self.change_reviewer)
         self.ticker.all_steps.connect(self.toggle_steps)
@@ -249,6 +256,13 @@ class MainWindow(QMainWindow):
         self.topbar.update_view(self.view, self.clock())
 
     # Commands
+
+    def open_guide(self):
+        from wholecount.ui.widgets.guide import GuideDialog
+
+        self.guide = GuideDialog(self)
+        self.guide.open()
+        return self.guide
 
     def bridge_undo(self):
         self.bridge.undo()

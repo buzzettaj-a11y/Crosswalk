@@ -14,6 +14,7 @@ from wholecount.ui.widgets.held import HeldAction, HoldReason
 from wholecount.ui.widgets.pagebar import PageBar
 from wholecount.ui.widgets.style import button, clear, hbox, label, set_prop, vbox
 from wholecount.ui.widgets.tonetag import BandWord, ToneTag
+from wholecount.ui.widgets.help import HelpButton, titled
 
 PAIRS_PAGE = 25
 PEOPLE_PAGE = 100
@@ -151,7 +152,7 @@ class ResultsBody(QWidget):
         r = self.session.results
         auto = len(r.identity.auto_joins)
         by_person = sum(1 for d in self.session.decisions.of_kind("pair") if d.get("verdict") == "same")
-        f.body.addWidget(label(copy.get("results.pairs.title", n=c.open_pairs), role="row-title"))
+        f.body.addLayout(titled(label(copy.get("results.pairs.title", n=c.open_pairs), role="row-title"), "el.pairs"))
         f.body.addWidget(label(copy.get("results.pairs.line", a=auto, b=by_person), role="note", wrap=True))
         if not self.pairs_open:
             b = button(copy.get("results.pairs.decide"), "primary", name="decidePairs")
@@ -284,7 +285,7 @@ class ResultsBody(QWidget):
         loc = c.locations
         box = Card()
         box.setObjectName("locationsCard")
-        box.body.addWidget(label(copy.get("results.loc.title"), role="row-title"))
+        box.body.addLayout(titled(label(copy.get("results.loc.title"), role="row-title"), "el.not_mapped"))
         top = max(loc.high, loc.low, loc.not_mapped, 1)
         for key, tone, outline in LOC_ROWS:
             n = getattr(loc, key)

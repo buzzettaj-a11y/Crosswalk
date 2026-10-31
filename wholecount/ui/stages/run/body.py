@@ -14,6 +14,7 @@ from wholecount.ui.widgets.held import HeldAction, HoldReason
 from wholecount.ui.widgets.steplist import Bar, StepList
 from wholecount.ui.widgets.style import button, clear, hbox, label, set_prop, vbox
 from wholecount.ui.widgets.tag import tag
+from wholecount.ui.widgets.help import HelpButton, titled
 
 
 def process_holds(session):
@@ -298,7 +299,7 @@ class ProcessBody(QWidget):
             return
         c = Callout("ink")
         c.setObjectName("runFound")
-        c.body.addWidget(label(copy.get("run.found.kicker").upper(), role="kicker"))
+        c.body.addLayout(titled(label(copy.get("run.found.kicker").upper(), role="kicker"), "el.balances"))
         (k1, rows), (k2, loc) = v.counts.lines
         c.body.addWidget(label(copy.get("run.found.balance", counted=rows["counted"], not_counted_yet=rows["not_counted_yet"],
                                         aside=rows["set_aside"], received=rows["received"]), role="count-row",

@@ -36,3 +36,14 @@ class HelpButton:
             b._popover = pop
         b.clicked.connect(open_)
         return b
+
+
+def titled(widget, help_id, spacing=6):
+    """A row holding a heading widget and its ? button (M15). Returns the layout."""
+    from wholecount.ui.widgets.style import hbox
+
+    row = hbox(spacing=spacing)
+    row.addWidget(widget)
+    row.addWidget(HelpButton(help_id))
+    row.addStretch(1)
+    return row

@@ -37,6 +37,10 @@ jobs:
       - name: make copy
         run: make copy
 
+      # M15: the user guide and the doc references must match the code.
+      - name: make docs-check
+        run: make docs-check
+
       # M14: the spec's logic on Linux. WHOLECOUNT_REQUIRE_BUNDLE makes the bundle tests fail rather than skip.
       - name: Install the build lock
         run: >
@@ -57,3 +61,28 @@ jobs:
         run: >
           python -m pip download --platform win_amd64 --python-version 3.12 --implementation cp --abi cp312
           --only-binary=:all: --require-hashes -r requirements.lock -d "$RUNNER_TEMP/wheels-win"
+
+  # M15: SPEC 15 says Linux tracks the budgets on the fake geocoder as a regression alarm, never pass or fail. This job
+  # writes a job summary and a warning for any number more than 1.5 times its baseline, and it can't fail the run.
+  perf:
+    runs-on: ubuntu-24.04
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install the Qt runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libegl1 libgl1 libxkbcommon0 libdbus-1-3 libfontconfig1 libglib2.0-0
+
+      - name: Install the dev lock
+        run: >
+          python -m pip install --require-hashes --no-deps --only-binary=:all: -r requirements-dev.lock
+
+      - name: make perf on the fake geocoder
+        run: >
+          make perf PERF_FLAGS=--fake PERF_REPORT_FLAGS="--baseline tests/perf/baseline.json --github"

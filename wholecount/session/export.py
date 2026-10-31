@@ -8,7 +8,7 @@ import tomllib
 from importlib import resources
 
 from wholecount.engine.addresskey import address_key, split_house_street
-from wholecount.engine.confidence import master_match_confidence
+from wholecount.engine.confidence import master_match_confidences
 from wholecount.engine.geo.mapdata import MapEntry, MapPointEntry, build_map_points
 from wholecount.engine.geo.place import building_key, to_query
 from wholecount.engine.geo.types import Districts
@@ -160,8 +160,8 @@ def build_view(session, settings=None):
     for rk, m in r.identity.master_of_record.items():
         if by_key[rk].counted:
             masters.setdefault(m, []).append(rk)
-    master_rows = tuple((m, tuple(sorted(ks, key=order.get)), master_match_confidence(m, r.identity))
-                        for m, ks in sorted(masters.items()))
+    confidence = master_match_confidences(r.identity)
+    master_rows = tuple((m, tuple(sorted(ks, key=order.get)), confidence[m]) for m, ks in sorted(masters.items()))
     tables, numbers = [], {}
     files = {o.name: o for o in (r.load.files if r.load else ()) if o.status == "ok"}
     for w in r.works:
@@ -214,16 +214,9 @@ def download(session, folder, settings=None, clock=None, confirmed_synced=False,
         raise DownloadHeld(gate.reasons)
     view = build_view(session, settings)
     receipt = writer.write_outputs(view, folder, settings, clock or session.clock, confirmed_synced, overwrite, environ)
-    import pathlib
-    session.log(entry("DOWNLOAD", file_name=[pathlib.Path(f.path).name for f in receipt.files], count=len(receipt.files),
-                      reviewer=session.reviewer or None))
-    from wholecount.session.crosswalk import commit_after_download
+    from wholecount.session.frame import log_download
 
-    if commit_after_download(session) == "failed":
-        import dataclasses
-
-        receipt = dataclasses.replace(receipt, notes=tuple(receipt.notes) + (("outputs.note.crosswalk_failed", {}),))
-    return receipt
+    return log_download(session, receipt)
 
 
 def save_summary(session, path, include_file_names=False, overwrite=False):

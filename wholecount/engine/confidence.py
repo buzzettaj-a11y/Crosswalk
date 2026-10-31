@@ -70,6 +70,31 @@ def master_match_confidence(master_id, identity):
     return "certain" if len(keys) > 1 or rows > 1 else "single"
 
 
+def master_match_confidences(identity):
+    """CONF-5 for every master ID in one pass: {master ID: certain, likely, possible or single}. Equal to calling
+    master_match_confidence for each, without scanning every proposal and record once per person."""
+    master_of_key = {k: m for m, ks in identity.groups.items() for k in ks}
+    bands = {}
+    for p in identity.proposals:
+        for k in p.pair:
+            m = master_of_key.get(k)
+            if m is not None:
+                bands.setdefault(m, set()).add(p.band)
+    rows = {}
+    for m in identity.master_of_record.values():
+        rows[m] = rows.get(m, 0) + 1
+    out = {}
+    for m in set(identity.groups) | set(rows):
+        b = bands.get(m, ())
+        if "likely" in b:
+            out[m] = "likely"
+        elif "possible" in b:
+            out[m] = "possible"
+        else:
+            out[m] = "certain" if len(set(identity.groups.get(m, ()))) > 1 or rows.get(m, 0) > 1 else "single"
+    return out
+
+
 def location_confidence(outcome):
     """CONF-6: (High, Low or Not placed, reason code) for a counted row."""
     loc = outcome.location

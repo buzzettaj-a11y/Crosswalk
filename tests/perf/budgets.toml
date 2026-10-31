@@ -1,0 +1,39 @@
+# SPEC 15 performance budgets, as numbers. Measured on Joe's Windows machine with Geosupport at the M15 review. Linux CI
+# tracks the same numbers on the fake geocoder as a regression alarm, never as pass or fail.
+# Each row names the measured label(s) it covers. Milliseconds unless the row says MB.
+
+[start_to_first_screen]
+budget = 3000
+measured = ["startup_ms"]
+what = "Start to first screen"
+
+[add_files]
+budget = 10000
+measured = ["add_files_ms"]
+what = "Add 15 files, 19,000 rows"
+
+[process]
+budget = 90000
+measured = ["process_ms"]
+what = "Process 19,000 rows with Geosupport"
+geosupport_only = true
+
+[click_redraw]
+budget = 200
+measured = ["redraw_max_ms", "decision_ms"]
+what = "Any click that doesn't start a job, to redraw"
+
+[preview]
+budget = 10000
+measured = ["preview_ms"]
+what = "Preview the counts, 19,000 rows"
+
+[download]
+budget = 10000
+measured = ["download_ms"]
+what = "Download all output files"
+
+[memory]
+budget = 1536
+measured = ["peak_memory_mb"]
+what = "Memory, 19,000-row batch (MB)"

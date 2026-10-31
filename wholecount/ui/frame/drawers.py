@@ -174,6 +174,7 @@ NEVER_LINES = ("data.never.internet", "data.never.ai", "data.never.log", "data.n
 
 class YourDataDrawer(Drawer):
     saved_toggled = Signal(bool)
+    open_guide = Signal()
 
     def __init__(self, parent):
         super().__init__(parent, "right", 520, "data.kicker", "data.title")
@@ -200,6 +201,10 @@ class YourDataDrawer(Drawer):
             self.never_lines.append(w)
             nl.addWidget(w)
         b.addWidget(never)
+        # M15: a quiet link at the bottom opens the user guide.
+        self.guide_link = button(copy.get("guide.open"), "quiet", "nav", name="openGuide")
+        self.guide_link.clicked.connect(self.open_guide)
+        b.addWidget(self.guide_link, 0, Qt.AlignLeft)
         b.addStretch(1)
 
     def update_view(self, v):

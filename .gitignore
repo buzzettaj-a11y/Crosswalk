@@ -16,3 +16,6 @@ Output/
 build/wholecount/
 build/version_info.txt
 build/wholecount.ico
+# M15: make perf writes these; they hold counts only but are run output, not source.
+build/perf-out.txt
+build/perf-report.txt

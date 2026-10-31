@@ -12,8 +12,12 @@ SUFFIXES = ("jr", "sr", "ii", "iii", "iv", "v", "2nd", "3rd")
 # The old build's surname particles, beside the P-PREP-4 list in settings/names.toml.
 EXTRA_PARTICLES = ("de", "del", "la", "las", "los", "van", "von", "der", "den", "di", "da", "do", "dos", "du", "el", "al", "bin",
                    "ibn", "san", "santa", "st", "mc", "mac", "o")
+# Identity compares each name many times, so these pure string functions keep their recent answers in memory (M15 profile:
+# words ran 646,000 times for one decision on 19,000 rows). Nothing is written anywhere, and the size is bounded.
+_CACHE = 65536
 
 
+@lru_cache(maxsize=_CACHE)
 def words(text):
     """The fold, keeping single spaces between words. Apostrophes join (O'Brien is obrien); other punctuation splits."""
     s = unicodedata.normalize("NFKD", text or "")
@@ -50,12 +54,14 @@ def nickname_groups():
     return _groups()
 
 
+@lru_cache(maxsize=_CACHE)
 def head(first):
     """The first word of a given name, folded."""
     w = words(first).split()
     return w[0] if w else ""
 
 
+@lru_cache(maxsize=_CACHE)
 def given_keys(first):
     """The first word plus g<id> for each nickname group it belongs to."""
     h = head(first)
@@ -76,6 +82,7 @@ def same_given(a, b):
     return bool(fold(a)) and (fold(a) == fold(b) or nickname_match(a, b))
 
 
+@lru_cache(maxsize=_CACHE)
 def surname_tokens(last):
     """The distinguishing parts of a surname: no suffix words, particles or one-letter tokens. Every token of a double surname
     stays. If nothing is left, the particles stay."""
