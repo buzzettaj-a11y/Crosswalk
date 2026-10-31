@@ -686,15 +686,17 @@ def counts_section(pl, standardize):
     return {"before_decisions": before, "after_decisions": after}
 
 
-def outputs_section(counts):
+def outputs_section(pl, counts):
+    """Row counts per file after the planned decisions. The review file holds every row with an open problem: the rows not
+    counted yet, and the counted rows whose planned problems don't hold the count (location and worth-a-look reasons)."""
     a = counts["after_decisions"]
-    return {
-        "practice_run": {"Final_Clean_Mapped": a["counted"], "Set_Aside_Records": a["set_aside"],
-                         "Manual_Review_Needed_counted_no": a["not_counted_yet"]},
-        "no_geocoder_run": {"Final_Clean_Mapped": a["counted"], "Set_Aside_Records": a["set_aside"],
-                            "Manual_Review_Needed_counted_no": a["not_counted_yet"]},
-        "note": "M09 adds the review file's counted-yes rows and the other output files.",
-    }
+    counted_yes = sum(1 for f in FILES for r in pl.records[f] if r.status == "counted" and r.reasons)
+    run = {"Final_Clean_Mapped": a["counted"], "Set_Aside_Records": a["set_aside"],
+           "Manual_Review_Needed_counted_no": a["not_counted_yet"], "Manual_Review_Needed_counted_yes": counted_yes,
+           "Manual_Review_Needed": a["not_counted_yet"] + counted_yes, "Unique_Clients": a["goal_1"]["high"],
+           "Unique_Clients_By_Program": a["goal_2"]["high"], "Data_Quality_Report": len(FILES)}
+    return {"practice_run": dict(run), "no_geocoder_run": dict(run),
+            "note": "One table per file. Map files aren't listed: a practice run writes none, and the example data has no districts."}
 
 
 def expected(pl, total_row, locations):
@@ -710,7 +712,7 @@ def expected(pl, total_row, locations):
         "decisions": decisions_section(pl),
         "counts": counts,
         "locations": locations,
-        "outputs": outputs_section(counts),
+        "outputs": outputs_section(pl, counts),
     }
 
 
