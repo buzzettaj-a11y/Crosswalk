@@ -10,13 +10,13 @@ A finding listed under more than one milestone names every test that closes it. 
 | A-03 | High | M09 | arrives in M09 | pending |
 | A-04 | High | M09 | arrives in M09 | pending |
 | A-05 | High | M06 | `tests/audit/test_A05_same_id_merge.py` | done |
-| A-06 | High | M08 | arrives in M08 | pending |
-| A-07 | High | M08 | arrives in M08 | pending |
+| A-06 | High | M08 | `tests/audit/test_A06_final_wording.py` | done |
+| A-07 | High | M08 | `tests/audit/test_A07_preview_is_read_only.py` | done |
 | A-08 | High | M09 | arrives in M09 | pending |
 | A-09 | High | M01 | `tests/audit/test_A09_rows_outside_tables.py` | done |
 | A-10 | High | M09 | arrives in M09 | pending |
 | A-11 | Medium | M04 | `tests/audit/test_A11_original_kept.py` | done |
-| A-12 | Medium | M08 | arrives in M08 | pending |
+| A-12 | Medium | M08 | `tests/audit/test_A12_goal2_range_wording.py` | done |
 | A-13 | Medium | M01 | `tests/audit/test_A13_bad_file_does_not_block.py` | done |
 | A-14 | Medium | M05 | `tests/audit/test_A14_seed_printed.py` | done |
 | A-15 | Medium | M09 | arrives in M09 | pending |
@@ -26,7 +26,7 @@ A finding listed under more than one milestone names every test that closes it. 
 | A-19 | Medium | M10 | arrives in M10 | pending |
 | A-20 | Medium | M00, M14 | `tests/audit/test_A20_no_launchers.py` | done |
 | A-21 | Low | M10 | arrives in M10 | pending |
-| A-22 | Low | M08 | arrives in M08 | pending |
+| A-22 | Low | M08 | `tests/audit/test_A22_one_equation.py` | done |
 | A-23 | Low | M10 | arrives in M10 | pending |
 | A-24 | Low | M09 | arrives in M09 | pending |
 | A-25 | Low | M00, M15 | arrives in M15 | pending |
@@ -81,22 +81,22 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-49 | Low | M02 | `tests/audit/test_B49_address_line_2.py` | done |
 | C-01 | High | M06 | `tests/audit/test_C01_auto_join_score.py` | done |
 | C-02 | High | M06 | `tests/audit/test_C02_same_system_id.py` | done |
-| C-03 | High | M08 | arrives in M08 | pending |
-| C-04 | High | M08 | arrives in M08 | pending |
+| C-03 | High | M08 | `tests/audit/test_C03_process_stale_identity.py` | done |
+| C-04 | High | M08 | `tests/audit/test_C04_undo_refresh.py` | done |
 | C-05 | High | M07 | `tests/audit/test_C05_fast_vs_staged.py` | done |
-| C-06 | High | M08 | arrives in M08 | pending |
-| C-07 | High | M08 | arrives in M08 | pending |
-| C-08 | High | M08 | arrives in M08 | pending |
-| C-09 | High | M08 | arrives in M08 | pending |
+| C-06 | High | M08 | `tests/audit/test_C06_corrections_by_record_key.py` | done |
+| C-07 | High | M08 | `tests/audit/test_C07_decisions_survive.py` | done |
+| C-08 | High | M08 | `tests/audit/test_C08_keep_copy_after_reexport.py` | done |
+| C-09 | High | M08 | `tests/audit/test_C09_every_problem_kind_opens.py` | done |
 | C-10 | High | M05 | `tests/audit/test_C10_gazetteer_crash.py` | done |
 | C-11 | High | M09 | arrives in M09 | pending |
-| C-12 | Medium | M08 | arrives in M08 | pending |
+| C-12 | Medium | M08 | `tests/audit/test_C12_goal2_range.py` | done |
 | C-13 | Medium | M07 | `tests/audit/test_C13_ungroup_own_name.py` | done |
-| C-14 | Medium | M08 | arrives in M08 | pending |
-| C-15 | Medium | M08 | arrives in M08 | pending |
-| C-16 | Medium | M08 | arrives in M08 | pending |
+| C-14 | Medium | M08 | `tests/audit/test_C14_one_undo_stack.py` | done |
+| C-15 | Medium | M08 | `tests/audit/test_C15_three_files_partition.py` | done |
+| C-16 | Medium | M08 | `tests/audit/test_C16_keep_one_per_program.py` | done |
 | C-17 | Medium | M06 | `tests/audit/test_C17_client_id_scope.py` | done |
-| C-18 | Medium | M08 | arrives in M08 | pending |
+| C-18 | Medium | M08 | `tests/audit/test_C18_stale_after_setup_change.py` | done |
 | C-19 | Medium | M07 | `tests/audit/test_C19_without_program.py` | done |
 | C-20 | Medium | M06 | `tests/audit/test_C20_master_id_stability.py` | done |
 | C-21 | Medium | M06 | `tests/audit/test_C21_identity_verdict_audit.py` | done |
