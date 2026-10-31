@@ -2518,3 +2518,6 @@ text = "Programs"
 text = "Sets up the second count: clients per program."
 [help.stage.programs.how]
 text = "Pick each file's program column, confirm or split the proposed groups, then preview the counts."
+
+[common.ok]
+text = "OK"

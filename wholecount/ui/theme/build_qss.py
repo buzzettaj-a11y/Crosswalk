@@ -37,6 +37,7 @@ def build_qss(tokens):
         add(f'QLabel[role="{role}"] {{ color: {c[color_name]}; font-size: {size}; font-weight: {s["fontWeight"]}; }}')
     add(f'QLabel[role="link"] {{ color: {c["blue-500"]}; font-size: 12px; font-weight: 800; }}')
     add(f'QLabel[role="link"][tone="amber"] {{ color: {c["amber-700"]}; }}')
+    add(f'QLabel[role="band-word"] {{ color: {c["ink"]}; font-size: 13px; font-weight: 800; }}')
     add(f'QLabel[role="h3"] {{ color: {c["ink"]}; font-size: 15px; font-weight: 800; }}')
     add(f'QLabel[role="level"] {{ color: {c["ink"]}; font-size: 18px; font-weight: 800; }}')
     add(f'QLabel[role="wordmark"] {{ color: {c["on-dark"]}; font-size: 14px; font-weight: 800; }}')
