@@ -534,6 +534,10 @@ def files_section(pl, total_row):
             "total_row": total_row, "balanced": True,
         },
     }
+    # Each file is its own source system by default (SPEC 3.1), named by its file name without the extension. The
+    # independent check reads it here, because Final_Clean_Mapped has no system column.
+    for name in out:
+        out[name]["system"] = name.rsplit(".", 1)[0]
     return out
 
 

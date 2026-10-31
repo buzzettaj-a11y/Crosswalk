@@ -26,7 +26,8 @@
           "header_row": 1,
           "rows": 60
         }
-      ]
+      ],
+      "system": "example_clinic"
     },
     "example_partner.tsv": {
       "tables_found": 1,
@@ -54,7 +55,8 @@
           "header_row": 1,
           "rows": 55
         }
-      ]
+      ],
+      "system": "example_partner"
     },
     "example_portal.json": {
       "tables_found": 1,
@@ -80,7 +82,8 @@
           "header_row": 0,
           "rows": 55
         }
-      ]
+      ],
+      "system": "example_portal"
     },
     "example_state.xml": {
       "tables_found": 1,
@@ -106,7 +109,8 @@
           "header_row": 0,
           "rows": 50
         }
-      ]
+      ],
+      "system": "example_state"
     },
     "example_housing.xlsx": {
       "format": "xlsx",
@@ -151,7 +155,8 @@
         "rows_above_header": 2,
         "total_row": 70,
         "balanced": true
-      }
+      },
+      "system": "example_housing"
     }
   },
   "map": {
