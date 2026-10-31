@@ -27,3 +27,24 @@ def test_require_windows_tests_and_the_bundle():
 
 def test_ci_runs_the_bundle_on_every_linux_push():
     assert "make bundle" in CI and "pytest -q tests/bundle" in CI and 'WHOLECOUNT_REQUIRE_BUNDLE: "1"' in CI
+
+
+def plain_runs_with_a_colon(text):
+    """`run:` values written as plain YAML scalars that hold ": ", which YAML reads as a mapping and so rejects the file.
+    The project has no YAML parser, so this checks the one shape that broke ci.yml in M14."""
+    bad = []
+    for i, line in enumerate(text.splitlines(), 1):
+        m = re.match(r"\s*(?:- )?run: (.*)$", line)
+        if m and m.group(1)[:1] not in ("|", ">", "'", '"') and ": " in m.group(1):
+            bad.append(i)
+    return bad
+
+
+def test_no_plain_run_value_holds_a_colon_and_space():
+    for f in (ROOT / ".github" / "workflows").glob("*.yml"):
+        assert plain_runs_with_a_colon(f.read_text(encoding="utf-8")) == [], f.name
+
+
+def test_negative_control_for_the_colon_check():
+    assert plain_runs_with_a_colon("      - run: pip install --only-binary=:all: -r x\n") == [1]
+    assert plain_runs_with_a_colon("        run: >\n          pip install --only-binary=:all: -r x\n") == []
