@@ -1777,12 +1777,20 @@ text = "Show data"
 text = "{name}"
 [preview.header_wrong]
 text = "The header row may be wrong"
-[preview.header_reason.numbers_in_header]
-text = "The row picked as the header holds numbers, so it looks like data."
-[preview.header_reason.blank_header]
+[preview.header_reason.header_row_empty]
+text = "The row picked as the header is empty."
+[preview.header_reason.header_mostly_blank]
 text = "The row picked as the header is mostly blank."
-[preview.header_reason.title_row]
-text = "The row picked as the header looks like a title above the table."
+[preview.header_reason.header_looks_like_data]
+text = "The row picked as the header holds numbers or dates, so it looks like data."
+[preview.header_reason.header_duplicate_name]
+text = "Two columns in the row picked as the header have the same name."
+[preview.header_reason.header_same_shape_as_row_below]
+text = "The row picked as the header looks like the rows under it, so it may be data."
+[preview.header_reason.header_row_below_is_better]
+text = "The row under the one picked looks more like column names."
+[preview.header_reason.no_header_but_row_looks_like_names]
+text = "No header row was picked, but one of the first rows looks like column names."
 [preview.pick]
 text = "Which row holds the column names?"
 [preview.none]
