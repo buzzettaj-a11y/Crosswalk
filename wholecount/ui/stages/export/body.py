@@ -170,24 +170,33 @@ class ExportBody(QWidget):
                 sel.activated.connect(lambda _, sel=sel, fid=fid: self.set_format(fid, sel.currentData()))
                 self.window_.run_hold.register(sel)
                 cl.addWidget(sel, 0, Qt.AlignVCenter)
-            cl.addWidget(tag(copy.get("export.always"), "neutral"), 0, Qt.AlignVCenter)
+            if fid == "Map_Points":
+                left.addWidget(self._map_points_box(st.map_points, practice))
+            else:
+                cl.addWidget(tag(copy.get("export.always"), "neutral"), 0, Qt.AlignVCenter)
             self.body.addWidget(card)
         if practice:
             self.body.addWidget(label(copy.get("outputs.practice.no_maps"), role="note", tone="amber", wrap=True,
                                       name="practiceNoMaps"))
+        if practice or not st.map_points:
+            # Map_Points isn't in the plan while it's off (or in a practice run), so its switch gets a card of its own.
+            card = Card()
+            card.body.addWidget(label(copy.get("export.file.map_points"), role="note", wrap=True))
+            card.body.addWidget(self._map_points_box(st.map_points and not practice, practice))
+            self.body.addWidget(card)
+
+    def _map_points_box(self, on, practice):
+        """Write Map_Points, off by default. In a practice run it's held, and the practice sentence says why (SPEC 9.1)."""
+        box = QCheckBox(copy.get("export.map_points"))
+        box.setObjectName("writeMapPoints")
+        box.setChecked(on)
+        if practice:
+            box.setEnabled(False)
+            box.setAccessibleDescription(copy.get("outputs.practice.no_maps"))
         else:
-            for fid in ("Map_Counts", "Map_Points"):
-                if fid == "Map_Points":
-                    card = Card()
-                    card.body.addWidget(label(copy.get("export.file.map_points"), role="note", wrap=True))
-                    box = QCheckBox(copy.get("export.map_points"))
-                    box.setObjectName("writeMapPoints")
-                    box.setChecked(st.map_points)
-                    box.toggled.connect(lambda on: self.set_setting("map_points", on))
-                    self.window_.run_hold.register(box)
-                    card.body.addWidget(box)
-                    if not st.map_points:
-                        self.body.addWidget(card)
+            box.toggled.connect(lambda v: self.set_setting("map_points", v))
+            self.window_.run_hold.register(box)
+        return box
 
     def _columns(self, plan):
         card = Card()
