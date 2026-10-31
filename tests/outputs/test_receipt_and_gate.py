@@ -26,7 +26,7 @@ def test_receipt_matches_folder(tmp_path):
 def test_held(tmp_path, why):
     s = session(tmp_path, ack=(why != "low_confidence_unacked"))
     if why == "stale":
-        s.history.execute(C.SetupChange("export_settings", "x", 1))
+        s.history.execute(C.SetupChange("run_settings", "extra_fields", frozenset({"census_tract"})))
     elif why == "balance_failed":
         s.results.balance = dataclasses.replace(s.results.balance, file_rows=s.results.balance.file_rows + 1)
     (tmp_path / "out").mkdir()

@@ -28,8 +28,8 @@ def test_stale_until_undo(tmp_path, i):
     cmd, node = changes(tmp_path, s)[i]
     digest = s.results.digest()
     s.history.execute(cmd)
-    assert s.stale == downstream(node)
-    assert set(cmd.invalidates) >= s.stale
+    assert s.stale_nodes == downstream(node) and s.stale == downstream(node) - {"exports"}
+    assert set(cmd.invalidates) >= s.stale_nodes
     with pytest.raises(StaleResults):
         s.counts()
     assert s.download_gate().reasons == ("stale",)
