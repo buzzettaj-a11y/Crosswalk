@@ -183,6 +183,20 @@ class CountLabel(enum.Enum):
     CELL_VALUES_FOUND = "cell_values_found"
     DECISIONS_RESTORED = "decisions_restored"
     DELETED = "deleted"
+    # M13 backup, crosswalk and calibration
+    BACKUP_BYTES = "backup_bytes"
+    KNOWN_ANSWER_MATCHES = "known_answer_matches"
+    RESTORE_OK = "restore_ok"
+    WRONG_PASSPHRASE_REFUSED = "wrong_passphrase_refused"
+    ONE_CHANGED_BYTE_REFUSED = "one_changed_byte_refused"
+    PEOPLE = "people"
+    PERSON_KEYS = "person_keys"
+    PAIR_VERDICTS = "pair_verdicts"
+    PROGRAM_GROUPS = "program_groups"
+    MERGED = "merged"
+    WAL_FILES = "wal_files"
+    LABELED_PAIRS = "labeled_pairs"
+    REGRESSION_DROPPED = "regression_dropped"
 
 
 def emit(label, value, scope=None, out=None, field=None, reason=None, grouped=True):
@@ -1171,13 +1185,40 @@ def cmd_saved_progress_demo(args):
     return 0
 
 
+def cmd_backup_demo(args):
+    """Back up a made-up secret in memory, check the known answer, restore it, and refuse a wrong passphrase and a changed
+    byte. Writes nothing."""
+    from wholecount.engine.secretbackup import BackupError, make_backup, read_backup
+
+    secret, passphrase, salt = bytes(range(32)), "correct horse battery staple", bytes(range(16))
+    known = ("57434231000102030405060708090a0b0c0d0e0f819956c362b0ba0d33e90b391c32960f1e927297476698fb8341002bde214ca8"
+             "fc435e355253a2ec4c73060ea9261179f015affbf30b6c477b3938d53fbba454")
+    blob = make_backup(secret, passphrase, salt)
+
+    def refused(b, pw):
+        try:
+            read_backup(b, pw)
+            return False
+        except BackupError:
+            return True
+    bad = bytearray(blob)
+    bad[30] ^= 1
+    emit(CountLabel.BACKUP_BYTES, len(blob))
+    emit(CountLabel.KNOWN_ANSWER_MATCHES, int(blob.hex() == known))
+    emit(CountLabel.RESTORE_OK, int(read_backup(make_backup(secret, passphrase), passphrase) == secret))
+    emit(CountLabel.WRONG_PASSPHRASE_REFUSED, int(refused(blob, passphrase + "x")))
+    emit(CountLabel.ONE_CHANGED_BYTE_REFUSED, int(refused(bytes(bad), passphrase)))
+    emit(CountLabel.FILES_WRITTEN, 0)
+    return 0
+
+
 COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy,
             "standardize": cmd_standardize, "geo-status": cmd_geo_status, "geo-check": cmd_geo_check,
             "offset-demo": cmd_offset_demo, "map-demo": cmd_map_demo, "people-demo": cmd_people_demo,
             "people-check": cmd_people_check, "programs-demo": cmd_programs_demo, "programs-check": cmd_programs_check,
             "session-demo": cmd_session_demo, "session-check": cmd_session_check, "dpapi-roundtrip": cmd_dpapi_roundtrip,
             "outputs-demo": cmd_outputs_demo, "folder-check": cmd_folder_check, "corrections-demo": cmd_corrections_demo,
-            "saved-progress-demo": cmd_saved_progress_demo}
+            "saved-progress-demo": cmd_saved_progress_demo, "backup-demo": cmd_backup_demo}
 
 
 def main(argv=None):

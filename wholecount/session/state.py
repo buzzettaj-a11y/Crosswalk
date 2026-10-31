@@ -163,7 +163,7 @@ class Session:
         s = self.setup
         review = [d for d in self.decisions if d.kind not in ("pair", "program")]
         return {
-            "sources": s.stable("sources"),
+            "sources": s.stable("sources") + self.secret.mac(b"secret|fingerprint").hex()[:16],
             "tables": s.stable("tables", "systems") + repr(sorted(self.keep_sensitive)),
             "steps": s.stable("steps"),
             "mappings": s.stable("schema", "mappings"),

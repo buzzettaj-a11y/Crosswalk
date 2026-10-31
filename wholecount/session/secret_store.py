@@ -39,6 +39,16 @@ class InstallSecret:
         """HMAC-SHA256 of message under the secret. The engine gets this method, never the secret (P-GEO-7, H9)."""
         return hmac.new(self._value, message, hashlib.sha256).digest()
 
+    def backup(self, passphrase, salt=None):
+        """The 84-byte backup file's contents (SPEC 5.1, M13 BAK-1). The bytes leave only encrypted."""
+        from wholecount.engine.secretbackup import make_backup
+
+        return make_backup(self._value, passphrase, salt)
+
+    def same_as(self, other):
+        """Whether other (32 bytes) is this secret, compared in constant time."""
+        return isinstance(other, bytes) and hmac.compare_digest(self._value, other)
+
 
 class SecretStore:
     """load() -> bytes or None, save(secret bytes)."""

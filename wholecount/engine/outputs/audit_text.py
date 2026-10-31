@@ -33,7 +33,17 @@ EVENT_SLOTS = {
     "REVIEWER_SET": COMMON,
     "RESUME": ("count",) + COMMON,
     "DOWNLOAD": ("file_name", "count") + COMMON,
+    "CROSSWALK_ON": COMMON,
+    "CROSSWALK_UPDATED": ("count",) + COMMON,
+    "CROSSWALK_FORGET": COMMON,
+    "SECRET_BACKUP": COMMON,
+    "SECRET_RESTORE": COMMON,
+    "CALIBRATION": ("count",) + COMMON,
+    "THRESHOLD_SET": ("field_name", "count") + COMMON,
 }
+# M13's events: each holds the reviewer, the time and counts, never a value.
+M13_EVENTS = ("CROSSWALK_ON", "CROSSWALK_UPDATED", "CROSSWALK_FORGET", "SECRET_BACKUP", "SECRET_RESTORE", "CALIBRATION",
+              "THRESHOLD_SET")
 EVENT_CODES = tuple(EVENT_SLOTS)
 SHAREABLE_DROP = frozenset({"file_name", "fingerprint", "row_number", "note"})
 

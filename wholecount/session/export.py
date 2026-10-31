@@ -14,6 +14,7 @@ from wholecount.engine.geo.place import building_key, to_query
 from wholecount.engine.geo.types import Districts
 from wholecount.engine.outputs import writer
 from wholecount.engine.outputs.audit_entry import entry
+from wholecount.engine.outputs.audit_text import M13_EVENTS
 from wholecount.engine.outputs.review_file import row_signature, run_id, share_key
 from wholecount.engine.outputs.view import ExportSettings, OutputView, OutRow, TableSummary
 from wholecount.engine.standardize.model import audit_events
@@ -86,7 +87,7 @@ def build_events(session, results):
                                                 note=d.get("note"), **common)))
     translate = {"ACCEPT_GROUP": "BULK_ACCEPT", "CORRECTION": "CORRECTION", "UNDO": "UNDO", "REVIEWER": "REVIEWER_SET",
                  "LOW_CONFIDENCE_ACKNOWLEDGED": "CONFIDENCE_ACK", "FINISH_REVIEW": "FINISH_REVIEW", "SETUP_CHANGE": "SETUP_CHANGE",
-                 "RESUME": "RESUME"}
+                 "RESUME": "RESUME", **{c: c for c in M13_EVENTS}}
     from wholecount.engine.outputs.audit_text import EVENT_SLOTS
     for t, e in session.audit_log:
         code = translate.get(e.code)
