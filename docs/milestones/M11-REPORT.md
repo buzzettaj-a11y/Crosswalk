@@ -89,9 +89,9 @@ Changes to earlier tests:
 
 | Command | Result |
 | --- | --- |
-| `make test` | TEST_COUNT passed |
-| `make offline` | OFFLINE_COUNT passed |
-| `make copy` | COPY_COUNT passed |
+| `make test` | 3340 passed |
+| `make offline` | 60 passed |
+| `make copy` | 1205 passed |
 
 New test files:
 - `tests/ui/test_m11_sources.py`, `tests/ui/test_m11_schema_prepare.py`, `tests/ui/test_m11_map_programs.py` and `tests/ui/test_m11_frame.py`
