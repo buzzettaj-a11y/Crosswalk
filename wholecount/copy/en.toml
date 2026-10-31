@@ -2778,6 +2778,14 @@ text = "The record is no longer in the batch."
 text = "The group is no longer there."
 [review.nolonger.why.reason_gone]
 text = "The problem is no longer there."
+[review.nolonger.why.group_changed]
+text = "The group changed since the decision."
+[review.nolonger.why.file_removed]
+text = "Corrected values are not kept between sessions, so the corrections file has to be applied again."
+[review.nolonger.why.row_set_aside]
+text = "The row was set aside after the decision."
+[review.nolonger.why.dob_now_differs]
+text = "The dates of birth now differ."
 [review.kind.approve]
 text = "Approve"
 [review.kind.set_aside]
@@ -2832,7 +2840,7 @@ text = "Match it and process again"
 [review.act.look]
 text = "Look at them"
 [review.act.compare]
-text = "Compare the {g}"
+text = "Compare the groups ({g})"
 [review.act.route]
 text = "Send to row by row"
 [review.act.preview]
