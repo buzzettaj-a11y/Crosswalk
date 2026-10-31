@@ -60,9 +60,9 @@ Each later milestone checks its own section and changes the plan in the script i
 
 | Command | Result |
 | --- | --- |
-| `make test` | 416 passed |
+| `make test` | 417 passed |
 | `make offline` | 55 passed |
-| `make copy` | 72 passed |
+| `make copy` | 73 passed |
 | `tools/make_example_data.py --check` | `files_differing 0` |
 
 New test files:
@@ -102,7 +102,7 @@ The plan's counts:
 
 ## Done list
 
-- [x] `make test`, `make offline` and `make copy` are green: 416, 55 and 72 passed.
+- [x] `make test`, `make offline` and `make copy` are green: 417, 55 and 73 passed. This report is itself linted, which adds one test to `make test` and `make copy`.
 - [x] B-02, B-24, A-09, A-13 and C-23 each have a passing test and a `done` line in `tests/audit/INDEX.md`.
 - [x] Both golden tests and the legacy reading test pass, and the legacy samples total 266 rows.
 - [x] `wholecount/sample_data/` holds the five example files and `EXPECTED.json`, the example data test passes, and `--check` passes.
