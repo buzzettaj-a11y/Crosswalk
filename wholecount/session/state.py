@@ -13,7 +13,7 @@ from wholecount.session import staleness
 from wholecount.session.decisions import DecisionStore
 from wholecount.session.reviewer import current_reviewer
 
-SECTIONS = ("sources", "tables", "steps", "schema", "mappings", "defaults", "date_orders", "program_columns", "run_settings",
+SECTIONS = ("sources", "tables", "systems", "steps", "schema", "mappings", "defaults", "date_orders", "program_columns", "run_settings",
             "export_settings")
 
 
@@ -130,6 +130,9 @@ class Session:
         self.acknowledged = None          # (results version, measures) of the last low-confidence tick
         self.finished = None
         self.stage = "sources"            # the stage ID the window shows, kept in saved progress (A-19)
+        self.confirmed_stages = set()     # stages whose Continue was pressed; a view fact
+        self.confirmed_tables = set()     # table names Match your columns confirmed, (file name, index); a view fact
+        self._survey_cache = None
         self.audit_log = []               # (time ISO, AuditEntry), append only (AUD-1)
         self.store = None                 # a session.store.Store when saved progress is wanted (STORE-3)
         self.session_id = hashlib.sha256(self.now_iso().encode("utf-8")).hexdigest()[:16]
@@ -161,7 +164,7 @@ class Session:
         review = [d for d in self.decisions if d.kind not in ("pair", "program")]
         return {
             "sources": s.stable("sources"),
-            "tables": s.stable("tables"),
+            "tables": s.stable("tables", "systems") + repr(sorted(self.keep_sensitive)),
             "steps": s.stable("steps"),
             "mappings": s.stable("schema", "mappings"),
             "standardized": s.stable("defaults", "date_orders") + repr(self.today()),

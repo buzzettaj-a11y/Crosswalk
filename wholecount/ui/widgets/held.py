@@ -20,6 +20,7 @@ class HoldReason:
 
 
 RUN_HOLD = HoldReason("hold.run")
+CAPTION_MIN_WIDTH = 220                   # a held caption never wraps to a sliver under a short button
 
 
 class HeldAction(QWidget):
@@ -33,6 +34,7 @@ class HeldAction(QWidget):
         lay = vbox(self, spacing=4)
         self.button = button(copy.get(copy_id, **(params or {})), kind)
         self.caption = label("", role="caption", wrap=True)
+        self.caption.setMinimumWidth(CAPTION_MIN_WIDTH)
         self.caption.setVisible(False)
         lay.addWidget(self.button)
         lay.addWidget(self.caption)
@@ -109,13 +111,21 @@ class RunHold(QObject):
         self.active = False
 
     def register(self, widget, group="data"):
+        self._prune()
         if widget not in self._items:
             self._items.append(widget)
             if self.active:
                 self._hold_one(widget)
         return widget
 
+    def _prune(self):
+        """Stage bodies are rebuilt as the view changes; a control that no longer exists is let go."""
+        from shiboken6 import isValid
+
+        self._items = [w for w in self._items if isValid(w)]
+
     def registered(self):
+        self._prune()
         return list(self._items)
 
     def _hold_one(self, w):
@@ -147,6 +157,7 @@ class RunHold(QObject):
         if self.active:
             return
         self.active = True
+        self._prune()
         for w in self._items:
             self._hold_one(w)
         self.changed.emit(True)
@@ -155,6 +166,7 @@ class RunHold(QObject):
         if not self.active:
             return
         self.active = False
+        self._prune()
         for w in self._items:
             self._release_one(w)
         self.changed.emit(False)

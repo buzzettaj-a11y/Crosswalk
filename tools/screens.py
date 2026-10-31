@@ -13,6 +13,8 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "build" / "screens"
 COMMIT = ROOT / "docs" / "milestones" / "screens" / "M10"
+COMMIT_M11 = ROOT / "docs" / "milestones" / "screens" / "M11"
+M11_STAGES = ("sources", "schema", "prepare", "map", "programs")
 SIZES = {1440: (1440, 980), 1280: (1280, 900)}
 # The frames the milestone says to commit.
 COMMITTED = ("07-review-1440.png", "running-1440.png", "running-1280.png", "low-1440.png", "practice-1440.png",
@@ -40,6 +42,20 @@ def window(view, width, stage="sources"):
     from wholecount.ui.frame.window import MainWindow
 
     w = MainWindow(StaticBridge(view), clock=lambda: F.NOW, confirm=lambda *a: False)
+    w.resize(*SIZES[width])
+    w.show()
+    w.go_to(stage)
+    return w
+
+
+def session_window(populated, width, stage):
+    from tools import screen_fixtures as F
+    from wholecount.ui.frame.bridge import SessionBridge
+    from wholecount.ui.frame.window import MainWindow
+
+    s = F.example_session(populated)
+    ui = {"saved_progress": False, "practice": populated, "example_loaded": populated}
+    w = MainWindow(SessionBridge(s, ui, clock=lambda: F.NOW), clock=lambda: F.NOW, confirm=lambda *a: False)
     w.resize(*SIZES[width])
     w.show()
     w.go_to(stage)
@@ -132,6 +148,13 @@ def frames():
         ("drawer-yourdata-1440.png", 1440, lambda: drawer(1440, "yourdata", lambda w: w.your_data.open_())),
         ("drawer-check-1440.png", 1440, lambda: drawer(1440, "check", lambda w: w.check.open_())),
     ]
+    from wholecount.ui.frame.stages import BY_ID
+
+    for sid in M11_STAGES:
+        for state in ("fresh", "populated"):
+            for width in SIZES:
+                out.append((f"m11-{BY_ID[sid].nn}-{sid}-{state}-{width}.png", width,
+                            lambda sid=sid, state=state, width=width: session_window(state == "populated", width, sid)))
     return out
 
 
@@ -187,6 +210,9 @@ def main(argv=None):
         COMMIT.mkdir(parents=True, exist_ok=True)
         for name in COMMITTED:
             shutil.copy(OUT / name, COMMIT / name)
+        COMMIT_M11.mkdir(parents=True, exist_ok=True)
+        for p in OUT.glob("m11-0*.png"):
+            shutil.copy(p, COMMIT_M11 / p.name)
     return 0
 
 

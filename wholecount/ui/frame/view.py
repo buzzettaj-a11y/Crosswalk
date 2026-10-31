@@ -189,6 +189,35 @@ def check_rows(pre, font_ok=True, secret_ok=True, store_ok=True, dpapi_ok=True, 
     return tuple(rows)
 
 
+def survey_facts(session):
+    """The pre-run numbers for stages 01 to 05, from the session's survey. Counts only."""
+    from wholecount.session.survey import survey
+
+    sv = survey(session)
+    steps = [s for st in sv.steps.values() for s in st]
+    live = [s for s in steps if not s.removed]
+    noop = sum(1 for w in sv.works.values() for r in w.prepared.results if r.amber)
+    included = [t for t in sv.tables if t.included]
+    wrong = sum(1 for w in sv.works.values() for c in w.mapping.checks.values() if c.status == "problem")
+    schema = session.schema()
+    required = [f.key for f in schema.enabled_fields() if f.required]
+    req_set = sum(1 for w in sv.works.values() for k in required if w.mapping.column_for(k) is not None)
+    pm = sv.program_map
+    tp = sv.program_tables
+    return dict(
+        files=sum(1 for f in sv.files if f.status == "ok"), tables=len(included),
+        steps_proposed=len(live), steps_kept=len(live) if "prepare" in session.confirmed_stages else 0,
+        steps_continued="prepare" in session.confirmed_stages, steps_noop=noop,
+        steps_added=sum(1 for s in live if s.origin == "added"), steps_removed=sum(1 for s in steps if s.removed),
+        map_tables=len(included), map_confirmed=sum(1 for t in included if t.name in session.confirmed_tables),
+        map_wrong=wrong, map_required=(req_set, len(required) * len(sv.works)),
+        program_files=sum(1 for x in tp if x.source != "none"), program_names=len(sv.program_names),
+        programs_counted=(len(sv.program_names) - sum(len(g.members) - 1 for g in pm.groups)) if pm is not None else 0,
+        program_groups_open=len(pm.unconfirmed) if pm is not None else 0,
+        program_groups_confirmed=sum(1 for d in session.decisions.of_kind("program")),
+    )
+
+
 def build_view(session, ui=None, preflight=None, clock=None):
     """The snapshot. `ui` carries window-side facts the session doesn't hold: running, the last run's seconds, whether a
     download happened, the saved-progress switch and when it last saved, and font and guard state."""
@@ -222,6 +251,7 @@ def build_view(session, ui=None, preflight=None, clock=None):
         saved_progress=bool(ui.get("saved_progress", True)), saved_at=ui.get("saved_at"),
         now=(clock or s.clock)(),
         data_notes=tuple(ui.get("data_notes", ())),
+        preview=ui.get("preview_view"),
     )
     if r is not None:
         program_cols = [v for v in setup.sections["program_columns"].values() if v]
@@ -230,6 +260,8 @@ def build_view(session, ui=None, preflight=None, clock=None):
                           program_groups_open=len(r.program_proposals))
         if not view.results_stale:
             view = view.with_(counts=counts_view(r), confidence=confidence_view(s))
+    if setup.paths() and ui.get("use_survey", True):
+        view = view.with_(**survey_facts(s))
     pre = preflight
     if pre is not None:
         view = view.with_(backend=pre.backend_name, release=pre.release, release_stale=pre.release_stale)

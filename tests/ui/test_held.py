@@ -89,6 +89,7 @@ ALLOWLIST = {
     "wholecount/ui/frame/bridge.py": "the bridge itself runs commands",
     "wholecount/ui/frame/window.py": "routes Undo, the reviewer change and the Low tick; each control registers in __init__",
     "wholecount/ui/widgets/confidence.py": "the Low tick only emits; the window dispatches and the ledger is held as a whole",
+    "wholecount/ui/jobs/actions.py": "jobs, not widgets; the runner starts them only through held controls",
 }
 
 

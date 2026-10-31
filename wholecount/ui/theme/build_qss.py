@@ -35,6 +35,9 @@ def build_qss(tokens):
         s = t.get(role) or t.get("kicker")
         size = s["fontSize"] if role in t else "10px"
         add(f'QLabel[role="{role}"] {{ color: {c[color_name]}; font-size: {size}; font-weight: {s["fontWeight"]}; }}')
+    add(f'QLabel[role="link"] {{ color: {c["blue-500"]}; font-size: 12px; font-weight: 800; }}')
+    add(f'QLabel[role="link"][tone="amber"] {{ color: {c["amber-700"]}; }}')
+    add(f'QLabel[role="h3"] {{ color: {c["ink"]}; font-size: 15px; font-weight: 800; }}')
     add(f'QLabel[role="level"] {{ color: {c["ink"]}; font-size: 18px; font-weight: 800; }}')
     add(f'QLabel[role="wordmark"] {{ color: {c["on-dark"]}; font-size: 14px; font-weight: 800; }}')
     add(f'QLabel[role="status"] {{ color: {c["on-dark-muted"]}; font-size: 11.5px; }}')
@@ -120,6 +123,43 @@ def build_qss(tokens):
     add(f'QFrame#tickBox {{ background: {c["blue-100"]}; border: 1px solid {c["blue-300"]}; }}')
     add(f'QFrame#flowBox {{ background: {c["bg-card"]}; border: 1px solid {c["line"]}; }}')
     add(f'QFrame#flowBoxMemory {{ background: {c["bg-card"]}; border: 2px solid {c["ink"]}; }}')
+    add(f'QFrame#card {{ background: {c["bg-card"]}; border: 1px solid {c["line"]}; }}')
+    add(f'QFrame#dropZone {{ background: {c["bg-card"]}; border: 1px dashed {c["line-2"]}; }}')
+    add(f'QFrame#dropZone[drop="ok"] {{ background: {c["blue-100"]}; border: 1px dashed {c["blue-500"]}; }}')
+    add(f'QFrame#dropZone[drop="bad"] {{ background: {c["amber-100"]}; border: 1px dashed {c["amber-500"]}; }}')
+    add(f'QFrame#holdingBar {{ background: {c["blue-100"]}; border: 1px solid {c["blue-300"]}; }}')
+    add(f'QFrame#ruleCard {{ background: {c["bg-card"]}; border: 1px solid {c["line"]}; border-top: 3px solid {c["line"]}; }}')
+    add(f'QFrame#ruleCard[selected="true"] {{ background: {c["blue-100"]}; border: 1px solid {c["blue-300"]}; '
+        f'border-top: 3px solid {c["blue-500"]}; }}')
+    add(f'QFrame#amberRow {{ background: {c["amber-100"]}; border: 1px solid {c["amber-300"]}; }}')
+    add(f'QFrame#grayRow {{ background: {c["bg-surface"]}; border: 1px solid {c["line"]}; }}')
+    add(f'QFrame#groupHead {{ background: {c["bg-surface"]}; border: 0px; border-bottom: 1px solid {c["line"]}; }}')
+    add(f'QComboBox[check="problem"] {{ border: 1px solid {c["amber-300"]}; }}')
+    add(f'QTableView {{ background: {c["bg-card"]}; border: 1px solid {c["line"]}; gridline-color: {c["line-soft"]}; '
+        f'selection-background-color: {c["blue-100"]}; selection-color: {c["ink"]}; }}')
+    add(f'QHeaderView::section {{ background: {c["bg-surface"]}; color: {c["muted"]}; border: 0px; '
+        f'border-bottom: 1px solid {c["line"]}; padding: 0px 8px; min-height: 30px; font-size: 10.5px; font-weight: 800; }}')
+    add(f'QTableView:focus {{ border: 2px solid {c["blue-500"]}; }}')
+    add(f'QTableView:hover {{ border: 1px solid {c["line-2"]}; }}')
+    add(f'QSpinBox {{ background: {c["bg-card"]}; color: {c["ink"]}; border: 1px solid {c["line-2"]}; border-radius: 0px; '
+        f'min-height: 36px; padding: 0px 8px; }}')
+    add(f'QSpinBox:hover {{ border: 1px solid {c["ink-2"]}; }}')
+    add(f'QSpinBox:focus {{ border: 2px solid {c["blue-500"]}; }}')
+    add(f'QRadioButton {{ min-height: 36px; color: {c["ink"]}; }}')
+    add(f'QRadioButton:hover {{ color: {c["ink"]}; }}')
+    add(f'QRadioButton:focus {{ border: 2px solid {c["blue-500"]}; }}')
+    add(f'QPushButton[kind="segment"] {{ background: {c["bg-card"]}; color: {c["ink"]}; border: 1px solid {c["line-2"]}; }}')
+    add(f'QPushButton[kind="segment"][selected="true"] {{ background: {c["ink"]}; color: {c["on-dark"]}; '
+        f'border: 1px solid {c["ink"]}; }}')
+    add(f'QPushButton[kind="rulecard"] {{ background: {c["bg-card"]}; border: 1px solid {c["line"]}; '
+        f'border-top: 3px solid {c["line"]}; text-align: left; padding: 0px; min-height: 100px; }}')
+    add(f'QPushButton[kind="rulecard"][selected="true"] {{ background: {c["blue-100"]}; border: 1px solid {c["blue-300"]}; '
+        f'border-top: 3px solid {c["blue-500"]}; }}')
+    add(f'QPushButton[kind="chip"] {{ background: {c["bg-card"]}; color: {c["ink"]}; border: 1px solid {c["line-2"]}; '
+        f'font-weight: 400; padding: 0px 10px; }}')
+    add(f'QPushButton[kind="chip"][selected="true"] {{ background: {c["blue-100"]}; border: 1px solid {c["blue-500"]}; }}')
+    add(f'QPushButton[kind="chip"][held_chip="true"] {{ background: {c["blue-500"]}; color: #ffffff; '
+        f'border: 1px solid {c["blue-500"]}; }}')
     add(f'QFrame#rule {{ background: {c["line-soft"]}; border: 0px; min-height: 1px; max-height: 1px; }}')
     add(f'QFrame#popover {{ background: {c["bg-card"]}; border: 1px solid {c["line"]}; border-top: 3px solid {c["ink"]}; }}')
     return "\n".join(out) + "\n"

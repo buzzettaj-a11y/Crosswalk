@@ -20,7 +20,7 @@ MAGIC = b"WCS1"
 FORMAT = 1
 SETUP_FORMAT = 1
 PREFS = "prefs.json"
-SETUP_SECTIONS = ("tables", "steps", "schema", "mappings", "defaults", "date_orders", "program_columns", "run_settings",
+SETUP_SECTIONS = ("tables", "systems", "steps", "schema", "mappings", "defaults", "date_orders", "program_columns", "run_settings",
                   "export_settings")
 # Only these classes come back from a saved file; anything else is refused.
 ALLOWED_CLASSES = frozenset({
@@ -154,6 +154,13 @@ class Store:
             for f in self.sessions.glob("*.wcs") if self.sessions.exists() else ():
                 if session_id is None or f.stem == session_id:
                     f.unlink()
+
+    def set_pref(self, key, value):
+        """A view choice, never client data (H9)."""
+        prefs = self.prefs()
+        prefs[key] = value
+        self.base.mkdir(parents=True, exist_ok=True)
+        _atomic(self.base / PREFS, json.dumps(prefs, sort_keys=True).encode("utf-8"))
 
     def _pack(self, data):
         blob = self.protect(json.dumps(data, sort_keys=True).encode("utf-8"))

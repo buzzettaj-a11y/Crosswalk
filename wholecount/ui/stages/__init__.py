@@ -26,9 +26,17 @@ def placeholder(stage_id, window):
     return w
 
 
+def _real_builders():
+    from wholecount.ui.stages import map as map_
+    from wholecount.ui.stages import prepare, programs, schema, sources
+
+    return {"sources": sources.build, "schema": schema.build, "prepare": prepare.build, "map": map_.build,
+            "programs": programs.build}
+
+
 class StageRegistry:
-    def __init__(self):
-        self.builders = {}
+    def __init__(self, builders=None):
+        self.builders = dict(_real_builders() if builders is None else builders)
 
     def register(self, stage_id, builder):
         self.builders[stage_id] = builder

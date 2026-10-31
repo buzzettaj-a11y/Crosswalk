@@ -9,9 +9,13 @@ from wholecount.ui.frame.stages import IDS
 
 
 def _controls(w):
+    """Visible controls a person tabs to. A spin box's own line edit is part of the spin box, which takes the focus."""
+    from PySide6.QtWidgets import QAbstractSpinBox
+
     out = []
-    for cls in (QAbstractButton, QComboBox, QLineEdit):
-        out += [c for c in w.findChildren(cls) if c.isVisible()]
+    for cls in (QAbstractButton, QComboBox, QLineEdit, QAbstractSpinBox):
+        out += [c for c in w.findChildren(cls) if c.isVisible()
+                and not (isinstance(c, QLineEdit) and isinstance(c.parentWidget(), (QAbstractSpinBox, QComboBox)))]
     return out
 
 

@@ -5,7 +5,7 @@ import hashlib
 NODES = ("sources", "tables", "steps", "mappings", "standardized", "checks", "geo", "copies", "decisions", "identity",
          "programs", "counts", "confidence", "exports")
 # Set-up sections and the node each feeds. The reviewer's name and calibration runs are not nodes.
-SECTION_NODE = {"sources": "sources", "tables": "tables", "steps": "steps", "schema": "mappings", "mappings": "mappings",
+SECTION_NODE = {"sources": "sources", "tables": "tables", "systems": "tables", "steps": "steps", "schema": "mappings", "mappings": "mappings",
                 "defaults": "standardized", "date_orders": "standardized", "program_columns": "programs", "run_settings": "geo",
                 "export_settings": "exports"}
 

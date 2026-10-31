@@ -1,5 +1,5 @@
 """Styling helpers. Widgets get styled through dynamic properties the QSS matches, never inline colors (SPEC 11.2)."""
-from PySide6.QtCore import QEvent, Qt
+from PySide6.QtCore import QEvent, QSize, Qt
 from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QPushButton, QScrollArea, QVBoxLayout
 
@@ -60,6 +60,15 @@ def button(text_, kind="secondary", tone=None, name=None):
     if name:
         b.setObjectName(name)
     return b
+
+
+def narrow_combo(cb, chars=8):
+    """A combo box that never forces the page wider than the window: it sizes to a few characters, not its longest item."""
+    from PySide6.QtWidgets import QComboBox
+
+    cb.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
+    cb.setMinimumContentsLength(chars)
+    return cb
 
 
 def rule():
@@ -125,3 +134,47 @@ class WrapScroll(QScrollArea):
     def resizeEvent(self, ev):
         super().resizeEvent(ev)
         self.fit()
+
+
+class WrapButton(QPushButton):
+    """A quiet link button whose text wraps, for narrow columns. The label inside ignores the mouse, so the button gets
+    every click, keeps its focus outline, and its accessible name is the full text."""
+
+    def __init__(self, text_="", kind="quiet", tone="nav", name=None):
+        super().__init__()
+        set_prop(self, "kind", kind)
+        set_prop(self, "tone", tone)
+        self.setCursor(Qt.PointingHandCursor)
+        self.setFocusPolicy(Qt.StrongFocus)
+        if name:
+            self.setObjectName(name)
+        lay = QHBoxLayout(self)
+        lay.setContentsMargins(4, 8, 4, 8)
+        self.inner = QLabel()
+        self.inner.setWordWrap(True)
+        self.inner.setAttribute(Qt.WA_TransparentForMouseEvents)
+        set_prop(self.inner, "role", "link")
+        lay.addWidget(self.inner)
+        self.setText(text_)
+
+    def setText(self, t):
+        self.inner.setText(t)
+        self.setAccessibleName(t)
+        self.updateGeometry()
+
+    def text(self):
+        return self.inner.text()
+
+    def set_tone(self, tone):
+        set_prop(self, "tone", tone)
+        set_prop(self.inner, "tone", "amber" if tone == "amber" else "blue")
+
+    def sizeHint(self):
+        h = self.inner.heightForWidth(max(60, self.width() - 8)) if self.width() > 20 else self.inner.sizeHint().height()
+        return QSize(super().sizeHint().width(), max(36, h + 16))
+
+    def hasHeightForWidth(self):
+        return True
+
+    def heightForWidth(self, w):
+        return max(36, self.inner.heightForWidth(max(60, w - 8)) + 16)

@@ -114,3 +114,25 @@ class DemoJob:
 
     def undo(self, session, token):
         self.undone += 1
+
+
+def example_session(populated=True):
+    """A real session for the M11 screens: the five example files with the sample reference, or no files at all.
+    Fixed secret, clock and date, so every render is the same."""
+    import json
+    import pathlib
+
+    from wholecount.session.frame import sample_backend
+    from wholecount.session.secret_store import InstallSecret
+    from wholecount.session.state import Session
+
+    data = pathlib.Path(__file__).resolve().parents[1] / "wholecount" / "sample_data"
+    names = ["example_clinic.csv", "example_housing.xlsx", "example_partner.tsv", "example_portal.json", "example_state.xml"]
+    paths = [data / n for n in names] if populated else []
+    s = Session(InstallSecret(b"m11-screens-fixed-secret-32-byte"), paths, backend=sample_backend() if populated else None,
+                clock=lambda: NOW, today=lambda: NOW.date(), getuser=lambda: "Reviewer", allow_sample=populated)
+    if populated:
+        plan = json.loads((data / "EXPECTED.json").read_text(encoding="utf-8"))
+        for h in plan["decisions"]["header_rows"]:
+            s.setup.set("tables", (h["file"], 0, "header_row"), h["header_row"])
+    return s

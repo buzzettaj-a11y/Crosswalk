@@ -92,7 +92,9 @@ def test_CONF_6_location_confidence(tmp_path):
 
 
 def test_CMD_1_every_command_exists():
-    assert len(C.ALL_COMMANDS) == 17
+    # M08's 17, plus M11's AddSources, UseExampleData, SetKeepSensitive, ConfirmTable, LoadSetup, ConfirmStage and
+    # WithdrawProgramDecision
+    assert len(C.ALL_COMMANDS) == 24
 
 
 def test_CMD_2_decisions_recompute_and_setup_waits(tmp_path):

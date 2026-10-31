@@ -84,7 +84,109 @@ class SessionBridge(QObject):
         self._changed()
 
     def _apply_job(self, job, result):
-        self.session.history.execute(JobCommand(job, result))
+        if getattr(job, "undoable", True):
+            self.session.history.execute(JobCommand(job, result))
+        else:
+            job.apply(self.session, result)
+
+    # What the stage bodies read (M11). All of it comes from the session's survey.
+
+    def survey(self):
+        from wholecount.session.survey import survey
+
+        if self.session is None or not self.session.setup.paths():
+            return None
+        return survey(self.session)
+
+    def loaded_tables(self):
+        sv = self.survey()
+        return list(sv.loaded.values()) if sv else []
+
+    def pref(self, key, default=None):
+        """A view choice from prefs.json (SPEC H9), or from memory when there's no store."""
+        store = self.store()
+        if store is not None:
+            return store.prefs().get(key, default)
+        return self.ui.get(f"pref_{key}", default)
+
+    def set_pref(self, key, value):
+        store = self.store()
+        if store is not None:
+            store.set_pref(key, value)
+        else:
+            self.ui[f"pref_{key}"] = value
+
+    def backend_name(self):
+        return self.session.backend.name if self.session is not None else "none"
+
+    def preview_step(self, table_key, step):
+        from wholecount.session.survey import preview_step
+
+        return preview_step(self.session, table_key, step)
+
+    def saved_progress_entries(self):
+        """Saved batches for the resume card: when, stage, files and decisions. Counts and names only."""
+        store = self.store()
+        if store is None or not store.sessions.exists():
+            return []
+        out = []
+        for p in sorted(store.sessions.glob("*.wcs")):
+            if self.session is not None and p.stem == self.session.session_id:
+                continue
+            try:
+                data = store.load(p)
+            except Exception:  # noqa: BLE001  an unreadable saved file is not offered
+                continue
+            out.append({"path": p, "when": data.get("saved_at", ""), "stage": data.get("stage", "sources"),
+                        "files": len(data.get("sources", [])), "decisions": len(data.get("decisions", []))})
+        return out
+
+    def delete_saved(self, entry):
+        entry["path"].unlink(missing_ok=True)
+
+    def store(self):
+        return self.session.store if self.session is not None else None
+
+    def saved_setups(self):
+        from wholecount.session.setups import saved_setups
+
+        return saved_setups(self.store())
+
+    def save_setup(self, name, note=""):
+        if self.store() is not None:
+            self.store().save_setup(name, self.session.setup)
+
+    def setup_fit(self, saved):
+        from wholecount.session.setups import fit
+
+        names = [f.name for f in self.survey().files] if self.survey() else []
+        return fit(self.store().load_setup(saved.path).get("setup", {}), names)
+
+    def load_setup(self, saved, only_fitting):
+        from wholecount.session.commands import LoadSetup
+        from wholecount.session.setups import fitting_part
+
+        data = self.store().load_setup(saved.path).get("setup", {})
+        if only_fitting:
+            data = fitting_part(data, [f.name for f in self.survey().files] if self.survey() else [])
+        self.dispatch(LoadSetup(data, saved.name))
+
+    def delete_setup(self, saved):
+        saved.path.unlink(missing_ok=True)
+
+    def export_setup(self, path):
+        from wholecount.session.store import export_setup
+
+        export_setup(self.session.setup, path)
+
+    def import_setup(self, path):
+        from wholecount.session.commands import LoadSetup
+        from wholecount.session.state import Setup
+        from wholecount.session.store import import_setup, setup_json
+
+        fresh = Setup()
+        import_setup(path, fresh)
+        self.dispatch(LoadSetup(setup_json(fresh)))
 
     def _job_finished(self, outcome):
         if outcome.action_id == "process":
@@ -132,6 +234,24 @@ class StaticBridge(SessionBridge):
 
     def view(self):
         return self.fixed.with_(running=self.runner.running or self.fixed.running)
+
+    def survey(self):
+        return None
+
+    def pref(self, key, default=None):
+        return self.ui.get(f"pref_{key}", default)
+
+    def set_pref(self, key, value):
+        self.ui[f"pref_{key}"] = value
+
+    def backend_name(self):
+        return self.fixed.backend
+
+    def saved_setups(self):
+        return ()
+
+    def saved_progress_entries(self):
+        return []
 
     def set_view(self, view):
         self.fixed = view

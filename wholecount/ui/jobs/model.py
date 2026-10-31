@@ -34,17 +34,17 @@ class ProgressModel:
         self._stage = {}
 
     def index_of(self, step):
+        """The first unfinished row for this step, else its last row, else None for a step this action doesn't list."""
         for i, s in enumerate(self.steps):
-            if s.step == step and (i >= self.current or not self.states[i].ended):
-                if not self.states[i].ended:
-                    return i
-        for i, s in enumerate(self.steps):
-            if s.step == step:
+            if s.step == step and not self.states[i].ended:
                 return i
-        raise KeyError(step)
+        hits = [i for i, s in enumerate(self.steps) if s.step == step]
+        return hits[-1] if hits else None
 
     def begin(self, step, total):
         i = self.index_of(step)
+        if i is None:
+            return
         self.current = max(self.current, i)
         st = self.states[i]
         st.begun = True
@@ -52,6 +52,8 @@ class ProgressModel:
 
     def progress(self, step, done, total, message=None):
         i = self.index_of(step)
+        if i is None:
+            return
         st = self.states[i]
         st.begun = True
         st.total = max(st.total, int(total), int(done))
@@ -61,6 +63,8 @@ class ProgressModel:
 
     def end(self, step, found, seconds):
         i = self.index_of(step)
+        if i is None:
+            return
         st = self.states[i]
         st.begun = True
         st.done = st.total
