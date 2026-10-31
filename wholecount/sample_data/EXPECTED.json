@@ -1,0 +1,864 @@
+{
+  "seed": 20261030,
+  "plan": "tools/make_example_data.py",
+  "files": {
+    "example_clinic.csv": {
+      "tables_found": 1,
+      "tables_included": 1,
+      "rows_excluded": 0,
+      "rows_non_table": 0,
+      "rows_above_header": 0,
+      "rows_shared": 0,
+      "balanced": true,
+      "header_warning": null,
+      "suggested_header_row": null,
+      "format": "csv",
+      "encoding": "utf-8",
+      "rows_included": 60,
+      "rows_header": 1,
+      "non_empty_rows": 61,
+      "sensitive_dropped": [],
+      "tables": [
+        {
+          "sheet": null,
+          "kind": "records",
+          "included": true,
+          "header_row": 1,
+          "rows": 60
+        }
+      ]
+    },
+    "example_partner.tsv": {
+      "tables_found": 1,
+      "tables_included": 1,
+      "rows_excluded": 0,
+      "rows_non_table": 0,
+      "rows_above_header": 0,
+      "rows_shared": 0,
+      "balanced": true,
+      "header_warning": null,
+      "suggested_header_row": null,
+      "format": "tsv",
+      "encoding": "windows-1252",
+      "rows_included": 55,
+      "rows_header": 1,
+      "non_empty_rows": 56,
+      "sensitive_dropped": [
+        "SSN"
+      ],
+      "tables": [
+        {
+          "sheet": null,
+          "kind": "records",
+          "included": true,
+          "header_row": 1,
+          "rows": 55
+        }
+      ]
+    },
+    "example_portal.json": {
+      "tables_found": 1,
+      "tables_included": 1,
+      "rows_excluded": 0,
+      "rows_non_table": 0,
+      "rows_above_header": 0,
+      "rows_shared": 0,
+      "balanced": true,
+      "header_warning": null,
+      "suggested_header_row": null,
+      "format": "json",
+      "encoding": null,
+      "rows_included": 55,
+      "rows_header": 0,
+      "non_empty_rows": 55,
+      "sensitive_dropped": [],
+      "tables": [
+        {
+          "sheet": null,
+          "kind": "records",
+          "included": true,
+          "header_row": 0,
+          "rows": 55
+        }
+      ]
+    },
+    "example_state.xml": {
+      "tables_found": 1,
+      "tables_included": 1,
+      "rows_excluded": 0,
+      "rows_non_table": 0,
+      "rows_above_header": 0,
+      "rows_shared": 0,
+      "balanced": true,
+      "header_warning": null,
+      "suggested_header_row": null,
+      "format": "xml",
+      "encoding": null,
+      "rows_included": 50,
+      "rows_header": 0,
+      "non_empty_rows": 50,
+      "sensitive_dropped": [],
+      "tables": [
+        {
+          "sheet": null,
+          "kind": "records",
+          "included": true,
+          "header_row": 0,
+          "rows": 50
+        }
+      ]
+    },
+    "example_housing.xlsx": {
+      "format": "xlsx",
+      "encoding": null,
+      "tables_found": 2,
+      "tables_included": 0,
+      "rows_included": 0,
+      "rows_excluded": 73,
+      "rows_non_table": 0,
+      "rows_header": 0,
+      "rows_above_header": 0,
+      "rows_shared": 0,
+      "non_empty_rows": 73,
+      "balanced": true,
+      "sensitive_dropped": [],
+      "header_warning": "no_header_but_row_looks_like_names",
+      "suggested_header_row": 3,
+      "tables": [
+        {
+          "sheet": "Clients",
+          "kind": "unknown",
+          "included": false,
+          "header_row": 0,
+          "rows": 70
+        },
+        {
+          "sheet": "Notes",
+          "kind": "unknown",
+          "included": false,
+          "header_row": 0,
+          "rows": 3
+        }
+      ],
+      "after_header_choice": {
+        "sheet": "Clients",
+        "header_row": 3,
+        "kind": "records",
+        "included": true,
+        "rows_included": 67,
+        "rows_excluded": 3,
+        "rows_header": 1,
+        "rows_above_header": 2,
+        "total_row": 70,
+        "balanced": true
+      }
+    }
+  },
+  "map": {
+    "before_steps": {
+      "example_clinic.csv": {
+        "fields": {
+          "Client_ID": "Client_ID",
+          "Date_of_Birth": "DOB",
+          "Program": "Program"
+        },
+        "unmapped": [
+          "Name",
+          "Full_Address"
+        ],
+        "blockers": [
+          "First_Name",
+          "Last_Name"
+        ]
+      },
+      "example_housing.xlsx": {
+        "fields": {
+          "Client_ID": "Client ID",
+          "First_Name": "First Name",
+          "Last_Name": "Last Name",
+          "Middle_Initial": "MI",
+          "Address_1": "Address",
+          "Address_2": "Apt",
+          "City": "City",
+          "State": "State",
+          "Zip": "ZIP",
+          "Date_of_Birth": "Date of Birth",
+          "Program": "Program"
+        },
+        "unmapped": [],
+        "blockers": []
+      },
+      "example_partner.tsv": {
+        "fields": {
+          "Client_ID": "uid",
+          "First_Name": "first",
+          "Last_Name": "last",
+          "Date_of_Birth": "dob",
+          "Address_1": "address_line",
+          "Address_2": "apt",
+          "City": "city",
+          "State": "st",
+          "Zip": "zip",
+          "Program": "program"
+        },
+        "unmapped": [],
+        "blockers": []
+      },
+      "example_portal.json": {
+        "fields": {
+          "Client_ID": "id",
+          "First_Name": "first_name",
+          "Last_Name": "last_name",
+          "Date_of_Birth": "birth_date",
+          "Address_1": "address.street",
+          "Address_2": "address.unit",
+          "City": "address.city",
+          "State": "address.state",
+          "Zip": "address.zip",
+          "Program": "program"
+        },
+        "unmapped": [],
+        "blockers": []
+      },
+      "example_state.xml": {
+        "fields": {
+          "Client_ID": "ClientNumber",
+          "First_Name": "FirstName",
+          "Last_Name": "LastName",
+          "Middle_Initial": "MiddleInitial",
+          "Date_of_Birth": "BirthDate",
+          "Address_1": "Street",
+          "Address_2": "Apt",
+          "City": "City",
+          "State": "State",
+          "Zip": "Zip"
+        },
+        "unmapped": [],
+        "blockers": []
+      }
+    },
+    "after_steps": {
+      "example_clinic.csv": {
+        "steps": [
+          {
+            "step": "split_name",
+            "column": "Name",
+            "form": "last_comma_first"
+          },
+          {
+            "step": "split_address",
+            "column": "Full_Address"
+          }
+        ],
+        "fields_from_steps": {
+          "First_Name": "Name",
+          "Middle_Initial": "Name",
+          "Last_Name": "Name",
+          "Address_1": "Full_Address",
+          "Address_2": "Full_Address",
+          "City": "Full_Address",
+          "State": "Full_Address",
+          "Zip": "Full_Address"
+        },
+        "fields": {
+          "Client_ID": "Client_ID",
+          "Date_of_Birth": "DOB",
+          "Program": "Program"
+        },
+        "blockers": []
+      },
+      "example_housing.xlsx": {
+        "fields": {
+          "Client_ID": "Client ID",
+          "First_Name": "First Name",
+          "Last_Name": "Last Name",
+          "Middle_Initial": "MI",
+          "Address_1": "Address",
+          "Address_2": "Apt",
+          "City": "City",
+          "State": "State",
+          "Zip": "ZIP",
+          "Date_of_Birth": "Date of Birth",
+          "Program": "Program"
+        },
+        "unmapped": [],
+        "blockers": []
+      },
+      "example_partner.tsv": {
+        "fields": {
+          "Client_ID": "uid",
+          "First_Name": "first",
+          "Last_Name": "last",
+          "Date_of_Birth": "dob",
+          "Address_1": "address_line",
+          "Address_2": "apt",
+          "City": "city",
+          "State": "st",
+          "Zip": "zip",
+          "Program": "program"
+        },
+        "unmapped": [],
+        "blockers": []
+      },
+      "example_portal.json": {
+        "fields": {
+          "Client_ID": "id",
+          "First_Name": "first_name",
+          "Last_Name": "last_name",
+          "Date_of_Birth": "birth_date",
+          "Address_1": "address.street",
+          "Address_2": "address.unit",
+          "City": "address.city",
+          "State": "address.state",
+          "Zip": "address.zip",
+          "Program": "program"
+        },
+        "unmapped": [],
+        "blockers": []
+      },
+      "example_state.xml": {
+        "fields": {
+          "Client_ID": "ClientNumber",
+          "First_Name": "FirstName",
+          "Last_Name": "LastName",
+          "Middle_Initial": "MiddleInitial",
+          "Date_of_Birth": "BirthDate",
+          "Address_1": "Street",
+          "Address_2": "Apt",
+          "City": "City",
+          "State": "State",
+          "Zip": "Zip"
+        },
+        "unmapped": [],
+        "blockers": []
+      }
+    },
+    "note": "Column names made by the split steps are M03's to name. fields_from_steps gives the source column."
+  },
+  "standardize": {
+    "example_clinic.csv": {
+      "rows_received": 60,
+      "counted": 56,
+      "not_counted_yet": 4,
+      "set_aside": 0,
+      "planned_problem_rows": [
+        {
+          "row": 3,
+          "reasons": [
+            "no_identifier"
+          ]
+        },
+        {
+          "row": 24,
+          "reasons": [
+            "name_missing"
+          ]
+        },
+        {
+          "row": 31,
+          "reasons": [
+            "no_identifier"
+          ]
+        },
+        {
+          "row": 47,
+          "reasons": [
+            "no_identifier"
+          ]
+        }
+      ]
+    },
+    "example_housing.xlsx": {
+      "rows_received": 67,
+      "counted": 62,
+      "not_counted_yet": 4,
+      "set_aside": 1,
+      "planned_problem_rows": [
+        {
+          "row": 5,
+          "reasons": [
+            "no_fixed_address"
+          ]
+        },
+        {
+          "row": 12,
+          "reasons": [
+            "no_identifier"
+          ]
+        },
+        {
+          "row": 19,
+          "reasons": [
+            "no_identifier"
+          ]
+        },
+        {
+          "row": 33,
+          "reasons": [
+            "no_identifier"
+          ]
+        },
+        {
+          "row": 42,
+          "reasons": [
+            "name_missing"
+          ]
+        },
+        {
+          "row": 57,
+          "reasons": [
+            "address_part_missing"
+          ]
+        },
+        {
+          "row": 70,
+          "reasons": [
+            "summary_row"
+          ]
+        }
+      ]
+    },
+    "example_partner.tsv": {
+      "rows_received": 55,
+      "counted": 53,
+      "not_counted_yet": 2,
+      "set_aside": 0,
+      "planned_problem_rows": [
+        {
+          "row": 13,
+          "reasons": [
+            "no_identifier"
+          ]
+        },
+        {
+          "row": 34,
+          "reasons": [
+            "no_identifier"
+          ]
+        },
+        {
+          "row": 36,
+          "reasons": [
+            "zip_outside_nyc"
+          ]
+        }
+      ]
+    },
+    "example_portal.json": {
+      "rows_received": 55,
+      "counted": 52,
+      "not_counted_yet": 3,
+      "set_aside": 0,
+      "planned_problem_rows": [
+        {
+          "row": 7,
+          "reasons": [
+            "no_identifier"
+          ]
+        },
+        {
+          "row": 11,
+          "reasons": [
+            "name_missing"
+          ]
+        },
+        {
+          "row": 16,
+          "reasons": [
+            "no_identifier"
+          ]
+        },
+        {
+          "row": 40,
+          "reasons": [
+            "placeholder_in_value",
+            "address_part_missing"
+          ]
+        },
+        {
+          "row": 42,
+          "reasons": [
+            "zip_not_valid"
+          ]
+        }
+      ]
+    },
+    "example_state.xml": {
+      "rows_received": 50,
+      "counted": 48,
+      "not_counted_yet": 2,
+      "set_aside": 0,
+      "planned_problem_rows": [
+        {
+          "row": 22,
+          "reasons": [
+            "zip_plus4_reduced"
+          ]
+        },
+        {
+          "row": 28,
+          "reasons": [
+            "no_identifier"
+          ]
+        },
+        {
+          "row": 50,
+          "reasons": [
+            "no_identifier"
+          ]
+        }
+      ]
+    },
+    "no_identifier_total": 12
+  },
+  "people": {
+    "copy_groups": [
+      {
+        "kind": "identical",
+        "rows": [
+          [
+            "example_housing.xlsx",
+            50
+          ],
+          [
+            "example_housing.xlsx",
+            59
+          ]
+        ]
+      },
+      {
+        "kind": "possible",
+        "rows": [
+          [
+            "example_partner.tsv",
+            39
+          ],
+          [
+            "example_partner.tsv",
+            35
+          ]
+        ]
+      }
+    ],
+    "same_id_conflicts": [
+      {
+        "client_id": "C-1004",
+        "rows": [
+          [
+            "example_clinic.csv",
+            11
+          ],
+          [
+            "example_clinic.csv",
+            58
+          ]
+        ]
+      }
+    ],
+    "auto_joins": {
+      "same_system_id": [
+        [
+          [
+            "example_partner.tsv",
+            26
+          ],
+          [
+            "example_partner.tsv",
+            25
+          ]
+        ]
+      ],
+      "four_exact_facts": [
+        [
+          [
+            "example_clinic.csv",
+            35
+          ],
+          [
+            "example_portal.json",
+            26
+          ]
+        ],
+        [
+          [
+            "example_housing.xlsx",
+            40
+          ],
+          [
+            "example_state.xml",
+            17
+          ]
+        ],
+        [
+          [
+            "example_clinic.csv",
+            22
+          ],
+          [
+            "example_partner.tsv",
+            44
+          ],
+          [
+            "example_state.xml",
+            2
+          ]
+        ]
+      ],
+      "earlier_batch": []
+    },
+    "proposals": {
+      "likely": [
+        {
+          "rows": [
+            [
+              "example_housing.xlsx",
+              25
+            ],
+            [
+              "example_partner.tsv",
+              28
+            ]
+          ],
+          "why": "nickname"
+        },
+        {
+          "rows": [
+            [
+              "example_portal.json",
+              49
+            ],
+            [
+              "example_state.xml",
+              42
+            ]
+          ],
+          "why": "dob_digits_swapped"
+        }
+      ],
+      "possible": [
+        {
+          "rows": [
+            [
+              "example_clinic.csv",
+              37
+            ],
+            [
+              "example_state.xml",
+              10
+            ]
+          ],
+          "why": "rare_name_moved"
+        }
+      ]
+    }
+  },
+  "programs": {
+    "names": [
+      "Housing Assistance",
+      "Older Adult Services",
+      "SYEP",
+      "Summer Youth Employment Program",
+      "Workforce Dev.",
+      "Workforce Development",
+      "Youth Services"
+    ],
+    "proposals": [
+      {
+        "names": [
+          "Workforce Dev.",
+          "Workforce Development"
+        ],
+        "reason": "same_name"
+      },
+      {
+        "names": [
+          "SYEP",
+          "Summer Youth Employment Program"
+        ],
+        "reason": "initials"
+      }
+    ],
+    "not_in_goal_2": [
+      {
+        "file": "example_state.xml",
+        "rows": 50
+      }
+    ]
+  },
+  "decisions": {
+    "header_rows": [
+      {
+        "file": "example_housing.xlsx",
+        "sheet": "Clients",
+        "header_row": 3
+      }
+    ],
+    "program_groups": [
+      {
+        "names": [
+          "Workforce Dev.",
+          "Workforce Development"
+        ],
+        "decision": "confirm",
+        "label": "Workforce Development"
+      },
+      {
+        "names": [
+          "SYEP",
+          "Summer Youth Employment Program"
+        ],
+        "decision": "confirm",
+        "label": "Summer Youth Employment Program"
+      }
+    ],
+    "copy_groups": [
+      {
+        "rows": [
+          [
+            "example_housing.xlsx",
+            50
+          ],
+          [
+            "example_housing.xlsx",
+            59
+          ]
+        ],
+        "decision": "keep_one",
+        "keep": [
+          "example_housing.xlsx",
+          50
+        ]
+      },
+      {
+        "rows": [
+          [
+            "example_partner.tsv",
+            39
+          ],
+          [
+            "example_partner.tsv",
+            35
+          ]
+        ],
+        "decision": "keep_one",
+        "keep": [
+          "example_partner.tsv",
+          39
+        ]
+      }
+    ],
+    "same_id_conflicts": [
+      {
+        "rows": [
+          [
+            "example_clinic.csv",
+            11
+          ],
+          [
+            "example_clinic.csv",
+            58
+          ]
+        ],
+        "decision": "different_people"
+      }
+    ],
+    "pairs": [
+      {
+        "rows": [
+          [
+            "example_housing.xlsx",
+            25
+          ],
+          [
+            "example_partner.tsv",
+            28
+          ]
+        ],
+        "decision": "same_person"
+      },
+      {
+        "rows": [
+          [
+            "example_portal.json",
+            49
+          ],
+          [
+            "example_state.xml",
+            42
+          ]
+        ],
+        "decision": "same_person"
+      },
+      {
+        "rows": [
+          [
+            "example_clinic.csv",
+            37
+          ],
+          [
+            "example_state.xml",
+            10
+          ]
+        ],
+        "decision": "same_person"
+      }
+    ]
+  },
+  "counts": {
+    "before_decisions": {
+      "rows_received": 287,
+      "counted": 269,
+      "not_counted_yet": 17,
+      "set_aside": 1,
+      "goal_1": {
+        "low": 259,
+        "high": 264
+      },
+      "goal_2": {
+        "low": 218,
+        "high": 220
+      },
+      "open_pairs": 3,
+      "open_copy_groups": 2
+    },
+    "after_decisions": {
+      "rows_received": 287,
+      "counted": 269,
+      "not_counted_yet": 15,
+      "set_aside": 3,
+      "goal_1": {
+        "low": 261,
+        "high": 261
+      },
+      "goal_2": {
+        "low": 219,
+        "high": 219
+      },
+      "per_program": {
+        "Housing Assistance": 60,
+        "Older Adult Services": 51,
+        "Summer Youth Employment Program": 36,
+        "Workforce Development": 35,
+        "Youth Services": 37
+      },
+      "open_pairs": 0,
+      "open_copy_groups": 0
+    }
+  },
+  "locations": {
+    "note": "M05 fills this when it adds sample_reference.csv."
+  },
+  "outputs": {
+    "practice_run": {
+      "Final_Clean_Mapped": 269,
+      "Set_Aside_Records": 3,
+      "Manual_Review_Needed_counted_no": 15
+    },
+    "no_geocoder_run": {
+      "Final_Clean_Mapped": 269,
+      "Set_Aside_Records": 3,
+      "Manual_Review_Needed_counted_no": 15
+    },
+    "note": "M09 adds the review file's counted-yes rows and the other output files."
+  }
+}
