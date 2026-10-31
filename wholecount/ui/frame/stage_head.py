@@ -5,6 +5,7 @@ from wholecount import copy
 from wholecount.ui.frame.stages import BY_ID, kicker
 from wholecount.ui.widgets.dataline import DataLine
 from wholecount.ui.widgets.style import hbox, label, vbox
+from wholecount.ui.widgets.help import HelpButton
 
 
 class StageHead(QWidget):
@@ -19,7 +20,12 @@ class StageHead(QWidget):
         self.title = label(BY_ID[stage_id].plain, role="h2", name="stageTitle")
         self.subtitle = label(copy.get(BY_ID[stage_id].subtitle_id), role="body", tone="muted", wrap=True)
         left.addWidget(self.kicker)
-        left.addWidget(self.title)
+        row_t = hbox(spacing=8)
+        row_t.addWidget(self.title)
+        self.help = HelpButton(f"stage.{stage_id}")      # M15: every stage has its help
+        row_t.addWidget(self.help)
+        row_t.addStretch(1)
+        left.addLayout(row_t)
         left.addWidget(self.subtitle)
         row.addLayout(left, 1)
         self.actions = list(actions)

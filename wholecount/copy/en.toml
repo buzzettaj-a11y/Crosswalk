@@ -2524,6 +2524,97 @@ text = "Programs"
 text = "Sets up the second count: clients per program."
 [help.stage.programs.how]
 text = "Pick each file's program column, confirm or split the proposed groups, then preview the counts."
+[help.stage.run.title]
+text = "Process"
+[help.stage.run.purpose]
+text = "Checks every row, places the addresses, finds copies and the same person across files, and counts."
+[help.stage.run.how]
+text = "Press Process everything. It reads your files and changes nothing in them. Rows with a problem wait on Fix problems and aren't counted yet."
+claim = "CL-HELP-RUN-01"
+[help.stage.review.title]
+text = "Fix problems"
+[help.stage.review.purpose]
+text = "Decides the rows the checks could not settle, a group of rows at a time and then one row at a time."
+[help.stage.review.how]
+text = "Decide the causes on step 1 first. Finish review is held until every cause that affects the counts is decided. Your name is saved with each decision."
+claim = "CL-HELP-REVIEW-01"
+[help.stage.summary.title]
+text = "Results"
+[help.stage.summary.purpose]
+text = "Shows the two counts and where they come from."
+[help.stage.summary.how]
+text = "A count shows as a range while same-person pairs are open. It becomes one number once every pair is decided."
+claim = "CL-HELP-RESULTS-01"
+[help.stage.export.title]
+text = "Download"
+[help.stage.export.purpose]
+text = "Writes the files you choose into a folder you pick."
+[help.stage.export.how]
+text = "Nothing is written until you press Download. A practice run writes no map files. Each data file can be CSV, Excel or JSON."
+claim = "CL-HELP-EXPORT-01"
+[help.el.confidence.title]
+text = "Confidence"
+[help.el.confidence.purpose]
+text = "Says how far to trust this batch's counts: High, Medium or Low."
+[help.el.confidence.how]
+text = "It comes from checked facts: how many rows are counted, how many pairs are open and how many addresses were placed. Low holds Download until you tick that you saw it."
+claim = "CL-HELP-CONF-01"
+[help.el.pairs.title]
+text = "Same-person matches"
+[help.el.pairs.purpose]
+text = "Pairs of records that may be one person, found across your files."
+[help.el.pairs.how]
+text = "Nothing is joined on a guess. Each pair waits until you say same or different, and the count shows a range until then."
+claim = "CL-HELP-PAIRS-01"
+[help.el.program_groups.title]
+text = "Program groups"
+[help.el.program_groups.purpose]
+text = "Program names that may be one program, spelled differently."
+[help.el.program_groups.how]
+text = "Confirm a group to count its names as one program. Nothing is grouped until you confirm it."
+claim = "CL-HELP-PROGRAMS-01"
+[help.el.map_points.title]
+text = "Moved points and small counts"
+[help.el.map_points.purpose]
+text = "How the map files keep people from being found."
+[help.el.map_points.how]
+text = "Map_Points moves each point 150 to 250 feet, and everyone at one building gets the same moved point. Map_Counts leaves any count from 1 to 10 blank."
+claim = "CL-HELP-MAP-01"
+[help.el.record_keys.title]
+text = "Record keys"
+[help.el.record_keys.purpose]
+text = "Each row's own key, made from its table and its contents."
+[help.el.record_keys.how]
+text = "Decisions are saved against record keys, never row positions, so sorting a file again keeps them. The keys mean nothing on another computer."
+claim = "CL-HELP-KEYS-01"
+[help.el.balances.title]
+text = "The two balances"
+[help.el.balances.purpose]
+text = "Two equations that prove no row was lost."
+[help.el.balances.how]
+text = "Rows received equal counted plus not counted yet plus set aside. Counted equals mapped plus counted but not mapped."
+claim = "CL-HELP-BALANCE-01"
+[help.el.not_mapped.title]
+text = "Counted but not mapped"
+[help.el.not_mapped.purpose]
+text = "People with no usable address."
+[help.el.not_mapped.how]
+text = "They are in both counts. They are not on the map."
+claim = "CL-HELP-NOTMAPPED-01"
+[help.el.set_aside.title]
+text = "Set aside"
+[help.el.set_aside.purpose]
+text = "Rows kept out of the counts, each with a reason."
+[help.el.set_aside.how]
+text = "A set-aside row is never deleted. It goes to the set-aside file with its reason, and Return to open puts it back."
+claim = "CL-HELP-ASIDE-01"
+[help.el.reviewer.title]
+text = "Reviewer names"
+[help.el.reviewer.purpose]
+text = "Who made each decision."
+[help.el.reviewer.how]
+text = "Your name goes on each decision and in both audit logs. Accepting more than 200 rows at once needs a second reviewer's name."
+claim = "CL-HELP-REVIEWER-01"
 
 [common.ok]
 text = "OK"

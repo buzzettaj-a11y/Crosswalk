@@ -10,6 +10,7 @@ from wholecount.ui.stages.review.dialogs import SetAsideDialog
 from wholecount.ui.stages.review.queue import problem_text
 from wholecount.ui.widgets.callout import Callout
 from wholecount.ui.widgets.style import button, hbox, label, vbox
+from wholecount.ui.widgets.help import HelpButton, titled
 
 
 class RecordPanel(QWidget):
@@ -22,8 +23,8 @@ class RecordPanel(QWidget):
         row, o = r.rows[record_key], r.outcomes[record_key]
         lay = vbox(self, (18, 14, 18, 14), 12)
         name = " ".join(v for v in (row.value("First_Name"), row.value("Last_Name")) if v)
-        lay.addWidget(label(copy.get("review.record.head", name=name or "-", id=row.value("Client_ID") or "-"),
-                            role="h3", name="recordHead"))
+        lay.addLayout(titled(label(copy.get("review.record.head", name=name or "-", id=row.value("Client_ID") or "-"),
+                                   role="h3", name="recordHead"), "el.record_keys"))
         lay.addWidget(label(copy.get("review.record.where", file=r.file_of_record.get(record_key, ""), n=o.row_number,
                                      counted=copy.get("common.yes" if o.counted else "common.no")), role="note"))
         if len(o.reasons) > 1:

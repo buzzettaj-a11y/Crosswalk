@@ -15,6 +15,7 @@ from wholecount.ui.frame.drawers import Drawer
 from wholecount.ui.widgets.grid import grid_with_pager
 from wholecount.ui.widgets.held import HeldAction, HoldReason
 from wholecount.ui.widgets.style import button, clear, hbox, label, narrow_combo, vbox
+from wholecount.ui.widgets.help import HelpButton, titled
 
 
 def _row_values(session, rk):
@@ -73,7 +74,7 @@ class AcceptDialog(QDialog):
         s = window.bridge.session
         lay = vbox(self, (24, 20, 24, 20), 10)
         n = len(self.keys)
-        lay.addWidget(label(copy.get("review.accept.title", n=n), role="h3"))
+        lay.addLayout(titled(label(copy.get("review.accept.title", n=n), role="h3"), "el.reviewer"))
         lay.addWidget(label(copy.get("review.bulk.sample", count=min(5, n)), role="note", wrap=True))
         sample = sample_rows(cause_id, self.keys)
         g = grid_with_pager([copy.get(f"review.col.{k}") for k in ("name", "id", "address", "problem")],
@@ -154,7 +155,7 @@ class SetAsideDialog(QDialog):
         self.setModal(True)
         self.setFixedWidth(440)
         lay = vbox(self, (24, 20, 24, 20), 10)
-        lay.addWidget(label(copy.get("review.aside.title", n=len(self.keys)), role="h3"))
+        lay.addLayout(titled(label(copy.get("review.aside.title", n=len(self.keys)), role="h3"), "el.set_aside"))
         self.reason = QComboBox()
         narrow_combo(self.reason)
         self.reason.setObjectName("asideReason")

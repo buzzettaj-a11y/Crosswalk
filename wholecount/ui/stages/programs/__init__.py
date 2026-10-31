@@ -15,6 +15,7 @@ from wholecount.ui.widgets.callout import Callout
 from wholecount.ui.widgets.held import HeldAction, HoldReason
 from wholecount.ui.widgets.style import narrow_combo, button, clear, hbox, label, set_prop, vbox
 from wholecount.ui.widgets.tag import tag
+from wholecount.ui.widgets.help import HelpButton, titled
 
 ONE_NAME = "__one_name__"
 NO_COLUMN = "__none__"
@@ -180,6 +181,7 @@ class ProgramsBody(QWidget):
         self.window_.run_hold.register(reset)
         self.s2.addWidget(section_head(2, copy.get("prog.s2.title"),
                                        copy.get("prog.s2.note", n=len(names), m=files, k=len(groups) + len(singles)), reset))
+        self.s2.addLayout(titled(label(copy.get("help.el.program_groups.title"), role="caption"), "el.program_groups"))
         if self.holding:
             bar = QFrame()
             bar.setObjectName("holdingBar")
