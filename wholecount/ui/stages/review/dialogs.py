@@ -381,3 +381,43 @@ class ComparePanel(QFrame):
         else:
             cmd = C.MarkNotCopies(g.group_id)
         self.window_.bridge.dispatch(cmd)
+
+
+REFUSAL_KEY = {"signature_missing": "review.corrections.refused.signature",
+               "signature_wrong": "review.corrections.refused.signature",
+               "originals_changed": "review.corrections.refused.changed",
+               "unknown_record": "review.corrections.refused.unknown",
+               "other_column_changed": "review.corrections.refused.other_column",
+               "field_not_failing": "review.corrections.refused.other_column"}
+
+
+def refusal_sentence(refusal):
+    """One fixed reason per refused row. Column names are field or header names, never values (H8)."""
+    key = REFUSAL_KEY.get(refusal.code)
+    if key is None:
+        return copy.get(refusal.sentence_key)
+    if key.endswith("other_column"):
+        return copy.get(key, column=refusal.column or "")
+    return copy.get(key)
+
+
+class CorrectionsDrawer(Drawer):
+    """What a corrections file did (SPEC 8.6): accepted, refused and now counted, then each refused row with its file row
+    number and one reason. Rows matched by Record_Key, so the order of the file never matters."""
+
+    def __init__(self, parent, window):
+        super().__init__(parent, "right", 620, None, None)
+        self.window_ = window
+        self.content = vbox()
+        self.body.addLayout(self.content)
+
+    def show_result(self, got, now_count):
+        clear(self.content)
+        self.content.addWidget(label(got.file_name, role="kicker"))
+        self.content.addWidget(label(copy.get("review.corrections.result", a=len(got.accepted), b=len(got.refused),
+                                              c=now_count), role="drawer-title", wrap=True, name="correctionsResult"))
+        for i, r in enumerate(sorted(got.refused, key=lambda x: (x.line is None, x.line or 0))):
+            why = refusal_sentence(r)
+            text = copy.get("review.corrections.line", line=r.line, why=why) if r.line is not None else why
+            self.content.addWidget(label(text, role="note", tone="amber", wrap=True, name=f"refused_{i}"))
+        self.scroll.fit()

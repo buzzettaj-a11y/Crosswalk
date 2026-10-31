@@ -8,8 +8,8 @@ from wholecount import copy
 from wholecount.session import commands as C
 from wholecount.session.pages import QueueFilter, cause_views, gate, other_files_people, problem_title
 from wholecount.ui.frame.stage_head import StageHead
-from wholecount.ui.stages.review.dialogs import (AcceptDialog, ComparePanel, FillPreview, PreviewDrawer, ReviewerPrompt,
-                                                 SetAsideDialog)
+from wholecount.ui.stages.review.dialogs import (AcceptDialog, ComparePanel, CorrectionsDrawer, FillPreview, PreviewDrawer,
+                                                 ReviewerPrompt, SetAsideDialog)
 from wholecount.ui.stages.review.queue import QueueView
 from wholecount.ui.widgets.callout import Callout
 from wholecount.ui.widgets.grid import grid_with_pager
@@ -69,6 +69,7 @@ class ReviewBody(QWidget):
         self.show_nolonger = False
         self.preview = PreviewDrawer(window.centralWidget(), window)
         self.fill = FillPreview(window.centralWidget(), window)
+        self.corrections_result = CorrectionsDrawer(window.centralWidget(), window)
         self.dialog = None
         self.update_view(v)
         if window.queue_request:
@@ -109,7 +110,8 @@ class ReviewBody(QWidget):
         from wholecount.ui.jobs.actions import CorrectionsJob
 
         def done(got, now_count):
-            self.window_.bridge.ui["corrections_result"] = (got, now_count)
+            self.corrections_result.show_result(got, now_count)
+            self.corrections_result.open_()
         return self.window_.start_job(CorrectionsJob(self.session, path, done))
 
     def finish_review(self):
