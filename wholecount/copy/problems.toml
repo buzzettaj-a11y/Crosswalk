@@ -25,3 +25,173 @@ title = "Name has extra words: check them"
 means = "Part of the name didn't fit first, middle or last, such as a nickname in brackets or a second given name after the initial. It was kept in its own column, and nothing was dropped."
 check = "Look at the extra words and decide whether they belong in the name."
 excel = "Remove nicknames and notes from the name column, or move them to their own column, and save the file."
+
+# M04. These sentences state computed facts, so they take no claim ID. Titles the spec gives are used exactly.
+
+[name_missing]
+title = "First or last name is missing"
+means = "This row has no first name or no last name, so it can't be counted as a person yet."
+check = "Look up the name in the source system."
+excel = "Filter the name columns for blanks, fill in the missing names from the source system, and save the file."
+
+[no_identifier]
+title = "No Client ID and no valid date of birth"
+means = "Each person needs a Client ID or a valid date of birth to be counted. This row has neither, so it isn't counted yet."
+check = "Look up the person's Client ID or date of birth in the source system."
+excel = "Filter the Client ID column for blanks, then check the date of birth column on those rows, and fill in either one."
+
+[needed_field_failed]
+title = "A field needed to count is missing or not valid"
+means = "This field is marked as needed to count, and on this row it's blank or doesn't fit its type."
+check = "Look at the field named and correct it in the source system."
+excel = "Filter the column for blanks or values that don't fit, correct them, and save the file."
+
+[address_part_missing]
+title = "Part of the address is missing"
+means = "The street, city or ZIP is blank. The person is still counted, but the address can't be placed on the map."
+check = "Look up the missing part of the address in the source system."
+excel = "Filter the address columns for blanks, fill them in, and save the file."
+
+[zip_not_valid]
+title = "ZIP is not a valid ZIP"
+means = "A ZIP code is five digits. This one isn't, so the address can't be placed. The person is still counted."
+check = "Check the ZIP in the source system. A ZIP that lost its leading zero, like 7030, needs it back."
+excel = "Format the ZIP column as Text before typing, so Excel keeps leading zeros, then correct the ZIP and save the file."
+
+[zip_unicode_digits]
+title = "ZIP uses characters that only look like digits"
+means = "The ZIP is written with digits from another character set, such as full-width digits. They aren't accepted as a ZIP."
+check = "Retype the ZIP with ordinary digits."
+excel = "Select the ZIP cell, delete it, type the five digits again, and save the file."
+
+[city_not_recognized]
+title = "City not recognized: check it"
+means = "The city isn't a borough, a known spelling of one, or a listed neighborhood. It was kept as typed, and the address isn't placed until someone checks it."
+check = "Check the spelling. If the ZIP's borough is shown, it's a suggestion, never a change."
+excel = "Filter the City column for the value shown, correct it, and save the file."
+
+[city_zip_disagree]
+title = "City and ZIP disagree"
+means = "The city names one borough and the ZIP belongs to another, or to a place outside New York City. Both were kept as typed."
+check = "Check which one is right in the source system."
+excel = "Filter on the ZIP shown, then correct the city or the ZIP, and save the file."
+
+[state_not_recognized]
+title = "State not recognized"
+means = "The state isn't a US state, or it's blank beside a ZIP outside New York City."
+check = "Check the state in the source system."
+excel = "Filter the State column for the value shown, correct it to a two-letter code, and save the file."
+
+[state_zip_disagree]
+title = "State and ZIP disagree"
+means = "The state is another state, but the ZIP is a New York City ZIP. One of the two is a typo. Both were kept as typed."
+check = "Check which one is right in the source system."
+excel = "Filter on the ZIP shown, then correct the state or the ZIP, and save the file."
+
+[address_incomplete]
+title = "Address incomplete"
+means = "The state and the ZIP are both blank, so there's nothing to place the address with. The person is still counted."
+check = "Look up the address in the source system."
+excel = "Filter the State and ZIP columns for blanks, fill them in, and save the file."
+
+[address_text_disagrees]
+title = "The street line names a different city, state or ZIP"
+means = "The street line includes a city, state or ZIP that doesn't match its own column. Nothing was changed."
+check = "Check which one is right in the source system."
+excel = "Filter the street column for the text shown, remove the extra part or correct the column, and save the file."
+
+[units_differ]
+title = "Two different units"
+means = "The street line ends in one apartment or unit, and Address 2 holds a different one. Both were kept as typed."
+check = "Check which unit is right in the source system."
+excel = "Remove the unit from the street column, keep the right one in Address 2, and save the file."
+
+[placeholder_in_value]
+title = "Placeholder in place of a value"
+means = "A word like Unknown, TBD or 0 stood in for a real value, so it was treated as blank."
+check = "Look up the real value in the source system. If there isn't one, accept it as it is."
+excel = "Filter the column for the placeholder shown, replace it with the real value or leave the cell empty, and save the file."
+
+[name_may_be_placeholder]
+title = "Name may be a placeholder"
+means = "The name is a word like Na, Nan, None or Nil. Those are real names in some languages, so it was kept as typed."
+check = "Check that it's the person's real name. If it is, accept it as it is."
+excel = "Filter the name column for the value shown and correct it if it isn't a real name."
+
+[digits_in_name]
+title = "Name has digits in it"
+means = "A name with digits usually means the columns were matched one across."
+check = "Check that the right columns are matched, and that the name is typed correctly."
+excel = "Filter the name column for values with digits, correct them, and save the file."
+
+[unreadable_character]
+title = "Value has an unreadable character"
+means = "The value holds a replacement character, which means the source file lost a letter when it was saved."
+check = "Look up the value in the source system and export the file again as UTF-8."
+excel = "Save the file from Excel as CSV UTF-8, or retype the affected value, and add it again."
+
+[date_not_readable]
+title = "Date can't be read"
+means = "The value doesn't look like a date in any form this tool reads."
+check = "Look up the date in the source system."
+excel = "Format the column as a date, or type the date as YYYY-MM-DD, and save the file."
+
+[date_impossible]
+title = "Date doesn't exist"
+means = "The value looks like a date, but there's no such day on the calendar, or it can't be read in this table's date order."
+check = "Check the day and month in the source system."
+excel = "Filter the date column for the value shown, correct it, and save the file."
+
+[date_order_unclear]
+title = "Day and month order is unclear"
+means = "This table's dates could be month first or day first, and nothing in the column settles it. Answer the question on Match your columns."
+check = "Check how the source system writes dates."
+excel = "Write the dates as YYYY-MM-DD in the source, which needs no order, and save the file."
+
+[date_both_ways]
+title = "Dates in this column are written both ways"
+means = "Some dates in this column can only be month first and others can only be day first."
+check = "Choose the order on Match your columns. Only the dates that contradict it stay here."
+excel = "Write the dates as YYYY-MM-DD in the source, which needs no order, and save the file."
+
+[date_two_digit_year]
+title = "Two-digit year: check the century"
+means = "A two-digit year could be the 1900s or the 2000s. Both readings are shown, and nothing is guessed."
+check = "Set the two-digit year rule on Match your columns, or check the date in the source system."
+excel = "Format the column to show four-digit years, correct the dates, and save the file."
+
+[date_excel_number]
+title = "Looks like an Excel date number"
+means = "Five digits in a date column are often a date Excel stored as a number. The date it would be is shown, but nothing was converted."
+check = "Check the date in the source system. If the shown date is right, fix the source."
+excel = "Select the column, set its format to Date, and save the file."
+
+[dob_out_of_range]
+title = "Date of birth is in the future or before 1900"
+means = "This date of birth can't be right, so it doesn't count as a valid date of birth."
+check = "Look up the date of birth in the source system."
+excel = "Filter the date of birth column for the value shown, correct it, and save the file."
+
+[dob_age_over_115]
+title = "Age is over 115"
+means = "This date of birth makes the person older than 115. It's still treated as a valid date, but it's worth checking."
+check = "Look up the date of birth in the source system. If it's right, accept it as it is."
+excel = "Filter the date of birth column for the value shown, correct it if it's wrong, and save the file."
+
+[value_wrong_type]
+title = "Value doesn't fit its field type"
+means = "The field expects a number, a date or yes or no, and this value isn't one."
+check = "Look up the value in the source system."
+excel = "Filter the column for the value shown, correct it, and save the file."
+
+[value_too_long]
+title = "Value is longer than its field allows"
+means = "The value has more characters than the field's maximum length."
+check = "Check the value in the source system, or raise the maximum length on Your columns."
+excel = "Filter the column for long values, shorten them, and save the file."
+
+[required_field_blank]
+title = "Required field has no value"
+means = "This field is required but is blank on this row. It doesn't stop the person being counted."
+check = "Look up the value in the source system. If there isn't one, accept it as it is."
+excel = "Filter the column for blanks, fill them in, and save the file."

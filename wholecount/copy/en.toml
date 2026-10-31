@@ -235,3 +235,12 @@ text = "This step found nothing to split in this column."
 
 [tidy.amber.no_lookup_available]
 text = "No address lookup is available, so no ZIP could be calculated. Add Geosupport or the address reference to use this step."
+
+[set_aside.summary_row]
+text = "This row is a total or a heading, not a person, so it was set aside."
+
+[progress.rows_checked]
+text = "{done} of {total} rows checked"
+
+[progress.found.checking_rows]
+text = "{counted} of {rows} rows counted"
