@@ -28,6 +28,7 @@ def build_qss(tokens):
     add = out.append
     add(f"QWidget {{ background: transparent; color: {c['ink']}; }}")
     add(f"QMainWindow, QWidget#centralRoot {{ background: {c['bg-page']}; }}")
+    add(f"QDialog {{ background: {c['bg-card']}; }}")
     add(f"QScrollArea, QScrollArea > QWidget > QWidget#stageBody {{ background: {c['bg-page']}; border: 0px; }}")
     add(f"QToolTip {{ background: {c['bg-card']}; color: {c['ink']}; border: 1px solid {c['line']}; border-radius: 0px; }}")
     # Labels by role, then tone.
