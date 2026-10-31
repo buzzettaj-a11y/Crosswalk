@@ -2521,3 +2521,180 @@ text = "Pick each file's program column, confirm or split the proposed groups, t
 
 [common.ok]
 text = "OK"
+
+# Process (M12 section 1)
+
+[run.process]
+text = "Process everything"
+[run.process_again]
+text = "Process again"
+[run.continue]
+text = "Continue to Fix problems"
+[run.hold.blocker]
+text = "Held until {field} is matched for {table}."
+claim = "CL-RUN-HOLD-BLOCKER-01"
+[run.hold.programs]
+text = "Held until {n} program groups are confirmed or kept separate."
+claim = "CL-RUN-HOLD-PROGRAMS-01"
+[run.up_to_date]
+text = "Up to date"
+[run.pre.kicker]
+text = "What this run will do"
+[run.pre.reads]
+text = "Reads {n} tables from {m} files, once. Nothing in them changes."
+claim = "CL-RUN-READS-01"
+[run.pre.checks]
+text = "Tidies with {k} steps, checks every row, finds copies inside each file, and finds the same person across files. Rows that need a person go to Fix problems."
+claim = "CL-RUN-CHECKS-01"
+[run.pre.backend.geosupport]
+text = "Places addresses with Geosupport Desktop Edition."
+claim = "CL-RUN-BACKEND-01"
+[run.pre.backend.reference]
+text = "Places addresses with the reference file you installed. Only exact matches are placed."
+claim = "CL-RUN-BACKEND-02"
+[run.pre.backend.none]
+text = "Does not place addresses, because neither Geosupport nor a reference file is installed. Rows are still checked and counted, and every location reads Not mapped."
+claim = "CL-RUN-BACKEND-03"
+[run.pre.backend.practice]
+text = "Practice run. Uses the small sample address file, so locations are for practice only."
+claim = "CL-RUN-BACKEND-04"
+[run.pre.maps.default]
+text = "Keeps coordinates out of your clean file. Map counts under 11 are left blank."
+claim = "CL-RUN-MAPS-01"
+[run.pre.maps.coords]
+text = "Map counts under 11 are left blank. Exact coordinates are on, for internal use."
+claim = "CL-RUN-MAPS-02"
+[run.pre.maps.points]
+text = "Keeps coordinates out of your clean file. Map counts under 11 are left blank. Moved points are on, each moved 150 to 250 feet. Districts come from the true point."
+claim = "CL-RUN-MAPS-03"
+[run.pre.maps.both]
+text = "Map counts under 11 are left blank. Exact coordinates are on, for internal use. Moved points are on, each moved 150 to 250 feet. Districts come from the true point."
+claim = "CL-RUN-MAPS-04"
+[run.pre.change]
+text = "Change"
+[run.settings.kicker]
+text = "Run settings"
+[run.settings.geocoder]
+text = "Geocoder"
+[run.settings.backend.geosupport]
+text = "Geosupport Desktop Edition"
+[run.settings.backend.reference]
+text = "Address reference file"
+[run.settings.backend.practice]
+text = "Sample address file, practice only"
+[run.settings.backend.none]
+text = "None"
+[run.settings.ready]
+text = "READY"
+[run.settings.not_installed]
+text = "NOT INSTALLED"
+[run.settings.reference_rows]
+text = "{n} addresses in the file"
+[run.settings.two_files]
+text = "Two files are in the reference folder, so none is used."
+[run.settings.local]
+text = "Geosupport Desktop Edition is checked on this computer. Nothing is sent anywhere."
+[run.settings.extra]
+text = "Extra Geosupport fields (optional)"
+[run.settings.field.census_tract]
+text = "Census tract"
+[run.settings.selected]
+text = "{n} selected"
+[run.settings.extra_off]
+text = "These come from Geosupport Desktop Edition and can be ticked once it is active."
+[run.panel.kicker]
+text = "Running"
+[run.panel.step]
+text = "Step {i} of {n} · {step}"
+[run.panel.elapsed]
+text = "{secs} s"
+[run.cancelling]
+text = "Cancelling..."
+[run.cancelled]
+text = "Cancelled. Nothing was changed."
+claim = "CL-CANCEL-UNCHANGED-01"
+[run.failed]
+text = "The run stopped while {step}. Nothing was changed."
+claim = "CL-CANCEL-UNCHANGED-02"
+[run.try_again]
+text = "Try again"
+[run.copy_code]
+text = "Copy the error code"
+[run.done.line]
+text = "Last run finished in {secs} s · {n} steps, nothing written to disk"
+claim = "CL-RUN-NOWRITE-01"
+[run.out_of_date]
+text = "Out of date. {what} Process again."
+[run.stale.sources]
+text = "The files changed."
+[run.stale.tables]
+text = "The tables changed."
+[run.stale.steps]
+text = "A tidy-up step changed."
+[run.stale.mappings]
+text = "A column match changed."
+[run.stale.standardized]
+text = "A default or date order changed."
+[run.stale.checks]
+text = "A check changed."
+[run.stale.geo]
+text = "A run setting changed."
+[run.stale.copies]
+text = "Copies changed."
+[run.stale.decisions]
+text = "A decision changed."
+[run.stale.identity]
+text = "A same-person decision changed."
+[run.stale.programs]
+text = "A program changed."
+[run.stale.counts]
+text = "The counts changed."
+[run.stale.confidence]
+text = "Confidence changed."
+[run.stale.exports]
+text = "A download setting changed."
+[run.log.step]
+text = "STEP"
+[run.log.took]
+text = "TOOK"
+[run.log.found]
+text = "FOUND"
+[run.found.kicker]
+text = "What the run found"
+[run.found.balance]
+text = "{counted} + {not_counted_yet} + {aside} = {received} rows received"
+claim = "CL-BALANCE-TABLES-01"
+[run.found.balance_note]
+text = "The three add up to the rows received."
+[run.found.loc_sum]
+text = "{high} + {low} + {not_mapped} = {counted} rows counted"
+[run.found.loc]
+text = "Not mapped rows are counted. They are just not on the map."
+claim = "CL-BALANCE-LOC-02"
+[run.found.box.counted]
+text = "Counted"
+[run.found.box.counted_means]
+text = "In both counts."
+[run.found.box.not_counted_yet]
+text = "Not counted yet"
+[run.found.box.not_counted_yet_means]
+text = "Waiting for a decision on Fix problems."
+[run.found.box.set_aside]
+text = "Set aside"
+[run.found.box.set_aside_means]
+text = "Kept in the set-aside file, never counted."
+[run.found.see]
+text = "See them"
+[run.found.per_table]
+text = "Per table"
+[run.found.table_line]
+text = "{c} counted · {n} not yet · {a} aside · {m} mapped · {u} not mapped · {r} in all"
+[run.found.fault]
+text = "These numbers do not add up. That is a fault in {product}. Nothing was written, and the counts stay hidden."
+[run.found.outside]
+text = "{a} rows are in tables you left out, {b} are in blocks that are not tables, and {c} are above the headers. They are listed on Add your files and are not counted."
+claim = "CL-BALANCE-BATCH-01"
+[run.go_review]
+text = "Go to Fix problems"
+[run.go_results]
+text = "Go to Results"

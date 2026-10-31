@@ -102,6 +102,12 @@ class SessionBridge(QObject):
         sv = self.survey()
         return list(sv.loaded.values()) if sv else []
 
+    def export_settings(self):
+        """Download's settings, from the set-up's export_settings section (M09)."""
+        from wholecount.session.frame import export_settings
+
+        return export_settings(self.session)
+
     def pref(self, key, default=None):
         """A view choice from prefs.json (SPEC H9), or from memory when there's no store."""
         store = self.store()

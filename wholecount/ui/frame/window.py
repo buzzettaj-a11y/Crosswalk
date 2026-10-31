@@ -74,6 +74,7 @@ class MainWindow(QMainWindow):
         self.drop_guard = guard()
         self.grid_states = GridStates()
         self.program_notice = None
+        self.queue_request = None
         self._after_job = None
         self.model = None
         self.current = "sources"
@@ -269,6 +270,8 @@ class MainWindow(QMainWindow):
         if not self.bridge.start_job(job):
             return False
         self.model = ProgressModel(job.action_id)
+        if hasattr(self.stage_widget, "job_started"):
+            self.stage_widget.job_started(self.model)
         self.ticker.start()
         self.run_hold.hold()
         self.strip.set_run_fractions({sid: 0.0 for sid in self.model.owners()})
@@ -294,6 +297,8 @@ class MainWindow(QMainWindow):
 
     def _show_progress(self):
         self.ticker.show_progress(self.model)
+        if hasattr(self.stage_widget, "job_progress"):
+            self.stage_widget.job_progress(self.model)
         self.strip.set_run_fractions({sid: self.model.stage_fraction(sid) for sid in self.model.owners()})
         if self.dropdown.isVisible() and hasattr(self.dropdown.content, "show_model"):
             self.dropdown.content.show_model(self.model)
@@ -362,6 +367,15 @@ class MainWindow(QMainWindow):
         self.bridge.delete_saved(entry)
         self.refresh()
 
+    def _stage_job_ended(self, how, code=None, step=None):
+        if hasattr(self.stage_widget, "job_ended"):
+            self.stage_widget.job_ended(how, code, step)
+
+    def open_queue(self, status):
+        """Fix problems, step 2, on one status tab."""
+        self.queue_request = status
+        self.go_to("review")
+
     def _job_over(self):
         self.run_hold.release()
         self.strip.set_run_fractions(None)
@@ -369,6 +383,7 @@ class MainWindow(QMainWindow):
 
     def _finished(self, outcome):
         self.ticker.finished(outcome, self.view.saved_progress)
+        self._stage_job_ended("finished")
         self._job_over()
         then, self._after_job = self._after_job, None
         if then:
@@ -377,12 +392,14 @@ class MainWindow(QMainWindow):
 
     def _cancelled(self):
         self.ticker.cancelled()
+        self._stage_job_ended("cancelled")
         self._job_over()
         a11y.announce(self.ticker.left.text())
 
     def _failed(self, code, step):
         name = copy.get(f"progress.step.{step.value}") if step is not None else copy.get("action.process")
         self.ticker.failed(name, code)
+        self._stage_job_ended("failed", code, step)
         self._job_over()
         a11y.announce(self.ticker.left.text())
 

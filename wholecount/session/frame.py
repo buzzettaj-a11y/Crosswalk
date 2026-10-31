@@ -49,3 +49,34 @@ def corrections_files(load):
     and Signature. They are corrections, never a source (SPEC 9.3)."""
     letters = {t.letter for t in load.tables if CORRECTIONS_HEADER <= set(t.headers)}
     return [o.name for o in load.files if o.letter in letters]
+
+
+def backend_kind(backend):
+    """Which pre-run backend line applies: geosupport, reference, practice or none (P-GEO-4). From the backend itself."""
+    name = getattr(backend, "name", "none")
+    return {"geosupport": "geosupport", "reference": "reference", "reference_sample": "practice"}.get(name, "none")
+
+
+def stale_reason(session):
+    """The earliest out-of-date node, for the Process line `Out of date. {what changed}.`"""
+    from wholecount.session import staleness
+
+    return staleness.earliest(session.stale)
+
+
+def extra_geo_fields():
+    """The extra Geosupport fields M05's GeoOptions lists (only census tract today)."""
+    from wholecount.engine.geo.backend import GeoOptions
+
+    return tuple(getattr(GeoOptions, "AVAILABLE", ("census_tract",)))
+
+
+def export_settings(session):
+    """ExportSettings from the set-up's export_settings section: formats, columns off, Map_Points, exact coordinates."""
+    from wholecount.engine.outputs.view import ExportSettings
+
+    if session is None:
+        return ExportSettings()
+    sec = dict(session.setup.sections.get("export_settings", {}))
+    known = {k: sec[k] for k in ("formats", "columns_off", "map_points", "exact_coordinates", "include_file_names") if k in sec}
+    return ExportSettings(**known)
