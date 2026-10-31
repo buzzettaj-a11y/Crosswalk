@@ -917,6 +917,10 @@ claim = "CL-OUT-06"
 text = "Latitude and Longitude are exact. For internal use only."
 claim = "CL-OUT-07"
 
+[outputs.note.crosswalk_failed]
+text = "The saved crosswalk wasn't updated."
+claim = "CL-XW-FAILED-01"
+
 [outputs.note.open_pairs]
 text = "{count} possible same-person pairs were open, so the people files treat them as different people."
 claim = "CL-OUT-08"

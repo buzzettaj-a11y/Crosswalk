@@ -211,6 +211,12 @@ def download(session, folder, settings=None, clock=None, confirmed_synced=False,
     import pathlib
     session.log(entry("DOWNLOAD", file_name=[pathlib.Path(f.path).name for f in receipt.files], count=len(receipt.files),
                       reviewer=session.reviewer or None))
+    from wholecount.session.crosswalk import commit_after_download
+
+    if commit_after_download(session) == "failed":
+        import dataclasses
+
+        receipt = dataclasses.replace(receipt, notes=tuple(receipt.notes) + (("outputs.note.crosswalk_failed", {}),))
     return receipt
 
 
