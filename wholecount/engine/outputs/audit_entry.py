@@ -44,11 +44,12 @@ _PATTERNS = {
     "rule_id": re.compile(r"[A-Z][A-Za-z0-9.-]*"),
     "release": re.compile(r"[0-9A-Za-z]{0,12}"),
     "backend_name": _CODE,
+    "fingerprint": re.compile(r"[0-9a-f]{64}"),
     "time_iso": re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})"),
 }
 STRING_SLOTS = ("record_key", "table_key", "letter", "field_name", "column_name", "rule_id", "decision_id", "program_name",
                 "backend_name", "release", "master_id", "reason_code", "reviewer", "second_reviewer", "time_iso", "file_name",
-                "note")
+                "note", "fingerprint")
 INT_SLOTS = ("row_number", "count", "typed_count")
 HASH_SLOTS = ("old_hash", "new_hash")
 SLOTS = STRING_SLOTS + INT_SLOTS + HASH_SLOTS

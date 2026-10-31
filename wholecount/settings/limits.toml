@@ -1,0 +1,3 @@
+# Limits for what Wholecount keeps on disk (SPEC 10.1 to 10.3).
+saved_progress_days = 7
+setup_max_bytes = 1_000_000
