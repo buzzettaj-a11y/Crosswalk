@@ -37,6 +37,10 @@ jobs:
       - name: make copy
         run: make copy
 
+      # M15: the user guide and the doc references must match the code.
+      - name: make docs-check
+        run: make docs-check
+
       # M14: the spec's logic on Linux. WHOLECOUNT_REQUIRE_BUNDLE makes the bundle tests fail rather than skip.
       - name: Install the build lock
         run: >

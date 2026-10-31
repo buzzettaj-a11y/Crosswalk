@@ -1,7 +1,7 @@
 # Same target names on every platform (CLAUDE.md). Run inside the activated .venv.
 PYTHON ?= python
 
-.PHONY: test offline copy screens run bundle lock installer sign release
+.PHONY: test offline copy screens run bundle lock installer sign release docs docs-check
 
 # Exported by make rather than written before the command, so it works in cmd.exe as well as sh.
 test: export QT_QPA_PLATFORM = offscreen
@@ -20,6 +20,14 @@ run:
 screens: export QT_QPA_PLATFORM = offscreen
 screens:
 	$(PYTHON) -m tools.screens
+
+# M15: the user guide is generated from the copy registry. docs-check fails when the committed guide is out of date.
+docs: export QT_QPA_PLATFORM = offscreen
+docs: screens
+	$(PYTHON) tools/make_docs.py
+
+docs-check:
+	$(PYTHON) tools/make_docs.py --check
 
 bundle:
 	$(PYTHON) tools/make_version_info.py

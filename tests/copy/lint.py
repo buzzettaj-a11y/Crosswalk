@@ -37,7 +37,9 @@ def problems(text, words, check_exclamation):
 
 def scanned_docs(root=ROOT):
     """Milestone docs, the test-folder docs and M14's two docs for IT and the maintainer."""
-    extra = [root / "docs" / n for n in ("IT_TRUST.md", "SIGNING.md") if (root / "docs" / n).exists()]
+    extra = [root / "docs" / n for n in ("IT_TRUST.md", "SIGNING.md", "USER_GUIDE.md", "REFERENCE_DATA.md", "PERFORMANCE.md")
+             if (root / "docs" / n).exists()]
+    extra += [root / "README.md"] if (root / "README.md").exists() else []
     return sorted((root / "docs" / "milestones").glob("*.md")) + sorted((root / "tests").rglob("*.md")) + extra
 
 

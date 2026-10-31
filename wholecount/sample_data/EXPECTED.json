@@ -1014,6 +1014,17 @@
           "no_geocoder": 266
         }
       }
+    },
+    "practice_run_after_decisions": {
+      "mapped_high": 261,
+      "mapped_low": 0,
+      "not_mapped": {
+        "no_fixed_address": 1,
+        "outside_nyc": 1,
+        "address_problem": 3,
+        "not_found": 3,
+        "no_geocoder": 0
+      }
     }
   },
   "outputs": {

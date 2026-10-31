@@ -368,6 +368,10 @@ def locations_section(pl, not_found, reference_count):
         "looked_up": len(looked_up),
         "practice_run": {f: _split(pl.records[f], practice) for f in FILES} | {"total": _split(all_records(pl), practice)},
         "no_backend_run": {f: _split(pl.records[f], no_backend) for f in FILES} | {"total": _split(all_records(pl), no_backend)},
+        # M15: the split once the planned decisions are made, for the guide's second balance. The copies a person keeps one
+        # of are set aside, and the same-ID conflict rows are counted once decided as different people.
+        "practice_run_after_decisions": _split([r for r in all_records(pl)
+                                                if not any(r is rs[1] for _, rs in pl.copy_groups)], practice),
     }
 
 
