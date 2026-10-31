@@ -31,17 +31,23 @@ def _range(r):
     return copy.get("counts.range", low=r.low, high=r.high) if r.low != r.high else f"{r.high:,}"
 
 
+def confidence_reason(conf):
+    """The one-line reason for the level, from the engine's parts (SPEC 7.4). The screen and the summary both use it."""
+    if conf.level is None:
+        return ""
+    if conf.level == "high":
+        counted = dict((n, (a, b)) for n, a, b in conf.measures)
+        return copy.get("confidence.high_reason", counted=counted["counted"][0], received=counted["counted"][1],
+                        high=counted["placed"][0], looked_up=counted["placed"][1])
+    parts = [copy.get(f"confidence.part.{code}", **params) for code, params in conf.parts]
+    body = parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + ", and " + parts[-1]
+    return f"{body.rstrip('.')}."
+
+
 def confidence_sentence(conf):
     if conf.level is None:
         return ""
-    head = copy.get(f"confidence.level.{conf.level}")
-    if conf.level == "high":
-        counted = dict((n, (a, b)) for n, a, b in conf.measures)
-        return f"{head}. " + copy.get("confidence.high_reason", counted=counted["counted"][0], received=counted["counted"][1],
-                                      high=counted["placed"][0], looked_up=counted["placed"][1])
-    parts = [copy.get(f"confidence.part.{code}", **params) for code, params in conf.parts]
-    body = parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + ", and " + parts[-1]
-    return f"{head}. {body.rstrip('.')}."
+    return f"{copy.get(f'confidence.level.{conf.level}')}. {confidence_reason(conf)}"
 
 
 def final_line(counts):

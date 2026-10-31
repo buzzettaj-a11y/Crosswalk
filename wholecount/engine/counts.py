@@ -197,3 +197,11 @@ def count(outcomes, identity, person_of_record, program_of_record, open_pairs, o
         dob_coverage=(sum(1 for rk in counted if rk in dob_valid), len(counted)),
         not_final_codes=tuple(codes),
     )
+
+
+def ledger_lines(balance, locations):
+    """The ledger's form of the same two equations (A-22): rows by status, then counted rows by where they're placed."""
+    (_, rows), (_, loc) = balance_lines(balance)
+    return (("ledger.standing.sum", rows),
+            ("ledger.loc.sum", {"high": locations.high, "low": locations.low, "not_mapped": loc["not_mapped"],
+                                "counted": loc["counted"]}))
