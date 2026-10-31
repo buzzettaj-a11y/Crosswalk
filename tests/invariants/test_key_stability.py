@@ -28,6 +28,16 @@ def test_add_order_changes_only_letters(order):
     assert [f.letter for f in r.files] == ["A", "B", "C", "D", "E"]
 
 
+def test_letters_from_a_used_letter_book_change_no_key():
+    from wholecount.engine.systems import LetterBook
+    book = LetterBook()
+    for fp in ("x", "y", "z"):
+        book.release(book.assign(fp))
+    r = load([DATA / n for n in reversed(NAMES)], letters=book)
+    assert [f.letter for f in r.files] == ["D", "E", "F", "G", "H"]
+    assert keyed(r) == keyed(BASE)
+
+
 def test_re_export_keeps_every_other_record_key(tmp_path):
     rows = list(csv.reader(io.StringIO((DATA / "example_clinic.csv").read_text(encoding="utf-8"), newline="")))
     before = load([DATA / "example_clinic.csv"]).tables[0]

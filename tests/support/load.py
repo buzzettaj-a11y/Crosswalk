@@ -7,5 +7,5 @@ from wholecount.session.loader import load_files
 from wholecount.session.secret_store import InstallSecret
 
 
-def load(paths, keep=frozenset(), secret=TEST_SECRET, sink=None):
-    return load_files([pathlib.Path(p) for p in paths], sink or NullSink(), InstallSecret(secret), keep)
+def load(paths, keep=frozenset(), secret=TEST_SECRET, sink=None, letters=None):
+    return load_files([pathlib.Path(p) for p in paths], sink or NullSink(), InstallSecret(secret), letters, keep)
