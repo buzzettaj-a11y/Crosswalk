@@ -1,0 +1,603 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<clients>
+  <client>
+    <ClientNumber>40021</ClientNumber>
+    <FirstName>Gideon</FirstName>
+    <LastName>Duarte</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1955-04-03</BirthDate>
+    <Street>867 Columbus Ave</Street>
+    <Apt></Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10025</Zip>
+  </client>
+  <client>
+    <ClientNumber>40002</ClientNumber>
+    <FirstName>Yara</FirstName>
+    <LastName>Kowalczyk</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1941-02-17</BirthDate>
+    <Street>3041 Broadway</Street>
+    <Apt></Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10027</Zip>
+  </client>
+  <client>
+    <ClientNumber>40033</ClientNumber>
+    <FirstName>Angela</FirstName>
+    <LastName>Yeboah</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1968-09-12</BirthDate>
+    <Street>1719 Lexington Ave</Street>
+    <Apt>#2R</Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10029</Zip>
+  </client>
+  <client>
+    <ClientNumber>40044</ClientNumber>
+    <FirstName>Ivan</FirstName>
+    <LastName>Kowalczyk</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>2003-12-07</BirthDate>
+    <Street>478 Fordham Rd</Street>
+    <Apt></Apt>
+    <City>Bronx</City>
+    <State>NY</State>
+    <Zip>10458</Zip>
+  </client>
+  <client>
+    <ClientNumber>40012</ClientNumber>
+    <FirstName>Mina</FirstName>
+    <LastName>Fajardo</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1973-07-15</BirthDate>
+    <Street>3222 Steinway St</Street>
+    <Apt></Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11103</Zip>
+  </client>
+  <client>
+    <ClientNumber>40048</ClientNumber>
+    <FirstName>Felix</FirstName>
+    <LastName>Barros</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>2002-08-27</BirthDate>
+    <Street>2128 Westchester Ave</Street>
+    <Apt></Apt>
+    <City>Bronx</City>
+    <State>NY</State>
+    <Zip>10462</Zip>
+  </client>
+  <client>
+    <ClientNumber>40014</ClientNumber>
+    <FirstName>Liam</FirstName>
+    <LastName>Okafor</LastName>
+    <MiddleInitial>W</MiddleInitial>
+    <BirthDate>1954-11-25</BirthDate>
+    <Street>462 Fordham Rd</Street>
+    <Apt></Apt>
+    <City>Bronx</City>
+    <State>NY</State>
+    <Zip>10458</Zip>
+  </client>
+  <client>
+    <ClientNumber>40038</ClientNumber>
+    <FirstName>Felix</FirstName>
+    <LastName>Quintero</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1969-01-05</BirthDate>
+    <Street>3077 Broadway</Street>
+    <Apt>Apt 7G</Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10027</Zip>
+  </client>
+  <client>
+    <ClientNumber>40018</ClientNumber>
+    <FirstName>Sofia</FirstName>
+    <LastName>Mendoza</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1977-12-05</BirthDate>
+    <Street>277 Victory Blvd</Street>
+    <Apt>Apt 2B</Apt>
+    <City>Staten Island</City>
+    <State>NY</State>
+    <Zip>10301</Zip>
+  </client>
+  <client>
+    <ClientNumber>40004</ClientNumber>
+    <FirstName>Thaddeus</FirstName>
+    <LastName>Brightwater</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate></BirthDate>
+    <Street>265 2nd Ave</Street>
+    <Apt>Apt 5D</Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10003</Zip>
+  </client>
+  <client>
+    <ClientNumber>40026</ClientNumber>
+    <FirstName>Dmitri</FirstName>
+    <LastName>Thibodeaux</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1967-10-15</BirthDate>
+    <Street>1312 Myrtle Ave</Street>
+    <Apt>Apt 2B</Apt>
+    <City>Brooklyn</City>
+    <State>NY</State>
+    <Zip>11237</Zip>
+  </client>
+  <client>
+    <ClientNumber>40025</ClientNumber>
+    <FirstName>Chloe</FirstName>
+    <LastName>Efron</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1983-04-23</BirthDate>
+    <Street>335 Fordham Rd</Street>
+    <Apt></Apt>
+    <City>Bronx</City>
+    <State>NY</State>
+    <Zip>10458</Zip>
+  </client>
+  <client>
+    <ClientNumber>40036</ClientNumber>
+    <FirstName>Fiona</FirstName>
+    <LastName>Lacroix</LastName>
+    <MiddleInitial>R</MiddleInitial>
+    <BirthDate>1974-06-08</BirthDate>
+    <Street>1949 Westchester Ave</Street>
+    <Apt></Apt>
+    <City>Bronx</City>
+    <State>NY</State>
+    <Zip>10462</Zip>
+  </client>
+  <client>
+    <ClientNumber>40024</ClientNumber>
+    <FirstName>Victor</FirstName>
+    <LastName>Beaumont</LastName>
+    <MiddleInitial>R</MiddleInitial>
+    <BirthDate>1967-02-09</BirthDate>
+    <Street>10223 Queens Blvd</Street>
+    <Apt></Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11375</Zip>
+  </client>
+  <client>
+    <ClientNumber>40020</ClientNumber>
+    <FirstName>Deborah</FirstName>
+    <LastName>Pacheco</LastName>
+    <MiddleInitial>R</MiddleInitial>
+    <BirthDate>2004-08-01</BirthDate>
+    <Street>272 Nostrand Ave</Street>
+    <Apt></Apt>
+    <City>Brooklyn</City>
+    <State>NY</State>
+    <Zip>11216</Zip>
+  </client>
+  <client>
+    <ClientNumber>40029</ClientNumber>
+    <FirstName>Renata</FirstName>
+    <LastName>Underhill</LastName>
+    <MiddleInitial>B</MiddleInitial>
+    <BirthDate>1954-09-05</BirthDate>
+    <Street>472 Atlantic Ave</Street>
+    <Apt></Apt>
+    <City>Brooklyn</City>
+    <State>NY</State>
+    <Zip>11217</Zip>
+  </client>
+  <client>
+    <ClientNumber>40001</ClientNumber>
+    <FirstName>Joanna</FirstName>
+    <LastName>Sokolov</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1993-05-31</BirthDate>
+    <Street>556 Amsterdam Ave</Street>
+    <Apt></Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10024</Zip>
+  </client>
+  <client>
+    <ClientNumber>40013</ClientNumber>
+    <FirstName>Quentin</FirstName>
+    <LastName>Zamora</LastName>
+    <MiddleInitial>F</MiddleInitial>
+    <BirthDate>1953-02-06</BirthDate>
+    <Street>3001 Broadway</Street>
+    <Apt>Apt 3</Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10027</Zip>
+  </client>
+  <client>
+    <ClientNumber>40019</ClientNumber>
+    <FirstName>Kwame</FirstName>
+    <LastName>Orellana</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1977-03-09</BirthDate>
+    <Street>401 St Nicholas Ave</Street>
+    <Apt></Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10032</Zip>
+  </client>
+  <client>
+    <ClientNumber>40009</ClientNumber>
+    <FirstName>Fiona</FirstName>
+    <LastName>Pemberton</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1979-09-03</BirthDate>
+    <Street>554 Atlantic Ave</Street>
+    <Apt></Apt>
+    <City>Brooklyn</City>
+    <State>NY</State>
+    <Zip>11217</Zip>
+  </client>
+  <client>
+    <ClientNumber>40006</ClientNumber>
+    <FirstName>Paloma</FirstName>
+    <LastName>Fairbanks</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1976-10-05</BirthDate>
+    <Street>378 Nostrand Ave</Street>
+    <Apt>Unit 3</Apt>
+    <City>Brooklyn</City>
+    <State>NY</State>
+    <Zip>11216</Zip>
+  </client>
+  <client>
+    <ClientNumber>40005</ClientNumber>
+    <FirstName>Olga</FirstName>
+    <LastName>Concepcion</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1940-11-30</BirthDate>
+    <Street>3080 Broadway</Street>
+    <Apt></Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10027-6912</Zip>
+  </client>
+  <client>
+    <ClientNumber>40035</ClientNumber>
+    <FirstName>Hassan</FirstName>
+    <LastName>Gonsalves</LastName>
+    <MiddleInitial>D</MiddleInitial>
+    <BirthDate>1971-10-10</BirthDate>
+    <Street>210 2nd Ave</Street>
+    <Apt>Fl 2</Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10003</Zip>
+  </client>
+  <client>
+    <ClientNumber>40034</ClientNumber>
+    <FirstName>Rafael</FirstName>
+    <LastName>Kowalczyk</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1980-02-02</BirthDate>
+    <Street>3149 Steinway St</Street>
+    <Apt></Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11103</Zip>
+  </client>
+  <client>
+    <ClientNumber>40027</ClientNumber>
+    <FirstName>Selena</FirstName>
+    <LastName>Acosta</LastName>
+    <MiddleInitial>L</MiddleInitial>
+    <BirthDate>1990-10-31</BirthDate>
+    <Street>10770 Queens Blvd</Street>
+    <Apt></Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11375</Zip>
+  </client>
+  <client>
+    <ClientNumber>40017</ClientNumber>
+    <FirstName>Zoe</FirstName>
+    <LastName>Olmstead</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1994-08-15</BirthDate>
+    <Street>546 Amsterdam Ave</Street>
+    <Apt></Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10024</Zip>
+  </client>
+  <client>
+    <ClientNumber>40022</ClientNumber>
+    <FirstName>Lorena</FirstName>
+    <LastName>Redmond</LastName>
+    <MiddleInitial>S</MiddleInitial>
+    <BirthDate>1975-08-13</BirthDate>
+    <Street>8396 Roosevelt Ave</Street>
+    <Apt>Apt 5D</Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11372</Zip>
+  </client>
+  <client>
+    <ClientNumber></ClientNumber>
+    <FirstName>Mariam</FirstName>
+    <LastName>Montague</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate></BirthDate>
+    <Street>16621 Jamaica Ave</Street>
+    <Apt>Apt 1F</Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11432</Zip>
+  </client>
+  <client>
+    <ClientNumber>40008</ClientNumber>
+    <FirstName>Emeka</FirstName>
+    <LastName>Zamora</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>2006-04-07</BirthDate>
+    <Street>16690 Jamaica Ave</Street>
+    <Apt>Unit 3</Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11432</Zip>
+  </client>
+  <client>
+    <ClientNumber>40047</ClientNumber>
+    <FirstName>Claudia</FirstName>
+    <LastName>Underhill</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1976-09-12</BirthDate>
+    <Street>2104 Richmond Ave</Street>
+    <Apt></Apt>
+    <City>Staten Island</City>
+    <State>NY</State>
+    <Zip>10314</Zip>
+  </client>
+  <client>
+    <ClientNumber>40007</ClientNumber>
+    <FirstName>Claudia</FirstName>
+    <LastName>Arroyo</LastName>
+    <MiddleInitial>R</MiddleInitial>
+    <BirthDate>1963-01-02</BirthDate>
+    <Street>16301 Jamaica Ave</Street>
+    <Apt></Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11432</Zip>
+  </client>
+  <client>
+    <ClientNumber>40039</ClientNumber>
+    <FirstName>Jasmine</FirstName>
+    <LastName>Albright</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1990-11-01</BirthDate>
+    <Street>862 Columbus Ave</Street>
+    <Apt>Apt 6A</Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10025</Zip>
+  </client>
+  <client>
+    <ClientNumber>40041</ClientNumber>
+    <FirstName>Ruth</FirstName>
+    <LastName>Jessup</LastName>
+    <MiddleInitial>H</MiddleInitial>
+    <BirthDate>1978-06-05</BirthDate>
+    <Street>2453 Richmond Ave</Street>
+    <Apt></Apt>
+    <City>Staten Island</City>
+    <State>NY</State>
+    <Zip>10314</Zip>
+  </client>
+  <client>
+    <ClientNumber>40043</ClientNumber>
+    <FirstName>Janelle</FirstName>
+    <LastName>Calloway</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1992-02-27</BirthDate>
+    <Street>2374 Grand Concourse</Street>
+    <Apt></Apt>
+    <City>Bronx</City>
+    <State>NY</State>
+    <Zip>10458</Zip>
+  </client>
+  <client>
+    <ClientNumber>40042</ClientNumber>
+    <FirstName>Fiona</FirstName>
+    <LastName>Beaumont</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1943-06-16</BirthDate>
+    <Street>523 Atlantic Ave</Street>
+    <Apt>#2R</Apt>
+    <City>Brooklyn</City>
+    <State>NY</State>
+    <Zip>11217</Zip>
+  </client>
+  <client>
+    <ClientNumber>40040</ClientNumber>
+    <FirstName>Jonah</FirstName>
+    <LastName>Marchetti</LastName>
+    <MiddleInitial>B</MiddleInitial>
+    <BirthDate>1970-01-23</BirthDate>
+    <Street>8433 Roosevelt Ave</Street>
+    <Apt></Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11372</Zip>
+  </client>
+  <client>
+    <ClientNumber>40046</ClientNumber>
+    <FirstName>Jonah</FirstName>
+    <LastName>Abernathy</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>2003-12-28</BirthDate>
+    <Street>466 Fordham Rd</Street>
+    <Apt>Apt 6A</Apt>
+    <City>Bronx</City>
+    <State>NY</State>
+    <Zip>10458</Zip>
+  </client>
+  <client>
+    <ClientNumber>40010</ClientNumber>
+    <FirstName>Mei</FirstName>
+    <LastName>Corriveau</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1988-10-31</BirthDate>
+    <Street>3116 Broadway</Street>
+    <Apt>Apt 7G</Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10027</Zip>
+  </client>
+  <client>
+    <ClientNumber>40030</ClientNumber>
+    <FirstName>Shanice</FirstName>
+    <LastName>Acosta</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1976-06-01</BirthDate>
+    <Street>1957 Westchester Ave</Street>
+    <Apt>Apt 3</Apt>
+    <City>Bronx</City>
+    <State>NY</State>
+    <Zip>10462</Zip>
+  </client>
+  <client>
+    <ClientNumber>40037</ClientNumber>
+    <FirstName>Zoe</FirstName>
+    <LastName>Castellanos</LastName>
+    <MiddleInitial>M</MiddleInitial>
+    <BirthDate>1950-10-18</BirthDate>
+    <Street>1385 Myrtle Ave</Street>
+    <Apt>Fl 2</Apt>
+    <City>Brooklyn</City>
+    <State>NY</State>
+    <Zip>11237</Zip>
+  </client>
+  <client>
+    <ClientNumber>40032</ClientNumber>
+    <FirstName>Grace</FirstName>
+    <LastName>Kaczmarek</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1974-01-14</BirthDate>
+    <Street>593 Amsterdam Ave</Street>
+    <Apt>Apt 2B</Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10024</Zip>
+  </client>
+  <client>
+    <ClientNumber>40003</ClientNumber>
+    <FirstName>Maria</FirstName>
+    <LastName>Delgado</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1972-08-21</BirthDate>
+    <Street>790 Forest Ave</Street>
+    <Apt></Apt>
+    <City>Staten Island</City>
+    <State>NY</State>
+    <Zip>10310</Zip>
+  </client>
+  <client>
+    <ClientNumber>40016</ClientNumber>
+    <FirstName>Marisol</FirstName>
+    <LastName>Madueke</LastName>
+    <MiddleInitial>H</MiddleInitial>
+    <BirthDate>1973-03-29</BirthDate>
+    <Street>3103 Broadway</Street>
+    <Apt></Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10027</Zip>
+  </client>
+  <client>
+    <ClientNumber>40015</ClientNumber>
+    <FirstName>Shanice</FirstName>
+    <LastName>Wakefield</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1954-07-29</BirthDate>
+    <Street>16506 Jamaica Ave</Street>
+    <Apt></Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11432</Zip>
+  </client>
+  <client>
+    <ClientNumber>40023</ClientNumber>
+    <FirstName>Adrian</FirstName>
+    <LastName>Zamora</LastName>
+    <MiddleInitial>D</MiddleInitial>
+    <BirthDate>1942-08-04</BirthDate>
+    <Street>2276 Flatbush Ave</Street>
+    <Apt>Apt 4C</Apt>
+    <City>Brooklyn</City>
+    <State>NY</State>
+    <Zip>11226</Zip>
+  </client>
+  <client>
+    <ClientNumber>40011</ClientNumber>
+    <FirstName>Irene</FirstName>
+    <LastName>Fajardo</LastName>
+    <MiddleInitial>A</MiddleInitial>
+    <BirthDate>1995-07-30</BirthDate>
+    <Street>3105 Steinway St</Street>
+    <Apt></Apt>
+    <City>Queens</City>
+    <State>NY</State>
+    <Zip>11103</Zip>
+  </client>
+  <client>
+    <ClientNumber>40031</ClientNumber>
+    <FirstName>Fiona</FirstName>
+    <LastName>Cordero</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1964-05-12</BirthDate>
+    <Street>531 Ocean Pkwy</Street>
+    <Apt>Apt 2B</Apt>
+    <City>Brooklyn</City>
+    <State>NY</State>
+    <Zip>11218</Zip>
+  </client>
+  <client>
+    <ClientNumber>40045</ClientNumber>
+    <FirstName>Valeria</FirstName>
+    <LastName>Escobedo</LastName>
+    <MiddleInitial>F</MiddleInitial>
+    <BirthDate>1955-10-01</BirthDate>
+    <Street>550 St Nicholas Ave</Street>
+    <Apt>Apt 1F</Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10032</Zip>
+  </client>
+  <client>
+    <ClientNumber>40028</ClientNumber>
+    <FirstName>Paloma</FirstName>
+    <LastName>Marchetti</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate>1949-05-07</BirthDate>
+    <Street>3016 Broadway</Street>
+    <Apt></Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10027</Zip>
+  </client>
+  <client>
+    <ClientNumber></ClientNumber>
+    <FirstName>Lamar</FirstName>
+    <LastName>Nakashima</LastName>
+    <MiddleInitial></MiddleInitial>
+    <BirthDate></BirthDate>
+    <Street>3023 Broadway</Street>
+    <Apt></Apt>
+    <City>New York</City>
+    <State>NY</State>
+    <Zip>10027</Zip>
+  </client>
+</clients>

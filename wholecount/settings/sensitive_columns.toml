@@ -1,0 +1,12 @@
+# Columns whose names suggest sensitive data (P-READ-9, H10). They are dropped at load unless the operator keeps them.
+# Each phrase is matched on whole words of the header, never on part of a word, so "Sexton" and "Grace" are safe.
+# Date of birth is deliberately absent, because it is a built-in field.
+
+[phrases]
+ssn = ["ssn", "social security"]
+medicaid = ["medicaid"]
+gender = ["gender", "sex"]
+race = ["race", "ethnicity"]
+religion = ["religion"]
+health = ["diagnosis", "hiv"]
+immigration = ["immigration"]

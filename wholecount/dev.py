@@ -24,6 +24,31 @@ class CountLabel(enum.Enum):
     AUDIT_IDS_LISTED = "audit_ids_listed"
     MODULES_IMPORTED_UNDER_GUARD = "modules_imported_under_guard"
     GUARD_VIOLATIONS = "guard_violations"
+    # read
+    TABLES_FOUND = "tables_found"
+    TABLES_INCLUDED = "tables_included"
+    ROWS_INCLUDED = "rows_included"
+    ROWS_EXCLUDED = "rows_excluded"
+    ROWS_NON_TABLE = "rows_non_table"
+    ROWS_HEADER = "rows_header"
+    ROWS_ABOVE_HEADER = "rows_above_header"
+    ROWS_SHARED = "rows_shared"
+    NON_EMPTY_ROWS = "non_empty_rows"
+    BALANCED = "balanced"
+    CONTINUATION_BLOCKS = "continuation_blocks"
+    SENSITIVE_COLUMNS_DROPPED = "sensitive_columns_dropped"
+    SENSITIVE_COLUMNS_BY_VALUES = "sensitive_columns_by_values"
+    READ_AS_WINDOWS_TEXT = "read_as_windows_text"
+    INVISIBLE_CHARACTERS_REMOVED = "invisible_characters_removed"
+    FILES_READ = "files_read"
+    FILES_UNREADABLE = "files_unreadable"
+    FILES_DUPLICATE = "files_duplicate"
+    # secret
+    INSTALL_SECRET_CREATED = "install_secret_created"
+    INSTALL_SECRET_PRESENT = "install_secret_present"
+    INSTALL_SECRET_BYTES = "install_secret_bytes"
+    STORE_IS_DPAPI = "store_is_dpapi"
+    STORED_BLOB_IS_LARGER_THAN_SECRET = "stored_blob_is_larger_than_secret"
 
 
 def emit(label, value, scope=None, out=None):
@@ -92,7 +117,63 @@ def cmd_check(args):
     return 1 if _violations else 0
 
 
-COMMANDS = {"check": cmd_check}
+def cmd_read(args):
+    """Counts per file, headed by its letter, then overall. Rows are keyed with a throwaway secret, so nothing is written."""
+    import secrets
+
+    from wholecount.engine.progress import NullSink
+    from wholecount.session.loader import load_files
+    from wholecount.session.secret_store import InstallSecret
+
+    paths = [pathlib.Path(a) for a in args]
+    result = load_files(paths, NullSink(), InstallSecret(secrets.token_bytes(32)))
+    for f in result.files:
+        if f.status != "ok":
+            continue
+        a, L = f.accounting, f.letter
+        tables = [t for t in result.tables if t.letter == L]
+        rf = f.read_file
+        for label, value in (
+            (CountLabel.TABLES_FOUND, len(tables)),
+            (CountLabel.TABLES_INCLUDED, sum(1 for t in tables if t.included)),
+            (CountLabel.ROWS_INCLUDED, a.included),
+            (CountLabel.ROWS_EXCLUDED, a.excluded),
+            (CountLabel.ROWS_NON_TABLE, a.non_table),
+            (CountLabel.ROWS_HEADER, a.header),
+            (CountLabel.ROWS_ABOVE_HEADER, a.above_header),
+            (CountLabel.ROWS_SHARED, a.shared_rows),
+            (CountLabel.NON_EMPTY_ROWS, a.non_empty_rows),
+            (CountLabel.BALANCED, int(a.balanced())),
+            (CountLabel.CONTINUATION_BLOCKS, sum(1 for t in tables for b in t.blocks if b.continuation)),
+            (CountLabel.SENSITIVE_COLUMNS_DROPPED, sum(len(t.sensitive_dropped) for t in tables)),
+            (CountLabel.SENSITIVE_COLUMNS_BY_VALUES, sum(t.sensitive_by_values for t in tables)),
+            (CountLabel.READ_AS_WINDOWS_TEXT, int(rf.encoding == "windows-1252")),
+            (CountLabel.INVISIBLE_CHARACTERS_REMOVED, sum(rf.clean_counts.values())),
+        ):
+            emit(label, value, scope=L)
+    counts = result.counts()
+    emit(CountLabel.FILES_READ, counts["ok"])
+    emit(CountLabel.FILES_UNREADABLE, counts["unreadable"])
+    emit(CountLabel.FILES_DUPLICATE, counts["duplicate_file"])
+    return 0
+
+
+def cmd_secret(args):
+    """The one dev command that writes a file: the install secret H9 allows. It never prints the secret."""
+    from wholecount.session.secret_store import DpapiSecretStore, default_store, get_or_create_secret
+
+    store = default_store()
+    secret, created = get_or_create_secret(store)
+    stored = store.path.stat().st_size if store.path.exists() else 0
+    emit(CountLabel.INSTALL_SECRET_CREATED, int(created))
+    emit(CountLabel.INSTALL_SECRET_PRESENT, 1)
+    emit(CountLabel.INSTALL_SECRET_BYTES, len(secret._value))
+    emit(CountLabel.STORE_IS_DPAPI, int(isinstance(store, DpapiSecretStore)))
+    emit(CountLabel.STORED_BLOB_IS_LARGER_THAN_SECRET, int(stored > len(secret._value)))
+    return 0
+
+
+COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret}
 
 
 def main(argv=None):

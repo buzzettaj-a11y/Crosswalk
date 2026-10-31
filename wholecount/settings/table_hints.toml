@@ -1,0 +1,20 @@
+# Header words used only to classify a table as records, summary or unknown (P-READ-4).
+# They never change data and never decide inclusion on their own; the operator can tick any table.
+# Headers are compared after lowercasing and removing everything but letters and digits.
+
+person = [
+    "id", "clientid", "client_id", "pid", "participantid", "recordid",
+    "first", "firstn", "firstname", "fname", "given", "givenname",
+    "last", "lastn", "lastname", "lname", "surname", "family", "familyname",
+    "middle", "mi", "middleinitial", "name", "fullname", "clientname",
+]
+address = [
+    "address", "address1", "address_1", "addr", "addr1", "street", "streetaddress",
+    "address2", "address_2", "addr2", "apt", "unit",
+    "city", "borough", "town", "state", "st", "zip", "zipcode", "zip_code",
+    "postal", "postalcode", "county",
+]
+summary = [
+    "total", "totals", "count", "number", "numberof", "sum", "avg", "average",
+    "pct", "percent", "rate", "subtotal", "grandtotal", "measure", "metric",
+]

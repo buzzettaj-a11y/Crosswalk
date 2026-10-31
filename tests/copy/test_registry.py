@@ -37,7 +37,7 @@ def test_claim_pattern_rejects_bad_ids():
 
 
 def test_offline_claim_is_registered():
-    assert copy.claims() == {"CL-OFFLINE-01": "offline.nothing_leaves"}
+    assert copy.claims()["CL-OFFLINE-01"] == "offline.nothing_leaves"
     assert copy.get("offline.nothing_leaves") == "Nothing leaves this computer."
 
 

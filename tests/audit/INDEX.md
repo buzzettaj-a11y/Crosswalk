@@ -13,11 +13,11 @@ A finding listed under more than one milestone names every test that closes it. 
 | A-06 | High | M08 | arrives in M08 | pending |
 | A-07 | High | M08 | arrives in M08 | pending |
 | A-08 | High | M09 | arrives in M09 | pending |
-| A-09 | High | M01 | arrives in M01 | pending |
+| A-09 | High | M01 | `tests/audit/test_A09_rows_outside_tables.py` | done |
 | A-10 | High | M09 | arrives in M09 | pending |
 | A-11 | Medium | M04 | arrives in M04 | pending |
 | A-12 | Medium | M08 | arrives in M08 | pending |
-| A-13 | Medium | M01 | arrives in M01 | pending |
+| A-13 | Medium | M01 | `tests/audit/test_A13_bad_file_does_not_block.py` | done |
 | A-14 | Medium | M05 | arrives in M05 | pending |
 | A-15 | Medium | M09 | arrives in M09 | pending |
 | A-16 | Medium | M10 | arrives in M10 | pending |
@@ -31,7 +31,7 @@ A finding listed under more than one milestone names every test that closes it. 
 | A-24 | Low | M09 | arrives in M09 | pending |
 | A-25 | Low | M00, M15 | arrives in M15 | pending |
 | B-01 | High | M04 | arrives in M04 | pending |
-| B-02 | High | M01 | arrives in M01 | pending |
+| B-02 | High | M01 | `tests/audit/test_B02_cp1252_names.py` | done |
 | B-03 | High | M04 | arrives in M04 | pending |
 | B-04 | High | M04 | arrives in M04 | pending |
 | B-05 | High | M04 | arrives in M04 | pending |
@@ -53,7 +53,7 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-21 | High | M02 | arrives in M02 | pending |
 | B-22 | High | M02 | arrives in M02 | pending |
 | B-23 | High | M02 | arrives in M02 | pending |
-| B-24 | Medium | M01 | arrives in M01 | pending |
+| B-24 | Medium | M01 | `tests/audit/test_B24_invisible_characters.py` | done |
 | B-25 | Medium | M04 | arrives in M04 | pending |
 | B-26 | Medium | M04 | arrives in M04 | pending |
 | B-27 | Medium | M04 | arrives in M04 | pending |
@@ -101,7 +101,7 @@ A finding listed under more than one milestone names every test that closes it. 
 | C-20 | Medium | M06 | arrives in M06 | pending |
 | C-21 | Medium | M06 | arrives in M06 | pending |
 | C-22 | Medium | M09 | arrives in M09 | pending |
-| C-23 | Medium | M01 | arrives in M01 | pending |
+| C-23 | Medium | M01 | `tests/audit/test_C23_blank_line_and_comma_row.py` | done |
 | C-24 | Medium | M06 | arrives in M06 | pending |
 | C-25 | Low | M05 | arrives in M05 | pending |
 | C-26 | Low | M09 | arrives in M09 | pending |
