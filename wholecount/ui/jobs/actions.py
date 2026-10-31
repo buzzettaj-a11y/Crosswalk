@@ -202,19 +202,15 @@ class DownloadJob:
         self.environ = environ
 
     def run(self, sink):
-        from wholecount.engine.outputs import writer
-        from wholecount.session.export import build_view
-        from wholecount.session.frame import write_reason
+        from wholecount.session.frame import planned_file_count, write_download, write_reason
         from wholecount.session.progress import ProgressMessage, Step, Unit
 
-        view = build_view(self.session, self.settings)
-        n = len(writer.files_to_write(view, self.settings))
+        n = planned_file_count(self.session, self.settings)
         sink.begin(Step.WRITING_FILES, n, Unit.FILES)
         if sink.cancelled():
             return ("cancelled", None)
         try:
-            receipt = writer.write_outputs(view, self.folder, self.settings, self.session.clock, confirmed_synced=True,
-                                           overwrite=True, environ=self.environ)
+            receipt = write_download(self.session, self.folder, self.settings, self.environ)
         except OSError as exc:
             return ("failed", write_reason(exc))
         sink.advance(n, ProgressMessage("progress.found.demo", {"n": n}))
@@ -222,12 +218,9 @@ class DownloadJob:
         return ("done", receipt)
 
     def apply(self, session, result):
-        import pathlib
-
-        from wholecount.engine.outputs.audit_entry import entry
+        from wholecount.session.frame import log_download
 
         kind, value = result
         if kind == "done":
-            session.log(entry("DOWNLOAD", file_name=[pathlib.Path(f.path).name for f in value.files],
-                              count=len(value.files), reviewer=session.reviewer or None))
+            log_download(session, value)
         self.on_done(kind, value)

@@ -141,3 +141,28 @@ def data_file_ids():
 
 def clean_file_id():
     return "Final_Clean_Mapped"
+
+
+def planned_file_count(session, settings):
+    from wholecount.engine.outputs import writer
+    from wholecount.session.export import build_view
+
+    return len(writer.files_to_write(build_view(session, settings), settings))
+
+
+def write_download(session, folder, settings, environ=None):
+    """Every file through the writer (temporary names, then a rename). Returns the Receipt."""
+    from wholecount.engine.outputs import writer
+    from wholecount.session.export import build_view
+
+    return writer.write_outputs(build_view(session, settings), folder, settings, session.clock, confirmed_synced=True,
+                                overwrite=True, environ=environ)
+
+
+def log_download(session, receipt):
+    import pathlib
+
+    from wholecount.engine.outputs.audit_entry import entry
+
+    session.log(entry("DOWNLOAD", file_name=[pathlib.Path(f.path).name for f in receipt.files], count=len(receipt.files),
+                      reviewer=session.reviewer or None))
