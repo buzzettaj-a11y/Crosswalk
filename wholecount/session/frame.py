@@ -77,9 +77,13 @@ def export_settings(session):
 
     if session is None:
         return ExportSettings()
+    from wholecount.engine.outputs.columns import FileId
+
     sec = dict(session.setup.sections.get("export_settings", {}))
-    known = {k: sec[k] for k in ("formats", "columns_off", "map_points", "exact_coordinates", "include_file_names") if k in sec}
-    return ExportSettings(**known)
+    known = {k: sec[k] for k in ("formats", "map_points", "exact_coordinates", "include_file_names") if k in sec}
+    # Stored by file name so saved progress holds plain text; the writer wants FileId keys.
+    off = {FileId(k): frozenset(v) for k, v in dict(sec.get("columns_off", {})).items()}
+    return ExportSettings(columns_off=off, **known)
 
 
 def summary_html(session, include_file_names):
@@ -88,3 +92,52 @@ def summary_html(session, include_file_names):
     from wholecount.session.export import build_view
 
     return render_summary_html(build_summary(build_view(session), include_file_names))
+
+
+def write_reason(exc):
+    """One of four fixed reasons a file could not be written. The OS message is never shown: it can hold a path."""
+    import errno
+
+    if getattr(exc, "winerror", None) in (32, 33):
+        return "in_use"
+    if getattr(exc, "errno", None) == errno.ENOSPC:
+        return "disk_full"
+    if isinstance(exc, PermissionError):
+        return "refused"
+    return "failed"
+
+
+def receipt_text(receipt):
+    from wholecount.engine.outputs.receipt import receipt_text as text
+
+    return text(receipt)
+
+
+def folder_warning(path):
+    import os
+
+    from wholecount.engine.outputs.folders import folder_warning as warn
+
+    return warn(str(path), os.environ)
+
+
+def existing_names(session, folder, settings):
+    import pathlib
+
+    from wholecount.engine.outputs import writer
+    from wholecount.session.export import build_view
+
+    view = build_view(session, settings)
+    names = [writer.file_name(f, view, settings) for f in writer.files_to_write(view, settings)]
+    return [n for n in names if (pathlib.Path(folder) / n).exists()]
+
+
+def data_file_ids():
+    """The data files whose format the operator picks (the logs and quality report have fixed formats)."""
+    from wholecount.engine.outputs.columns import LOG_FILES, TABLE_FILES, FileId
+
+    return tuple(f.value for f in TABLE_FILES if f not in LOG_FILES and f != FileId.DATA_QUALITY_REPORT)
+
+
+def clean_file_id():
+    return "Final_Clean_Mapped"

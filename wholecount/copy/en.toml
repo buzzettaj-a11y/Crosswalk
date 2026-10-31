@@ -3184,3 +3184,125 @@ text = "Save as a web page"
 text = "PDF (*.pdf)"
 [results.print.web_filter]
 text = "Web page (*.html)"
+
+# Download (M12 section 4)
+
+[export.download]
+text = "Download {n} files"
+[export.hold.balance]
+text = "Held because the numbers do not add up."
+[export.hold.columns]
+text = "Held until at least one column is switched on."
+[hold.low]
+text = "Download is held until the Low confidence is ticked as seen."
+claim = "CL-HOLD-LOW-01"
+[export.band]
+text = "{counted} counted + {not_counted_yet} not counted yet + {aside} set aside = {received} rows received. The clean file, the rows marked Counted No in the review file, and the set-aside file add up to exactly this."
+claim = "CL-BALANCE-FILES-01"
+[export.format_label]
+text = "Format"
+[export.format.all_csv]
+text = "Use CSV for all"
+[export.format.all_xlsx]
+text = "Use Excel for all"
+[export.format.all_json]
+text = "Use JSON for all"
+[export.format.csv]
+text = "CSV"
+[export.format.xlsx]
+text = "Excel"
+[export.format.json]
+text = "JSON"
+[export.fixed]
+text = "{fmt}"
+[export.always]
+text = "ALWAYS WRITTEN"
+[export.file.size]
+text = "{rows} rows · {cols} columns"
+[export.file.final_clean_mapped]
+text = "Every counted row, with your fields, the count status, the location status and confidence, districts and where each row came from."
+[export.file.unique_clients]
+text = "One row per person, counted once however many systems they appear in. This is the first count."
+[export.file.unique_clients_by_program]
+text = "One row per person per program. A person in three programs appears three times. This is the second count."
+[export.file.manual_review_needed]
+text = "Every row with an open problem, with a Counted column, the reasons, and the failing fields only. Fix them and send the file back on Fix problems."
+[export.file.set_aside_records]
+text = "Every row set aside, each with its reason. Nothing is deleted. This is where it went."
+[export.file.map_counts]
+text = "Counts by district for each program, with no names, addresses or points. Any count from 1 to 10 is left blank and shown as \"fewer than 11\"."
+claim = "CL-SMALLCELL-01"
+[export.file.map_points]
+text = "One row per person and program, with a point moved 150 to 250 feet. Everyone at one building gets the same moved point. A moved point can sit across a district line from its district."
+claim = "CL-OFFSET-NOTE-01"
+[export.file.internal_audit_log]
+text = "Every change and decision, by record key, field name and reviewer. It holds file names and row numbers, so keep it inside your organization."
+[export.file.shareable_audit_log]
+text = "The same events with source letters only, no file names, no row numbers and different record keys."
+[export.file.data_quality_report]
+text = "One row per source table, with rows received, counted, not counted yet, set aside, mapped and each problem kind's count."
+[export.coords_box]
+text = "Exact coordinates, for internal use"
+[export.coords.note]
+text = "The clean file already holds addresses. With exact coordinates on, keep it inside your organization."
+claim = "CL-COORDS-INTERNAL-01"
+[export.map_points]
+text = "Write Map_Points"
+[export.columns.title]
+text = "Columns in the clean file"
+[export.columns.count]
+text = "{n} of {m} on"
+[export.columns.all]
+text = "all"
+[export.columns.none]
+text = "none"
+[export.columns.reset]
+text = "reset"
+[export.folder]
+text = "Choose a folder for the files"
+[export.synced.title]
+text = "This folder copies files to other computers"
+[export.synced.use]
+text = "Use this folder"
+[export.synced.other]
+text = "Choose another folder"
+[export.replace.title]
+text = "Replace these files?"
+[export.replace.q]
+text = "{n} files with these names are already in this folder. Replace them?"
+[export.replace.ok]
+text = "Replace"
+[export.write.in_use]
+text = "The file is open in another program."
+[export.write.disk_full]
+text = "The disk is full."
+[export.write.refused]
+text = "Windows would not allow it."
+[export.write.failed]
+text = "It could not be written."
+[export.receipt.title]
+text = "Download finished"
+[export.receipt.col.file]
+text = "FILE"
+[export.receipt.col.path]
+text = "FULL PATH"
+[export.receipt.col.rows]
+text = "ROWS"
+[export.receipt.col.cols]
+text = "COLUMNS"
+[export.receipt.col.time]
+text = "TIME"
+[export.receipt.nothing]
+text = "Nothing else was written."
+claim = "CL-RECEIPT-ONLY-01"
+[export.receipt.changed]
+text = "The results have changed since these files were written."
+[export.receipt.copy]
+text = "Copy the receipt"
+[export.receipt.again]
+text = "Download again"
+[export.footer.before]
+text = "Nothing has been written yet."
+claim = "CL-RECEIPT-ONLY-02"
+[export.footer.after]
+text = "Your own files were not changed. {product} wrote only the files listed here."

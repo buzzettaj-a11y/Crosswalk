@@ -186,3 +186,48 @@ class CorrectionsJob:
             from wholecount.session.runner import recompute_from
 
             recompute_from(session)
+
+
+class DownloadJob:
+    """Download: writes every file under a temporary name, then renames (M09). The audit entry is logged once, on apply."""
+
+    action_id = "download"
+    undoable = False
+
+    def __init__(self, session, folder, settings, on_done, environ=None):
+        from wholecount.ui.jobs.steps import steps_of
+
+        self.steps = steps_of("download")
+        self.session, self.folder, self.settings, self.on_done = session, folder, settings, on_done
+        self.environ = environ
+
+    def run(self, sink):
+        from wholecount.engine.outputs import writer
+        from wholecount.session.export import build_view
+        from wholecount.session.frame import write_reason
+        from wholecount.session.progress import ProgressMessage, Step, Unit
+
+        view = build_view(self.session, self.settings)
+        n = len(writer.files_to_write(view, self.settings))
+        sink.begin(Step.WRITING_FILES, n, Unit.FILES)
+        if sink.cancelled():
+            return ("cancelled", None)
+        try:
+            receipt = writer.write_outputs(view, self.folder, self.settings, self.session.clock, confirmed_synced=True,
+                                           overwrite=True, environ=self.environ)
+        except OSError as exc:
+            return ("failed", write_reason(exc))
+        sink.advance(n, ProgressMessage("progress.found.demo", {"n": n}))
+        sink.end(ProgressMessage("progress.found.demo", {"n": len(receipt.files)}))
+        return ("done", receipt)
+
+    def apply(self, session, result):
+        import pathlib
+
+        from wholecount.engine.outputs.audit_entry import entry
+
+        kind, value = result
+        if kind == "done":
+            session.log(entry("DOWNLOAD", file_name=[pathlib.Path(f.path).name for f in value.files],
+                              count=len(value.files), reviewer=session.reviewer or None))
+        self.on_done(kind, value)
