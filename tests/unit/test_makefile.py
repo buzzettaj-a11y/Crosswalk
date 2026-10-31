@@ -33,7 +33,8 @@ def test_windows_only_targets_fail_elsewhere(target):
 def test_bundle_builds_and_checks():
     p = subprocess.run(["make", "-n", "bundle"], cwd=ROOT, capture_output=True, text=True, timeout=30)
     assert p.returncode == 0, p.stderr
-    lines = [ln.strip() for ln in p.stdout.splitlines()]
+    # Under make test, make -n also prints its own "make[1]: Entering/Leaving directory" lines.
+    lines = [ln.strip() for ln in p.stdout.splitlines() if not ln.startswith("make")]
     assert "python -m PyInstaller --noconfirm --clean --distpath dist --workpath build build/wholecount.spec" in lines
     assert lines[-1] == "python tools/check_bundle.py dist/Wholecount build/wholecount"
 

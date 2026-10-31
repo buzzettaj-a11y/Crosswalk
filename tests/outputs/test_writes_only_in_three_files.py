@@ -7,7 +7,8 @@ from tests.conftest import ROOT
 # build_qss.py writes the theme text for inspection (M10), never client data.
 # M13: backup.py writes the backup file the operator chose, and calibration.py the encrypted label files. "store.py" also
 # covers crosswalk/store.py, which writes crosswalk.db through sqlite3.
-ALLOWED = {"writer.py", "store.py", "errors.py", "dev.py", "build_qss.py", "backup.py", "calibration.py"}
+# M14: selfcheck.py writes result.json into the folder --self-check-out names, and nothing else.
+ALLOWED = {"writer.py", "store.py", "errors.py", "dev.py", "build_qss.py", "backup.py", "calibration.py", "selfcheck.py"}
 
 
 def test_scan():
