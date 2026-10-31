@@ -69,6 +69,18 @@ class CountLabel(enum.Enum):
     ZIP_KEPT = "zip_kept"
     ZIP_NOT_WORKED_OUT = "zip_not_worked_out"
     SOURCE_CELLS_CHANGED = "source_cells_changed"
+    # standardize
+    ROWS = "rows"
+    COUNTED = "counted"
+    NOT_COUNTED_YET = "not_counted_yet"
+    SET_ASIDE = "set_aside"
+    OUTSIDE_NYC = "outside_nyc"
+    NO_FIXED_ADDRESS = "no_fixed_address"
+    ADDRESS_PROBLEM = "address_problem"
+    TO_PLACE = "to_place"
+    VALUES_CHANGED = "values_changed"
+    ENTERED_LOST = "entered_lost"
+    REASON = "reason"
 
 
 def emit(label, value, scope=None, out=None, field=None, reason=None):
@@ -290,7 +302,87 @@ def cmd_tidy(args):
     return 0
 
 
-COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy}
+def _option(args, name):
+    if name in args:
+        i = args.index(name)
+        return args[i + 1] if i + 1 < len(args) else None
+    return None
+
+
+def cmd_standardize(args):
+    """Per included table: load, map, proposed steps, standardize. Counts and reason IDs only.
+
+    --today YYYY-MM-DD, --date-order month|day, --two-digit-pivot NN, and --choose-suggested-header, which applies a table's
+    suggested header row the way an operator would on Show data."""
+    import datetime as dt
+    import secrets
+
+    from wholecount.engine.dateorder import DateFieldSetting, DateOrder, TwoDigitRule, collect_evidence, decide
+    from wholecount.engine.mapping import auto_map, profile_columns
+    from wholecount.engine.prepare.steps import apply_steps, propose_steps
+    from wholecount.engine.progress import NullSink
+    from wholecount.engine.read.tables import rebuild_with_header
+    from wholecount.engine.schema import default_schema
+    from wholecount.engine.standardize.dates import date_context
+    from wholecount.engine.standardize.inputs import build_inputs
+    from wholecount.engine.standardize.rows import TableOptions, standardize_table
+    from wholecount.engine.systems import LetterBook
+    from wholecount.session.loader import key_tables, load_files
+    from wholecount.session.secret_store import InstallSecret
+
+    flags = {"--today", "--date-order", "--two-digit-pivot"}
+    paths = [a for i, a in enumerate(args) if not a.startswith("--") and (i == 0 or args[i - 1] not in flags)]
+    today = dt.date.fromisoformat(_option(args, "--today")) if _option(args, "--today") else dt.date.today()
+    order = {"month": DateOrder.MONTH_FIRST, "day": DateOrder.DAY_FIRST}.get(_option(args, "--date-order") or "")
+    pivot = _option(args, "--two-digit-pivot")
+    setting = DateFieldSetting(order, TwoDigitRule(int(pivot)) if pivot is not None else None)
+    schema = default_schema()
+    secret = InstallSecret(secrets.token_bytes(32))
+    result = load_files([pathlib.Path(a) for a in paths], NullSink(), secret, LetterBook())
+    numbers = {}
+    for t in result.tables:
+        numbers[t.letter] = numbers.get(t.letter, 0) + 1
+        if not t.included and "--choose-suggested-header" in args and t.suggested_header_row and not t.header_is_virtual:
+            fk = t.key.split(" :: ")[0]
+            t = key_tables(secret, fk, [rebuild_with_header(t, t.suggested_header_row)])[0]
+        if not t.included:
+            continue
+        scope = f"{t.letter}.{numbers[t.letter]}"
+        mapping = auto_map(schema, profile_columns(t), t.key)
+        prepared = apply_steps(t, propose_steps(t, mapping))
+        mapping = auto_map(schema, profile_columns(t, prepared.column_refs()), t.key)
+        contexts = {}
+        dob = mapping.column_for("Date_of_Birth")
+        if dob is not None:
+            meta = {} if dob.derived else {i: m for (i, c), m in t.meta.items() if c == dob.index}
+            contexts["Date_of_Birth"] = date_context(decide(collect_evidence(prepared.values(dob.name), meta)), setting)
+        inputs = build_inputs(prepared, mapping, (), schema)
+        rows = standardize_table(inputs, schema, TableOptions(contexts), today)
+        counted = [r for r in rows if r.count_status.counted]
+        loc = [r.location for r in counted]
+        changed = sum(1 for r in rows for v in r.values.values() if v.value != v.entered)
+        lost = sum(1 for r, i in zip(rows, inputs) for k, v in r.values.items() if v.entered != i.values.get(k, ""))
+        emit(CountLabel.ROWS, len(rows), scope=scope)
+        emit(CountLabel.COUNTED, len(counted), scope=scope)
+        emit(CountLabel.NOT_COUNTED_YET, sum(1 for r in rows if r.count_status.value == "not_counted_yet"), scope=scope)
+        emit(CountLabel.SET_ASIDE, sum(1 for r in rows if r.count_status.value == "set_aside"), scope=scope)
+        for label, reason in ((CountLabel.OUTSIDE_NYC, "outside_nyc"), (CountLabel.NO_FIXED_ADDRESS, "no_fixed_address"),
+                              (CountLabel.ADDRESS_PROBLEM, "address_problem")):
+            emit(label, sum(1 for x in loc if x.reason == reason), scope=scope)
+        emit(CountLabel.TO_PLACE, sum(1 for x in loc if x.kind == "to_place"), scope=scope)
+        emit(CountLabel.VALUES_CHANGED, changed, scope=scope)
+        emit(CountLabel.ENTERED_LOST, lost, scope=scope)
+        tally = {}
+        for r in rows:
+            for ref in r.reasons:
+                tally[ref.reason_id] = tally.get(ref.reason_id, 0) + 1
+        for rid, n in sorted(tally.items()):
+            emit(CountLabel.REASON, n, scope=scope, reason=rid)
+    return 0
+
+
+COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy,
+            "standardize": cmd_standardize}
 
 
 def main(argv=None):

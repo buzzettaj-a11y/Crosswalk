@@ -367,7 +367,9 @@
             "no_identifier"
           ]
         }
-      ]
+      ],
+      "planned_set_aside_rows": [],
+      "planned_notes": []
     },
     "example_housing.xlsx": {
       "rows_received": 67,
@@ -375,12 +377,6 @@
       "not_counted_yet": 4,
       "set_aside": 1,
       "planned_problem_rows": [
-        {
-          "row": 5,
-          "reasons": [
-            "no_fixed_address"
-          ]
-        },
         {
           "row": 12,
           "reasons": [
@@ -410,11 +406,19 @@
           "reasons": [
             "address_part_missing"
           ]
-        },
+        }
+      ],
+      "planned_set_aside_rows": [
         {
           "row": 70,
-          "reasons": [
-            "summary_row"
+          "reason": "summary_row"
+        }
+      ],
+      "planned_notes": [
+        {
+          "row": 5,
+          "notes": [
+            "no_fixed_address"
           ]
         }
       ]
@@ -436,10 +440,14 @@
           "reasons": [
             "no_identifier"
           ]
-        },
+        }
+      ],
+      "planned_set_aside_rows": [],
+      "planned_notes": [
         {
           "row": 36,
-          "reasons": [
+          "notes": [
+            "state_outside_nyc",
             "zip_outside_nyc"
           ]
         }
@@ -472,8 +480,9 @@
         {
           "row": 40,
           "reasons": [
-            "placeholder_in_value",
-            "address_part_missing"
+            "address_incomplete",
+            "address_part_missing",
+            "placeholder_in_value"
           ]
         },
         {
@@ -482,7 +491,9 @@
             "zip_not_valid"
           ]
         }
-      ]
+      ],
+      "planned_set_aside_rows": [],
+      "planned_notes": []
     },
     "example_state.xml": {
       "rows_received": 50,
@@ -490,12 +501,6 @@
       "not_counted_yet": 2,
       "set_aside": 0,
       "planned_problem_rows": [
-        {
-          "row": 22,
-          "reasons": [
-            "zip_plus4_reduced"
-          ]
-        },
         {
           "row": 28,
           "reasons": [
@@ -506,6 +511,15 @@
           "row": 50,
           "reasons": [
             "no_identifier"
+          ]
+        }
+      ],
+      "planned_set_aside_rows": [],
+      "planned_notes": [
+        {
+          "row": 22,
+          "notes": [
+            "zip_plus4_reduced"
           ]
         }
       ]

@@ -1,0 +1,18 @@
+# Placeholders by field class (P-STD-2). A marker matches the whole cell only, ignoring case and outer spaces, as typed or with one
+# trailing punctuation mark removed. Text inside a longer value never matches, so "123 Unknown Ave" stays.
+# Beyond the spec's lists: the spreadsheet error strings (#ref and the rest), <na>, undefined, and xxx.
+
+[every_field]
+words = ["null", "n/a", "#n/a", "(null)", "none", "nil", "#ref", "#value", "#name", "#div/0", "#null", "#num", "<na>", "undefined"]
+marks = ["-", "--", "?"]
+
+[identifier_and_address]
+words = ["0", "00", "000", "unknown", "unk", "refused", "declined", "tbd", "same", "see above", "na", "n.a.", "xxx"]
+
+# Real names in some languages. Kept as typed, with the soft reason name_may_be_placeholder. The name rule wins over none and nil.
+[name_kept]
+words = ["na", "nan", "none", "nil"]
+
+# A housing situation, as the whole text of an address field: the row's location is No fixed address.
+[housing]
+words = ["homeless", "shelter", "street", "no fixed address", "nfa", "undomiciled"]

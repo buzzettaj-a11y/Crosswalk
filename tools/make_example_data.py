@@ -114,7 +114,8 @@ class Rec:
     dob: dt.date | None
     address: Address
     program: str
-    reasons: list = field(default_factory=list)      # planned reason IDs at standardize (M04)
+    reasons: list = field(default_factory=list)      # planned decision reason IDs at standardize (M04)
+    notes: list = field(default_factory=list)        # planned audit notes at standardize (M04), a subset of what the row gets
     status: str = "counted"                          # counted, not_counted_yet or set_aside, before copies and identity
     row: int = 0                                     # file row number, filled in when written
 
@@ -241,11 +242,13 @@ def build_plan(seed):
             pl.rec(f, pl.person(dob=False), client_id=False, dob=False, reasons=["no_identifier"], status="not_counted_yet")
 
     # Addresses: a placeholder, no fixed address, outside NYC, a ZIP+4, a ZIP with letters, and a blank ZIP a lookup can fill.
+    # The placeholder street leaves the city, ZIP and state blank too: three missing parts and an incomplete address.
     pl.rec(JSON_, pl.person(address=Address("", "Unknown", "", "", "", "")),
-           reasons=["placeholder_in_value", "address_part_missing"])
-    pl.rec(XLSX, pl.person(address=Address("", "Homeless", "", "", "", "")), reasons=["no_fixed_address"])
-    pl.rec(TSV, pl.person(address=Address("120", "Newark Ave", "", "Jersey City", "NJ", "07302")), reasons=["zip_outside_nyc"])
-    pl.rec(XML, pl.person(address=Address("3080", "Broadway", "", "New York", "NY", "10027-6912")), reasons=["zip_plus4_reduced"])
+           reasons=["address_incomplete", "address_part_missing", "placeholder_in_value"])
+    pl.rec(XLSX, pl.person(address=Address("", "Homeless", "", "", "", "")), notes=["no_fixed_address"])
+    pl.rec(TSV, pl.person(address=Address("120", "Newark Ave", "", "Jersey City", "NJ", "07302")),
+           notes=["state_outside_nyc", "zip_outside_nyc"])
+    pl.rec(XML, pl.person(address=Address("3080", "Broadway", "", "New York", "NY", "10027-6912")), notes=["zip_plus4_reduced"])
     pl.rec(JSON_, pl.person(address=Address("412", "Amsterdam Ave", "", "New York", "NY", "1002A")), reasons=["zip_not_valid"])
     pl.rec(XLSX, pl.person(address=Address("209", "Joralemon St", "", "Brooklyn", "NY", "")), reasons=["address_part_missing"])
 
@@ -455,13 +458,14 @@ def standardize_section(pl, total_row):
         recs = pl.records[f]
         counted = sum(1 for r in recs if r.status == "counted")
         nc = sum(1 for r in recs if r.status == "not_counted_yet")
-        problems = [{"row": r.row, "reasons": r.reasons} for r in recs if r.reasons]
-        set_aside = 0
+        problems = [{"row": r.row, "reasons": sorted(set(r.reasons))} for r in recs if r.reasons]
+        notes = [{"row": r.row, "notes": sorted(r.notes)} for r in recs if r.notes]
+        set_aside = []
         if f == XLSX:
-            set_aside = 1
-            problems.append({"row": total_row, "reasons": ["summary_row"]})
-        out[f] = {"rows_received": len(recs) + (1 if f == XLSX else 0), "counted": counted, "not_counted_yet": nc,
-                  "set_aside": set_aside, "planned_problem_rows": sorted(problems, key=lambda p: p["row"])}
+            set_aside = [{"row": total_row, "reason": "summary_row"}]
+        out[f] = {"rows_received": len(recs) + len(set_aside), "counted": counted, "not_counted_yet": nc,
+                  "set_aside": len(set_aside), "planned_problem_rows": sorted(problems, key=lambda p: p["row"]),
+                  "planned_set_aside_rows": set_aside, "planned_notes": sorted(notes, key=lambda p: p["row"])}
     out["no_identifier_total"] = sum(1 for f in FILES for r in pl.records[f] if "no_identifier" in r.reasons)
     return out
 
