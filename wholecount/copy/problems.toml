@@ -195,3 +195,11 @@ title = "Required field has no value"
 means = "This field is required but is blank on this row. It doesn't stop the person being counted."
 check = "Look up the value in the source system. If there isn't one, accept it as it is."
 excel = "Filter the column for blanks, fill them in, and save the file."
+
+# M08, review.
+
+[same_id_conflict]
+title = "One Client ID is used for different people"
+means = "Rows in one system share a Client ID, but their names or dates of birth differ. They aren't counted until someone decides whether they're different people or the same person entered differently."
+check = "Look at the rows side by side in the source system and decide which it is."
+excel = "Filter the Client ID column for the ID shown. If they're different people, give one of them its own ID in the source and save the file."

@@ -1,0 +1,7 @@
+# Confidence (SPEC 7.4). The starting values Joe approved, to be tuned later. Percentages are compared by cross-multiplying.
+
+[batch]
+high_counted_pct = 95
+high_placed_pct = 95
+high_open_pairs = 0
+low_pct = 80

@@ -5,7 +5,8 @@ import pytest
 from tests.conftest import ROOT
 from tests.copy.lint import EM_DASH, all_copy_texts, british_words, problems, scanned_docs
 
-REGISTRY_FILES = [ROOT / "wholecount" / "copy" / "en.toml", ROOT / "wholecount" / "copy" / "problems.toml"]
+REGISTRY_FILES = [ROOT / "wholecount" / "copy" / "en.toml", ROOT / "wholecount" / "copy" / "problems.toml",
+                  ROOT / "wholecount" / "copy" / "reasons.toml"]
 WORDS = british_words()
 
 
