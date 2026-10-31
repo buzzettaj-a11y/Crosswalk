@@ -2,6 +2,15 @@
 
 ## Questions for Joe
 
+Joe answered all five on 2026-10-31 and kept the default each time:
+- Network share files stay refused for "open in Excel."
+- The work stays on `build/mNN-...` branches.
+- The guard install stays as two lines.
+- `os.startfile` must say `"open"` explicitly.
+- "Cancelled" stays allowed.
+
+No code changed. The questions are below as asked.
+
 1. **Files on a network share can't be opened in Excel.** The milestone told me to log this one. `guard.allow_open_file` refuses UNC and WebDAV paths, and the guard's UNC rule isn't overridden. So a file the operator added from `\\server\share\...` can be read, but the "open the source file" action in M12 will refuse it. A file on a mapped drive letter still works. Default: keep refusing. If you want it allowed, it's a one-line change in the allowance, but then `os.startfile` would hand a network path to Windows.
 2. **Which branch the work is on.** The cloud session was set up with a branch named `ccr-4a2904a0-r5rge0`. `CLAUDE.md` and the milestone file both say `build/m00-foundation`, so the work and the pull request are on `build/m00-foundation`. The CI trigger for `build/**` depends on that name. Nothing was pushed to the `ccr-` branch.
 3. **"First statement installs the guard."** In `__main__.py` and `dev.py` it's two statements, `from wholecount.guard import install_for_app` and then `install_for_app()`, with nothing between them. The A-20 test checks exactly that pair. Doing it in one statement would mean a semicolon or an `__import__` call, and both read worse. Tell me if you want it as one line.
