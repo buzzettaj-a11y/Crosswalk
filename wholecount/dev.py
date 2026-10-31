@@ -128,6 +128,19 @@ class CountLabel(enum.Enum):
     PEOPLE_HIGH = "people_high"
     MASTER_IDS_UNIQUE = "master_ids_unique"
     SKIPPED_BUCKETS = "skipped_buckets"
+    # programs-demo and programs-check
+    PAIRS_THAT_SHOULD_MATCH = "pairs_that_should_match"
+    PAIRS_MATCHED = "pairs_matched"
+    PAIRS_THAT_SHOULD_NOT_MATCH = "pairs_that_should_not_match"
+    PAIRS_LEFT_ALONE = "pairs_left_alone"
+    CHAINS_GROUPED = "chains_grouped"
+    DISTINCT_NAMES = "distinct_names"
+    PROPOSALS_SAME_NAME = "proposals_same_name"
+    PROPOSALS_INITIALS = "proposals_initials"
+    PROPOSALS_NEARLY_SAME = "proposals_nearly_same"
+    PROPOSALS_MORE_WORDS = "proposals_more_words"
+    NAMES_LEFT_ALONE = "names_left_alone"
+    ROWS_WITHOUT_PROGRAM = "rows_without_program"
 
 
 def emit(label, value, scope=None, out=None, field=None, reason=None, grouped=True):
@@ -665,10 +678,76 @@ def cmd_people_check(args):
     return 0
 
 
+# The B-40 program names: made-up names the audit used. programs-demo runs them in memory.
+_B40_MATCH = (("Workforce Dev.", "Workforce Development"), ("WFD", "Workforce Development"), ("WFD", "Workforce Dev."),
+              ("SYEP", "Summer Youth Employment Program"), ("Summer Youth Employment", "Summer Youth Employment Program"),
+              ("Workforce", "Workforce Development"), ("youth", "Youth"))
+_B40_APART = (("Youth Services", "Youth Employment"), ("Youth Services", "Youth Housing"), ("Youth Employment", "Youth Housing"),
+              ("Senior Services", "Senior Housing"), ("Senior Services", "Senior Employment"), ("Senior Housing", "Senior Employment"),
+              ("Level 1", "Level 2"), ("Cohort 2023", "Cohort 2024"), ("Section B", "Section C"), ("ESL Level 1", "ESL Level 2"),
+              ("ESL 1", "ESL 2"), ("Tier 1", "Tier 2"), ("3K", "4K"), ("Group A", "Group B"), ("Class A", "Class B"),
+              ("Adult", "Adult Day Care"), ("Adult Education", "Adult"), ("Adult", "Adult Literacy"),
+              ("Adult Education", "Adult Literacy"), ("GED", "GED Prep"),
+              ("Health", "Hospital Employment Assistance Linkage Training Hub"), ("Pre-K", "Pre-K Extended Day"),
+              ("Tenant Services", "Tenant Organizing"), ("Food Pantry", "Food Stamps"), ("Youth Employment", "Youth Empowerment"),
+              ("Mental Health", "Mental Hygiene"), ("Housing Counseling", "Housing Court"))
+_B40_CHAINS = (("Youth Services", "Youth Employment", "Youth Housing"), ("Senior Services", "Senior Housing", "Senior Employment"),
+               ("Adult Education", "Adult", "Adult Literacy"))
+
+
+def cmd_programs_demo(args):
+    """The B-40 pairs and chains through propose_groups. Counts only."""
+    from wholecount.engine.programs import ProgramName, propose_groups
+
+    def proposed(names):
+        return propose_groups([ProgramName(n, 1) for n in names])
+
+    emit(CountLabel.PAIRS_THAT_SHOULD_MATCH, len(_B40_MATCH))
+    emit(CountLabel.PAIRS_MATCHED, sum(1 for p in _B40_MATCH if proposed(p)))
+    emit(CountLabel.PAIRS_THAT_SHOULD_NOT_MATCH, len(_B40_APART))
+    emit(CountLabel.PAIRS_LEFT_ALONE, sum(1 for p in _B40_APART if not proposed(p)))
+    emit(CountLabel.CHAINS_GROUPED, sum(1 for c in _B40_CHAINS for g in proposed(c) if len(g.members) == 3))
+    return 0
+
+
+def cmd_programs_check(args):
+    """Program names in one or more CSV files: --csv PATH (repeat) --column NAME. Counts only, never a program name."""
+    import csv
+
+    from wholecount.engine.programs import TableProgram, program_sources, propose_groups
+
+    paths = [args[i + 1] for i, a in enumerate(args) if a == "--csv" and i + 1 < len(args)]
+    column = _option(args, "--column") or "Program"
+    tables, blank = [], 0
+    for n, path in enumerate(paths):
+        counts, rows, has = {}, 0, False
+        with open(path, newline="", encoding="utf-8-sig") as f:
+            reader = csv.DictReader(f)
+            has = column in (reader.fieldnames or ())
+            for row in reader:
+                rows += 1
+                v = (row.get(column) or "").strip()
+                counts[v] = counts.get(v, 0) + 1
+        blank += counts.get("", 0) if has else rows
+        tables.append(TableProgram(f"t{n}", "column" if has else "none", column if has else None, None, rows,
+                                   tuple(sorted(counts.items()))))
+    names, _ = program_sources(tables)
+    proposals = propose_groups(names)
+    reasons = [r for p in proposals for r in {x[2] for x in p.reasons}]
+    emit(CountLabel.DISTINCT_NAMES, len(names))
+    emit(CountLabel.PROPOSALS, len(proposals))
+    for label, code in ((CountLabel.PROPOSALS_SAME_NAME, "same_name"), (CountLabel.PROPOSALS_INITIALS, "initials"),
+                        (CountLabel.PROPOSALS_NEARLY_SAME, "nearly_same"), (CountLabel.PROPOSALS_MORE_WORDS, "more_words")):
+        emit(label, reasons.count(code))
+    emit(CountLabel.NAMES_LEFT_ALONE, len(names) - sum(len(p.members) for p in proposals))
+    emit(CountLabel.ROWS_WITHOUT_PROGRAM, blank)
+    return 0
+
+
 COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy,
             "standardize": cmd_standardize, "geo-status": cmd_geo_status, "geo-check": cmd_geo_check,
             "offset-demo": cmd_offset_demo, "map-demo": cmd_map_demo, "people-demo": cmd_people_demo,
-            "people-check": cmd_people_check}
+            "people-check": cmd_people_check, "programs-demo": cmd_programs_demo, "programs-check": cmd_programs_check}
 
 
 def main(argv=None):
