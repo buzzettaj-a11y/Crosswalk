@@ -1,0 +1,6 @@
+Client_ID,First_Name,Last_Name,DOB,Address,City,State,Zip,Program
+C1,Charlie,Vega,1975-01-01,5 A St,New York,NY,10001,Housing
+C2,Tamsin,Okafor,1988-11-23,41 Pine Ave,Bronx,NY,10458,Youth
+C3,Dov,Lindqvist,1971-07-30,9 Birch Rd,Queens,NY,11372,Workforce
+C4,Priya,Abernathy,2001-01-17,88 Cedar Pl,New York,NY,10027,Housing
+C5,Wendell,Marchetti,1957-04-02,3 Spruce Ct,Brooklyn,NY,11215,Youth

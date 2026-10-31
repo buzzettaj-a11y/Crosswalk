@@ -129,11 +129,20 @@ def counts_view(results):
                       frame.lines(results))
 
 
+def crosswalk_notes(session):
+    """M13: while the saved crosswalk is on, Download's data line and the Your data drawer say what crosswalk.db holds."""
+    from wholecount.session.crosswalk import state
+
+    return ("dataline.note.export.crosswalk", "yourdata.crosswalk") if state(session) == "on" else ()
+
+
 def confidence_view(session):
     r = session.results
     conf = r.confidence
     acked = session.acknowledged is not None and session.acknowledged[0] == r.version
-    return ConfidenceView(conf.level, conf.parts, conf.measures, _thresholds(), conf.calibration, acked)
+    from wholecount.session.frame import calibration_line
+
+    return ConfidenceView(conf.level, conf.parts, conf.measures, _thresholds(), calibration_line(session), acked)
 
 
 def stale_stages(session):
@@ -250,7 +259,7 @@ def build_view(session, ui=None, preflight=None, clock=None):
         reviewer=s.reviewer or None, reviewer_asked=bool(ui.get("reviewer_asked", s.reviewer)),
         saved_progress=bool(ui.get("saved_progress", True)), saved_at=ui.get("saved_at"),
         now=(clock or s.clock)(),
-        data_notes=tuple(ui.get("data_notes", ())),
+        data_notes=tuple(ui.get("data_notes", ())) + crosswalk_notes(s),
         preview=ui.get("preview_view"),
     )
     if r is not None:

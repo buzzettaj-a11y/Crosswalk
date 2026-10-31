@@ -15,6 +15,8 @@ OUT = ROOT / "build" / "screens"
 COMMIT = ROOT / "docs" / "milestones" / "screens" / "M10"
 COMMIT_M11 = ROOT / "docs" / "milestones" / "screens" / "M11"
 COMMIT_M12 = ROOT / "docs" / "milestones" / "screens" / "M12"
+COMMIT_M13 = ROOT / "docs" / "milestones" / "screens" / "M13"
+M13_TMP = ROOT / "build" / "screens" / "m13-data"
 M11_STAGES = ("sources", "schema", "prepare", "map", "programs")
 M12_STAGES = ("run", "review", "summary", "export")
 SIZES = {1440: (1440, 980), 1280: (1280, 900)}
@@ -177,6 +179,99 @@ def m12_frames():
     return out
 
 
+def m13_window(width, state, practice=False):
+    """A processed example batch with the saved crosswalk off, on or orphaned. Not practice unless asked, so Measure matching
+    is open. The crosswalk and calibration files go to build/screens/m13-data, never to the real data folder."""
+    import shutil
+
+    from tools import screen_fixtures as F
+    from wholecount.session.crosswalk import TurnOnCrosswalk
+    from wholecount.session.secret_store import InstallSecret
+    from wholecount.ui.frame.bridge import SessionBridge
+    from wholecount.ui.frame.window import MainWindow
+
+    folder = M13_TMP / f"{state}-{width}"
+    shutil.rmtree(folder, ignore_errors=True)
+    folder.mkdir(parents=True)
+    s = F.example_session(True)
+    if not practice:
+        from wholecount.engine.geo.backend import NoBackend
+
+        s.backend, s.allow_sample = NoBackend(), False
+    s.crosswalk_path = folder / "crosswalk.db"
+    s.calibration_dir = folder / "calibration"
+    if state in ("on", "orphaned"):
+        real = s.secret
+        if state == "orphaned":
+            s.secret = InstallSecret(b"m13-screens-another-secret-32-by")
+        TurnOnCrosswalk("Reviewer").run(s)
+        s.secret = real
+    from wholecount.session import commands as C
+    from wholecount.session.runner import process
+    from wholecount.session.survey import survey
+
+    for g in survey(s).program_map.unconfirmed:
+        s.history.execute(C.DecideProgramGroup("confirm", tuple(g.members), g.label))
+    process(s)
+    s.reviewer = "Reviewer"
+    b = SessionBridge(s, {"saved_progress": False, "reviewer_asked": True}, clock=lambda: F.NOW)
+    b.dpapi = (lambda x: x, lambda x: x)
+    w = MainWindow(b, clock=lambda: F.NOW, confirm=lambda *a: False)
+    w.resize(*SIZES[width])
+    w.show()
+    w.go_to("run")
+    w.settings.open_()
+    w.refresh()
+    return w
+
+
+def m13_matching(width, step):
+    from wholecount.engine.progress import NullSink
+    from wholecount.ui.jobs.actions import CalibrateJob
+
+    w = m13_window(width, "on")
+    mw = w.m13.measure.open_window()
+    mw.per_band.setValue(5)
+    job = CalibrateJob(w.bridge.session, 5, mw._drawn, *w.bridge.dpapi)
+    job.apply(w.bridge.session, job.run(NullSink()))
+    if step == "draw":
+        mw.go(0)
+    elif step == "label":
+        mw.labeler.start("Reviewer")
+    else:
+        for name in ("Reviewer", "Second Reviewer"):
+            mw.labeler.start(name)
+            for p in mw.cal.pairs:
+                mw.labeler.choose("same" if p.kind == "join" or p.score >= 80 else "different")
+            mw.labeler.hand_over()
+        for pid in list(mw.cal.disagreements()):
+            mw.cal.settle(pid, "different")
+        mw.go(4)
+    w.matching_dialog = mw
+    return w
+
+
+def _scrolled(w):
+    """Scrolls the Settings drawer to M13's cards."""
+    app = _app()
+    _settle(app)
+    w.settings.scroll.verticalScrollBar().setValue(w.m13.secret.mapTo(w.settings.inner, w.m13.secret.rect().topLeft()).y()
+                                                   - 12)
+    _settle(app)
+    return w
+
+
+def m13_frames():
+    out = []
+    for width in SIZES:
+        for state in ("off", "on", "orphaned"):
+            out.append((f"m13-settings-{state}-{width}.png", width,
+                        lambda width=width, state=state: _scrolled(m13_window(width, state))))
+        for step in ("draw", "label", "results"):
+            out.append((f"m13-matching-{step}-{width}.png", width, lambda width=width, step=step: m13_matching(width, step)))
+    return out
+
+
 def frames():
     """(file name, width, builder) for every frame M10 renders."""
     from tools import screen_fixtures as F
@@ -234,7 +329,7 @@ def frames():
             for width in SIZES:
                 out.append((f"m11-{BY_ID[sid].nn}-{sid}-{state}-{width}.png", width,
                             lambda sid=sid, state=state, width=width: session_window(state == "populated", width, sid)))
-    return out + m12_frames()
+    return out + m12_frames() + m13_frames()
 
 
 def render(names=None, out=OUT):
@@ -255,6 +350,9 @@ def render(names=None, out=OUT):
         w.grab().save(str(path), "PNG")
         if name.startswith("m12-07-review-accept") and w.stage_widget.dialog is not None:
             _paste_dialog(w, w.stage_widget.dialog, path)
+        if getattr(w, "matching_dialog", None) is not None:
+            _paste_dialog(w, w.matching_dialog, path)
+            w.matching_dialog.close()
         written.append(path)
         if getattr(w, "cleanup", None):
             w.cleanup()
@@ -320,6 +418,9 @@ def main(argv=None):
         COMMIT_M12.mkdir(parents=True, exist_ok=True)
         for p in OUT.glob("m12-0*.png"):
             shutil.copy(p, COMMIT_M12 / p.name)
+        COMMIT_M13.mkdir(parents=True, exist_ok=True)
+        for p in OUT.glob("m13-*.png"):
+            shutil.copy(p, COMMIT_M13 / p.name)
     return 0
 
 

@@ -917,6 +917,10 @@ claim = "CL-OUT-06"
 text = "Latitude and Longitude are exact. For internal use only."
 claim = "CL-OUT-07"
 
+[outputs.note.crosswalk_failed]
+text = "The saved crosswalk wasn't updated."
+claim = "CL-XW-FAILED-01"
+
 [outputs.note.open_pairs]
 text = "{count} possible same-person pairs were open, so the people files treat them as different people."
 claim = "CL-OUT-08"
@@ -2423,6 +2427,8 @@ text = "{rows} rows across {n} files"
 text = "NEEDS YOUR SAY"
 [prog.s2.confirmed]
 text = "CONFIRMED BY YOU"
+[prog.s2.earlier]
+text = "FROM AN EARLIER BATCH"
 [prog.s2.move_here]
 text = "CLICK TO MOVE {name} HERE"
 [prog.s2.chip]
@@ -3314,3 +3320,267 @@ text = "Nothing has been written yet."
 claim = "CL-RECEIPT-ONLY-02"
 [export.footer.after]
 text = "Your own files were not changed. {product} wrote only the files listed here."
+
+[calibration.band_rate]
+text = "{same} of {labeled} were the same person at scores {lo} to {hi}"
+[calibration.band_rate_top]
+text = "{same} of {labeled} were the same person at scores {lo} and up"
+[calibration.earlier_weights]
+text = "These rates were measured with earlier matching weights."
+claim = "CL-CAL-EARLIER-01"
+[calibration.methods]
+text = "Matching was measured on {date}. Two staff labeled pairs on this computer: {rates}."
+claim = "CL-CAL-METHODS-01"
+[calibration.joins.confirmed]
+text = "{wrong} of {n} sampled automatic joins were wrong, which meets the 99.5% check. A small sample is a weak check."
+claim = "CL-CAL-JOINS-01"
+[calibration.joins.not_confirmed]
+text = "{wrong} of {n} sampled automatic joins were wrong, which misses the 99.5% check."
+claim = "CL-CAL-JOINS-02"
+[calibration.joins.no_joins]
+text = "No automatic joins were sampled."
+[calibration.recall]
+text = "At the proposal line of {line}, about {pct}% of true matches are proposed."
+claim = "CL-CAL-RECALL-01"
+
+[settings.secret.title]
+text = "Install secret"
+[settings.secret.body]
+text = "Back up the install secret to a place your organization controls. If the secret is lost, saved progress and the saved crosswalk can't be opened again. Restoring the backup brings them back."
+claim = "CL-SECRET-ORPHAN-01"
+[settings.secret.backup]
+text = "Back up the install secret"
+[settings.secret.restore]
+text = "Restore the install secret"
+[settings.secret.pass_title]
+text = "Choose a passphrase"
+[settings.secret.pass_body]
+text = "Type a passphrase of at least {n} characters twice. It isn't shown or saved anywhere, and the backup can't be opened without it."
+claim = "CL-PASSPHRASE-01"
+[settings.secret.pass_first]
+text = "Passphrase"
+[settings.secret.pass_again]
+text = "Type it again"
+[settings.secret.save]
+text = "Save the backup"
+[settings.secret.choose_file]
+text = "Choose where to save the backup"
+[settings.secret.open_file]
+text = "Choose the backup file"
+[settings.secret.file_filter]
+text = "Secret backup (*.wcb)"
+[settings.secret.refused.passphrase_mismatch]
+text = "The two passphrases don't match."
+[settings.secret.refused.passphrase_empty]
+text = "Type a passphrase."
+[settings.secret.refused.passphrase_short]
+text = "The passphrase needs at least {n} characters."
+[settings.secret.saved]
+text = "The backup was saved. It is {n} bytes."
+[settings.secret.restore_title]
+text = "Restore the install secret"
+[settings.secret.restore_go]
+text = "Restore"
+[settings.secret.same]
+text = "This is the same secret. Nothing changed."
+claim = "CL-RESTORE-SAME-01"
+[settings.secret.replace_warn]
+text = "This backup holds a different secret. Saved progress and the saved crosswalk made with the current secret will stop working. Type replace to use it."
+claim = "CL-RESTORE-REPLACE-01"
+[settings.secret.word]
+text = "Type replace"
+[settings.secret.wrong]
+text = "The passphrase is wrong or the file is damaged."
+[settings.secret.not_backup]
+text = "This file isn't a backup of the install secret."
+[settings.secret.restored]
+text = "The install secret was restored. Process again to use it."
+[settings.xw.title]
+text = "Saved crosswalk"
+[settings.xw.body]
+text = "The saved crosswalk keeps keyed hashes, master IDs and the pair and program decisions, so a person keeps one master ID across batches and a decided pair isn't asked again. It never holds names, addresses, IDs or dates. Turn it on only after your data agreements allow linking systems, and back up the install secret first."
+claim = "CL-XW-CONTENTS-01"
+[settings.xw.off]
+text = "Off"
+[settings.xw.turn_on]
+text = "Turn on"
+[settings.xw.turn_on_title]
+text = "Turn on the saved crosswalk"
+[settings.xw.turn_on_line]
+text = "Your name and the time are recorded in the audit."
+[settings.xw.not_undoable]
+text = "This can't be taken back with Undo."
+claim = "CL-XW-NOUNDO-01"
+[settings.xw.on_since]
+text = "On since {date}, turned on by {name}."
+[settings.xw.counts]
+text = "{people} people, {pairs} decided pairs and {groups} program groups."
+[settings.xw.forget]
+text = "Forget the saved crosswalk"
+[settings.xw.forget_prompt]
+text = "This deletes crosswalk.db. Type forget to delete it."
+claim = "CL-XW-FORGET-01"
+[settings.xw.forgotten]
+text = "The saved crosswalk was deleted. Process again to count without it."
+[settings.xw.orphaned]
+text = "The saved crosswalk was made with a different install secret, so it is not used. Losing the secret orphans it, and restoring the secret backup brings it back."
+claim = "CL-XW-ORPHANED-01"
+[settings.xw.refused.reviewer_missing]
+text = "Enter your name as the reviewer first."
+[run.pre.crosswalk_orphaned]
+text = "The saved crosswalk was made with a different install secret, so it is not used."
+claim = "CL-XW-ORPHANED-02"
+[settings.lines.title]
+text = "Matching lines"
+[settings.lines.possible]
+text = "Proposal line"
+[settings.lines.likely]
+text = "Likely line"
+[settings.lines.current]
+text = "Now {n}"
+[settings.lines.suggested]
+text = "Suggested {n}"
+[settings.lines.no_suggestion]
+text = "No suggestion yet"
+[settings.lines.save]
+text = "Save"
+[settings.lines.saved]
+text = "Saved. Process again to use the new lines."
+[settings.lines.refused]
+text = "The proposal line must be at least {lo} and below the Likely line, and the Likely line at most 200."
+[settings.lines.check]
+text = "Check saved labels"
+[settings.lines.no_labels]
+text = "No labels are saved yet."
+[settings.lines.caught]
+text = "Same pairs caught: {b1} of {b2} before, {a1} of {a2} now."
+[settings.lines.precision]
+text = "Same among pairs at or above the line: {b1} of {b2} before, {a1} of {a2} now."
+[settings.lines.dropped]
+text = "DROPPED"
+[settings.lines.held]
+text = "HELD UP"
+[settings.measure.title]
+text = "Measure matching"
+[settings.measure.body]
+text = "Two staff label a sample of pairs on this computer. {product} reports how often Same was right at each score and suggests a proposal line. It changes no weight and no line."
+claim = "CL-CAL-NOCHANGE-01"
+[settings.measure.open]
+text = "Measure matching"
+[settings.measure.hold]
+text = "Held until a run that isn't practice has finished."
+[matching.title]
+text = "Measure matching"
+[matching.step.draw]
+text = "Draw"
+[matching.step.label]
+text = "Label"
+[matching.step.settle]
+text = "Settle"
+[matching.step.known]
+text = "Known pairs"
+[matching.step.results]
+text = "Results"
+[matching.draw.per_band]
+text = "Pairs per band"
+[matching.draw.button]
+text = "Draw the pairs"
+[matching.draw.band]
+text = "Scores {lo} to {hi}: {n} drawn"
+[matching.draw.band_top]
+text = "Scores {lo} and up: {n} drawn"
+[matching.draw.joins]
+text = "Automatic joins: {n} drawn"
+[matching.label.name]
+text = "Your name"
+[matching.label.start]
+text = "Start labeling"
+[matching.label.no_score]
+text = "You see the two records only, never the score, so the number can't lead you."
+claim = "CL-CAL-NOSCORE-01"
+[matching.label.progress]
+text = "{done} of {total} labeled by {name}"
+[matching.label.same]
+text = "Same"
+[matching.label.different]
+text = "Different"
+[matching.label.unsure]
+text = "Unsure"
+[matching.label.handover]
+text = "Hand over to the second labeler"
+[matching.label.second]
+text = "The second labeler enters a different name and labels the same pairs."
+[matching.settle.none]
+text = "No disagreements are left."
+[matching.settle.line]
+text = "{a} said {la}, {b} said {lb}. Decide it together."
+[matching.known.note]
+text = "Enter pairs you know are one person. About {n} is useful. The Client_IDs stay on this screen and are never saved."
+claim = "CL-CAL-KNOWN-01"
+[matching.known.check]
+text = "Check these pairs"
+[matching.known.result]
+text = "{entered} entered: {compared} compared, {never} never compared and {missing} not in this batch."
+[matching.known.col.system_a]
+text = "SYSTEM"
+[matching.known.col.id_a]
+text = "CLIENT ID"
+[matching.known.col.system_b]
+text = "SYSTEM"
+[matching.known.col.id_b]
+text = "CLIENT ID"
+[matching.results.band]
+text = "Scores {lo} to {hi}: {same} of {labeled} labeled Same, out of {population} in the batch"
+[matching.results.band_top]
+text = "Scores {lo} and up: {same} of {labeled} labeled Same, out of {population} in the batch"
+[matching.results.unmeasured]
+text = "Scores {lo} to {hi}: nothing labeled, out of {population} in the batch"
+[matching.results.suggested]
+text = "Suggested proposal line: {n}"
+[matching.results.no_suggestion]
+text = "No line catches enough true matches yet. Label more pairs."
+[matching.results.missed]
+text = "True matches the line in force, {line}, would not propose: about {missed}."
+[matching.results.under_floor]
+text = "Pairs scoring under {floor} aren't measured."
+[matching.results.save]
+text = "Save these labels"
+[matching.results.saved]
+text = "Saved {n} labeled pairs."
+[calibration.refused.labeler_same_person]
+text = "The second labeler must be a different person."
+[calibration.refused.labeler_missing]
+text = "Enter your name."
+[calibration.refused.labels_hidden]
+text = "Both labelers have to finish first."
+[calibration.refused.first_labeler_not_finished]
+text = "The first labeler hasn't finished yet."
+[calibration.refused.two_labelers_already]
+text = "Two people have already labeled these pairs."
+[calibration.refused.needs_a_real_run]
+text = "Held until a run that isn't practice has finished."
+[calibration.refused.per_band_out_of_range]
+text = "Pairs per band must be from 3 to 200."
+[calibration.refused.draft_for_other_batch]
+text = "The saved draft is for another batch, so it wasn't used."
+[calibration.refused.labeler_finished]
+text = "You've finished. Hand over to the second labeler."
+
+[dataline.note.export.crosswalk]
+text = "It also updates the saved crosswalk, which holds no names, addresses, IDs or dates."
+claim = "CL-XW-DATALINE-01"
+[yourdata.crosswalk]
+text = "The saved crosswalk is on. crosswalk.db on this computer keeps keyed hashes, master IDs and the pair and program decisions, so people keep one master ID across batches. It holds no names, addresses, IDs or dates, and Settings can forget it."
+claim = "CL-XW-YOURDATA-01"
+[matching.field.name]
+text = "Name"
+[matching.field.dob]
+text = "Date of birth"
+[matching.field.address]
+text = "Address"
+[matching.field.zip]
+text = "ZIP"
+[matching.field.system]
+text = "System"
+[matching.field.blank]
+text = "blank"

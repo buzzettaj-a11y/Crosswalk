@@ -1,0 +1,4 @@
+# Three known pairs to enter on Known pairs: system, Client_ID, system, Client_ID. Made-up records.
+people_a PA0000 people_b PB0000
+people_a PA0001 people_b PB0001
+people_a PA0002 people_b PB0002

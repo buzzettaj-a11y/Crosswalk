@@ -1,2 +1,5 @@
 # Map_Counts (SPEC 6.6 P-GEO-6). Any count from 1 to this number is blanked and shown as "fewer than 11".
 small_cell_max = 10
+
+# Install secret backup (SPEC 5.1, M13 BAK-4). The fewest characters a backup passphrase may have. A choice to log.
+backup_passphrase_min = 12

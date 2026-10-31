@@ -205,7 +205,7 @@ class YourDataDrawer(Drawer):
     def update_view(self, v):
         self.switch.update_view(v)
         clear(self.notes)
-        for note in v.data_notes:
+        for note in (n for n in v.data_notes if not n.startswith("dataline.")):
             self.notes.addWidget(label(copy.get(note), role="note", tone="ink-2", wrap=True, name="dataNote"))
 
     def texts(self):

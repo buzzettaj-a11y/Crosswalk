@@ -27,6 +27,9 @@ class SessionBridge(QObject):
         self._last_view = None
         self.last_refusal = None
         self.dispatched = []
+        self.secret_store = None          # M13: where a restored secret is saved (the app sets it)
+        self.prefs_store = None           # M13: prefs.json, for the matching lines
+        self.dpapi = None                 # M13: (protect, unprotect) for the calibration files; None means DPAPI itself
 
     def view(self):
         if self.session is None:

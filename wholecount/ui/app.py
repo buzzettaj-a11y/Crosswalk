@@ -51,6 +51,13 @@ def build(argv=None):
         secret = InstallSecret(bytes(32))     # a stand-in so the window opens; the system check says the key won't open
     session = Session(secret)
     store = Store(data_dir())
+    if secret_ok:
+        # M13: the saved crosswalk is on exactly when this file exists; the calibration files and the lines live beside it.
+        session.crosswalk_path = data_dir() / "crosswalk.db"
+        session.calibration_dir = data_dir() / "calibration"
+        lines = store.prefs().get("thresholds")
+        if lines:
+            session.thresholds = (int(lines["possible_min"]), int(lines["likely_min"]))
     saved = bool(store.prefs().get("saved_progress", True))
     # With an unreadable key file nothing is saved, because keys made now wouldn't match the real ones.
     session.store = store if saved and secret_ok else None
@@ -59,6 +66,8 @@ def build(argv=None):
           "store_ok": _store_ok(store), "dpapi_ok": _dpapi_ok(), "guard_ok": _guard_installed(),
           "windows": f"{platform.system()} {platform.release()}"}
     bridge = SessionBridge(session, ui, preflight, clock=lambda: dt.datetime.now(dt.timezone.utc))
+    bridge.secret_store = default_store() if secret_ok else None
+    bridge.prefs_store = store
     window = MainWindow(bridge)
     return app, window
 

@@ -224,3 +224,56 @@ class DownloadJob:
         if kind == "done":
             log_download(session, value)
         self.on_done(kind, value)
+
+
+class BackupJob:
+    """Protecting the backup (SPEC 11.6.2): scrypt can pass 300 ms, so the file is written on the worker. Not on the undo
+    stack. The passphrase lives only inside the BackupSecret, which forgets it once the file is written."""
+
+    action_id = "backup"
+    undoable = False
+
+    def __init__(self, session, backup, on_done):
+        from wholecount.ui.jobs.steps import steps_of
+
+        self.steps = steps_of("backup")
+        self.session, self.backup, self.on_done = session, backup, on_done
+
+    def run(self, sink):
+        from wholecount.session.progress import ProgressMessage, Step, Unit
+
+        sink.begin(Step.PROTECTING_BACKUP, 1, Unit.FILES)
+        n = self.backup.run(self.session)
+        sink.end(ProgressMessage("progress.found.demo", {"n": 1}))
+        return n
+
+    def apply(self, session, n):
+        self.on_done(n)
+
+
+class CalibrateJob:
+    """Matching people across files, Drawing pairs (SPEC 11.6.2). Draws the sample; changes nothing in the session."""
+
+    action_id = "calibrate"
+    undoable = False
+
+    def __init__(self, session, per_band, on_done, protect=None, unprotect=None):
+        from wholecount.ui.jobs.steps import steps_of
+
+        self.steps = steps_of("calibrate")
+        self.session, self.per_band, self.on_done = session, per_band, on_done
+        self.protect, self.unprotect = protect, unprotect
+
+    def run(self, sink):
+        from wholecount.session.calibration import CalibrationSession
+        from wholecount.session.progress import ProgressMessage, Step, Unit
+
+        sink.begin(Step.MATCHING_PEOPLE, 1, Unit.ROWS)
+        sink.end(ProgressMessage("progress.found.demo", {"n": len(self.session.results.person_of_record)}))
+        sink.begin(Step.DRAWING_PAIRS, 1, Unit.PAIRS)
+        cal = CalibrationSession.draw(self.session, self.per_band, self.protect, self.unprotect)
+        sink.end(ProgressMessage("progress.found.demo", {"n": len(cal.pairs)}))
+        return cal
+
+    def apply(self, session, cal):
+        self.on_done(cal)

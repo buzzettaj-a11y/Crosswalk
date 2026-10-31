@@ -14,6 +14,7 @@ from wholecount.engine.geo.place import building_key, to_query
 from wholecount.engine.geo.types import Districts
 from wholecount.engine.outputs import writer
 from wholecount.engine.outputs.audit_entry import entry
+from wholecount.engine.outputs.audit_text import M13_EVENTS
 from wholecount.engine.outputs.review_file import row_signature, run_id, share_key
 from wholecount.engine.outputs.view import ExportSettings, OutputView, OutRow, TableSummary
 from wholecount.engine.standardize.model import audit_events
@@ -86,7 +87,7 @@ def build_events(session, results):
                                                 note=d.get("note"), **common)))
     translate = {"ACCEPT_GROUP": "BULK_ACCEPT", "CORRECTION": "CORRECTION", "UNDO": "UNDO", "REVIEWER": "REVIEWER_SET",
                  "LOW_CONFIDENCE_ACKNOWLEDGED": "CONFIDENCE_ACK", "FINISH_REVIEW": "FINISH_REVIEW", "SETUP_CHANGE": "SETUP_CHANGE",
-                 "RESUME": "RESUME"}
+                 "RESUME": "RESUME", **{c: c for c in M13_EVENTS}}
     from wholecount.engine.outputs.audit_text import EVENT_SLOTS
     for t, e in session.audit_log:
         code = translate.get(e.code)
@@ -196,7 +197,13 @@ def build_view(session, settings=None):
         masters=master_rows, tables=tuple(tables), sources=sources, counts=r.counts, balance=r.balance, confidence=r.confidence,
         map_entries=tuple(entries), map_points=tuple(points), run_id=rid, events=build_events(session, r),
         share_keys={x.record_key: share_key(mac, x.record_key) for x in rows},
-        reviewer_counts=decisions_by_reviewer(session.decisions), problem_ids=_problem_ids())
+        reviewer_counts=decisions_by_reviewer(session.decisions), problem_ids=_problem_ids(), calibration=_methods(session))
+
+
+def _methods(session):
+    from wholecount.session.frame import methods_note
+
+    return methods_note(session)
 
 
 def download(session, folder, settings=None, clock=None, confirmed_synced=False, overwrite=False, environ=None):
@@ -210,6 +217,12 @@ def download(session, folder, settings=None, clock=None, confirmed_synced=False,
     import pathlib
     session.log(entry("DOWNLOAD", file_name=[pathlib.Path(f.path).name for f in receipt.files], count=len(receipt.files),
                       reviewer=session.reviewer or None))
+    from wholecount.session.crosswalk import commit_after_download
+
+    if commit_after_download(session) == "failed":
+        import dataclasses
+
+        receipt = dataclasses.replace(receipt, notes=tuple(receipt.notes) + (("outputs.note.crosswalk_failed", {}),))
     return receipt
 
 

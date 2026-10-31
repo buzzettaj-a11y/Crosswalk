@@ -86,6 +86,7 @@ class Results:
     release: str = ""
     backend: str = "none"
     load: object = field(default=None, repr=False)
+    crosswalk: object = None              # a CrosswalkRun while the saved crosswalk was used, else None (M13)
 
     def digest(self):
         """A hash over what the screens and files would show, so equal digests mean equal results."""
@@ -137,6 +138,9 @@ class Session:
         self.store = None                 # a session.store.Store when saved progress is wanted (STORE-3)
         self.session_id = hashlib.sha256(self.now_iso().encode("utf-8")).hexdigest()[:16]
         self._load_cache = None
+        self.thresholds = None            # (possible_min, likely_min) from prefs.json, or None for identity.toml's (CAL-7)
+        self.calibration_dir = None       # the calibration folder; the app sets it
+        self.crosswalk_path = None        # crosswalk.db's path; the app sets it, and the crosswalk is on when the file exists
 
     @property
     def audit(self):
@@ -163,17 +167,22 @@ class Session:
         s = self.setup
         review = [d for d in self.decisions if d.kind not in ("pair", "program")]
         return {
-            "sources": s.stable("sources"),
+            "sources": s.stable("sources") + self.secret.mac(b"secret|fingerprint").hex()[:16],
             "tables": s.stable("tables", "systems") + repr(sorted(self.keep_sensitive)),
             "steps": s.stable("steps"),
             "mappings": s.stable("schema", "mappings"),
             "standardized": s.stable("defaults", "date_orders") + repr(self.today()),
             "geo": s.stable("run_settings") + repr((self.backend.name, self.backend.release, self.allow_sample)),
             "decisions": repr(sorted(d.decision_id for d in review)) + repr(sorted(self.correction_texts)),
-            "identity": repr(sorted(d.decision_id for d in self.decisions.of_kind("pair"))),
+            "identity": repr(sorted(d.decision_id for d in self.decisions.of_kind("pair"))) + "|xw:" + self._crosswalk_fp() + "|t:" + repr(self.thresholds),
             "programs": repr(sorted(d.decision_id for d in self.decisions.of_kind("program"))) + s.stable("program_columns"),
             "exports": s.stable("export_settings"),
         }
+
+    def _crosswalk_fp(self):
+        from wholecount.session.crosswalk import fingerprint
+
+        return fingerprint(self)
 
     def live_fingerprints(self):
         return staleness.fingerprints(self.own_inputs())

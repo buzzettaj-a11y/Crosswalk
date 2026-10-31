@@ -1,5 +1,6 @@
 """What the window's frame reads from the session (SPEC 3.2, 11.3). The UI never imports the engine, so the engine's
 numbers, equations and sentences reach FrameView through these functions. Nothing here works out a rule."""
+from wholecount import copy
 from wholecount.engine.counts import BalanceError, Locations, assert_balance, ledger_lines  # noqa: F401
 from wholecount.engine.outputs.summary_doc import confidence_reason  # noqa: F401
 
@@ -166,3 +167,43 @@ def log_download(session, receipt):
 
     session.log(entry("DOWNLOAD", file_name=[pathlib.Path(f.path).name for f in receipt.files], count=len(receipt.files),
                       reviewer=session.reviewer or None))
+
+
+def _band_rate(b, labeled, same):
+    from wholecount.engine.calibration.sample import settings
+
+    edges = settings()["band_edges"]
+    if b < len(edges):
+        return copy.get("calibration.band_rate", same=same, labeled=labeled, lo=edges[b - 1], hi=edges[b] - 1)
+    return copy.get("calibration.band_rate_top", same=same, labeled=labeled, lo=edges[b - 1])
+
+
+def calibration_rates(note):
+    text = "; ".join(_band_rate(b, n, s) for b, n, s in note.bands if n)
+    if not note.matches_weights:
+        text += " " + copy.get("calibration.earlier_weights")
+    return text
+
+
+def calibration_line(session):
+    """(date, rates text) for the confidence detail line (SPEC 7.4), or None before any calibration is saved."""
+    from wholecount.session.calibration import calibration_note
+
+    note = calibration_note(session)
+    return None if note is None else (note.calibrated_at, calibration_rates(note))
+
+
+def methods_note(session):
+    """The whole calibration paragraph for the printable page's methods note (SPEC 9.3), or None."""
+    from wholecount.session.calibration import calibration_note
+
+    note = calibration_note(session)
+    if note is None:
+        return None
+    parts = [copy.get("calibration.methods", date=note.calibrated_at, rates=calibration_rates(note))]
+    if note.joins:
+        n, wrong, result = note.joins
+        parts.append(copy.get(f"calibration.joins.{result}", n=n, wrong=wrong))
+    if note.recall_pct is not None:
+        parts.append(copy.get("calibration.recall", line=note.line, pct=note.recall_pct))
+    return " ".join(parts)

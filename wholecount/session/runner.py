@@ -196,7 +196,12 @@ def run(session, sink=None):
         applied.add(d.decision_id)
     open_groups = tuple(g for g in groups if g.kind in ("identical", "possible") and g.group_id not in decided
                         and sum(1 for m in g.members if m in counted) > 1)
-    identity = resolve(prows, verdicts, open_copy_groups=[tuple(m for m in g.members if m in counted) for g in open_groups])
+    xw = _crosswalk_read(session, backend, load, by_person, nla)
+    if xw is not None:
+        verdicts += list(xw.verdicts)
+    bands = {"possible_min": session.thresholds[0], "likely_min": session.thresholds[1]} if session.thresholds else None
+    identity = resolve(prows, verdicts, known=xw.known if xw else None, settings={"bands": bands} if bands else None,
+                       open_copy_groups=[tuple(m for m in g.members if m in counted) for g in open_groups])
 
     # Step 10: programs.
     pdecs = sorted(session.decisions.of_kind("program"), key=lambda d: (d.made_at, d.decision_id))
@@ -205,7 +210,9 @@ def run(session, sink=None):
         tk = next((k for k, f in file_of.items() if f == (name, idx)), None)
         if tk:
             overrides[tk] = v
-    names, proposals, pm, program_of = pl.programs_step(works, counted, [program_decision(d) for d in pdecs], overrides)
+    inherited_progs = list(xw.programs(rows[rk].value("Program") for rk in counted)) if xw else []
+    names, proposals, pm, program_of = pl.programs_step(works, counted, [program_decision(d) for d in pdecs] + inherited_progs,
+                                                        overrides)
     for d in pdecs:
         if any(dec == program_decision(d) and why == "names_gone" for dec, why in pm.not_applied):
             nla.append(NoLongerApply(d, "names_gone"))
@@ -216,6 +223,10 @@ def run(session, sink=None):
     outcome_list = [outcomes[k] for k in sorted(outcomes)]
     counts = count(outcome_list, identity, person_of, program_of, len(identity.proposals), len(open_groups),
                    len(pm.unconfirmed), False, pm.not_in_goal2, {rk for rk in counted if pl.dob_valid(rows[rk])})
+    if xw is not None:
+        counts = dataclasses.replace(counts, matched_from_earlier=xw.matched_from_earlier(
+            {identity.master_of_record[rk] for rk in counted}))
+        xw.close()
     balance = balance_of(outcome_list, _accounting(load, tables))
     conf = batch_confidence(counts)
     if sink.cancelled():
@@ -227,7 +238,78 @@ def run(session, sink=None):
         system_of_record=system_of, program_names=tuple(names), program_proposals=tuple(proposals), program_map=pm,
         program_of_record=program_of, counts=counts, balance=balance, confidence=conf, placements=placement, fills=fills,
         replay=rep, no_longer_apply=tuple(nla), kept=len(applied), lapsed=len(nla),
-        practice=backend.name == "reference_sample", release=getattr(backend, "release", ""), backend=backend.name, load=load)
+        practice=backend.name == "reference_sample", release=getattr(backend, "release", ""), backend=backend.name, load=load,
+        crosswalk=xw.summary() if xw else None)
+
+
+class _CrosswalkRead:
+    """What the saved crosswalk gave one run (XW-4, XW-5). The store stays open only for the run."""
+
+    def __init__(self, store, batch_id):
+        self.store, self.batch_id = store, batch_id
+        self.known, self.verdicts, self.keep_saved, self.lapsed = {}, [], set(), 0
+
+    def programs(self, names):
+        from wholecount.engine.crosswalk.apply import inherited_programs
+
+        return inherited_programs(self.store, {n for n in names if n})
+
+    def matched_from_earlier(self, masters):
+        first = self.store.first_batches(masters)
+        return sum(1 for m in masters if m in first and first[m] != self.batch_id)
+
+    def summary(self):
+        from wholecount.session.crosswalk import CrosswalkRun
+
+        return CrosswalkRun(self.batch_id, frozenset(self.keep_saved), self.lapsed)
+
+    def close(self):
+        self.store.close()
+
+
+def _lapse(nla, a, b, reviewer, at):
+    """A No longer apply entry for a saved decision that new evidence overrides. It names no value (H8)."""
+    from wholecount.session.decisions import make
+
+    nla.append(NoLongerApply(make("pair", (), "crosswalk", at, reviewer, person_keys=(a, b)), "dob_now_differs"))
+
+
+def _crosswalk_read(session, backend, load, by_person, nla):
+    """XW-4 and XW-5. None while the crosswalk is off, orphaned, or the run is practice (it's never read then)."""
+    from wholecount.engine.crosswalk.apply import inherited_verdicts, load_known
+    from wholecount.session import crosswalk
+
+    if not crosswalk.in_use(session, backend.name == "reference_sample"):
+        return None
+    store = crosswalk.open_store(session)
+    xw = _CrosswalkRead(store, crosswalk.batch_id_of(session, load))
+    weights = load_settings()["weights"]
+
+    def dob_differs(a, b):
+        return "dob_differs" in score_pair(_facts(by_person[a]), _facts(by_person[b]), False, weights).evidence
+
+    known = load_known(store, by_person)
+    # A reviewer-made saved link that would come back as an earlier_batch join, but whose dates of birth now differ.
+    by_master = {}
+    for k, km in known.items():
+        by_master.setdefault(km.master_id, []).append(k)
+    for ks in by_master.values():
+        ks = sorted(ks, key=lambda k: (known[k].linked_at, k))
+        for k in ks[1:]:
+            if (known[k].how == "reviewer" or known[ks[0]].how == "reviewer") and dob_differs(ks[0], k):
+                _lapse(nla, ks[0], k, "", known[k].linked_at)
+                xw.keep_saved.add(k)
+                xw.lapsed += 1
+    xw.known = {k: v for k, v in known.items() if k not in xw.keep_saved}
+    lapsed_pairs = {tuple(sorted(n.decision.person_keys)) for n in nla if n.reason == "dob_now_differs"}
+    for v in inherited_verdicts(store, by_person):
+        if v.verdict == "same" and dob_differs(v.a, v.b):
+            if v.pair not in lapsed_pairs:
+                _lapse(nla, v.a, v.b, v.reviewer, v.decision_id[3:])
+                xw.lapsed += 1
+            continue
+        xw.verdicts.append(v)
+    return xw
 
 
 def process(session, sink=None):

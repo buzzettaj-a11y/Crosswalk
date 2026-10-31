@@ -183,6 +183,20 @@ class CountLabel(enum.Enum):
     CELL_VALUES_FOUND = "cell_values_found"
     DECISIONS_RESTORED = "decisions_restored"
     DELETED = "deleted"
+    # M13 backup, crosswalk and calibration
+    BACKUP_BYTES = "backup_bytes"
+    KNOWN_ANSWER_MATCHES = "known_answer_matches"
+    RESTORE_OK = "restore_ok"
+    WRONG_PASSPHRASE_REFUSED = "wrong_passphrase_refused"
+    ONE_CHANGED_BYTE_REFUSED = "one_changed_byte_refused"
+    PEOPLE = "people"
+    PERSON_KEYS = "person_keys"
+    PAIR_VERDICTS = "pair_verdicts"
+    PROGRAM_GROUPS = "program_groups"
+    MERGED = "merged"
+    WAL_FILES = "wal_files"
+    LABELED_PAIRS = "labeled_pairs"
+    REGRESSION_DROPPED = "regression_dropped"
 
 
 def emit(label, value, scope=None, out=None, field=None, reason=None, grouped=True):
@@ -1171,13 +1185,111 @@ def cmd_saved_progress_demo(args):
     return 0
 
 
+def cmd_backup_demo(args):
+    """Back up a made-up secret in memory, check the known answer, restore it, and refuse a wrong passphrase and a changed
+    byte. Writes nothing."""
+    from wholecount.engine.secretbackup import BackupError, make_backup, read_backup
+
+    secret, passphrase, salt = bytes(range(32)), "correct horse battery staple", bytes(range(16))
+    known = ("57434231000102030405060708090a0b0c0d0e0f819956c362b0ba0d33e90b391c32960f1e927297476698fb8341002bde214ca8"
+             "fc435e355253a2ec4c73060ea9261179f015affbf30b6c477b3938d53fbba454")
+    blob = make_backup(secret, passphrase, salt)
+
+    def refused(b, pw):
+        try:
+            read_backup(b, pw)
+            return False
+        except BackupError:
+            return True
+    bad = bytearray(blob)
+    bad[30] ^= 1
+    emit(CountLabel.BACKUP_BYTES, len(blob))
+    emit(CountLabel.KNOWN_ANSWER_MATCHES, int(blob.hex() == known))
+    emit(CountLabel.RESTORE_OK, int(read_backup(make_backup(secret, passphrase), passphrase) == secret))
+    emit(CountLabel.WRONG_PASSPHRASE_REFUSED, int(refused(blob, passphrase + "x")))
+    emit(CountLabel.ONE_CHANGED_BYTE_REFUSED, int(refused(bytes(bad), passphrase)))
+    emit(CountLabel.FILES_WRITTEN, 0)
+    return 0
+
+
+def _cell_values(paths, default_glob):
+    """Every cell value of four or more characters in the given CSV files (or the repo's made-up fixtures), to scan for."""
+    import csv
+    import pathlib
+
+    files = [pathlib.Path(a) for a in paths] or sorted(pathlib.Path().glob(default_glob))
+    out = set()
+    for f in files:
+        with open(f, encoding="utf-8", newline="") as fh:
+            for row in csv.DictReader(fh):
+                out.update(v for k, v in row.items() if k != "Program" and v and len(v) >= 4)
+    return out
+
+
+def cmd_crosswalk_check(args):
+    """Counts in this computer's crosswalk.db, whether any made-up cell value is in its bytes, and leftover journal files."""
+    from wholecount.engine.crosswalk.store import CrosswalkStore
+    from wholecount.paths import data_dir
+
+    folder = data_dir()
+    path = folder / "crosswalk.db"
+    counts = (0, 0, 0, 0, 0)
+    found = 0
+    if path.exists():
+        with CrosswalkStore.open(path, _install_secret().mac) as st:
+            c = st.counts()
+            counts = (c.people, c.person_keys, c.pair_verdicts, c.program_groups, c.merged)
+        raw = path.read_bytes()
+        found = sum(1 for v in _cell_values(args, "tests/fixtures/crosswalk/*.csv") if v.encode("utf-8") in raw)
+    for label, n in zip((CountLabel.PEOPLE, CountLabel.PERSON_KEYS, CountLabel.PAIR_VERDICTS, CountLabel.PROGRAM_GROUPS,
+                         CountLabel.MERGED), counts):
+        emit(label, n)
+    emit(CountLabel.CELL_VALUES_FOUND, found)
+    emit(CountLabel.WAL_FILES, sum(1 for f in folder.glob("crosswalk.db-*")) if folder.exists() else 0)
+    return 0
+
+
+def cmd_calibration_check(args):
+    """Labeled pairs in this computer's labeled.wcl, a scan of its contents for made-up cell values, and the regression check.
+    --weights-change name=value re-scores with one weight changed."""
+    from wholecount.engine.identity import load_settings
+    from wholecount.paths import data_dir
+    from wholecount.session import calibration as cs
+
+    weights = dict(load_settings()["weights"])
+    paths = []
+    it = iter(args)
+    for a in it:
+        if a == "--weights-change":
+            k, _, v = next(it).partition("=")
+            weights[k] = int(v)
+        else:
+            paths.append(a)
+
+    class _S:
+        calibration_dir = data_dir() / "calibration"
+        thresholds = None
+    data = cs.load_labels(_S)
+    pairs = len(data["pairs"]) if data else 0
+    found = 0
+    if data:
+        text = repr(data)
+        found = sum(1 for v in _cell_values(paths, "tests/fixtures/calibration/*.csv") if v in text)
+    reg = cs.run_regression(_S, weights) if data else None
+    emit(CountLabel.LABELED_PAIRS, pairs)
+    emit(CountLabel.CELL_VALUES_FOUND, found)
+    emit(CountLabel.REGRESSION_DROPPED, int(bool(reg and reg.dropped)))
+    return 0
+
+
 COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy,
             "standardize": cmd_standardize, "geo-status": cmd_geo_status, "geo-check": cmd_geo_check,
             "offset-demo": cmd_offset_demo, "map-demo": cmd_map_demo, "people-demo": cmd_people_demo,
             "people-check": cmd_people_check, "programs-demo": cmd_programs_demo, "programs-check": cmd_programs_check,
             "session-demo": cmd_session_demo, "session-check": cmd_session_check, "dpapi-roundtrip": cmd_dpapi_roundtrip,
             "outputs-demo": cmd_outputs_demo, "folder-check": cmd_folder_check, "corrections-demo": cmd_corrections_demo,
-            "saved-progress-demo": cmd_saved_progress_demo}
+            "saved-progress-demo": cmd_saved_progress_demo, "backup-demo": cmd_backup_demo,
+            "crosswalk-check": cmd_crosswalk_check, "calibration-check": cmd_calibration_check}
 
 
 def main(argv=None):
