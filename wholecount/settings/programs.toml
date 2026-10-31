@@ -1,0 +1,26 @@
+# Program name proposals (SPEC 6.9 P-PROG-2). A proposal changes nothing until a person confirms it (P-PROG-3).
+
+similarity = 0.86
+caps_min_letters = 2
+caps_max_letters = 6
+noise = ["program", "programs", "prog", "service", "services", "svc", "svcs", "department", "dept", "division", "div",
+         "unit", "team", "office", "initiative", "project", "the", "of", "and", "for", "a", "an", "client", "clients",
+         "participant", "participants", "general"]    # a trailing single "a" is kept (Class A)
+ending_ok = ["development"]
+meaning_words = ["youth", "senior", "seniors", "adult", "adults", "child", "children", "family", "families", "employment",
+                 "housing", "education", "health", "mental", "tenant", "tenants", "immigration", "legal", "food",
+                 "benefits", "veterans", "women", "men", "teen", "teens", "early"]
+
+[stems]            # short form = full word
+dev = "development"
+admin = "administration"
+mgmt = "management"
+svcs = "services"
+res = "resident"
+comm = "community"
+educ = "education"
+empl = "employment"
+trng = "training"
+asst = "assistance"
+hsg = "housing"
+wf = "workforce"
