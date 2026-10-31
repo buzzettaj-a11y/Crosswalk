@@ -917,3 +917,814 @@ claim = "CL-OUT-13"
 [errors.safe_text]
 text = "Something went wrong: {kind} in {module}, line {line}. Nothing about your clients is in this message."
 claim = "CL-OUT-14"
+
+# The window (M10, SPEC 11). Stage names and the header kicker.
+
+[stage.kicker]
+text = "STAGE {number} OF {total} · {technical}"
+
+[stage.strip_kicker]
+text = "{number} {technical}"
+
+[stage.sources.name]
+text = "Add your files"
+[stage.sources.technical]
+text = "SOURCES"
+[stage.sources.subtitle]
+text = "Add the client lists you exported, then choose which tables count."
+
+[stage.schema.name]
+text = "Your columns"
+[stage.schema.technical]
+text = "SCHEMA"
+[stage.schema.subtitle]
+text = "The fields every file is matched onto, including any you add."
+
+[stage.prepare.name]
+text = "Tidy up"
+[stage.prepare.technical]
+text = "PREPARE"
+[stage.prepare.subtitle]
+text = "Steps that add clean columns. Your original columns stay as they are."
+
+[stage.map.name]
+text = "Match your columns"
+[stage.map.technical]
+text = "MAP"
+[stage.map.subtitle]
+text = "Match each field to a column in each table, and check the values look right."
+
+[stage.programs.name]
+text = "Programs"
+[stage.programs.technical]
+text = "PROGRAMS"
+[stage.programs.subtitle]
+text = "Say which column holds the program, and which names are the same program."
+
+[stage.run.name]
+text = "Process"
+[stage.run.technical]
+text = "RUN"
+[stage.run.subtitle]
+text = "Tidy, check, place, match and count every included table."
+
+[stage.review.name]
+text = "Fix problems"
+[stage.review.technical]
+text = "REVIEW"
+[stage.review.subtitle]
+text = "Decide the rows the rules can't settle, a group of rows at a time."
+
+[stage.summary.name]
+text = "Results"
+[stage.summary.technical]
+text = "SUMMARY"
+[stage.summary.subtitle]
+text = "The two counts, the pairs still open, and where people are."
+
+[stage.export.name]
+text = "Download"
+[stage.export.technical]
+text = "EXPORT"
+[stage.export.subtitle]
+text = "Choose what to download and where to put it."
+
+[stage.placeholder]
+text = "This stage is built in a later step. The frame around it already works."
+
+[stage.accessible]
+text = "Stage {number}, {name}, {caption}"
+
+[stage.accessible_current]
+text = ", current stage"
+
+[stage.accessible_stale]
+text = ", out of date"
+
+# Top bar (SPEC 11.3)
+
+[top.wordmark_square]
+text = "{product}"
+
+[top.offline]
+text = "Offline"
+claim = "CL-OFFLINE-02"
+
+[top.offline_narrow]
+text = "Offline, nothing leaves this computer"
+claim = "CL-OFFLINE-03"
+
+[top.backend.geosupport]
+text = "Geosupport Desktop Edition {release} on this computer"
+
+[top.backend.geosupport_old]
+text = ", more than a year old"
+
+[top.backend.reference]
+text = "Address reference file, exact matches only"
+
+[top.backend.sample]
+text = "Sample address file, practice only"
+
+[top.backend.none]
+text = "Addresses will not be placed"
+
+[top.saved.just_now]
+text = "progress saved just now"
+claim = "CL-SAVED-TIME-01"
+
+[top.saved.minutes]
+text = "progress saved {n} min ago"
+
+[top.saved.hours]
+text = "progress saved {n} h ago"
+
+[top.saved.off]
+text = "saved progress is off"
+claim = "CL-SAVED-OFF-01"
+
+[top.saved.nothing]
+text = "nothing to save yet"
+
+[top.practice]
+text = "PRACTICE"
+claim = "CL-PRACTICE-01"
+
+[top.close]
+text = "Close {product}"
+
+# Stage strip (SPEC 11.3, 10.4)
+
+[strip.undo.kicker]
+text = "UNDO"
+[strip.undo.empty]
+text = "Nothing to undo"
+claim = "CL-UNDO-ONE-01"
+[strip.undo.caption]
+text = "takes back one change"
+[strip.undo.accessible]
+text = "Undo: {label}"
+
+[strip.cap.stale]
+text = "out of date"
+claim = "CL-STALE-CAPTION-01"
+
+[strip.cap.sources_none]
+text = "no files yet"
+[strip.cap.sources]
+text = "{files} files, {tables} tables"
+[strip.cap.schema_default]
+text = "nothing to decide"
+[strip.cap.schema_custom]
+text = "{n} custom fields"
+[strip.cap.prepare_none]
+text = "no steps yet"
+[strip.cap.prepare_proposed]
+text = "{n} steps proposed"
+[strip.cap.prepare_kept]
+text = "{n} steps kept"
+[strip.cap.prepare_noop]
+text = ", {m} do nothing"
+[strip.cap.map]
+text = "{m} of {t} tables confirmed"
+[strip.cap.map_wrong]
+text = ", {k} look wrong"
+[strip.cap.programs_open]
+text = "{n} programs to confirm"
+[strip.cap.programs_done]
+text = "{n} programs, confirmed"
+[strip.cap.programs_none]
+text = "no program column"
+[strip.cap.run_ready]
+text = "ready to run"
+[strip.cap.run_running]
+text = "running"
+[strip.cap.run_done]
+text = "done in {secs} s"
+[strip.cap.not_run]
+text = "not run yet"
+[strip.cap.review_open]
+text = "{n} rows open"
+[strip.cap.review_done]
+text = "all decided"
+[strip.cap.summary_pairs]
+text = "{n} pairs open"
+[strip.cap.summary_groups]
+text = ", {g} copy groups"
+[strip.cap.summary_not_counted]
+text = "{k} not counted yet"
+[strip.cap.summary_final]
+text = "final"
+[strip.cap.export_held]
+text = "held, confidence is Low"
+[strip.cap.export_ready]
+text = "{n} files ready"
+
+# Run ticker and the step list (SPEC 11.6)
+
+[ticker.running]
+text = "Step {i} of {n} · {step} · {done} of {total}"
+[ticker.all_steps]
+text = "All steps"
+[ticker.cancel]
+text = "Cancel"
+[ticker.show_log]
+text = "Show the log"
+[ticker.after.process]
+text = "Last run finished in {secs} s"
+[ticker.after.action]
+text = "{action} finished in {secs} s"
+[ticker.after.steps]
+text = "{n} steps"
+[ticker.after.disk]
+text = "nothing written to disk"
+claim = "CL-TICKER-DISK-01"
+[ticker.after.saved]
+text = "except your saved decisions, encrypted"
+[ticker.cancelled]
+text = "Run cancelled. Nothing changed."
+claim = "CL-CANCEL-01"
+[ticker.failed]
+text = "Something went wrong in {step}. Nothing was changed."
+claim = "CL-FAILED-01"
+[ticker.error_code]
+text = "Error code {code}"
+[ticker.log_title]
+text = "What each step found"
+[ticker.log_row]
+text = "{secs} s"
+
+[steplist.count]
+text = "{done} of {total}"
+[steplist.waiting]
+text = "waiting"
+[steplist.done]
+text = "done"
+
+[action.process]
+text = "Process"
+[action.add_files]
+text = "Adding files"
+[action.preview]
+text = "Preview"
+[action.look_up]
+text = "Looking up addresses"
+[action.download]
+text = "Download"
+[action.resume]
+text = "Resume"
+[action.corrections]
+text = "Corrections"
+[action.calibrate]
+text = "Measuring matching"
+[action.backup]
+text = "Backup"
+
+[progress.demo]
+text = "Working through {n} rows"
+[progress.found.demo]
+text = "{n} rows done"
+[progress.placing_in]
+text = "Looking up addresses, {source}"
+
+# Ledger (SPEC 7.1 to 7.4, 11.3)
+
+[ledger.kicker.batch]
+text = "This batch"
+[ledger.kicker.standing]
+text = "Where they stand"
+[ledger.kicker.counts]
+text = "The two counts"
+[ledger.kicker.confidence]
+text = "Confidence in this batch"
+[ledger.kicker.locations]
+text = "Locations"
+
+[ledger.batch.practice]
+text = "Practice run. Example data, not for reporting."
+claim = "CL-PRACTICE-02"
+[ledger.batch.empty]
+text = "No files yet. Add your files to begin."
+[ledger.batch.rows]
+text = "{rows} rows in {files} files"
+[ledger.batch.tables]
+text = "{tables} tables included"
+
+[ledger.standing.before]
+text = "Not processed yet. Nothing has been cleaned, checked or placed."
+[ledger.standing.running]
+text = "Being worked out now. The numbers fill in when the run finishes."
+[ledger.standing.counted]
+text = "Counted"
+[ledger.standing.not_counted_yet]
+text = "Not counted yet"
+[ledger.standing.set_aside]
+text = "Set aside"
+[ledger.standing.sum]
+text = "{counted} + {not_counted_yet} + {set_aside} = {received}. The three add up to the rows received."
+claim = "CL-BALANCE-01"
+[ledger.standing.unbalanced]
+text = "The numbers do not add up. Counts are held until this is fixed."
+claim = "CL-BALANCE-HELD-01"
+
+[ledger.counts.before]
+text = "Unique clients, and unique clients by program. Both fill in when the run finishes."
+[ledger.counts.goal1]
+text = "Goal 1"
+[ledger.counts.goal2]
+text = "Goal 2"
+[ledger.counts.range]
+text = "unique clients, a range to {hi} until {pairs} pairs are decided"
+claim = "CL-RANGE-01"
+[ledger.counts.range_groups]
+text = "unique clients, a range to {hi} until {pairs} pairs and {groups} copy groups are decided"
+claim = "CL-RANGE-02"
+[ledger.counts.range_groups_only]
+text = "unique clients, a range to {hi} until {groups} copy groups are decided"
+claim = "CL-RANGE-03"
+[ledger.counts.unique]
+text = "unique clients"
+[ledger.counts.final]
+text = "unique clients, final"
+claim = "CL-FINAL-01"
+[ledger.counts.p_range]
+text = "unique clients by program, a range to {hi} until {pairs} pairs are decided"
+claim = "CL-RANGE-04"
+[ledger.counts.p_range_groups]
+text = "unique clients by program, a range to {hi} until {pairs} pairs and {groups} copy groups are decided"
+claim = "CL-RANGE-05"
+[ledger.counts.p_range_groups_only]
+text = "unique clients by program, a range to {hi} until {groups} copy groups are decided"
+claim = "CL-RANGE-06"
+[ledger.counts.p_unique]
+text = "unique clients by program"
+[ledger.counts.p_final]
+text = "unique clients by program, final"
+claim = "CL-FINAL-03"
+[ledger.counts.settled]
+text = "Settled for the rows counted so far. {n} rows aren't counted yet."
+claim = "CL-FINAL-02"
+[ledger.counts.stale]
+text = "Out of date. Process again."
+claim = "CL-STALE-COUNTS-01"
+
+[ledger.conf.before]
+text = "Worked out from the checks once the run finishes. It says why, in one line."
+[ledger.conf.how]
+text = "How this is worked out"
+[ledger.conf.reason]
+text = "{level}. {reason}"
+[ledger.conf.tick]
+text = "I have seen that confidence is Low. Download waits for this tick, and the tick goes to the audit log with the time."
+claim = "CL-CONF-TICK-01"
+[ledger.conf.measure.counted]
+text = "Rows counted"
+[ledger.conf.measure.open_pairs]
+text = "Same-person pairs open"
+[ledger.conf.measure.placed]
+text = "Addresses placed with high confidence"
+[ledger.conf.value.fraction]
+text = "{num} of {den}"
+[ledger.conf.value.count]
+text = "{num}"
+[ledger.conf.value.unavailable]
+text = "not available"
+[ledger.conf.need.pct]
+text = "High needs {high}%. Under {low}% is Low."
+claim = "CL-CONF-NEEDS-01"
+[ledger.conf.need.pairs]
+text = "High needs no more than {high} open. Open pairs never make it Low."
+claim = "CL-CONF-NEEDS-02"
+[ledger.conf.calibration]
+text = "Measured on {date}: {rates}"
+
+[ledger.loc.before]
+text = "Addresses are not placed yet."
+[ledger.loc.high]
+text = "Mapped, high confidence"
+[ledger.loc.low]
+text = "Mapped, low confidence"
+[ledger.loc.not_mapped]
+text = "Counted but not mapped"
+[ledger.loc.sum]
+text = "{high} + {low} + {not_mapped} = {counted}. The three add up to the rows counted."
+claim = "CL-BALANCE-LOC-01"
+[ledger.loc.weak]
+text = "A weak match is never labeled fully verified."
+claim = "CL-LOC-VERIFIED-01"
+
+[ledger.foot.check_ok]
+text = "This computer is ready for real data"
+claim = "CL-CHECK-READY-01"
+[ledger.foot.check_warn]
+text = "Addresses will not be placed on this computer"
+claim = "CL-CHECK-READY-02"
+[ledger.foot.your_data]
+text = "What happens to your data"
+[ledger.foot.settings]
+text = "Settings"
+[ledger.foot.trust_offline]
+text = "Nothing leaves this computer."
+claim = "CL-TRUST-OFFLINE-01"
+[ledger.foot.trust_disk]
+text = "Client data is written only to the files you download."
+claim = "CL-TRUST-DISK-01"
+[ledger.foot.trust_saved]
+text = "Your decisions are saved, encrypted, never the data."
+claim = "CL-TRUST-SAVED-01"
+[ledger.foot.reviewer]
+text = "Reviewer: {name}"
+[ledger.foot.reviewer_none]
+text = "Reviewer: not asked yet"
+[ledger.foot.change]
+text = "Change"
+[ledger.foot.start_over]
+text = "Start over"
+
+[ledger.section.prepare.proposed]
+text = "Proposed by the tool"
+[ledger.section.prepare.added]
+text = "Added by you"
+[ledger.section.prepare.removed]
+text = "Removed"
+[ledger.section.prepare.noop]
+text = "Do nothing here"
+[ledger.section.prepare.note]
+text = "Steps add columns. Nothing is removed or overwritten."
+claim = "CL-STEPS-ADD-01"
+[ledger.section.map.confirmed]
+text = "Confirmed"
+[ledger.section.map.of]
+text = "{m} of {t}"
+[ledger.section.map.required]
+text = "Required fields set"
+[ledger.section.map.wrong]
+text = "Look wrong"
+[ledger.section.programs.files]
+text = "Files with a program column"
+[ledger.section.programs.names]
+text = "Names found"
+[ledger.section.programs.counted]
+text = "Counted as programs"
+[ledger.section.programs.open]
+text = "Groups to confirm"
+[ledger.section.programs.confirmed]
+text = "Confirmed by you"
+[ledger.section.programs.preview]
+text = "from the preview"
+[ledger.section.programs.preview_stale]
+text = "Preview taken at {time}, before your last change. Refresh it below."
+
+[band.kicker.batch]
+text = "BATCH"
+[band.batch.line]
+text = "{rows} rows in · {files} files"
+[band.batch.before]
+text = "no files yet"
+[band.kicker.standing]
+text = "STANDING"
+[band.standing.line]
+text = "{counted} counted · {not_yet} not yet · {aside} aside"
+[band.standing.before]
+text = "not processed yet"
+[band.kicker.counts]
+text = "COUNTS"
+[band.counts.line]
+text = "{g1} people · {g2} by program"
+[band.counts.line_range]
+text = "{g1} people to {g1hi} · {g2} by program"
+[band.counts.before]
+text = "fill in after the run"
+[band.counts.stale]
+text = "out of date"
+[band.kicker.located]
+text = "LOCATED"
+[band.located.line]
+text = "{high} high · {low} low · {not_mapped} not mapped"
+[band.located.before]
+text = "not placed yet"
+[band.details]
+text = "Details"
+
+# Holds (SPEC 11.3)
+
+[hold.run]
+text = "Held until the run finishes. A change now would not apply to this run."
+claim = "CL-HOLD-RUN-01"
+[hold.demo]
+text = "Held until you finish the step above."
+
+# Close and Start over (SPEC 11.3, A-16)
+
+[close.title]
+text = "Close {product}?"
+[close.confirm]
+text = "The files you added and every result are cleared from this computer's memory."
+claim = "CL-CLOSE-CLEARS-01"
+[close.saved_on]
+text = "Your decisions and set-up stay in saved progress for 7 days."
+claim = "CL-CLOSE-KEEPS-01"
+[close.saved_off]
+text = "Nothing is kept."
+[close.running]
+text = "The run in progress will be cancelled."
+[close.keep]
+text = "Keep working"
+[start.title]
+text = "Start over?"
+[start.confirm]
+text = "This clears the batch from memory and deletes its saved progress."
+claim = "CL-START-DELETES-01"
+[start.button]
+text = "Start over"
+
+# Reviewer dialog (SPEC 8.7)
+
+[reviewer.title]
+text = "Reviewer name"
+[reviewer.prompt]
+text = "The name that goes beside each decision in the audit log."
+[reviewer.save]
+text = "Save"
+[reviewer.cancel]
+text = "Cancel"
+[reviewer.refused.empty]
+text = "Type a name first."
+[reviewer.refused.too_long]
+text = "That name is too long. Use {max} characters or fewer."
+[reviewer.refused.control_character]
+text = "That name has characters that can't be shown. Type it again."
+
+# Drawers (SPEC 11.8)
+
+[drawer.close]
+text = "Close"
+
+[data.kicker]
+text = "Your data"
+[data.title]
+text = "What happens to your data"
+[data.box.files.title]
+text = "Your files"
+[data.box.files.body]
+text = "Opened once when you add them. {product} never changes them."
+claim = "CL-DATA-FILES-01"
+[data.arrow.read]
+text = "↓ read into memory"
+[data.box.memory.title]
+text = "Memory on this computer"
+[data.box.memory.body]
+text = "Every step works here: tidying, checking, placing, matching, counting. Nothing is sent anywhere. Closing {product} clears it."
+claim = "CL-DATA-MEMORY-01"
+[data.arrow.download]
+text = "↓ only when you press Download"
+[data.box.out.title]
+text = "The files you download"
+[data.box.out.body]
+text = "Written to the folder you pick. The receipt lists each one and where it went."
+[data.saved.title]
+text = "Saved progress"
+[data.saved.switch]
+text = "Save my progress on this computer"
+[data.saved.body]
+text = "Saved progress holds your decisions and set-up, never rows, and is encrypted for your Windows account. It is deleted after 7 days."
+claim = "CL-DATA-SAVED-01"
+[data.saved.on]
+text = "Saved progress is on."
+[data.saved.off]
+text = "Saved progress is off."
+[data.saved.last]
+text = "Last saved {when}."
+[data.saved.confirm_off]
+text = "Turn off saved progress? What is saved now is deleted, and nothing new is saved."
+claim = "CL-DATA-SAVED-OFF-01"
+[data.saved.turn_off]
+text = "Turn off"
+[data.never.title]
+text = "Never"
+[data.never.internet]
+text = "Sent over the internet. {product} cannot connect to it."
+claim = "CL-DATA-NEVER-NET-01"
+[data.never.ai]
+text = "Shown to or decided by AI. There is none in {product}."
+claim = "CL-DATA-NEVER-AI-01"
+[data.never.log]
+text = "Written to a log. Neither audit log holds a name, address, date or ID from your files."
+claim = "CL-AUDIT-NOCELLS-01"
+[data.never.kept]
+text = "Kept after you close, unless you saved progress."
+claim = "CL-DATA-NEVER-KEPT-01"
+
+[settings.kicker]
+text = "Settings"
+[settings.title]
+text = "Settings"
+[settings.saved]
+text = "Saved progress"
+[settings.reviewer]
+text = "Reviewer"
+[settings.reviewer_default]
+text = "The Windows sign-in name is used until you change it."
+[settings.check]
+text = "System check"
+
+[check.kicker]
+text = "System check"
+[check.title]
+text = "Is this computer ready"
+[check.col.check]
+text = "CHECK"
+[check.col.status]
+text = "STATUS"
+[check.col.detail]
+text = "DETAIL"
+[check.status.ok]
+text = "OK"
+[check.status.warn]
+text = "CHECK"
+[check.status.missing]
+text = "NOT FOUND"
+[check.row.geosupport]
+text = "Geosupport"
+[check.row.reference]
+text = "Address reference file"
+[check.row.districts]
+text = "District files"
+[check.row.secret]
+text = "Install key"
+[check.row.store]
+text = "Saved progress folder"
+[check.row.dpapi]
+text = "Windows encryption"
+[check.row.font]
+text = "Archivo font"
+[check.row.guard]
+text = "Offline guard"
+[check.row.windows]
+text = "Windows version"
+[check.detail.geosupport]
+text = "Release {release}"
+[check.detail.geosupport_old]
+text = "Release {release}, more than a year old"
+[check.detail.geosupport_none]
+text = "Not found on this computer"
+[check.detail.reference_real]
+text = "{file}, {n} rows"
+[check.detail.reference_sample]
+text = "sample file, practice only"
+[check.detail.reference_several]
+text = "two files in the folder, none used"
+[check.detail.reference_unreadable]
+text = "the file could not be read"
+[check.detail.reference_none]
+text = "none"
+[check.detail.districts]
+text = "{n} files"
+[check.detail.secret_ok]
+text = "The key file opens. Its value is never shown."
+[check.detail.secret_missing]
+text = "No key file yet. One is made the first time it's needed."
+[check.detail.store_ok]
+text = "Can be written"
+[check.detail.store_bad]
+text = "Can't be written"
+[check.detail.dpapi_ok]
+text = "Encrypts and decrypts"
+[check.detail.dpapi_bad]
+text = "Not available"
+[check.detail.font_ok]
+text = "Loaded from the app"
+[check.detail.font_bad]
+text = "Not loaded, Segoe UI is used"
+[check.detail.guard_ok]
+text = "Installed"
+[check.detail.guard_off]
+text = "Not installed in this process"
+[check.detail.windows]
+text = "{version}"
+[check.support.title]
+text = "Support report"
+[check.support.body]
+text = "Version and set-up only. It never holds anything from your files."
+claim = "CL-SUPPORT-REPORT-01"
+[check.support.copy]
+text = "Copy report"
+[check.support.line]
+text = "{check}: {status}, {detail}"
+
+# Data line (SPEC 11.8). Every part is a claim.
+
+[dataline.label.reads]
+text = "Reads"
+[dataline.label.changes]
+text = "Changes"
+[dataline.label.writes]
+text = "Writes"
+[dataline.saved_suffix]
+text = ", except your saved decisions, encrypted"
+
+[dataline.sources.reads]
+text = "the files you add, once"
+claim = "CL-DATALINE-SOURCES-READS"
+[dataline.sources.changes]
+text = "nothing in your files"
+claim = "CL-DATALINE-SOURCES-CHANGES"
+[dataline.sources.writes]
+text = "nothing to disk"
+claim = "CL-DATALINE-SOURCES-WRITES"
+[dataline.schema.reads]
+text = "nothing from your files"
+claim = "CL-DATALINE-SCHEMA-READS"
+[dataline.schema.changes]
+text = "only the list of fields"
+claim = "CL-DATALINE-SCHEMA-CHANGES"
+[dataline.schema.writes]
+text = "nothing to disk"
+claim = "CL-DATALINE-SCHEMA-WRITES"
+[dataline.prepare.reads]
+text = "the tables you included"
+claim = "CL-DATALINE-PREPARE-READS"
+[dataline.prepare.changes]
+text = "nothing in your files. Steps add new columns in memory"
+claim = "CL-DATALINE-PREPARE-CHANGES"
+[dataline.prepare.writes]
+text = "nothing to disk"
+claim = "CL-DATALINE-PREPARE-WRITES"
+[dataline.map.reads]
+text = "column names and sample values"
+claim = "CL-DATALINE-MAP-READS"
+[dataline.map.changes]
+text = "nothing in your files"
+claim = "CL-DATALINE-MAP-CHANGES"
+[dataline.map.writes]
+text = "nothing to disk"
+claim = "CL-DATALINE-MAP-WRITES"
+[dataline.programs.reads]
+text = "the program columns you chose"
+claim = "CL-DATALINE-PROGRAMS-READS"
+[dataline.programs.changes]
+text = "nothing in your files"
+claim = "CL-DATALINE-PROGRAMS-CHANGES"
+[dataline.programs.writes]
+text = "nothing to disk"
+claim = "CL-DATALINE-PROGRAMS-WRITES"
+[dataline.run.reads]
+text = "the tables you included"
+claim = "CL-DATALINE-RUN-READS"
+[dataline.run.changes]
+text = "nothing in your files"
+claim = "CL-DATALINE-RUN-CHANGES"
+[dataline.run.writes]
+text = "nothing to disk until you download"
+claim = "CL-DATALINE-RUN-WRITES"
+[dataline.review.reads]
+text = "the rows that need a decision"
+claim = "CL-DATALINE-REVIEW-READS"
+[dataline.review.changes]
+text = "only what you decide, and it goes to the audit log"
+claim = "CL-DATALINE-REVIEW-CHANGES"
+[dataline.review.writes]
+text = "nothing to disk"
+claim = "CL-DATALINE-REVIEW-WRITES"
+[dataline.summary.reads]
+text = "the counted rows"
+claim = "CL-DATALINE-SUMMARY-READS"
+[dataline.summary.changes]
+text = "nothing"
+claim = "CL-DATALINE-SUMMARY-CHANGES"
+[dataline.summary.writes]
+text = "nothing until you save the printable page"
+claim = "CL-DATALINE-SUMMARY-WRITES"
+[dataline.export.reads]
+text = "the results"
+claim = "CL-DATALINE-EXPORT-READS"
+[dataline.export.changes]
+text = "nothing"
+claim = "CL-DATALINE-EXPORT-CHANGES"
+[dataline.export.writes]
+text = "only the files you choose, in the folder you pick"
+claim = "CL-DATALINE-EXPORT-WRITES"
+
+# Help (SPEC 11.9). M10 builds the convention; each stage milestone adds its entries.
+
+[help.accessible]
+text = "Help: {title}"
+[help.button]
+text = "?"
+[help.el.ledger.title]
+text = "The ledger"
+[help.el.ledger.purpose]
+text = "Shows where every row stands and the two counts, for the whole batch."
+[help.el.ledger.how]
+text = "It fills in after Process. The equations under each section always add up, or the counts are held."
+
+# Saved progress card (SPEC 11.3, A-19)
+
+[saved_card.when]
+text = "Saved {when}"
+[saved_card.stage]
+text = "stopped at {stage}"
+[saved_card.files]
+text = "{n} files"
+[saved_card.decisions]
+text = "{k} decisions"

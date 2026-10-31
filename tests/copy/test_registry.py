@@ -68,3 +68,21 @@ def test_missing_or_extra_parameter_raises():
 def test_load_reads_nested_tables_with_optional_claims():
     entries = load('[a.b]\ntext = "One."\n\n[a.c.d]\ntext = "Two."\nclaim = "CL-X-01"\n')
     assert entries == {"a.b": Entry("a.b", "One.", None), "a.c.d": Entry("a.c.d", "Two.", "CL-X-01")}
+
+
+def test_no_table_mixes_text_with_subtables():
+    """A table with `text` is an entry, so a subtable under it would be silently dropped."""
+    import tomllib
+    from importlib import resources
+
+    def walk(d, path=()):
+        for k, v in d.items():
+            if isinstance(v, dict):
+                if "text" in v and any(isinstance(x, dict) for x in v.values()):
+                    yield ".".join(path + (k,))
+                yield from walk(v, path + (k,))
+
+    for name in ("en.toml",):
+        data = tomllib.loads(resources.files("wholecount.copy").joinpath(name).read_text(encoding="utf-8"))
+        assert list(walk(data)) == []
+    assert list(walk({"a": {"text": "x", "b": {"text": "y"}}})) == ["a"]
