@@ -364,7 +364,6 @@ class PrintablePage(QDialog):
         self.browser = QTextBrowser()
         self.browser.setObjectName("printBrowser")
         self.browser.setOpenLinks(False)
-        self.browser.setOpenExternalLinks(False)
         lay.addWidget(self.browser, 1)
         self.names = QCheckBox(copy.get("results.print.names"))
         self.names.setObjectName("includeFileNames")
