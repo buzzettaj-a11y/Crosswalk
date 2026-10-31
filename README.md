@@ -32,6 +32,7 @@ make run
 | `make offline` | The offline and no-AI checks only |
 | `make copy` | Copy registry checks: claim tests, spelling, no em dashes |
 | `make screens` | Renders every stage to `build/screens/` |
+| `make perf` | The 19,000-row performance run and its report, `build/perf-report.txt` (see `docs/PERFORMANCE.md`) |
 | `make docs-check` | Fails when `docs/USER_GUIDE.md` is out of date with the copy registry, or a doc names a file, command or function that isn't there |
 
 ## Where things are

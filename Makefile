@@ -1,7 +1,7 @@
 # Same target names on every platform (CLAUDE.md). Run inside the activated .venv.
 PYTHON ?= python
 
-.PHONY: test offline copy screens run bundle lock installer sign release docs docs-check
+.PHONY: test offline copy screens run bundle lock installer sign release docs docs-check perf
 
 # Exported by make rather than written before the command, so it works in cmd.exe as well as sh.
 test: export QT_QPA_PLATFORM = offscreen
@@ -30,6 +30,16 @@ docs: screens
 docs-check:
 	$(PYTHON) tools/make_docs.py --check
 	$(PYTHON) tools/check_doc_refs.py
+
+# M15: the 19,000-row performance run (SPEC 15). On Joe's machine it uses Geosupport; CI passes PERF_FLAGS=--fake.
+PERF_SET ?= build/perf-set
+PERF_FLAGS ?=
+PERF_REPORT_FLAGS ?=
+perf: export QT_QPA_PLATFORM = offscreen
+perf:
+	$(PYTHON) tools/make_large_set.py --out $(PERF_SET)
+	$(PYTHON) -m wholecount.dev perf --set $(PERF_SET) $(PERF_FLAGS) > build/perf-out.txt
+	$(PYTHON) tools/perf_report.py build/perf-out.txt --out build/perf-report.txt $(PERF_REPORT_FLAGS)
 
 bundle:
 	$(PYTHON) tools/make_version_info.py
