@@ -50,8 +50,12 @@ def all_copy_texts(registry_files):
         text = pathlib.Path(f).read_text(encoding="utf-8")
         entries = load(text)
         out += [(e.key, e.text) for e in entries.values()]
-        # problems.toml tables have title, means, check and excel rather than text
-        for code, reason in tomllib.loads(text).items():
-            if isinstance(reason, dict) and "text" not in reason:
-                out += [(f"{code}.{k}", v) for k, v in reason.items() if isinstance(v, str)]
+        # problems.toml tables have title, means, check and excel, and reasons.toml has a label, rather than text
+        def walk(table, prefix):
+            for k, v in table.items():
+                if isinstance(v, dict) and "text" not in v:
+                    walk(v, f"{prefix}{k}.")
+                elif isinstance(v, str) and prefix:
+                    out.append((f"{prefix}{k}", v))
+        walk(tomllib.loads(text), "")
     return out

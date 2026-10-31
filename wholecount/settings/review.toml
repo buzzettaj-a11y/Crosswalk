@@ -1,0 +1,8 @@
+# Review (SPEC 8.1, 8.4, 8.7). Limits only, never client data.
+
+second_signoff_rows = 200          # a bulk accept over this many rows needs a second reviewer
+second_signoff_join_records = 5    # a "same person" decision that joins more records than this needs one too
+reviewer_name_max = 60
+sample_rows = 5
+note_max = 120
+progress_every_rows = 200

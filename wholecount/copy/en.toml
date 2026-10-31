@@ -489,3 +489,215 @@ claim = "CL-PROG-06"
 [programs.proposal_inert]
 text = "A proposal changes no count until you confirm it."
 claim = "CL-PROG-07"
+
+# Counts, the balance and confidence (SPEC 7). Numbers are int parameters.
+
+[counts.range]
+text = "{low} to {high}"
+claim = "CL-COUNT-01"
+
+[counts.not_final.rows_not_counted_yet]
+text = "Settled for the rows counted so far. {count} rows aren't counted yet."
+claim = "CL-COUNT-02"
+
+[counts.not_final.pairs_open]
+text = "This is a range until {count} possible same-person pairs are decided."
+claim = "CL-COUNT-07"
+
+[counts.not_final.copy_groups_open]
+text = "This is a range until {count} possible copy groups are decided."
+claim = "CL-COUNT-08"
+
+[counts.not_final.programs_unconfirmed]
+text = "Goal 2 waits on {count} program proposals."
+claim = "CL-COUNT-09"
+
+[counts.final]
+text = "Final. Every row is decided."
+claim = "CL-COUNT-03"
+
+[counts.dob_coverage]
+text = "Date of birth on {percent}% of counted rows. Without it, people who moved between systems may be counted twice."
+claim = "CL-COUNT-04"
+
+[balance.rows]
+text = "{received} rows received: {counted} counted, {not_counted_yet} not counted yet, {set_aside} set aside."
+claim = "CL-COUNT-05"
+
+[balance.locations]
+text = "{counted} counted: {mapped} mapped, {not_mapped} counted but not mapped."
+claim = "CL-COUNT-10"
+
+[results.stale]
+text = "Out of date. Process again to see current counts."
+claim = "CL-COUNT-06"
+
+[confidence.level.high]
+text = "High"
+
+[confidence.level.medium]
+text = "Medium"
+
+[confidence.level.low]
+text = "Low"
+
+[confidence.part.counted_short]
+text = "{counted} of {received} rows are counted"
+claim = "CL-CONF-01"
+
+[confidence.part.pairs_open]
+text = "{count} possible same-person pairs are still open"
+claim = "CL-CONF-05"
+
+[confidence.part.placed_short]
+text = "{high} of {looked_up} looked-up addresses are placed with high confidence"
+claim = "CL-CONF-06"
+
+[confidence.part.placed_unavailable_no_geocoder]
+text = "Addresses weren't placed, so confidence can't be High."
+claim = "CL-CONF-02"
+
+[confidence.part.placed_unavailable_none_looked_up]
+text = "No counted address could be looked up, so confidence can't be High."
+claim = "CL-CONF-07"
+
+[confidence.high_reason]
+text = "{counted} of {received} rows are counted, no same-person pairs are open, and {high} of {looked_up} looked-up addresses are placed with high confidence."
+claim = "CL-CONF-03"
+
+[confidence.acknowledge]
+text = "I understand confidence is Low and want to download anyway."
+claim = "CL-CONF-04"
+
+# Review (SPEC 8.1, 8.4, 8.7).
+
+[review.finish_confirm]
+text = "{count} rows are still open. They stay in the review file and aren't counted. Finish anyway?"
+claim = "CL-REV-01"
+
+[review.finish_held]
+text = "Finish review is held until every cause that affects the counts is decided or sent to row by row."
+claim = "CL-REV-02"
+
+[review.cross_file_note]
+text = "{count} people also appear in another file. Nothing needs doing."
+claim = "CL-REV-03"
+
+[review.mapping_diagnosis]
+text = "{field} reads from {column_now}, which is blank on these rows, while {column_better} is filled on all {count}."
+claim = "CL-REV-04"
+
+[review.bulk.type_count]
+text = "Type the number of rows, {count}, to accept them all."
+claim = "CL-REV-05"
+
+[review.bulk.choose_reason]
+text = "Choose why these rows are right."
+
+[review.bulk.second_reviewer]
+text = "More than {limit} rows. A second reviewer has to sign off too."
+claim = "CL-REV-06"
+
+[review.bulk.sample]
+text = "Here are {count} rows from this group. Check them before you accept."
+claim = "CL-REV-07"
+
+[review.reviewer_prompt]
+text = "Who is reviewing? Your name goes on every decision you make."
+claim = "CL-REV-08"
+
+[review.set_aside_note_warning]
+text = "Don't type client details here. The note goes in the internal log."
+
+[commands.approve_rows]
+text = "Approve {count} rows"
+
+[commands.accept_group]
+text = "Accept {count} rows"
+
+[commands.set_aside_rows]
+text = "Set aside {count} rows"
+
+[commands.accept_fills]
+text = "Accept fills for {count} rows"
+
+[commands.keep_one]
+text = "Keep one copy"
+
+[commands.not_copies]
+text = "Mark as not copies"
+
+[commands.different_people]
+text = "Mark as different people"
+
+[commands.approved_as_entered]
+text = "Approve as entered"
+
+[commands.keep_one_per_program]
+text = "Keep one per program"
+
+[commands.send_to_row_by_row]
+text = "Send to row by row"
+
+[commands.return_to_open]
+text = "Return {count} rows to open"
+
+[commands.pair_same]
+text = "Mark as the same person"
+
+[commands.pair_different]
+text = "Mark as different people"
+
+[commands.program_confirm]
+text = "Confirm a program group of {count} names"
+
+[commands.program_split]
+text = "Split {count} names from a program group"
+
+[commands.program_merge]
+text = "Merge {count} program names"
+
+[commands.program_rename]
+text = "Rename a program group"
+
+[commands.apply_corrections]
+text = "Apply {count} corrections"
+
+[commands.acknowledge_low_confidence]
+text = "Acknowledge low confidence"
+
+[commands.set_reviewer]
+text = "Change the reviewer"
+
+[commands.finish_review]
+text = "Finish review with {count} rows open"
+
+[commands.setup.sources]
+text = "Change the files"
+
+[commands.setup.tables]
+text = "Change a table"
+
+[commands.setup.steps]
+text = "Change a tidy-up step"
+
+[commands.setup.schema]
+text = "Change the fields"
+
+[commands.setup.mappings]
+text = "Change a column match"
+
+[commands.setup.defaults]
+text = "Change a default"
+
+[commands.setup.date_orders]
+text = "Change a date order"
+
+[commands.setup.program_columns]
+text = "Change a program column"
+
+[commands.setup.run_settings]
+text = "Change the run settings"
+
+[commands.setup.export_settings]
+text = "Change the download settings"

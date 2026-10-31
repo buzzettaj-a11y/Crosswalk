@@ -77,3 +77,11 @@ def person_key(secret, system, client_id=None, given=None, surname=None, dob=Non
     else:
         parts = [system, given or "", surname or "", "", address_key or ""]
     return hmac.new(_secret_bytes(secret), SEP.join(parts).encode("utf-8"), hashlib.sha256).hexdigest()
+
+
+def value_hash(secret, field_name, text):
+    """A KeyedHash of field|text: HMAC-SHA256 under the secret, truncated to 16 hex. The only way to make one (CMD-4)."""
+    from wholecount.engine.outputs.audit_entry import _keyed_hash
+
+    msg = f"{field_name}|{text}".encode("utf-8")
+    return _keyed_hash(hmac.new(_secret_bytes(secret), msg, hashlib.sha256).hexdigest()[:16])

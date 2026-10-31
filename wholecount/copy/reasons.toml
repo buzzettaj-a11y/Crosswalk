@@ -1,0 +1,29 @@
+# Reason codes a reviewer picks (SPEC 8.1, 8.7). The engine adds summary_row and copy_of itself.
+# Each entry has a short label. Wording follows H16.
+
+[set_aside.not_a_client]
+label = "Not a client"
+
+[set_aside.test_record]
+label = "Test record"
+
+[set_aside.duplicate_other_system]
+label = "Duplicate of a record in another system"
+
+[set_aside.out_of_scope]
+label = "Out of scope for this report"
+
+[set_aside.other]
+label = "Other"
+
+[accept.checked_sample]
+label = "I checked a sample and they're right"
+
+[accept.matches_source]
+label = "They match the source system"
+
+[accept.expected_in_this_file]
+label = "This is expected in this file"
+
+[accept.other]
+label = "Other"

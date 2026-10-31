@@ -141,6 +141,30 @@ class CountLabel(enum.Enum):
     PROPOSALS_MORE_WORDS = "proposals_more_words"
     NAMES_LEFT_ALONE = "names_left_alone"
     ROWS_WITHOUT_PROGRAM = "rows_without_program"
+    # session-demo and session-check
+    STAGE = "stage"
+    RECEIVED = "received"
+    GOAL1_LOW = "goal1_low"
+    GOAL1_HIGH = "goal1_high"
+    GOAL2_LOW = "goal2_low"
+    GOAL2_HIGH = "goal2_high"
+    OPEN_PAIRS = "open_pairs"
+    OPEN_COPY_GROUPS = "open_copy_groups"
+    CONFIDENCE_LEVEL = "confidence_level"
+    BALANCE_OK = "balance_ok"
+    FINAL = "final"
+    MAPPED = "mapped"
+    COUNTED_NOT_MAPPED = "counted_not_mapped"
+    NOT_FOUND = "not_found"
+    NO_GEOCODER = "no_geocoder"
+    DOB_COVERAGE_PCT = "dob_coverage_pct"
+    STEP_1_TENTHS = "step_1_tenths"
+    STEP_2_TENTHS = "step_2_tenths"
+    STEP_3_TENTHS = "step_3_tenths"
+    STEP_4_TENTHS = "step_4_tenths"
+    DECISIONS_MADE = "decisions_made"
+    DECISIONS_KEPT = "decisions_kept"
+    NO_LONGER_APPLY = "no_longer_apply"
 
 
 def emit(label, value, scope=None, out=None, field=None, reason=None, grouped=True):
@@ -744,10 +768,204 @@ def cmd_programs_check(args):
     return 0
 
 
+# The R and S fixture of M08: made-up people. session-demo writes them to a temporary folder that's removed afterward.
+_R_ROWS = [["R01", "Ada", "Lee", "1980-01-01", "10 Oak St", "Brooklyn", "NY", "11201", "Housing"],
+           ["R02", "Ben", "Cruz", "1981-02-02", "12 Oak St", "Brooklyn", "NY", "11201", "Housing"],
+           ["R03", "Cara", "Diaz", "1982-03-03", "14 Oak St", "Brooklyn", "NY", "11201", "Youth"],
+           ["R04", "Dev", "Rao", "1983-04-04", "16 Oak St", "Brooklyn", "NY", "11201", "Youth"],
+           ["R05", "Eli", "Fox", "1984-05-05", "18 Oak St", "Brooklyn", "NY", "11201", "Workforce"],
+           ["R06", "Fay", "Gil", "1985-06-06", "20 Oak St", "Brooklyn", "NY", "11201", "Workforce"],
+           ["R07", "Gus", "Hall", "1986-07-07", "22 Oak St", "Brooklyn", "NY", "11201", "Housing"],
+           ["R07", "Gus", "Hall", "1986-07-07", "22 Oak St", "Brooklyn", "NY", "11201", "Housing"],
+           ["R09", "Hana", "Ito", "1987-08-08", "24 Oak St", "Brooklyn", "NY", "11201", "Youth"],
+           ["R10", "HANA", "ITO", "1987-08-08", "24 Oak St", "Brooklyn", "NY", "11201", "Youth"],
+           ["R11", "Ivy", "Jones", "1988-09-09", "26 Oak St", "Brooklyn", "NY", "11201", "Housing"],
+           ["R11", "Jon", "Kane", "1975-10-10", "28 Oak St", "Brooklyn", "NY", "11201", "Housing"],
+           ["R13", "Kim", "Lu", "1989-11-11", "85 Montague St", "Brooklyn", "NY", "", "Workforce"],
+           ["R14", "", "Moss", "1990-12-12", "30 Oak St", "Brooklyn", "NY", "11201", "Youth"],
+           ["", "Total", "", "", "", "", "", "", ""]]
+_S_ROWS = [["S1", "Ada", "Lee", "1980-01-01", "10 Oak St", "Brooklyn", "NY", "11201", "Housing"],
+           ["S2", "Ben", "Cruz", "1981-02-02", "99 Elm St", "Brooklyn", "NY", "11201", "Housing"]]
+_R_HEADER = ["Client_ID", "First_Name", "Last_Name", "DOB", "Address_1", "City", "State", "Zip", "Program"]
+_R_POINTS = [(str(n), "Oak St", "11201", "Brooklyn", 40.690 + n / 10000, -73.990) for n in (10, 12, 14, 16, 22, 24, 26, 28, 30)] + [
+    ("85", "Montague St", "11201", "Brooklyn", 40.6940, -73.9930), ("99", "Elm St", "11201", "Brooklyn", 40.6950, -73.9800)]
+_LEVEL = {None: 0, "low": 1, "medium": 2, "high": 3}
+
+
+def _emit_session(s, stage):
+    from wholecount.engine.counts import BalanceError, assert_balance
+
+    r = s.results
+    c = r.counts
+    try:
+        assert_balance(r.balance, r.outcomes.values())
+        ok = 1
+    except BalanceError:
+        ok = 0
+    emit(CountLabel.STAGE, stage)
+    for label, value in ((CountLabel.RECEIVED, c.received), (CountLabel.COUNTED, c.counted),
+                         (CountLabel.NOT_COUNTED_YET, c.not_counted_yet), (CountLabel.SET_ASIDE, c.set_aside),
+                         (CountLabel.GOAL1_LOW, c.goal1.low), (CountLabel.GOAL1_HIGH, c.goal1.high),
+                         (CountLabel.GOAL2_LOW, c.goal2.low), (CountLabel.GOAL2_HIGH, c.goal2.high),
+                         (CountLabel.OPEN_PAIRS, c.open_pairs), (CountLabel.OPEN_COPY_GROUPS, c.open_copy_groups),
+                         (CountLabel.CONFIDENCE_LEVEL, _LEVEL[r.confidence.level]), (CountLabel.BALANCE_OK, ok),
+                         (CountLabel.FINAL, int(c.final))):
+        emit(label, value)
+
+
+def cmd_session_demo(args):
+    """The R and S fixture through the session: the base state, five decisions, two pair verdicts, then every undo."""
+    import csv
+    import datetime as dt
+    import secrets
+    import tempfile
+
+    from wholecount.engine.geo.reference import ReferenceBackend
+    from wholecount.session import commands as C
+    from wholecount.session.runner import process
+    from wholecount.session.secret_store import InstallSecret
+    from wholecount.session.state import Session
+
+    ref = ReferenceBackend.from_text("house_number,street,zip,borough,latitude,longitude\n"
+                                     + "".join(",".join(map(str, p)) + "\n" for p in _R_POINTS))
+    with tempfile.TemporaryDirectory() as tmp:
+        paths = []
+        for name, rows in (("R.csv", _R_ROWS), ("S.csv", _S_ROWS)):
+            path = pathlib.Path(tmp) / name
+            with open(path, "w", newline="", encoding="utf-8") as f:
+                w = csv.writer(f)
+                w.writerow(_R_HEADER)
+                w.writerows(rows)
+            paths.append(path)
+        s = Session(InstallSecret(secrets.token_bytes(32)), paths, backend=ref, today=lambda: dt.date(2026, 10, 30),
+                    getuser=lambda: "demo")
+        process(s)
+        _emit_session(s, 0)
+
+        def rk(cid):
+            return min(k for k, r in s.results.rows.items() if r.value("Client_ID") == cid)
+
+        def grp(kind):
+            return next(g for g in s.results.groups if g.kind == kind)
+
+        steps = [lambda: C.KeepOneInCopyGroup(grp("identical").group_id, grp("identical").members[0]),
+                 lambda: C.MarkNotCopies(grp("possible").group_id),
+                 lambda: C.DecideSameIdConflict(grp("same_id_different").group_id, "approved_as_entered"),
+                 lambda: C.AcceptFills([rk("R13")]), lambda: C.SetAsideRows([rk("R14")], "out_of_scope")]
+        for make in steps:
+            s.history.execute(make())
+        _emit_session(s, 1)
+        for p in list(s.results.identity.proposals):
+            s.history.execute(C.DecidePair(*p.pair, "different"))
+        _emit_session(s, 2)
+        stage = 3
+        while s.history.undo() is not None:
+            _emit_session(s, stage)
+            stage += 1
+    return 0
+
+
+class _TimingSink:
+    """Times each step the runner reports, in tenths of a second. dev.py is not engine or session code, so it may read time."""
+
+    def __init__(self):
+        import time
+
+        self._now = time.monotonic
+        self.started, self.tenths, self.order = {}, {}, []
+
+    def begin(self, step_id, total, unit):
+        self.started[step_id] = self._now()
+        if step_id not in self.order:
+            self.order.append(step_id)
+
+    def advance(self, n, message):
+        pass
+
+    def end(self, found):
+        step = self.order[-1]
+        self.tenths[step] = self.tenths.get(step, 0) + round((self._now() - self.started[step]) * 10)
+
+    def cancelled(self):
+        return False
+
+
+def cmd_session_check(args):
+    """Process one or more CSV files through the session: --csv PATH (repeat), with --shuffle-rows, --exclude-last,
+    --decide-approve-all and --process-twice. Counts only. It writes nothing: rows are shuffled in memory."""
+    import datetime as dt
+    import os
+    import secrets
+
+    from wholecount.engine.counts import BalanceError, assert_balance
+    from wholecount.paths import data_dir
+    from wholecount.engine.geo.backend import preflight
+    from wholecount.session import commands as C
+    from wholecount.session.runner import _load, process
+    from wholecount.session.secret_store import InstallSecret
+    from wholecount.session.state import Session
+
+    paths = [pathlib.Path(args[i + 1]) for i, a in enumerate(args) if a == "--csv" and i + 1 < len(args)]
+    if "--exclude-last" in args and len(paths) > 1:
+        paths = paths[:-1]
+    backend = preflight(os.environ, data_dir(), dt.date.today()).backend
+    s = Session(InstallSecret(secrets.token_bytes(32)), paths, backend=backend)
+    sink = _TimingSink()
+    if "--shuffle-rows" in args:
+        load = _load(s, sink)
+        for t in load.tables:
+            order = sorted(range(len(t.rows)), key=lambda i: t.record_keys[i] if t.record_keys else i)
+            t.rows = [t.rows[i] for i in order]
+            t.row_numbers = [t.row_numbers[i] for i in order]
+            t.row_block = [t.row_block[i] for i in order]
+            t.record_keys = [t.record_keys[i] for i in order]
+            new_index = {old: new for new, old in enumerate(order)}
+            t.meta = {(new_index[r], c): m for (r, c), m in t.meta.items()}
+    process(s, sink)
+    made = 0
+    if "--decide-approve-all" in args:
+        keys = [k for k, o in s.results.outcomes.items()
+                if set(o.reasons) - {"same_id_conflict"} and o.set_aside_reason is None]
+        if keys:
+            s.history.execute(C.ApproveRows(keys, "*", second="dev check" if len(keys) > 200 else None))
+            made = len(s.decisions)
+    if "--process-twice" in args:
+        process(s, sink)
+    r = s.results
+    c = r.counts
+    try:
+        assert_balance(r.balance, r.outcomes.values())
+        ok = 1
+    except BalanceError:
+        ok = 0
+    locs = c.locations
+    emit(CountLabel.BALANCE_OK, ok)
+    for label, value in ((CountLabel.RECEIVED, c.received), (CountLabel.COUNTED, c.counted),
+                         (CountLabel.NOT_COUNTED_YET, c.not_counted_yet), (CountLabel.SET_ASIDE, c.set_aside),
+                         (CountLabel.MAPPED, locs.mapped), (CountLabel.COUNTED_NOT_MAPPED, locs.not_mapped),
+                         (CountLabel.NO_FIXED_ADDRESS, locs.no_fixed_address), (CountLabel.OUTSIDE_NYC, locs.outside_nyc),
+                         (CountLabel.ADDRESS_PROBLEM, locs.address_problem), (CountLabel.NOT_FOUND, locs.not_found),
+                         (CountLabel.NO_GEOCODER, locs.no_geocoder), (CountLabel.GOAL1_LOW, c.goal1.low),
+                         (CountLabel.GOAL1_HIGH, c.goal1.high), (CountLabel.GOAL2_LOW, c.goal2.low),
+                         (CountLabel.GOAL2_HIGH, c.goal2.high), (CountLabel.OPEN_PAIRS, c.open_pairs),
+                         (CountLabel.CONFIDENCE_LEVEL, _LEVEL[r.confidence.level]),
+                         (CountLabel.DOB_COVERAGE_PCT, c.dob_coverage[0] * 100 // c.dob_coverage[1] if c.dob_coverage[1] else 0)):
+        emit(label, value)
+    if "--decide-approve-all" in args:
+        emit(CountLabel.DECISIONS_MADE, made)
+        emit(CountLabel.DECISIONS_KEPT, r.kept)
+        emit(CountLabel.NO_LONGER_APPLY, r.lapsed)
+    steps = (CountLabel.STEP_1_TENTHS, CountLabel.STEP_2_TENTHS, CountLabel.STEP_3_TENTHS, CountLabel.STEP_4_TENTHS)
+    for label, step in zip(steps, sink.order):
+        emit(label, sink.tenths.get(step, 0))
+    return 0
+
+
 COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy,
             "standardize": cmd_standardize, "geo-status": cmd_geo_status, "geo-check": cmd_geo_check,
             "offset-demo": cmd_offset_demo, "map-demo": cmd_map_demo, "people-demo": cmd_people_demo,
-            "people-check": cmd_people_check, "programs-demo": cmd_programs_demo, "programs-check": cmd_programs_check}
+            "people-check": cmd_people_check, "programs-demo": cmd_programs_demo, "programs-check": cmd_programs_check,
+            "session-demo": cmd_session_demo, "session-check": cmd_session_check}
 
 
 def main(argv=None):

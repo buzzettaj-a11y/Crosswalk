@@ -18,7 +18,8 @@ def run(row, extra):
 
 
 def test_every_decision_reason_has_a_triggering_row():
-    decision = {r.id for r in reasons.all_reasons().values() if r.severity == "decision"}
+    # same_id_conflict comes from the copy step (M08), not from standardizing, so tests/fixtures/session/problem_rows.py covers it.
+    decision = {r.id for r in reasons.all_reasons().values() if r.severity == "decision"} - {"same_id_conflict"}
     assert decision == set(PROBLEM_ROWS)
     for rid, (row, extra) in PROBLEM_ROWS.items():
         assert rid in run(row, extra).reason_ids(), rid

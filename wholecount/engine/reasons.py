@@ -63,3 +63,7 @@ for _note in ("blank_marker", "no_fixed_address", "zip_outside_nyc", "state_outs
 
 # Why a row is set aside rather than counted. Not a problem kind: the row leaves the count with its reason (P-VAL-1).
 SET_ASIDE_REASONS = ("summary_row",)
+
+
+# M08, review. An open same-ID conflict (P-DUP-3) holds its rows until a person decides it.
+register("same_id_conflict", "decision", "holds_count")

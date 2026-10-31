@@ -46,7 +46,7 @@ def test_count_labels_are_a_closed_lowercase_set():
     """, install="[]")
     assert r["labels"][:7] == ["pins_runtime", "pins_dev", "approved_distributions", "claims_in_registry", "audit_ids_listed",
                                "modules_imported_under_guard", "guard_violations"]
-    assert all(re.fullmatch(r"[a-z_]+", label) for label in r["labels"]) and len(set(r["labels"])) == len(r["labels"])
+    assert all(re.fullmatch(r"[a-z][a-z0-9_]*", label) for label in r["labels"]) and len(set(r["labels"])) == len(r["labels"])
 
 
 def test_check_prints_counts_only_and_no_violations():
