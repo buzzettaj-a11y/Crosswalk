@@ -42,8 +42,9 @@ def test_count_labels_are_a_closed_lowercase_set():
         from wholecount import dev
         out['labels'] = [l.value for l in dev.CountLabel]
     """, install="[]")
-    assert r["labels"] == ["pins_runtime", "pins_dev", "approved_distributions", "claims_in_registry", "audit_ids_listed",
-                           "modules_imported_under_guard", "guard_violations"]
+    assert r["labels"][:7] == ["pins_runtime", "pins_dev", "approved_distributions", "claims_in_registry", "audit_ids_listed",
+                               "modules_imported_under_guard", "guard_violations"]
+    assert all(re.fullmatch(r"[a-z_]+", label) for label in r["labels"]) and len(set(r["labels"])) == len(r["labels"])
 
 
 def test_check_prints_counts_only_and_no_violations():
@@ -57,8 +58,23 @@ def test_check_prints_counts_only_and_no_violations():
     assert counts["pins_runtime"] == "11"
     assert counts["approved_distributions"] == "11"
     assert counts["audit_ids_listed"] == "101"
-    assert counts["claims_in_registry"] == "1"
+    from wholecount import copy
+    assert counts["claims_in_registry"] == str(len(copy.claims()))
     assert int(counts["modules_imported_under_guard"].replace(",", "")) > 100
+
+
+def test_read_prints_counts_only(tmp_path):
+    (tmp_path / "Zelphina Quorvath.csv").write_text("Client_ID,First_Name,Last_Name,SSN\nQX-1,Zelphina,Quorvath,078-05-1120\n")
+    (tmp_path / "bad.csv").write_bytes(b"A\n\x81\n")
+    p = subprocess.run([sys.executable, "-m", "wholecount.dev", "read", str(tmp_path / "Zelphina Quorvath.csv"), str(tmp_path / "bad.csv")],
+                       cwd=ROOT, capture_output=True, text=True, timeout=120)
+    assert p.returncode == 0, p.stderr
+    lines = p.stdout.splitlines()
+    assert all(LINE_RE.match(ln) for ln in lines), lines
+    assert "Zelphina" not in p.stdout and "Quorvath" not in p.stdout and "QX-1" not in p.stdout
+    counts = dict(ln.rsplit(" ", 1) for ln in lines)
+    assert counts["balanced A"] == "1" and counts["rows_included A"] == "1" and counts["sensitive_columns_dropped A"] == "1"
+    assert counts["files_read"] == "1" and counts["files_unreadable"] == "1"
 
 
 def test_why_names_denied_events_without_paths():

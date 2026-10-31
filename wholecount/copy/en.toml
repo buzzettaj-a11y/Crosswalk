@@ -11,3 +11,112 @@ text = "{product} {version}"
 [offline.nothing_leaves]
 text = "Nothing leaves this computer."
 claim = "CL-OFFLINE-01"
+
+# Progress (SPEC 11.6). Step names, then the lines a running step shows.
+
+[progress.step.reading_files]
+text = "Reading files"
+
+[progress.step.finding_tables]
+text = "Finding tables"
+
+[progress.step.tidying_up]
+text = "Tidying up"
+
+[progress.step.checking_every_row]
+text = "Checking every row"
+
+[progress.step.placing_addresses]
+text = "Placing addresses"
+
+[progress.step.finding_copies]
+text = "Finding copies in each file"
+
+[progress.step.matching_people]
+text = "Matching people across files"
+
+[progress.step.counting_and_balancing]
+text = "Counting and balancing"
+
+[progress.step.counting]
+text = "Counting"
+
+[progress.step.looking_up_addresses]
+text = "Looking up addresses"
+
+[progress.step.writing_files]
+text = "Writing files"
+
+[progress.step.reapplying_decisions]
+text = "Re-applying decisions"
+
+[progress.step.reading_corrections]
+text = "Reading the corrections file"
+
+[progress.step.checking_signatures]
+text = "Checking signatures and originals"
+
+[progress.step.drawing_pairs]
+text = "Drawing pairs"
+
+[progress.step.protecting_backup]
+text = "Protecting the backup"
+
+[progress.reading_source]
+text = "Reading {source}"
+
+[progress.finding_tables_in]
+text = "Finding tables in {source}"
+
+[progress.found.reading_files]
+text = "{read} read, {unreadable} could not be read"
+
+[progress.found.finding_tables]
+text = "{tables} tables found, {included} included"
+
+# Add your files (P-READ)
+
+[read.encoding_note]
+text = "This file was read as Windows Western text. Check that names with accents look right."
+claim = "CL-READ-ENCODING-01"
+
+[read.accounting_line]
+text = "{included} rows in included tables, {excluded} in tables left out, {non_table} in blocks that aren't tables, {header} header rows and {above_header} above the header. Together they add up to the {non_empty} rows in this file that hold anything."
+claim = "CL-READ-ACCOUNTING-01"
+
+[read.accounting_line_shared]
+text = "{included} rows in included tables, {excluded} in tables left out, {non_table} in blocks that aren't tables, {header} header rows and {above_header} above the header. Together they add up to the {non_empty} rows in this file that hold anything, plus {shared} rows counted once for each table that sits beside another on the same rows."
+claim = "CL-READ-ACCOUNTING-02"
+
+[read.rows_left_out]
+text = "{rows} rows in this file are not in an included table, so they won't be counted. Tick their table to include them."
+
+[read.unreadable.unsupported_type]
+text = "This kind of file can't be read. Save it as .csv, .tsv, .txt, .xlsx, .json or .xml and add it again."
+
+[read.unreadable.unreadable_encoding]
+text = "This file's text isn't UTF-8 or Windows Western text, so it can't be read without guessing. Save it from Excel as CSV UTF-8 and add it again."
+
+[read.unreadable.bad_workbook]
+text = "This workbook can't be opened. It may be damaged or saved in an older format. Open it in Excel, save it as .xlsx and add it again."
+
+[read.unreadable.bad_json]
+text = "This JSON file isn't valid JSON, so it can't be read."
+
+[read.unreadable.bad_xml]
+text = "This XML file isn't valid XML, so it can't be read."
+
+[read.unreadable.empty_file]
+text = "This file is empty."
+
+[read.unreadable.blocked_by_guard]
+text = "This file is on a network path that {product} doesn't open. Copy it to this computer and add it again."
+
+[read.duplicate_file]
+text = "This file was already added. The second copy was skipped."
+
+[read.sensitive_dropped]
+text = "Dropped at load: {columns} columns whose names or values suggest sensitive data."
+
+[progress.file_count]
+text = "{done} of {total} files"
