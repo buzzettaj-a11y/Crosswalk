@@ -459,3 +459,33 @@ claim = "CL-DUP-03"
 [copies.open_rows_counted]
 text = "While this is open, every row stays counted, and the people count shows a range."
 claim = "CL-DUP-04"
+
+# Programs (P-PROG). The engine returns a reason code; the proposal card shows its sentence.
+
+[programs.reason.same_name]
+text = "These names are the same once case, punctuation, short forms and words like Program are set aside."
+claim = "CL-PROG-01"
+
+[programs.reason.initials]
+text = "One name is the initials of the other."
+claim = "CL-PROG-02"
+
+[programs.reason.nearly_same]
+text = "These names are spelled almost the same, and no number, letter or meaning word sets them apart."
+claim = "CL-PROG-03"
+
+[programs.reason.more_words]
+text = "One name is the other with Development added."
+claim = "CL-PROG-04"
+
+[programs.held]
+text = "Continue to Process is held until every proposal is confirmed or split. {count} left."
+claim = "CL-PROG-05"
+
+[programs.not_in_goal2]
+text = "This table has no program column and no default program, so its people count in Goal 1 but not in Goal 2."
+claim = "CL-PROG-06"
+
+[programs.proposal_inert]
+text = "A proposal changes no count until you confirm it."
+claim = "CL-PROG-07"
