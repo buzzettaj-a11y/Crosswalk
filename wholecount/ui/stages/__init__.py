@@ -28,10 +28,11 @@ def placeholder(stage_id, window):
 
 def _real_builders():
     from wholecount.ui.stages import map as map_
-    from wholecount.ui.stages import prepare, programs, review, run, schema, sources
+    from wholecount.ui.stages import prepare, programs, review, run, schema, sources, summary
 
     return {"sources": sources.build, "schema": schema.build, "prepare": prepare.build, "map": map_.build,
-            "programs": programs.build, "run": run.build, "review": review.build}
+            "programs": programs.build, "run": run.build, "review": review.build,
+            "summary": summary.build}
 
 
 class StageRegistry:

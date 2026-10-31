@@ -104,6 +104,22 @@ class SessionBridge(QObject):
         sv = self.survey()
         return list(sv.loaded.values()) if sv else []
 
+    def program_sources(self):
+        """Each table's program source (P-PROG-1), from the survey of the set-up the last run used."""
+        from wholecount.session.survey import survey
+
+        return survey(self.session).program_tables if self.session is not None else ()
+
+    def summary_html(self, include_file_names):
+        from wholecount.session.frame import summary_html
+
+        return summary_html(self.session, include_file_names)
+
+    def save_summary(self, path, include_file_names):
+        from wholecount.session.export import save_summary
+
+        return save_summary(self.session, path, include_file_names, overwrite=True)
+
     def diagnosis(self, cause):
         from wholecount.session.pages import diagnosis
 

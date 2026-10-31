@@ -80,3 +80,11 @@ def export_settings(session):
     sec = dict(session.setup.sections.get("export_settings", {}))
     known = {k: sec[k] for k in ("formats", "columns_off", "map_points", "exact_coordinates", "include_file_names") if k in sec}
     return ExportSettings(**known)
+
+
+def summary_html(session, include_file_names):
+    """M09's printable page as HTML, from the same SummaryDoc the PDF draws (A-03)."""
+    from wholecount.engine.outputs.summary_doc import build_summary, render_summary_html
+    from wholecount.session.export import build_view
+
+    return render_summary_html(build_summary(build_view(session), include_file_names))

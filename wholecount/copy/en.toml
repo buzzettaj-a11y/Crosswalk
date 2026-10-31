@@ -3046,3 +3046,141 @@ text = "The set-up changed after the last run, so these numbers could be wrong. 
 claim = "CL-STALE-HIDDEN-01"
 [results.hold_stale]
 text = "Held until you process again. The results are out of date."
+
+# Results (M12 section 3)
+
+[results.print_button]
+text = "Open a page to print or hand on"
+[results.continue]
+text = "Continue to the files"
+[results.held_title]
+text = "The results are held"
+[results.final]
+text = "Final. Nothing is left to decide."
+claim = "CL-FINAL-04"
+[results.partial]
+text = "Settled for the rows counted so far. {n} rows aren't counted yet."
+claim = "CL-FINAL-05"
+[results.pairs_open]
+text = "{n} pairs of records are still open, so both counts are ranges."
+[results.pairs_groups_open]
+text = "{n} pairs of records and {g} copy groups are still open, so both counts are ranges."
+[results.goal1.kicker]
+text = "GOAL 1"
+[results.goal1.title]
+text = "Unique clients"
+[results.goal1.body]
+text = "Every person counted once, however many systems they appear in."
+[results.goal2.kicker]
+text = "GOAL 2"
+[results.goal2.title]
+text = "Unique clients by program"
+[results.goal2.body]
+text = "The same person counted once in each program they take part in. Somebody in three programs counts once above and three times here."
+[results.until]
+text = "until {n} pairs are decided"
+[results.until_groups]
+text = "until {n} pairs and {g} copy groups are decided"
+[results.noprogram]
+text = "{n} people have no program recorded. They are counted in Goal 1 and not in Goal 2."
+claim = "CL-NOPROGRAM-PEOPLE-01"
+[results.no_program_file]
+text = "{file} has no program, so its {n} rows are not in Goal 2."
+[results.counted_from]
+text = "Counted from {a} rows. {b} rows aren't counted yet and {c} are set aside."
+[results.earlier]
+text = "{n} people were matched from earlier batches."
+[results.pairs.title]
+text = "{n} pairs of records may be the same person"
+[results.pairs.line]
+text = "The tool will not merge people on a guess, so the first count stays a range until you decide them. {a} links were joined on evidence that could not reasonably be coincidence, and {b} were confirmed by a person."
+[results.pairs.decide]
+text = "Decide them now"
+[results.pairs.needs]
+text = "NEEDS YOU"
+[results.pairs.decided]
+text = "DECIDED BY YOU"
+[results.pairs.was_same]
+text = "Decided: the same person."
+[results.pairs.was_different]
+text = "Decided: different people."
+[results.pairs.col.source]
+text = "SOURCE AND ROW"
+[results.pairs.col.name]
+text = "NAME"
+[results.pairs.col.dob]
+text = "DATE OF BIRTH"
+[results.pairs.col.address]
+text = "ADDRESS 1"
+[results.pairs.col.zip]
+text = "ZIP"
+[results.pairs.col.program]
+text = "PROGRAM"
+[results.pairs.col.id]
+text = "ID"
+[results.pairs.agrees]
+text = "What agrees"
+[results.pairs.check]
+text = "What to check"
+[results.pairs.second]
+text = "This joins more than 5 records, so a second person must confirm. Type their name."
+[results.joins.title]
+text = "Joined without asking"
+[results.joins.search]
+text = "Search by name, on this screen only"
+[results.joins.records]
+text = "{n} records"
+[results.joins.reason.same_system_id]
+text = "Same Client ID in one system, with name and date of birth agreeing"
+[results.joins.reason.four_exact_facts]
+text = "Date of birth, surname, given name and address all match exactly"
+[results.joins.reason.earlier_batch]
+text = "A person joined these in an earlier batch"
+[results.programs.title]
+text = "Where the people are"
+[results.programs.none]
+text = "No program recorded"
+[results.programs.note]
+text = "Counted by person. A person in three programs appears in three bars."
+[results.loc.title]
+text = "Locations"
+[results.loc.high]
+text = "Mapped, high confidence"
+[results.loc.low]
+text = "Mapped, low confidence"
+[results.loc.not_mapped]
+text = "Counted, no usable address"
+[results.noaddr]
+text = "These people are in both counts. They are not on the map."
+claim = "CL-NOADDR-COUNTED-01"
+[results.verified]
+text = "A weak match is never labeled fully verified."
+claim = "CL-VERIFIED-01"
+[results.people.title]
+text = "Each person, and the programs they count in"
+[results.people.col.person]
+text = "PERSON"
+[results.people.col.name]
+text = "NAME"
+[results.people.col.programs]
+text = "PROGRAMS"
+[results.people.col.counts_as]
+text = "COUNTS AS"
+[results.people.counts_as]
+text = "{n} in Goal 2"
+[results.people.more]
+text = "and {n} more, all included in the counts and in the download."
+[results.people.show]
+text = "Show the list"
+[results.print.title]
+text = "A page to print or hand on"
+[results.print.names]
+text = "Include file names"
+[results.print.pdf]
+text = "Save as PDF"
+[results.print.web]
+text = "Save as a web page"
+[results.print.pdf_filter]
+text = "PDF (*.pdf)"
+[results.print.web_filter]
+text = "Web page (*.html)"
