@@ -392,3 +392,23 @@ class SetThresholds:
                                           "reviewer": who, "time": now})
         for name, value in (("possible_min", self.possible_min), ("likely_min", self.likely_min)):
             session.log(entry("THRESHOLD_SET", field_name=name, count=value, reviewer=who or None, time_iso=now))
+
+
+FIELDS = ("name", "dob", "address", "zip", "system")
+
+
+def side(session, person_key):
+    """The first record of one person key, as the labeling screen shows it. From memory only; never written or logged."""
+    r = session.results
+    rks = sorted(k for k, pk in r.person_of_record.items() if pk == person_key)
+    if not rks:
+        return {f: "" for f in FIELDS}
+    row = r.rows[rks[0]]
+    name = " ".join(v for v in (row.value("First_Name"), row.value("Middle_Initial"), row.value("Last_Name")) if v)
+    address = " ".join(v for v in (row.value("Address_1"), row.value("Address_2")) if v)
+    return {"name": name, "dob": row.value("Date_of_Birth"), "address": address, "zip": row.value("Zip"),
+            "system": r.system_of_record.get(rks[0], "")}
+
+
+def band_edges():
+    return settings()["band_edges"]

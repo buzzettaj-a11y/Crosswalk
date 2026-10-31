@@ -51,8 +51,13 @@ def pre_run_lines(session, export_settings):
         maps = "run.pre.maps.coords"
     elif export_settings.map_points:
         maps = "run.pre.maps.points"
-    return (("run.pre.reads", {"n": tables, "m": files}), ("run.pre.checks", {"k": steps}),
-            (f"run.pre.backend.{kind}", {}), (maps, {}))
+    lines = (("run.pre.reads", {"n": tables, "m": files}), ("run.pre.checks", {"k": steps}),
+             (f"run.pre.backend.{kind}", {}), (maps, {}))
+    from wholecount.session.crosswalk import state
+
+    if state(session) == "orphaned":       # M13 XW-3: said before the run, so nobody expects earlier batches' IDs
+        lines += (("run.pre.crosswalk_orphaned", {}),)
+    return lines
 
 
 class ProcessBody(QWidget):

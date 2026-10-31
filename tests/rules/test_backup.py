@@ -85,8 +85,9 @@ def test_BAK_4_backup_restore_and_the_record_key_known_answer(tmp_path):
     s.secret = InstallSecret(OTHER_SECRET)
     store.save(OTHER_SECRET)
     assert RestoreSecret(path, PASS, "yes").run(s, store).needs_word and store.load() == OTHER_SECRET
-    with pytest.raises(BackupError):
+    with pytest.raises(BackupRefused) as e:
         RestoreSecret(path, "not the passphrase", "replace").run(s, store)
+    assert e.value.code == "wrong_passphrase_or_damaged"
     assert RestoreSecret(path, PASS, "replace").run(s, store).restored
     assert store.load() == TEST_SECRET and s.secret.same_as(TEST_SECRET)
     tk = "clinic_export_csv :: data :: 3380a5d7"

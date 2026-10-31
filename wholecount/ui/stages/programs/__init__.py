@@ -237,6 +237,8 @@ class ProgramsBody(QWidget):
             top.addWidget(tag(copy.get("prog.s2.needs"), "needs"))
         elif kind == "confirmed":
             top.addWidget(tag(copy.get("prog.s2.confirmed"), "confirmed"))
+            if getattr(obj, "from_earlier_batch", False):
+                top.addWidget(tag(copy.get("prog.s2.earlier"), "neutral"))
         top.addStretch(1)
         if self.holding and self.holding not in members:
             here = button(copy.get("prog.s2.move_here", name=self.holding.upper()), "secondary", name=f"moveHere_{lbl}")

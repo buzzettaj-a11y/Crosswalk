@@ -83,7 +83,9 @@ class RestoreSecret:
         try:
             raw = read_backup(self.path.read_bytes(), self._passphrase)
         except OSError:
-            raise BackupError("not_a_backup") from None
+            raise BackupRefused("not_a_backup") from None
+        except BackupError as e:
+            raise BackupRefused(e.code) from None
         finally:
             self._passphrase = None
         if session.secret.same_as(raw):

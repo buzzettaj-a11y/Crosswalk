@@ -133,6 +133,9 @@ class MainWindow(QMainWindow):
         L.acknowledge.connect(self.acknowledge_low)
         self.run_hold.register(L.change)
         self.run_hold.register(self.settings.change)
+        from wholecount.ui.settings.drawer import install
+
+        self.m13 = install(self)
         self.band.details.connect(self.open_details)
         self.your_data.saved_toggled.connect(self.toggle_saved)
         self.settings.saved_toggled.connect(self.toggle_saved)
@@ -232,6 +235,7 @@ class MainWindow(QMainWindow):
         self.your_data.update_view(v.with_(now=now))
         self.check.update_view(v)
         self.settings.update_view(v.with_(now=now))
+        self.m13.update_view(v)
         head = getattr(self.stage_widget, "head", None)
         if hasattr(self.stage_widget, "update_view"):
             self.stage_widget.update_view(v)
