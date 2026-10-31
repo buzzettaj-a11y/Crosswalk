@@ -194,7 +194,10 @@ def test_a_whole_session_runs_with_the_network_blocked(tmp_path):
 def test_no_network_module_in_the_ui():
     from tools.offline_scan import scan_imports, scan_url_literals
 
-    paths = sorted((ROOT / "wholecount").rglob("*.py"))
+    from tests.offline.test_static_scan import app_sources
+
+    # The same sources as M00's static scan: everything but the guard, which names what it forbids.
+    paths = app_sources()
     assert scan_imports(paths, ROOT) == []
     assert scan_url_literals(paths, ROOT) == []
 
