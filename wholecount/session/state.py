@@ -129,8 +129,24 @@ class Session:
         self.correction_texts = {}        # decision ID -> {record key: {field: text}}, memory only
         self.acknowledged = None          # (results version, measures) of the last low-confidence tick
         self.finished = None
-        self.audit = []
+        self.audit_log = []               # (time ISO, AuditEntry), append only (AUD-1)
+        self.store = None                 # a session.store.Store when saved progress is wanted (STORE-3)
+        self.session_id = hashlib.sha256(self.now_iso().encode("utf-8")).hexdigest()[:16]
         self._load_cache = None
+
+    @property
+    def audit(self):
+        return [e for _, e in self.audit_log]
+
+    def log(self, entry):
+        self.audit_log.append((self.now_iso(), entry))
+
+    def autosave(self):
+        """STORE-3: after each command, when a store is attached and saved progress is on."""
+        if self.store is not None and self.results is not None:
+            from wholecount.session.store import snapshot
+            return self.store.save(self.session_id, snapshot(self))
+        return None
 
     # Time comes from the injected clock (H3).
     def now_iso(self):

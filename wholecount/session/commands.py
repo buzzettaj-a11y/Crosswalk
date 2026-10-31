@@ -43,8 +43,9 @@ class History:
         before = s.live_fingerprints()
         result = cmd.apply(s)
         self.stack.append(cmd)
-        s.audit.append(cmd.audit_entry())
+        s.log(cmd.audit_entry())
         self._after(before, cmd)
+        s.autosave()
         return result
 
     def undo(self):
@@ -55,9 +56,11 @@ class History:
         cmd = self.stack.pop()
         before = s.live_fingerprints()
         cmd.undo(s)
-        s.audit.append(entry("UNDO", reviewer=s.reviewer or None, time_iso=s.now_iso()))
+        undone = [d.decision_id for d in getattr(cmd, "added", ())] + [d.decision_id for d in getattr(cmd, "removed", ())]
+        s.log(entry("UNDO", decision_id=undone or None, reviewer=s.reviewer or None))
         if not s.restore_if_cached():
             self._after(before, cmd)
+        s.autosave()
         return cmd.label
 
     def _after(self, before, cmd):

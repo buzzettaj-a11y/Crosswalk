@@ -701,3 +701,219 @@ text = "Change the run settings"
 
 [commands.setup.export_settings]
 text = "Change the download settings"
+
+# Outputs (SPEC 9). Status words are P-VAL-1's.
+
+[common.yes]
+text = "Yes"
+
+[common.no]
+text = "No"
+
+[status.count.counted_passed]
+text = "Counted, passed every count check"
+
+[status.count.counted_approved]
+text = "Counted, approved as entered by a reviewer"
+
+[status.count.counted_corrected]
+text = "Counted, corrected from a corrections file"
+claim = "CL-OUT-01"
+
+[status.count.not_counted_yet]
+text = "Not counted yet"
+
+[status.count.set_aside]
+text = "Set aside"
+
+[status.location.filled]
+text = "Filled from the row's own address"
+claim = "CL-OUT-02"
+
+[status.location.not_mapped]
+text = "Not mapped: {reason}"
+
+[status.location.reason.no_fixed_address]
+text = "No fixed address"
+
+[status.location.reason.outside_nyc]
+text = "Outside NYC"
+
+[status.location.reason.address_problem]
+text = "Address problem"
+
+[status.location.reason.not_found]
+text = "Not found"
+
+[status.location.reason.no_geocoder]
+text = "No geocoder"
+
+[status.confidence.high]
+text = "High"
+
+[status.confidence.low]
+text = "Low"
+
+[status.confidence.not_placed]
+text = "Not placed"
+
+[set_aside.title.summary_row]
+text = "Summary row"
+
+[set_aside.title.copy_of]
+text = "Copy of another row"
+
+[people.match.certain]
+text = "Certain"
+
+[people.match.likely]
+text = "Likely"
+
+[people.match.possible]
+text = "Possible"
+
+[people.match.single]
+text = "One record"
+
+[copies.title.identical]
+text = "Identical copy in this file"
+
+[copies.title.possible]
+text = "Possible copy in this file"
+
+[corrections.refused.signature]
+text = "This row didn't come from this computer's review file."
+claim = "CL-CORR-01"
+
+[corrections.refused.changed]
+text = "This row has changed since the review file was made."
+claim = "CL-CORR-02"
+
+[corrections.refused.other_column]
+text = "Only the Corrected columns can change. Another column was changed on this row."
+claim = "CL-CORR-03"
+
+[corrections.refused.field_not_failing]
+text = "This field didn't fail on this row, so it can't be corrected here."
+claim = "CL-CORR-04"
+
+[corrections.refused.not_a_review_file]
+text = "This file isn't a review file from this tool. It has no Record_Key, Run_ID or Signature column."
+claim = "CL-CORR-05"
+
+[corrections.refused.duplicate]
+text = "This record appears twice in the file, so neither row was used."
+
+[corrections.refused.set_aside]
+text = "This row was set aside, so it can't be corrected."
+
+[corrections.none]
+text = "This file has no corrections in it."
+
+[log.internal_first_line]
+text = "This log contains record keys and file names. Keep it inside the organization."
+claim = "CL-LOG-01"
+
+[log.shareable_first_line]
+text = "This log has no file names, row numbers or client values. Record keys are replaced by keyed codes."
+claim = "CL-LOG-02"
+
+[log.practice_line]
+text = "PRACTICE RUN. Example data, not for reporting."
+claim = "CL-LOG-03"
+
+[log.header]
+text = "{product} {version}. Backend {backend}, release {release}. Privacy offset applied: {offset}. Tables {tables}, rows {rows}."
+
+[log.legend]
+text = "SOURCE {letter} = {file_name}"
+
+[log.reviewer_table]
+text = "Decisions by reviewer and type:"
+
+[log.reviewer_row]
+text = "{reviewer}: {kind} {count}"
+
+[summary.title]
+text = "People served, counts only"
+
+[summary.practice_line]
+text = "Practice run, not for reporting"
+claim = "CL-OUT-03"
+
+[summary.goal1]
+text = "Unique clients (Goal 1)"
+
+[summary.goal2]
+text = "Unique clients per program (Goal 2)"
+
+[summary.per_program]
+text = "By program"
+
+[summary.balance]
+text = "Every row accounted for"
+
+[summary.no_address]
+text = "Counted, no usable address"
+
+[summary.confidence]
+text = "Confidence"
+
+[summary.backend]
+text = "Addresses placed with {backend}, release {release}."
+
+[summary.dob_coverage]
+text = "Date of birth on {counted} of {total} counted rows."
+
+[summary.sources]
+text = "Sources"
+
+[summary.footer_counts]
+text = "Counts only."
+claim = "CL-OUT-04"
+
+[summary.footer_names]
+text = "Counts and file names only."
+claim = "CL-OUT-05"
+
+[receipt.title]
+text = "Files written"
+
+[receipt.file]
+text = "{path}: {rows} rows, {columns} columns, at {time}"
+
+[receipt.nothing_else]
+text = "Nothing else was written."
+claim = "CL-OUT-06"
+
+[outputs.note.exact_coordinates]
+text = "Latitude and Longitude are exact. For internal use only."
+claim = "CL-OUT-07"
+
+[outputs.note.open_pairs]
+text = "{count} possible same-person pairs were open, so the people files treat them as different people."
+claim = "CL-OUT-08"
+
+[outputs.practice.no_maps]
+text = "This is a practice run, so Map_Counts, Map_Points and the district columns weren't written. The practice addresses have made-up districts."
+claim = "CL-OUT-09"
+
+[outputs.folder_callout]
+text = "This folder copies files to other computers. These files hold client data."
+claim = "CL-OUT-10"
+
+[outputs.writes.saved_progress_off]
+text = "Nothing is written to disk until you download."
+claim = "CL-OUT-11"
+
+[outputs.writes.saved_progress_on]
+text = "Saved progress is on: your decisions, never your data, are kept encrypted on this computer for 7 days."
+claim = "CL-OUT-12"
+
+[setups.export_note]
+text = "This file holds column names, steps, mappings, defaults and program names. It holds no client data."
+claim = "CL-OUT-13"
+
+[errors.safe_text]
+text = "Something went wrong: {kind} in {module}, line {line}. Nothing about your clients is in this message."
+claim = "CL-OUT-14"
