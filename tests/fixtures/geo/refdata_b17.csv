@@ -1,0 +1,19 @@
+house_number,street,zip,borough,latitude,longitude
+100,W 10 St,10011,New York,40.7350,-73.9990
+100,E 10 St,10003,New York,40.7310,-73.9890
+1,Main St,11201,Brooklyn,40.7000,-73.9900
+11,Main St,11201,Brooklyn,40.7040,-73.9800
+1,Avenue U,11223,Brooklyn,40.5990,-73.9700
+1,Avenue V,11223,Brooklyn,40.5950,-73.9600
+40,W 100 St,10025,New York,40.7960,-73.9650
+100,W 40 St,10025,New York,40.7540,-73.9860
+123,Fulton St,11201,Brooklyn,40.6920,-73.9870
+123,Fulton Ave,11201,Brooklyn,40.6800,-73.9800
+500,Atlantic Ave,11217,Brooklyn,40.6830,-73.9770
+5,Beach 9 St,11691,Queens,40.6020,-73.7500
+50,Beach 9 St,11691,Queens,40.6010,-73.7490
+2250,Flatbush Ave,11234,Brooklyn,40.6200,-73.9200
+900,Flatbush Ave,11226,Brooklyn,40.6410,-73.9590
+1010,Grand Concourse,10452,Bronx,40.8300,-73.9230
+85,Montague St,11201,Brooklyn,40.6940,-73.9930
+700,Montague St,11201,Brooklyn,40.6930,-73.9920

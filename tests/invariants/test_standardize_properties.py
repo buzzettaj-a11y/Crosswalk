@@ -56,6 +56,9 @@ def test_restandardizing_accepted_values_changes_nothing(values):
     first = run(values)
     if first.count_status.value != "counted_passed" or first.set_aside_reason:
         return
+    if first.no_fixed_address:
+        # A housing word is blanked and recorded in the row's note, not its values, so feeding the values back drops it.
+        return
     again = run({k: v.value for k, v in first.values.items()})
     assert {k: v.value for k, v in again.values.items()} == {k: v.value for k, v in first.values.items()}
 

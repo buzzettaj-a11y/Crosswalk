@@ -81,11 +81,42 @@ class CountLabel(enum.Enum):
     VALUES_CHANGED = "values_changed"
     ENTERED_LOST = "entered_lost"
     REASON = "reason"
+    # geo-status
+    BACKEND_GEOSUPPORT = "backend_geosupport"
+    BACKEND_REFERENCE = "backend_reference"
+    BACKEND_NONE = "backend_none"
+    RELEASE_KNOWN = "release_known"
+    RELEASE_YEAR = "release_year"
+    RELEASE_QUARTER = "release_quarter"
+    RELEASE_STALE = "release_stale"
+    REFERENCE_REAL = "reference_real"
+    REFERENCE_SAMPLE = "reference_sample"
+    REFERENCE_ROWS = "reference_rows"
+    REFERENCE_FILES_SEVERAL = "reference_files_several"
+    DISTRICT_FILES = "district_files"
+    CAN_PLACE = "can_place"
+    # geo-check
+    LOOKED_UP = "looked_up"
+    PLACED_HIGH = "placed_high"
+    PLACED_LOW = "placed_low"
+    NOT_PLACED = "not_placed"
+    DISTRICTS_FILLED = "districts_filled"
+    # offset-demo
+    SAME_OFFSET_SECOND_RUN = "same_offset_second_run"
+    DISTANCE_IN_RANGE = "distance_in_range"
+    DISTANCE_FEET = "distance_feet"
+    ONE_BUILDING_ONE_POINT = "one_building_one_point"
+    OTHER_SECRET_DIFFERS = "other_secret_differs"
+    # map-demo
+    CELLS_TOTAL = "cells_total"
+    CELLS_BLANKED = "cells_blanked"
+    ROWS_WITH_A_NAME = "rows_with_a_name"
 
 
-def emit(label, value, scope=None, out=None, field=None, reason=None):
+def emit(label, value, scope=None, out=None, field=None, reason=None, grouped=True):
     """Print `label [SCOPE] [FIELD] [REASON] value`. The value must be an int, the scope a source letter or a table like A.1,
-    the field one of the built-in field names and the reason a registered reason ID. Fields and reasons are closed sets."""
+    the field one of the built-in field names and the reason a registered reason ID. Fields and reasons are closed sets. A year is
+    printed with grouped=False, so 2025 doesn't read as 2,025."""
     from wholecount.engine import reasons
     from wholecount.engine.schema import BUILTIN_KEYS
 
@@ -100,7 +131,8 @@ def emit(label, value, scope=None, out=None, field=None, reason=None):
         raise ValueError("scope must be a source letter")
     if field is not None and field not in BUILTIN_KEYS:
         raise ValueError("field must be a built-in field name")
-    parts = [label.value] + ([scope] if scope else []) + ([field] if field else []) + ([reason] if reason else []) + [f"{value:,}"]
+    shown = f"{value:,}" if grouped else str(value)
+    parts = [label.value] + ([scope] if scope else []) + ([field] if field else []) + ([reason] if reason else []) + [shown]
     print(" ".join(parts), file=out or sys.stdout)
 
 
@@ -381,8 +413,127 @@ def cmd_standardize(args):
     return 0
 
 
+def _geo_preflight(today):
+    import os
+
+    from wholecount.engine.geo.backend import preflight
+    from wholecount.paths import data_dir
+
+    return preflight(os.environ, data_dir(), today)
+
+
+def cmd_geo_status(args):
+    """Which backend a batch of the operator's own files would use, its release, the reference and district files. Counts only."""
+    import datetime as dt
+
+    from wholecount.engine.geo.geosupport import release_quarter
+
+    today = dt.date.fromisoformat(_option(args, "--today")) if _option(args, "--today") else dt.date.today()
+    pf = _geo_preflight(today)
+    name = pf.backend_name
+    rq = release_quarter(pf.release)
+    emit(CountLabel.BACKEND_GEOSUPPORT, int(name == "geosupport"))
+    emit(CountLabel.BACKEND_REFERENCE, int(name == "reference"))
+    emit(CountLabel.BACKEND_NONE, int(name == "none"))
+    emit(CountLabel.RELEASE_KNOWN, int(rq is not None))
+    emit(CountLabel.RELEASE_YEAR, rq[0] if rq else 0, grouped=False)
+    emit(CountLabel.RELEASE_QUARTER, rq[1] if rq else 0)
+    emit(CountLabel.RELEASE_STALE, int(pf.release_stale))
+    emit(CountLabel.REFERENCE_REAL, int(pf.reference_kind == "real"))
+    emit(CountLabel.REFERENCE_SAMPLE, int(pf.reference_kind == "sample"))
+    emit(CountLabel.REFERENCE_ROWS, pf.reference_rows)
+    emit(CountLabel.REFERENCE_FILES_SEVERAL, int(pf.reference_kind == "several_reference_files"))
+    emit(CountLabel.DISTRICT_FILES, pf.district_files)
+    emit(CountLabel.CAN_PLACE, int(pf.can_place))
+    return 0
+
+
+def cmd_geo_check(args):
+    """Look up the 12 landmarks in tests_windows/landmarks.csv, or a CSV's rows with --csv PATH --house COL --street COL
+    --zip COL, through the backend preflight picks. Counts only, never an address."""
+    import csv
+    import datetime as dt
+
+    from wholecount.engine.geo.backend import district_paths
+    from wholecount.engine.geo.districts import DistrictIndex
+
+    pf = _geo_preflight(dt.date.today())
+    backend = pf.backend
+    districts = DistrictIndex.from_files(district_paths())
+    path = _option(args, "--csv")
+    cols = (_option(args, "--house") or "house", _option(args, "--street") or "street", _option(args, "--zip") or "zip")
+    path = pathlib.Path(path) if path else ROOT / "tests_windows" / "landmarks.csv"
+    tally = {"looked_up": 0, "high": 0, "low": 0, "not_placed": 0, "districts": 0}
+    with open(path, newline="", encoding="utf-8-sig") as f:
+        for row in csv.DictReader(f):
+            house, street, z = (row.get(c, "") or "" for c in cols)
+            tally["looked_up"] += 1
+            try:
+                res = backend.lookup(house.strip(), street.strip(), z.strip()[:5])
+            except Exception:
+                tally["not_placed"] += 1
+                continue
+            if not res.placed:
+                tally["not_placed"] += 1
+                continue
+            tally[res.confidence] += 1
+            d = res.districts
+            if d is None and res.source != "geosupport" and not districts.empty:
+                d = districts.assign(res.latitude, res.longitude)
+            tally["districts"] += int(d is not None and d.any())
+    emit(CountLabel.LOOKED_UP, tally["looked_up"])
+    emit(CountLabel.PLACED_HIGH, tally["high"])
+    emit(CountLabel.PLACED_LOW, tally["low"])
+    emit(CountLabel.NOT_PLACED, tally["not_placed"])
+    emit(CountLabel.DISTRICTS_FILLED, tally["districts"])
+    return 0
+
+
+def cmd_offset_demo(args):
+    """The privacy offset on a made-up building with two throwaway secrets. It never reads or writes the install secret."""
+    import secrets
+
+    from wholecount.engine.geo.mapdata import MapPointEntry, build_map_points
+    from wholecount.engine.geo.offset import PrivacyOffset, haversine_ft
+    from wholecount.session.secret_store import InstallSecret
+
+    key, lat, lon = "125|worth street|10013", 40.7160, -74.0040
+    one, two = InstallSecret(secrets.token_bytes(32)), InstallSecret(secrets.token_bytes(32))
+    first = PrivacyOffset.from_settings(one.mac).apply(key, lat, lon)
+    second = PrivacyOffset.from_settings(one.mac).apply(key, lat, lon)
+    other = PrivacyOffset.from_settings(two.mac).apply(key, lat, lon)
+    feet = haversine_ft(lat, lon, *first)
+    points = build_map_points([MapPointEntry("Program", key, lat, lon) for _ in range(25)], one.mac)
+    emit(CountLabel.SAME_OFFSET_SECOND_RUN, int(first == second))
+    emit(CountLabel.DISTANCE_IN_RANGE, int(150 - 0.5 <= feet <= 250 + 0.5))
+    emit(CountLabel.DISTANCE_FEET, round(feet))
+    emit(CountLabel.ONE_BUILDING_ONE_POINT, int(len({(p.latitude, p.longitude) for p in points}) == 1))
+    emit(CountLabel.OTHER_SECRET_DIFFERS, int(other != first))
+    return 0
+
+
+def cmd_map_demo(args):
+    """Map_Counts rows for made-up entries: some cells are small and blanked. No row carries a name, ID or point."""
+    import dataclasses
+
+    from wholecount.engine.geo.mapdata import MapEntry, build_map_counts, small_cell_max
+    from wholecount.engine.geo.types import Districts
+
+    entries = []
+    for i in range(60):
+        entries.append(MapEntry(f"u{i}", "Program A" if i % 3 else "Program B",
+                                Districts(str(10 + i % 2), str(60 + i % 4), str(1 + i % 7))))
+    rows = build_map_counts(entries, small_cell_max())
+    named = {"unit", "name", "given", "surname", "client_id", "master_id", "address", "latitude", "longitude"}
+    emit(CountLabel.CELLS_TOTAL, len(rows))
+    emit(CountLabel.CELLS_BLANKED, sum(1 for r in rows if r.count is None))
+    emit(CountLabel.ROWS_WITH_A_NAME, sum(1 for r in rows if named & {f.name for f in dataclasses.fields(r)}))
+    return 0
+
+
 COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy,
-            "standardize": cmd_standardize}
+            "standardize": cmd_standardize, "geo-status": cmd_geo_status, "geo-check": cmd_geo_check,
+            "offset-demo": cmd_offset_demo, "map-demo": cmd_map_demo}
 
 
 def main(argv=None):

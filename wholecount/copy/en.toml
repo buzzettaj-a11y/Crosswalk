@@ -244,3 +244,118 @@ text = "{done} of {total} rows checked"
 
 [progress.found.checking_rows]
 text = "{counted} of {rows} rows counted"
+
+# Placing addresses (P-GEO, SPEC 7.4). The engine returns a code; each code has one sentence here.
+
+[geo.reason.matched_building]
+text = "Geosupport or the reference matched the building exactly."
+claim = "CL-GEO-REASON-01"
+
+[geo.reason.matched_with_warning]
+text = "Geosupport matched the address with a warning, so this is low confidence."
+claim = "CL-GEO-REASON-02"
+
+[geo.reason.house_out_of_range]
+text = "Geosupport found the street, but the house number is outside its known range, so this is low confidence."
+claim = "CL-GEO-REASON-03"
+
+[geo.reason.matched_street_only]
+text = "Only the street matched, not the building, so this is low confidence."
+claim = "CL-GEO-REASON-04"
+
+[geo.reason.not_found]
+text = "No exact match was found for this address, so it wasn't placed."
+claim = "CL-GEO-REASON-05"
+
+[geo.reason.reference_ambiguous]
+text = "The reference holds two different points for this address, so it wasn't placed."
+claim = "CL-GEO-REASON-06"
+
+[geo.reason.no_backend]
+text = "No geocoder is set up, so this address wasn't looked up."
+claim = "CL-GEO-REASON-07"
+
+[location.mapped_high]
+text = "Mapped, high confidence"
+claim = "CL-GEO-HIGH-01"
+
+[location.mapped_low]
+text = "Mapped, low confidence"
+claim = "CL-GEO-HIGH-02"
+
+[location.verified]
+text = "Verified"
+claim = "CL-GEO-HIGH-03"
+
+[location.not_mapped.no_fixed_address]
+text = "Counted, not mapped: no fixed address."
+
+[location.not_mapped.outside_nyc]
+text = "Counted, not mapped: outside NYC."
+
+[location.not_mapped.address_problem]
+text = "Counted, not mapped: the address has a problem to fix."
+
+[location.not_mapped.not_found]
+text = "Counted, not mapped: the address wasn't found."
+claim = "CL-GEO-LOC-01"
+
+[location.not_mapped.no_geocoder]
+text = "Counted, not mapped: no geocoder."
+claim = "CL-GEO-LOC-02"
+
+[geo.moved_point_note]
+text = "Each point is moved 150 to 250 feet from the building, so a point can sit across a district line from its district. Districts come from the true location."
+claim = "CL-GEO-OFFSET-01"
+
+[geo.preflight.sample_refused]
+text = "The file in the reference folder is the practice sample. It can only be used with the example data, so these addresses won't be placed."
+claim = "CL-GEO-PRE-01"
+
+[geo.preflight.several_reference_files]
+text = "The reference folder holds more than one file. Leave only one there so the results don't depend on which one is picked."
+claim = "CL-GEO-PRE-02"
+
+[geo.preflight.no_geocoder]
+text = "Neither Geosupport nor an address reference is set up, so addresses won't be placed. Every counted row will read Counted, not mapped: no geocoder."
+claim = "CL-GEO-PRE-03"
+
+[geo.preflight.release_stale]
+text = "Geosupport release {release} is more than a year old. District lines may have changed since then."
+claim = "CL-GEO-PRE-04"
+
+[geo.preflight.no_district_files]
+text = "No district files are installed, so addresses placed by the reference get no districts."
+claim = "CL-GEO-PRE-05"
+
+[geo.preflight.release_line]
+text = "Geosupport release {release}"
+
+[geo.preflight.reference_line]
+text = "Address reference with {rows} addresses"
+
+[geo.fill.evidence.reference]
+text = "In the reference I have, the file you added with {rows} addresses, {house} {street} in {came_from} is in {value}."
+claim = "CL-GEO-FILL-01"
+
+[geo.fill.evidence.geosupport]
+text = "Geosupport {release} matched {house} {street} in {came_from}, which is in {value}."
+claim = "CL-GEO-FILL-02"
+
+[geo.fill.nothing_changes]
+text = "Nothing changes until you accept it."
+claim = "CL-GEO-FILL-03"
+
+[audit.geo.privacy_offset_applied]
+text = "Privacy offset applied to map points."
+claim = "CL-GEO-OFFSET-02"
+
+[map.fewer_than]
+text = "fewer than {limit}"
+claim = "CL-GEO-MAP-01"
+
+[progress.addresses_looked_up]
+text = "{done} of {total} addresses looked up"
+
+[progress.found.placing_addresses]
+text = "{placed} of {looked_up} addresses placed"

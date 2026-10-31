@@ -1,0 +1,14 @@
+# Placing addresses (SPEC 6.6). Thresholds only, never client data.
+
+# A near match is offered to a person in Fix problems at or above this ratio. It never places a row (P-GEO-3).
+suggest_ratio = 0.80
+# One reference key holding two points farther apart than this is ambiguous and places nothing.
+reference_ambiguous_ft = 100
+# The Map_Points offset, in feet (P-GEO-7).
+offset_min_ft = 150
+offset_max_ft = 250
+progress_every_rows = 200
+# A Geosupport release more than this many quarters behind today gets a warning (fix plan 5.3).
+release_stale_quarters = 4
+# Optional Geosupport fields a run can ask for. "census_tract" is the only one used now.
+extra_fields = []

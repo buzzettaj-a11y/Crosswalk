@@ -1,13 +1,15 @@
 """The install secret (SPEC 5.1, H9): 32 random bytes made at first launch, stored DPAPI-encrypted on Windows.
 
-The secret is never shown, logged or exported. InstallSecret hides its bytes from repr, and only session/keys.py reads them.
+The secret is never shown, logged or exported. InstallSecret hides its bytes from repr. Only session/keys.py and InstallSecret.mac
+read them, and mac returns a digest, never the bytes.
 """
-import os
+import hashlib
+import hmac
 import pathlib
 import secrets
 import sys
 
-from wholecount.brand import PRODUCT_NAME
+from wholecount.paths import data_dir
 
 SECRET_BYTES = 32
 KEY_FILE = "key.bin"
@@ -32,6 +34,10 @@ class InstallSecret:
 
     def __reduce__(self):
         raise TypeError("an install secret is never pickled")
+
+    def mac(self, message):
+        """HMAC-SHA256 of message under the secret. The engine gets this method, never the secret (P-GEO-7, H9)."""
+        return hmac.new(self._value, message, hashlib.sha256).digest()
 
 
 class SecretStore:
@@ -97,12 +103,8 @@ class FileSecretStore(SecretStore):
 
 def default_store(platform=None, env=None):
     platform = sys.platform if platform is None else platform
-    env = os.environ if env is None else env
-    if platform == "win32":
-        base = env.get("LOCALAPPDATA") or str(pathlib.Path.home() / "AppData" / "Local")
-        return DpapiSecretStore(pathlib.Path(base) / PRODUCT_NAME)
-    base = env.get("WHOLECOUNT_DATA_DIR") or str(pathlib.Path.home() / f".{PRODUCT_NAME.lower()}")
-    return FileSecretStore(base)
+    directory = data_dir(platform, env)
+    return DpapiSecretStore(directory) if platform == "win32" else FileSecretStore(directory)
 
 
 def get_or_create_secret(store):

@@ -5,6 +5,11 @@
 Every person is made up. Names come from fixed lists below and are paired by a seeded random generator; streets are real NYC
 street names with plausible house numbers. No value comes from a real person.
 
+It also writes sample_reference.csv, the practice reference for "Try example data" (P-GEO-4, P-GEO-4a). Its first line is
+#wholecount-sample, it holds every example address the plan places at a made-up point inside the city, and it leaves out the
+few the plan marks as not found. Its SHA-256 must be in SAMPLE_REFERENCE_HASHES in wholecount/engine/geo/reference.py, and
+--check fails while it isn't.
+
 EXPECTED.json is written from the plan in this script, never from a run. A milestone that gets a different number finds out why:
 if the code is wrong it fixes the code, and if the plan is wrong it changes the plan here, regenerates, and says so in its report.
 Nobody edits EXPECTED.json by hand.
@@ -13,6 +18,7 @@ Uses the standard library, openpyxl and lxml only.
 """
 import argparse
 import csv
+import hashlib
 import datetime as dt
 import io
 import json
@@ -21,6 +27,8 @@ import random
 import sys
 import tempfile
 from dataclasses import dataclass, field
+
+import re
 
 import openpyxl
 from lxml import etree
@@ -31,6 +39,15 @@ OUT = ROOT / "wholecount" / "sample_data"
 
 CSV, XLSX, TSV, JSON_, XML = "example_clinic.csv", "example_housing.xlsx", "example_partner.tsv", "example_portal.json", "example_state.xml"
 FILES = (CSV, XLSX, TSV, JSON_, XML)
+REFERENCE = "sample_reference.csv"
+REFERENCE_PY = ROOT / "wholecount" / "engine" / "geo" / "reference.py"
+NOT_FOUND = 3
+# Made-up points: a box around a spot inside each borough. Never a real building's location.
+BOROUGH_BOX = {"Bronx": (40.845, -73.885), "Brooklyn": (40.650, -73.950), "New York": (40.780, -73.965),
+               "Queens": (40.720, -73.830), "Staten Island": (40.600, -74.120)}
+# Planned reason IDs whose registry flag is location (M04), so the row is "Counted, not mapped: address problem".
+LOCATION_REASONS = {"address_incomplete", "address_part_missing", "zip_not_valid"}
+LOCATION_KINDS = ("no_fixed_address", "outside_nyc", "address_problem", "not_found", "no_geocoder")
 
 GIVEN = [
     "Aaliyah", "Adrian", "Aisha", "Alejandro", "Amara", "Andre", "Angela", "Arjun", "Beatriz", "Brandon", "Carmen", "Chen",
@@ -262,6 +279,106 @@ def build_plan(seed):
             pl.rec(f, pl.person())
         rng.shuffle(pl.records[f])
     return pl
+
+
+# The practice reference and the location split (M05)
+
+def zip5(a):
+    return a.zip[:5]
+
+
+def location_kind(r):
+    """The plan's own reading of M04's location status: not_mapped with a reason, or to_place."""
+    a = r.address
+    if not a.house and a.street == "Homeless":
+        return "no_fixed_address"
+    if a.state and a.state != "NY":
+        return "outside_nyc"
+    if LOCATION_REASONS & set(r.reasons):
+        return "address_problem"
+    return "to_place"
+
+
+def all_records(pl):
+    return [r for f in FILES for r in pl.records[f]]
+
+
+def plan_not_found(pl, seed):
+    """A few addresses that only one row uses, left out of the reference so the example shows "not found"."""
+    uses = {}
+    for r in all_records(pl):
+        if location_kind(r) == "to_place":
+            uses.setdefault((r.address.house, r.address.street, zip5(r.address)), []).append(r)
+    single = sorted(k for k, rs in uses.items() if len(rs) == 1 and rs[0].status == "counted")
+    return set(random.Random(seed + 2).sample(single, NOT_FOUND))
+
+
+def reference_rows(pl, seed, not_found):
+    rng = random.Random(seed + 3)
+    keys = sorted({(r.address.house, r.address.street, zip5(r.address), r.address.city) for r in all_records(pl)
+                   if location_kind(r) == "to_place"})
+    rows = []
+    for house, street, z, city in keys:
+        if (house, street, z) in not_found:
+            continue
+        lat0, lon0 = BOROUGH_BOX[city]
+        rows.append([house, street, z, city, f"{lat0 + rng.uniform(-0.02, 0.02):.6f}", f"{lon0 + rng.uniform(-0.02, 0.02):.6f}"])
+    return rows
+
+
+def write_reference(rows, out):
+    buf = io.StringIO()
+    buf.write("#wholecount-sample\n")
+    w = csv.writer(buf, lineterminator="\n")
+    w.writerow(["house_number", "street", "zip", "borough", "latitude", "longitude"])
+    w.writerows(rows)
+    (out / REFERENCE).write_bytes(buf.getvalue().encode("utf-8"))
+
+
+def _split(recs, outcome):
+    split = {"mapped_high": 0, "mapped_low": 0, "not_mapped": {k: 0 for k in LOCATION_KINDS}}
+    for r in recs:
+        if r.status != "counted":
+            continue
+        kind = outcome(r)
+        if kind == "mapped_high":
+            split["mapped_high"] += 1
+        else:
+            split["not_mapped"][kind] += 1
+    return split
+
+
+def locations_section(pl, not_found, reference_count):
+    def practice(r):
+        k = location_kind(r)
+        if k != "to_place":
+            return k
+        return "not_found" if (r.address.house, r.address.street, zip5(r.address)) in not_found else "mapped_high"
+
+    def no_backend(r):
+        k = location_kind(r)
+        return "no_geocoder" if k == "to_place" else k
+
+    looked_up = [r for r in all_records(pl) if location_kind(r) == "to_place"]
+    return {
+        "note": "Counted rows only, at standardize. Rows not counted yet are looked up too, so looked_up covers every row.",
+        "reference": f"wholecount/sample_data/{REFERENCE}",
+        "reference_rows": reference_count,
+        "planned_not_found_rows": sorted(ref(r) for r in looked_up if practice(r) == "not_found"),
+        "looked_up": len(looked_up),
+        "practice_run": {f: _split(pl.records[f], practice) for f in FILES} | {"total": _split(all_records(pl), practice)},
+        "no_backend_run": {f: _split(pl.records[f], no_backend) for f in FILES} | {"total": _split(all_records(pl), no_backend)},
+    }
+
+
+def reference_hash(out):
+    return hashlib.sha256((out / REFERENCE).read_bytes()).hexdigest()
+
+
+def hash_registered(digest):
+    text = REFERENCE_PY.read_text(encoding="utf-8")
+    block = re.search(r"SAMPLE_REFERENCE_HASHES = frozenset\(\{(.*?)\}\)", text, re.S)
+    return bool(block) and digest in re.findall(r'"([0-9a-f]{64})"', block.group(1))
 
 
 # Writing the files
@@ -580,7 +697,7 @@ def outputs_section(counts):
     }
 
 
-def expected(pl, total_row):
+def expected(pl, total_row, locations):
     std = standardize_section(pl, total_row)
     counts = counts_section(pl, std)
     return {
@@ -592,7 +709,7 @@ def expected(pl, total_row):
         "programs": programs_section(pl),
         "decisions": decisions_section(pl),
         "counts": counts,
-        "locations": {"note": "M05 fills this when it adds sample_reference.csv."},
+        "locations": locations,
         "outputs": outputs_section(counts),
     }
 
@@ -606,7 +723,10 @@ def generate(seed, out):
     write_tsv(pl, out, ssn_rng)
     write_json(pl, out)
     write_xml(pl, out)
-    exp = expected(pl, total_row)
+    not_found = plan_not_found(pl, seed)
+    rows = reference_rows(pl, seed, not_found)
+    write_reference(rows, out)
+    exp = expected(pl, total_row, locations_section(pl, not_found, len(rows)))
     exp["seed"] = seed
     (out / "EXPECTED.json").write_bytes((json.dumps(exp, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
     return exp
@@ -637,7 +757,7 @@ def check(seed, out):
         tmp = pathlib.Path(tmp)
         generate(seed, tmp)
         differing = 0
-        for name in FILES + ("EXPECTED.json",):
+        for name in FILES + (REFERENCE, "EXPECTED.json"):
             a, b = out / name, tmp / name
             if not a.exists():
                 differing += 1
@@ -645,9 +765,11 @@ def check(seed, out):
                 differing += _cells(a) != _cells(b)
             else:
                 differing += a.read_bytes() != b.read_bytes()
-    print(f"files_compared {len(FILES) + 1}")
+    registered = hash_registered(reference_hash(out)) if (out / REFERENCE).exists() else False
+    print(f"files_compared {len(FILES) + 2}")
     print(f"files_differing {differing}")
-    return 1 if differing else 0
+    print(f"reference_hash_registered {int(registered)}")
+    return 1 if differing or not registered else 0
 
 
 def main(argv=None):
@@ -659,7 +781,10 @@ def main(argv=None):
     if args.check:
         return check(args.seed, args.out)
     generate(args.seed, args.out)
-    print(f"files_written {len(FILES) + 1}")
+    print(f"files_written {len(FILES) + 2}")
+    digest = reference_hash(args.out)
+    print(f"reference_sha256 {digest}")
+    print(f"reference_hash_registered {int(hash_registered(digest))}")
     return 0
 
 

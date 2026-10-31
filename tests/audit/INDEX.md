@@ -18,7 +18,7 @@ A finding listed under more than one milestone names every test that closes it. 
 | A-11 | Medium | M04 | `tests/audit/test_A11_original_kept.py` | done |
 | A-12 | Medium | M08 | arrives in M08 | pending |
 | A-13 | Medium | M01 | `tests/audit/test_A13_bad_file_does_not_block.py` | done |
-| A-14 | Medium | M05 | arrives in M05 | pending |
+| A-14 | Medium | M05 | `tests/audit/test_A14_seed_printed.py` | done |
 | A-15 | Medium | M09 | arrives in M09 | pending |
 | A-16 | Medium | M10 | arrives in M10 | pending |
 | A-17 | Medium | M14 | arrives in M14 | pending |
@@ -46,9 +46,9 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-14 | High | M04 | `tests/audit/test_B14_two_digit_year.py` | done |
 | B-15 | High | M04 | `tests/audit/test_B15_future_dob.py` | done |
 | B-16 | High | M04 | `tests/audit/test_B16_five_digits_not_a_date.py` | done |
-| B-17 | High | M05 | arrives in M05 | pending |
-| B-18 | High | M05 | arrives in M05 | pending |
-| B-19 | High | M05 | arrives in M05 | pending |
+| B-17 | High | M05 | `tests/audit/test_B17_fuzzy_geocode.py` | done |
+| B-18 | High | M05 | `tests/audit/test_B18_privacy_offset.py` | done |
+| B-19 | High | M05 | `tests/audit/test_B19_district_holes.py` | done |
 | B-20 | High | M07 | arrives in M07 | pending |
 | B-21 | High | M02 | `tests/audit/test_B21_first_match_by_position.py` | done |
 | B-22 | High | M02 | `tests/audit/test_B22_program_date_and_id.py` | done |
@@ -63,8 +63,8 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-31 | Medium | M04 | `tests/audit/test_B31_unrecognized_city_kept.py` | done |
 | B-32 | Medium | M03 | `tests/audit/test_B32_extra_name_tokens.py` | done |
 | B-33 | Medium | M03 | `tests/audit/test_B33_middle_initial_placeholders.py` | done |
-| B-34 | Medium | M05 | arrives in M05 | pending |
-| B-35 | Medium | M05 | arrives in M05 | pending |
+| B-34 | Medium | M05 | `tests/audit/test_B34_fill_proposals.py` | done |
+| B-35 | Medium | M05 | `tests/audit/test_B35_verified_label.py` | done |
 | B-36 | Medium | M06 | arrives in M06 | pending |
 | B-37 | Medium | M06 | arrives in M06 | pending |
 | B-38 | Medium | M06 | arrives in M06 | pending |
@@ -74,8 +74,8 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-42 | Low | M03 | `tests/audit/test_B42_rear_and_front.py` | done |
 | B-43 | Low | M04 | `tests/audit/test_B43_name_case.py` | done |
 | B-44 | Low | M04 | `tests/audit/test_B44_summary_surnames.py` | done |
-| B-45 | Low | M05 | arrives in M05 | pending |
-| B-46 | Low | M05 | arrives in M05 | pending |
+| B-45 | Low | M05 | `tests/audit/test_B45_early_failure_offset.py` | done |
+| B-46 | Low | M05 | `tests/audit/test_B46_district_note.py` | done |
 | B-47 | Low | M06 | arrives in M06 | pending |
 | B-48 | Low | M02 | `tests/audit/test_B48_last_visit.py` | done |
 | B-49 | Low | M02 | `tests/audit/test_B49_address_line_2.py` | done |
@@ -88,7 +88,7 @@ A finding listed under more than one milestone names every test that closes it. 
 | C-07 | High | M08 | arrives in M08 | pending |
 | C-08 | High | M08 | arrives in M08 | pending |
 | C-09 | High | M08 | arrives in M08 | pending |
-| C-10 | High | M05 | arrives in M05 | pending |
+| C-10 | High | M05 | `tests/audit/test_C10_gazetteer_crash.py` | done |
 | C-11 | High | M09 | arrives in M09 | pending |
 | C-12 | Medium | M08 | arrives in M08 | pending |
 | C-13 | Medium | M07 | arrives in M07 | pending |
@@ -103,6 +103,6 @@ A finding listed under more than one milestone names every test that closes it. 
 | C-22 | Medium | M09 | arrives in M09 | pending |
 | C-23 | Medium | M01 | `tests/audit/test_C23_blank_line_and_comma_row.py` | done |
 | C-24 | Medium | M06 | arrives in M06 | pending |
-| C-25 | Low | M05 | arrives in M05 | pending |
+| C-25 | Low | M05 | `tests/audit/test_C25_shared_stream.py` | done |
 | C-26 | Low | M09 | arrives in M09 | pending |
 | C-27 | Low | M09 | arrives in M09 | pending |

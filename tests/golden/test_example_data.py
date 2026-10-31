@@ -79,4 +79,4 @@ def test_generator_check_passes():
     p = subprocess.run([sys.executable, str(ROOT / "tools" / "make_example_data.py"), "--check"], capture_output=True, text=True,
                        timeout=120)
     assert p.returncode == 0, p.stdout + p.stderr
-    assert p.stdout.splitlines() == ["files_compared 6", "files_differing 0"]
+    assert p.stdout.splitlines() == ["files_compared 7", "files_differing 0", "reference_hash_registered 1"]
