@@ -8,7 +8,7 @@ from tests.conftest import ROOT
 from tests.support.guarded import run_guarded
 from wholecount import brand
 
-LINE_RE = re.compile(r"^[a-z_]+( [A-Z]+(\.[0-9]+)?)?( [A-Z][A-Za-z_]+)? [0-9,]+$")
+LINE_RE = re.compile(r"^[a-z_]+( [A-Z]+(\.[0-9]+)?)?( [A-Z][A-Za-z_]+)?( [a-z][a-z0-9_]+)? [0-9,]+$")
 
 
 def test_printer_takes_closed_labels_ints_and_source_letters_only():
@@ -108,3 +108,25 @@ def test_columns_prints_counts_and_field_names_only(tmp_path):
     assert all(LINE_RE.match(ln) for ln in lines), lines
     assert "Zelphina" not in p.stdout and "Quorvath" not in p.stdout and "Full_Address" not in p.stdout
     assert "required_unmapped A.1 First_Name 1" in lines and "process_blocked A.1 1" in lines
+
+
+def test_tidy_prints_counts_and_reason_ids_only(tmp_path):
+    (tmp_path / "a.csv").write_text("Client ID,Name,Full Address\nC1,Zelphina Quorvath Ann,12 Main St Apt 3 Brooklyn NY 11201\n"
+                                    "C2,Lee Ana Marie,45 Oak St Queens NY 11375\nC3,Cho Ben Dee,1 Elm St Bronx NY 10458\n")
+    p = subprocess.run([sys.executable, "-m", "wholecount.dev", "tidy", str(tmp_path / "a.csv")], cwd=ROOT, capture_output=True,
+                       text=True, timeout=120)
+    assert p.returncode == 0, p.stderr
+    lines = p.stdout.splitlines()
+    assert all(LINE_RE.match(ln) for ln in lines), lines
+    assert "Zelphina" not in p.stdout and "Main St" not in p.stdout
+    assert "steps_proposed A.1 2" in lines and "source_cells_changed A.1 0" in lines
+    assert "rows_flagged A.1 name_order_unclear 3" in lines
+
+
+def test_reason_must_be_registered():
+    r = run_guarded("""
+        import io
+        from wholecount import dev
+        attempt('bad reason', lambda: dev.emit(dev.CountLabel.ROWS_FLAGGED, 1, scope='A.1', reason='Zelphina', out=io.StringIO()))
+    """, install="[]")
+    assert r == {"bad reason": "other:ValueError"}

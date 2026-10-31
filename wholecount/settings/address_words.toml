@@ -1,0 +1,23 @@
+# Words for the jammed-address split (P-PREP-3). Compared lowercase, without a trailing period.
+
+# A street ends at the last of these, plus a directional that directly follows it.
+street_types = ["st", "street", "ave", "av", "avenue", "rd", "road", "blvd", "boulevard", "pl", "place", "dr", "drive", "ct", "court", "ln", "lane", "way", "pkwy", "parkway", "pky", "ter", "terr", "terrace", "expy", "expressway", "hwy", "highway", "sq", "square", "cir", "circle", "plz", "plaza", "concourse", "loop", "walk", "path", "row", "crescent", "tpke", "turnpike", "oval", "alley", "broadway", "esplanade", "promenade"]
+directionals = ["n", "s", "e", "w", "ne", "nw", "se", "sw", "north", "south", "east", "west"]
+# Streets with no street-type word at their end.
+fixed_streets = ["avenue of the americas", "grand concourse", "broadway", "bowling green"]
+# Avenue followed by a letter or number ends after that token: Avenue U, Avenue 4.
+lettered_avenue = ["avenue", "ave", "av"]
+
+# Unit words that need a designator after them.
+unit_words = ["apt", "apartment", "unit", "ste", "suite", "fl", "floor", "rm", "room", "bldg", "building"]
+# Words that are a unit on their own, but only after the street end.
+standalone_units = ["rear", "front", "basement", "bsmt", "lower", "upper", "top", "ground", "lobby", "penthouse", "mezzanine", "ph"]
+
+countries = ["usa", "u.s.a.", "us", "u.s.", "united states", "united states of america"]
+
+# Borough names and the aliases the splitter reads as a city when it can't find a street end.
+boroughs = ["new york", "manhattan", "brooklyn", "queens", "bronx", "the bronx", "staten island", "bklyn", "nyc"]
+
+# US state and territory codes. The splitter reads only NY as a state (P-STD-5), but a code at the very end of the text, before a
+# ZIP, is never taken as a street type: "Hartford CT 06103" is Connecticut, not Court.
+state_codes = ["al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy", "pr", "vi", "gu", "as", "mp"]
