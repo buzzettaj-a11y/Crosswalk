@@ -29,7 +29,7 @@ def test_placeholder_folder_exists(folder):
     assert (ROOT / folder / ".gitkeep").is_file()
 
 
-@pytest.mark.parametrize("pkg", [p for p in PACKAGES if p.startswith("wholecount/") and p not in ("wholecount/guard", "wholecount/copy")])
+@pytest.mark.parametrize("pkg", [p for p in PACKAGES if p.startswith("wholecount/") and p not in ("wholecount/guard", "wholecount/copy", "wholecount/ui/theme", "wholecount/ui/stages")])
 def test_later_packages_hold_only_their_docstring(pkg):
     """Each later milestone creates its own module files, so these packages hold nothing else yet."""
     init = ROOT / pkg / "__init__.py"

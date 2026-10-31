@@ -19,7 +19,7 @@ def test_targets_exist():
 
 
 @needs_make
-@pytest.mark.parametrize("target,milestone", [("screens", "M10"), ("bundle", "M14")])
+@pytest.mark.parametrize("target,milestone", [("bundle", "M14")])
 def test_stubs_exit_1_and_name_their_milestone(target, milestone):
     p = subprocess.run(["make", "-s", target], cwd=ROOT, capture_output=True, text=True, timeout=30)
     assert p.returncode != 0
@@ -35,6 +35,13 @@ def test_targets_run_the_documented_commands():
     assert "python -m pytest -q tests/offline" in lines
     assert "python -m pytest -q tests/copy" in lines
     assert "python -m wholecount" in lines
+
+
+@needs_make
+def test_screens_target_runs_the_tool_offscreen():
+    p = subprocess.run(["make", "-n", "screens"], cwd=ROOT, capture_output=True, text=True, timeout=30)
+    assert p.returncode == 0 and "python -m tools.screens" in p.stdout
+    assert "screens: export QT_QPA_PLATFORM = offscreen" in (ROOT / "Makefile").read_text(encoding="utf-8")
 
 
 def test_test_target_exports_offscreen_qt():

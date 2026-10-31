@@ -129,6 +129,7 @@ class Session:
         self.correction_texts = {}        # decision ID -> {record key: {field: text}}, memory only
         self.acknowledged = None          # (results version, measures) of the last low-confidence tick
         self.finished = None
+        self.stage = "sources"            # the stage ID the window shows, kept in saved progress (A-19)
         self.audit_log = []               # (time ISO, AuditEntry), append only (AUD-1)
         self.store = None                 # a session.store.Store when saved progress is wanted (STORE-3)
         self.session_id = hashlib.sha256(self.now_iso().encode("utf-8")).hexdigest()[:16]

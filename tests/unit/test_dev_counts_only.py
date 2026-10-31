@@ -94,7 +94,7 @@ def test_why_names_denied_events_without_paths():
 
 
 def test_main_entry_prints_name_and_version():
-    p = subprocess.run([sys.executable, "-m", "wholecount"], cwd=ROOT, capture_output=True, text=True, timeout=60)
+    p = subprocess.run([sys.executable, "-m", "wholecount", "--version"], cwd=ROOT, capture_output=True, text=True, timeout=60)
     assert p.returncode == 0, p.stderr
     assert p.stdout.strip() == f"{brand.PRODUCT_NAME} {brand.VERSION}"
 

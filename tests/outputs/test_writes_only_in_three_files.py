@@ -4,7 +4,8 @@ import re
 
 from tests.conftest import ROOT
 
-ALLOWED = {"writer.py", "store.py", "errors.py", "dev.py"}
+# build_qss.py writes the theme text for inspection (M10), never client data.
+ALLOWED = {"writer.py", "store.py", "errors.py", "dev.py", "build_qss.py"}
 
 
 def test_scan():

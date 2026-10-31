@@ -118,7 +118,8 @@ def snapshot(session):
                 sources.append({"file_name": o.name, "normalized": normalize_file_name(o.name), "fingerprint": o.fingerprint,
                                 "system": systems.get(o.letter, "")})
     return {"format": FORMAT, "app_version": VERSION, "saved_at": session.now_iso(), "setup": setup_json(session.setup),
-            "decisions": [decision_json(d) for d in session.decisions], "sources": sources}
+            "decisions": [decision_json(d) for d in session.decisions], "sources": sources,
+            "stage": getattr(session, "stage", "sources")}
 
 
 class Store:

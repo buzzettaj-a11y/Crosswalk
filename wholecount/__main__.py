@@ -7,10 +7,16 @@ from wholecount import copy  # noqa: E402
 from wholecount.brand import VERSION  # noqa: E402
 
 
-def main():
-    # The window arrives in M10.
-    print(copy.get("app.version_line", version=VERSION))
-    return 0
+def main(argv=None):
+    import sys
+
+    argv = sys.argv[1:] if argv is None else argv
+    if "--version" in argv:
+        print(copy.get("app.version_line", version=VERSION))
+        return 0
+    from wholecount.ui.app import run
+
+    return run()
 
 
 if __name__ == "__main__":

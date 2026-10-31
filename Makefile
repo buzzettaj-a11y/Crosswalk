@@ -17,9 +17,9 @@ copy:
 run:
 	$(PYTHON) -m wholecount
 
+screens: export QT_QPA_PLATFORM = offscreen
 screens:
-	@echo "make screens arrives in M10"
-	@exit 1
+	$(PYTHON) -m tools.screens
 
 bundle:
 	@echo "make bundle arrives in M14"

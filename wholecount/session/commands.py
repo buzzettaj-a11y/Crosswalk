@@ -522,3 +522,25 @@ class SetupChange:
 ALL_COMMANDS = (ApproveRows, AcceptGroup, SetAsideRows, AcceptFills, KeepOneInCopyGroup, MarkNotCopies, DecideSameIdConflict,
                 KeepOnePerProgram, SendToRowByRow, ReturnToOpen, DecidePair, DecideProgramGroup, ApplyCorrections,
                 AcknowledgeLowConfidence, SetReviewer, FinishReview, SetupChange)
+
+
+class JobCommand:
+    """A finished job's apply and undo as one command, so one Undo takes back the whole job (SPEC 11.6.1). The job's run
+    happened on the worker; apply runs here on the main thread."""
+
+    invalidates = frozenset()
+
+    def __init__(self, job, result):
+        self.job, self.result = job, result
+        self.label = CopyRef(f"action.{job.action_id}", ())
+        self.token = None
+
+    def apply(self, s):
+        self.token = self.job.apply(s, self.result)
+        return CommandResult()
+
+    def undo(self, s):
+        self.job.undo(s, self.token)
+
+    def audit_entry(self):
+        return entry("JOB", reason_code=self.job.action_id)

@@ -36,6 +36,8 @@ class Unit(enum.Enum):
     ADDRESSES = "addresses"
     PAIRS = "pairs"
     DECISIONS = "decisions"
+    TABLES = "tables"
+    CHECKS = "checks"
 
 
 @dataclass(frozen=True)

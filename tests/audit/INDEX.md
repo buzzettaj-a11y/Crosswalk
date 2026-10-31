@@ -20,14 +20,14 @@ A finding listed under more than one milestone names every test that closes it. 
 | A-13 | Medium | M01 | `tests/audit/test_A13_bad_file_does_not_block.py` | done |
 | A-14 | Medium | M05 | `tests/audit/test_A14_seed_printed.py` | done |
 | A-15 | Medium | M09 | `tests/audit/test_A15_no_value_logs.py` | done |
-| A-16 | Medium | M10 | arrives in M10 | pending |
+| A-16 | Medium | M10 | `tests/audit/test_A16_no_auto_close.py` | done |
 | A-17 | Medium | M14 | arrives in M14 | pending |
 | A-18 | Medium | M11 | arrives in M11 | pending |
-| A-19 | Medium | M10 | arrives in M10 | pending |
+| A-19 | Medium | M10 | `tests/audit/test_A19_saved_card_stage.py` | done |
 | A-20 | Medium | M00, M14 | `tests/audit/test_A20_no_launchers.py` | done |
-| A-21 | Low | M10 | arrives in M10 | pending |
+| A-21 | Low | M10 | `tests/audit/test_A21_stage_header.py` | done |
 | A-22 | Low | M08 | `tests/audit/test_A22_one_equation.py` | done |
-| A-23 | Low | M10 | arrives in M10 | pending |
+| A-23 | Low | M10 | `tests/audit/test_A23_trust_and_close_visible.py` | done |
 | A-24 | Low | M09 | `tests/audit/test_A24_no_audit_cap.py` | done |
 | A-25 | Low | M00, M15 | arrives in M15 | pending |
 | B-01 | High | M04 | `tests/audit/test_B01_placeholders.py` | done |

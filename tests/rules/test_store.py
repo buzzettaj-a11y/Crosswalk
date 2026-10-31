@@ -33,7 +33,8 @@ def test_STORE_2_contents_hold_no_values(tmp_path, store):
     text = json.dumps(store.load(path))
     for v in VALUES + ["00123"]:
         assert v not in text and v.encode() not in raw, v
-    assert set(store.load(path)) == {"format", "app_version", "saved_at", "setup", "decisions", "sources"}
+    assert set(store.load(path)) == {"format", "app_version", "saved_at", "setup", "decisions", "sources",
+                                       "stage"}
 
 
 def test_STORE_3_autosave_and_switch_off(tmp_path, store):
