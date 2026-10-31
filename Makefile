@@ -21,13 +21,15 @@ screens: export QT_QPA_PLATFORM = offscreen
 screens:
 	$(PYTHON) -m tools.screens
 
-# M15: the user guide is generated from the copy registry. docs-check fails when the committed guide is out of date.
+# M15: the user guide is generated from the copy registry. docs-check fails when the committed guide is out of date
+# or a doc names a file, command or function that isn't there (A-25).
 docs: export QT_QPA_PLATFORM = offscreen
 docs: screens
 	$(PYTHON) tools/make_docs.py
 
 docs-check:
 	$(PYTHON) tools/make_docs.py --check
+	$(PYTHON) tools/check_doc_refs.py
 
 bundle:
 	$(PYTHON) tools/make_version_info.py
