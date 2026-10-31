@@ -35,13 +35,13 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-03 | High | M04 | arrives in M04 | pending |
 | B-04 | High | M04 | arrives in M04 | pending |
 | B-05 | High | M04 | arrives in M04 | pending |
-| B-06 | High | M03 | arrives in M03 | pending |
-| B-07 | High | M03 | arrives in M03 | pending |
-| B-08 | High | M03 | arrives in M03 | pending |
-| B-09 | High | M03 | arrives in M03 | pending |
-| B-10 | High | M03 | arrives in M03 | pending |
-| B-11 | High | M03 | arrives in M03 | pending |
-| B-12 | High | M03 | arrives in M03 | pending |
+| B-06 | High | M03 | `tests/audit/test_B06_calculated_zip.py` | done |
+| B-07 | High | M03 | `tests/audit/test_B07_nine_digit_zip.py` | done |
+| B-08 | High | M03 | `tests/audit/test_B08_street_keeps_concourse.py` | done |
+| B-09 | High | M03 | `tests/audit/test_B09_spaced_hyphen_house_number.py` | done |
+| B-10 | High | M03 | `tests/audit/test_B10_trailing_segment_kept.py` | done |
+| B-11 | High | M03 | `tests/audit/test_B11_particles_and_double_surnames.py` | done |
+| B-12 | High | M03 | `tests/audit/test_B12_titles_and_suffixes.py` | done |
 | B-13 | High | M04 | arrives in M04 | pending |
 | B-14 | High | M04 | arrives in M04 | pending |
 | B-15 | High | M04 | arrives in M04 | pending |
@@ -52,17 +52,17 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-20 | High | M07 | arrives in M07 | pending |
 | B-21 | High | M02 | `tests/audit/test_B21_first_match_by_position.py` | done |
 | B-22 | High | M02 | `tests/audit/test_B22_program_date_and_id.py` | done |
-| B-23 | High | M02 | `tests/audit/test_B23_split_does_not_hijack.py` | done |
+| B-23 | High | M02 | `tests/audit/test_B23_split_does_not_hijack.py`, `tests/audit/test_B23_end_to_end.py` | done |
 | B-24 | Medium | M01 | `tests/audit/test_B24_invisible_characters.py` | done |
 | B-25 | Medium | M04 | arrives in M04 | pending |
 | B-26 | Medium | M04 | arrives in M04 | pending |
 | B-27 | Medium | M04 | arrives in M04 | pending |
 | B-28 | Medium | M04 | arrives in M04 | pending |
-| B-29 | Medium | M03 | arrives in M03 | pending |
-| B-30 | Medium | M03 | arrives in M03 | pending |
+| B-29 | Medium | M03 | `tests/audit/test_B29_unit_then_city.py` | done |
+| B-30 | Medium | M03 | `tests/audit/test_B30_lone_letter_units.py` | done |
 | B-31 | Medium | M04 | arrives in M04 | pending |
-| B-32 | Medium | M03 | arrives in M03 | pending |
-| B-33 | Medium | M03 | arrives in M03 | pending |
+| B-32 | Medium | M03 | `tests/audit/test_B32_extra_name_tokens.py` | done |
+| B-33 | Medium | M03 | `tests/audit/test_B33_middle_initial_placeholders.py` | done |
 | B-34 | Medium | M05 | arrives in M05 | pending |
 | B-35 | Medium | M05 | arrives in M05 | pending |
 | B-36 | Medium | M06 | arrives in M06 | pending |
@@ -71,7 +71,7 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-39 | Medium | M06 | arrives in M06 | pending |
 | B-40 | Medium | M07 | arrives in M07 | pending |
 | B-41 | Low | M04 | arrives in M04 | pending |
-| B-42 | Low | M03 | arrives in M03 | pending |
+| B-42 | Low | M03 | `tests/audit/test_B42_rear_and_front.py` | done |
 | B-43 | Low | M04 | arrives in M04 | pending |
 | B-44 | Low | M04 | arrives in M04 | pending |
 | B-45 | Low | M05 | arrives in M05 | pending |

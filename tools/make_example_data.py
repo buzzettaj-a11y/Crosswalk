@@ -437,15 +437,16 @@ def map_section():
     after = {f: dict(v) for f, v in auto.items()}
     after[CSV] = {
         "sheet": None,
-        "steps": [{"step": "split_name", "column": "Name", "form": "last_comma_first"},
-                  {"step": "split_address", "column": "Full_Address"}],
-        "fields": {"Client_ID": "Client_ID", "Date_of_Birth": "DOB", "Program": "Program"},
-        "fields_from_steps": {"First_Name": "Name", "Middle_Initial": "Name", "Last_Name": "Name", "Address_1": "Full_Address",
-                              "Address_2": "Full_Address", "City": "Full_Address", "State": "Full_Address", "Zip": "Full_Address"},
+        "steps": [{"kind": "split_address", "column": "Full_Address"}, {"kind": "split_name", "column": "Name"}],
+        "fields": {"Client_ID": "Client_ID", "Date_of_Birth": "DOB", "Program": "Program", "First_Name": "Name_first",
+                   "Middle_Initial": "Name_middle", "Last_Name": "Name_last", "Address_1": "Full_Address_street",
+                   "Address_2": "Full_Address_address2", "City": "Full_Address_city", "State": "Full_Address_state",
+                   "Zip": "Full_Address_zip"},
         "blockers": [],
     }
-    return {"auto": auto, "after_steps": after,
-            "note": "Column names made by the split steps are M03's to name. fields_from_steps gives the source column."}
+    for f in (XLSX, TSV, JSON_, XML):
+        after[f]["steps"] = []
+    return {"auto": auto, "after_steps": after}
 
 
 def standardize_section(pl, total_row):

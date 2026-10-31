@@ -60,12 +60,25 @@ class CountLabel(enum.Enum):
     DATE_BOTH_WAYS = "date_both_ways"
     SSN_SHAPED_IDS = "ssn_shaped_ids"
     PROCESS_BLOCKED = "process_blocked"
+    # tidy
+    STEPS_PROPOSED = "steps_proposed"
+    STEPS_AMBER = "steps_amber"
+    COLUMNS_ADDED = "columns_added"
+    ROWS_FLAGGED = "rows_flagged"
+    ZIP_FOUND = "zip_found"
+    ZIP_KEPT = "zip_kept"
+    ZIP_NOT_WORKED_OUT = "zip_not_worked_out"
+    SOURCE_CELLS_CHANGED = "source_cells_changed"
 
 
-def emit(label, value, scope=None, out=None, field=None):
-    """Print `label [SCOPE] [FIELD] value`. The value must be an int, the scope a source letter or a table like A.1, and the
-    field one of the built-in field names, a closed set."""
+def emit(label, value, scope=None, out=None, field=None, reason=None):
+    """Print `label [SCOPE] [FIELD] [REASON] value`. The value must be an int, the scope a source letter or a table like A.1,
+    the field one of the built-in field names and the reason a registered reason ID. Fields and reasons are closed sets."""
+    from wholecount.engine import reasons
     from wholecount.engine.schema import BUILTIN_KEYS
+
+    if reason is not None and reason not in reasons.all_reasons():
+        raise ValueError("reason must be a registered reason ID")
 
     if not isinstance(label, CountLabel):
         raise TypeError("label must be a CountLabel")
@@ -75,7 +88,7 @@ def emit(label, value, scope=None, out=None, field=None):
         raise ValueError("scope must be a source letter")
     if field is not None and field not in BUILTIN_KEYS:
         raise ValueError("field must be a built-in field name")
-    parts = [label.value] + ([scope] if scope else []) + ([field] if field else []) + [f"{value:,}"]
+    parts = [label.value] + ([scope] if scope else []) + ([field] if field else []) + ([reason] if reason else []) + [f"{value:,}"]
     print(" ".join(parts), file=out or sys.stdout)
 
 
@@ -238,7 +251,46 @@ def cmd_columns(args):
     return 0
 
 
-COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns}
+def cmd_tidy(args):
+    """Per included table, the proposed tidy-up steps applied, in counts. No lookup is available, so a calculated ZIP finds none."""
+    import secrets
+
+    from wholecount.engine.mapping import auto_map, profile_columns
+    from wholecount.engine.prepare.steps import apply_steps, propose_steps, source_cells_changed
+    from wholecount.engine.progress import NullSink
+    from wholecount.engine.schema import default_schema
+    from wholecount.engine.systems import LetterBook
+    from wholecount.session.loader import load_files
+    from wholecount.session.secret_store import InstallSecret
+
+    schema = default_schema()
+    result = load_files([pathlib.Path(a) for a in args], NullSink(), InstallSecret(secrets.token_bytes(32)), LetterBook())
+    numbers = {}
+    for t in result.tables:
+        numbers[t.letter] = numbers.get(t.letter, 0) + 1
+        if not t.included:
+            continue
+        scope = f"{t.letter}.{numbers[t.letter]}"
+        before = [list(r) for r in t.rows]
+        steps = propose_steps(t, auto_map(schema, profile_columns(t), t.key))
+        prepared = apply_steps(t, steps)
+        zips = {}
+        for r in prepared.results:
+            for k, v in r.counts.items():
+                zips[k] = zips.get(k, 0) + v
+        emit(CountLabel.STEPS_PROPOSED, len(steps), scope=scope)
+        emit(CountLabel.STEPS_AMBER, sum(1 for r in prepared.results if r.amber), scope=scope)
+        emit(CountLabel.COLUMNS_ADDED, len(prepared.columns), scope=scope)
+        for reason_id, n in sorted(prepared.reasons_by_id().items()):
+            emit(CountLabel.ROWS_FLAGGED, n, scope=scope, reason=reason_id)
+        emit(CountLabel.ZIP_FOUND, zips.get("found", 0), scope=scope)
+        emit(CountLabel.ZIP_KEPT, zips.get("kept", 0), scope=scope)
+        emit(CountLabel.ZIP_NOT_WORKED_OUT, zips.get("not_worked_out", 0), scope=scope)
+        emit(CountLabel.SOURCE_CELLS_CHANGED, source_cells_changed(before, t), scope=scope)
+    return 0
+
+
+COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy}
 
 
 def main(argv=None):

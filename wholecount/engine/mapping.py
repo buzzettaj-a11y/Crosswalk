@@ -155,8 +155,17 @@ def name_score(fld, col, profile=None):
     if not toks:
         return 0
     if col.derived:
-        suffix_field = st["derived_suffix"].get(toks[-1])
-        return 90 if suffix_field == fld.key else 0
+        # A step's column is named <source>_<suffix> (M03). The suffix says the field. A calculated ZIP fills Zip, a cleaned
+        # column scores as its source column does, and any other derived column is scored by its own name.
+        suffix = col.name.rsplit("_", 1)[-1].lower() if "_" in col.name else ""
+        if col.derived_kind == "calculated":
+            return 90 if fld.key == "Zip" and suffix != "note" else 0
+        suffix_field = st["derived_suffix"].get(suffix)
+        if suffix_field:
+            return 90 if suffix_field == fld.key else 0
+        if col.derived_kind == "clean" and col.derived_from:
+            return name_score(fld, ColumnRef(col.index, col.derived_from), profile)
+        col = ColumnRef(col.index, col.name)
     if any(set(toks) & st["deny"][g] for g in _deny_groups(fld.key)):
         return 0
     if fld.key == "Address_1" and toks[-1] == "2":

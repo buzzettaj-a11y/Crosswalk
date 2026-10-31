@@ -221,3 +221,17 @@ text = "Dates in this column are written both ways."
 
 [map.two_digit_rule_question]
 text = "Two-digit years up to {pivot} mean the 2000s, otherwise the 1900s."
+
+# Tidy up (P-PREP). Step rows that changed nothing are amber and say what they failed to find.
+
+[tidy.amber.clean_changed_nothing]
+text = "This step changed nothing. Every value was already clean."
+
+[tidy.amber.split_found_no_delimiter]
+text = "No row holds this delimiter, so nothing was split."
+
+[tidy.amber.split_found_nothing]
+text = "This step found nothing to split in this column."
+
+[tidy.amber.no_lookup_available]
+text = "No address lookup is available, so no ZIP could be calculated. Add Geosupport or the address reference to use this step."
