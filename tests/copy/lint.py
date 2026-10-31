@@ -36,8 +36,9 @@ def problems(text, words, check_exclamation):
 
 
 def scanned_docs(root=ROOT):
-    """Milestone docs and the test-folder docs the lint covers."""
-    return sorted((root / "docs" / "milestones").glob("*.md")) + sorted((root / "tests").rglob("*.md"))
+    """Milestone docs, the test-folder docs and M14's two docs for IT and the maintainer."""
+    extra = [root / "docs" / n for n in ("IT_TRUST.md", "SIGNING.md") if (root / "docs" / n).exists()]
+    return sorted((root / "docs" / "milestones").glob("*.md")) + sorted((root / "tests").rglob("*.md")) + extra
 
 
 def all_copy_texts(registry_files):
