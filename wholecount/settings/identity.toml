@@ -1,0 +1,25 @@
+# Who is the same person (SPEC 6.8 P-ID). Weights are summed over evidence codes. No score ever joins two records: joins
+# happen only for the three named reasons in P-ID-3. The starting values are the old build's; M13's calibration measures them.
+
+[weights]
+dob_exact = 42
+dob_near = 26        # day and month swapped, or one digit apart
+dob_differs = -20
+last_exact = 30
+last_overlap = 24
+last_swapped = 20
+first_exact = 26
+first_nick = 22
+first_initial = 8
+addr_exact = 30
+zip_only = 6
+same_system_id = 100 # sort order only; never a reason to join
+rare_name_bonus = 8
+rare_name_max_count = 3
+
+[bands]
+possible_min = 62    # the old build's proposal line
+likely_min = 90      # chosen so every pair in the C-01 fixture is Likely
+
+[limits]
+max_bucket = 150

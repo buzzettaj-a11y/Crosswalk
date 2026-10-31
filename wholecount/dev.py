@@ -111,6 +111,23 @@ class CountLabel(enum.Enum):
     CELLS_TOTAL = "cells_total"
     CELLS_BLANKED = "cells_blanked"
     ROWS_WITH_A_NAME = "rows_with_a_name"
+    # people-demo and people-check
+    ROWS_READ = "rows_read"
+    COPY_GROUPS = "copy_groups"
+    COPY_GROUPS_IDENTICAL = "copy_groups_identical"
+    COPY_GROUPS_POSSIBLE = "copy_groups_possible"
+    COPY_GROUPS_SAME_ID_DIFFERENT = "copy_groups_same_id_different"
+    AUTOMATIC_JOINS = "automatic_joins"
+    JOINS_FOUR_EXACT_FACTS = "joins_four_exact_facts"
+    JOINS_SAME_SYSTEM_ID = "joins_same_system_id"
+    PROPOSALS = "proposals"
+    PROPOSALS_LIKELY = "proposals_likely"
+    PROPOSALS_POSSIBLE = "proposals_possible"
+    NAME_ONLY_PROPOSALS = "name_only_proposals"
+    PEOPLE_LOW = "people_low"
+    PEOPLE_HIGH = "people_high"
+    MASTER_IDS_UNIQUE = "master_ids_unique"
+    SKIPPED_BUCKETS = "skipped_buckets"
 
 
 def emit(label, value, scope=None, out=None, field=None, reason=None, grouped=True):
@@ -531,9 +548,127 @@ def cmd_map_demo(args):
     return 0
 
 
+# The 12 records of the C-01 audit fixture: two systems, made-up people. people-demo builds them in memory only.
+_C01 = (("A", "A1", "Maria", "Rodriguez", "1985-03-14", "100", "Grand Concourse", "10451"),
+        ("A", "A2", "Jordan", "Smith", "2015-06-01", "10", "Oak St", "11201"),
+        ("A", "A3", "Robert", "Smith", "1962-03-14", "20", "Elm St", "11201"),
+        ("A", "A4", "Ana", "Perez", "1990-05-06", "7", "Elm St", "10013"),
+        ("A", "A5", "Luis", "Diaz", "1980-02-02", "123", "45th St", "11377"),
+        ("A", "A6", "Carlos", "Vega", "1975-01-01", "5", "A St", "10001"),
+        ("B", "B1", "Maria", "Rodriguez", "1985-03-14", "100", "Grand Concourse", "10451"),
+        ("B", "B2", "Jaden", "Smith", "2015-06-01", "10", "Oak St", "11201"),
+        ("B", "B3", "Robert", "Smith Jr", "1992-03-14", "20", "Elm St", "11201"),
+        ("B", "B4", "Ana", "Perez", "1990-06-05", "7", "Elm St", "10013"),
+        ("B", "B5", "Luis", "Diaz", "1980-02-02", "123", "45th Ave", "11377"),
+        ("B", "B6", "Elena", "Vega", "1999-09-09", "6", "B St", "10001"))
+
+
+def _emit_identity(result):
+    joins = result.auto_joins
+    emit(CountLabel.AUTOMATIC_JOINS, len(joins))
+    emit(CountLabel.JOINS_FOUR_EXACT_FACTS, sum(1 for j in joins if j.reason == "four_exact_facts"))
+    emit(CountLabel.JOINS_SAME_SYSTEM_ID, sum(1 for j in joins if j.reason == "same_system_id"))
+    emit(CountLabel.PROPOSALS_LIKELY, sum(1 for p in result.proposals if p.band == "likely"))
+    emit(CountLabel.PROPOSALS_POSSIBLE, sum(1 for p in result.proposals if p.band == "possible"))
+    emit(CountLabel.NAME_ONLY_PROPOSALS, sum(1 for p in result.proposals if p.found_via == ("K4",)))
+    emit(CountLabel.PEOPLE_LOW, result.low)
+    emit(CountLabel.PEOPLE_HIGH, result.settled)
+    emit(CountLabel.MASTER_IDS_UNIQUE, int(len(set(result.groups)) == result.settled))
+    emit(CountLabel.SKIPPED_BUCKETS, result.skipped_buckets)
+
+
+def cmd_people_demo(args):
+    """The C-01 fixture through identity, keyed with a throwaway secret. Counts only."""
+    import secrets
+
+    from wholecount.engine.addresskey import address_key
+    from wholecount.engine.identity import PersonRow, resolve
+    from wholecount.session.keys import person_key
+    from wholecount.session.secret_store import InstallSecret
+
+    secret = InstallSecret(secrets.token_bytes(32))
+    rows = [PersonRow(cid, person_key(secret, system, client_id=cid), system, cid, first, last, dob,
+                      address_key(house, street, zip5), "", zip5, "Housing")
+            for system, cid, first, last, dob, house, street, zip5 in _C01]
+    _emit_identity(resolve(rows))
+    return 0
+
+
+def _iso_dob(text):
+    import re
+
+    t = text.strip()
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", t):
+        return t
+    m = re.fullmatch(r"(\d{1,2})/(\d{1,2})/(\d{4})", t)
+    return f"{m.group(3)}-{int(m.group(1)):02d}-{int(m.group(2)):02d}" if m else ""
+
+
+def cmd_people_check(args):
+    """Copies and identity over one or more CSV files: --csv PATH --system NAME (repeat both), with --first --last --dob
+    --client-id --address --zip --program naming the columns. It writes nothing and prints counts only."""
+    import csv
+    import secrets
+
+    from wholecount.engine.addresskey import address_key, split_house_street
+    from wholecount.engine.copies import CopyRow, TableInfo, find_copies, key_modes
+    from wholecount.engine.fold import fold
+    from wholecount.engine.identity import PersonRow, resolve
+    from wholecount.session.keys import person_key
+    from wholecount.session.secret_store import InstallSecret
+
+    paths = [args[i + 1] for i, a in enumerate(args) if a == "--csv" and i + 1 < len(args)]
+    systems = [args[i + 1] for i, a in enumerate(args) if a == "--system" and i + 1 < len(args)]
+    systems += [chr(65 + i) for i in range(len(systems), len(paths))]
+    col = {name: _option(args, f"--{name}") or default for name, default in (
+        ("first", "First_Name"), ("last", "Last_Name"), ("dob", "Date_of_Birth"), ("client-id", "Client_ID"),
+        ("address", "Address_1"), ("zip", "Zip"), ("program", "Program"))}
+    secret = InstallSecret(secrets.token_bytes(32))
+    copy_rows, tables = [], {}
+    for n, (path, system) in enumerate(zip(paths, systems)):
+        table = f"t{n}"
+        with open(path, newline="", encoding="utf-8-sig") as f:
+            reader = csv.DictReader(f)
+            tables[table] = TableInfo(col["dob"] in (reader.fieldnames or ()), system)
+            for i, row in enumerate(reader):
+                get = lambda c: (row.get(col[c]) or "").strip()  # noqa: E731
+                house, street = split_house_street(get("address"))
+                z = get("zip")[:5]
+                akey = address_key(house, street, z) if house else ""
+                copy_rows.append(CopyRow(f"{table}:{i:07d}", table, system, get("client-id"), get("first"), "", get("last"),
+                                         _iso_dob(get("dob")), akey, get("program"), tuple(sorted(row.items()))))
+    groups = find_copies(copy_rows, tables)
+    emit(CountLabel.ROWS_READ, len(copy_rows))
+    emit(CountLabel.COPY_GROUPS, len(groups))
+    for label, kind in ((CountLabel.COPY_GROUPS_IDENTICAL, "identical"), (CountLabel.COPY_GROUPS_POSSIBLE, "possible"),
+                        (CountLabel.COPY_GROUPS_SAME_ID_DIFFERENT, "same_id_different")):
+        emit(label, sum(1 for g in groups if g.kind == kind))
+    held = {m for g in groups if g.kind == "same_id_different" for m in g.members}
+    modes = key_modes(groups, {}, rows=copy_rows)
+    people = []
+    for c in copy_rows:
+        if c.record_key in held:
+            continue
+        if modes.get(c.record_key) == "row":
+            k = person_key(secret, "row", client_id=c.record_key)
+        elif c.client_id:
+            k = person_key(secret, c.system, client_id=c.client_id)
+        else:
+            k = person_key(secret, c.system, given=fold(c.first), surname=fold(c.last), dob=c.dob or None, address_key=c.address_key)
+        zip5 = (dict(c.values).get(col["zip"]) or "").strip()[:5]
+        people.append(PersonRow(c.record_key, k, c.system, c.client_id, c.first, c.last, c.dob, c.address_key, "", zip5,
+                                c.program))
+    open_groups = [g.members for g in groups if g.kind != "same_id_different"]
+    result = resolve(people, open_copy_groups=open_groups)
+    emit(CountLabel.PROPOSALS, len(result.proposals))
+    _emit_identity(result)
+    return 0
+
+
 COMMANDS = {"check": cmd_check, "read": cmd_read, "secret": cmd_secret, "columns": cmd_columns, "tidy": cmd_tidy,
             "standardize": cmd_standardize, "geo-status": cmd_geo_status, "geo-check": cmd_geo_check,
-            "offset-demo": cmd_offset_demo, "map-demo": cmd_map_demo}
+            "offset-demo": cmd_offset_demo, "map-demo": cmd_map_demo, "people-demo": cmd_people_demo,
+            "people-check": cmd_people_check}
 
 
 def main(argv=None):
