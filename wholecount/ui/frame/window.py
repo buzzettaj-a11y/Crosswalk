@@ -75,6 +75,9 @@ class MainWindow(QMainWindow):
         self.grid_states = GridStates()
         self.program_notice = None
         self.queue_request = None
+        self.active_dialog = None
+        self.toast = None
+        self.ask_text = self._ask_text
         self._after_job = None
         self.model = None
         self.current = "sources"
@@ -200,6 +203,7 @@ class MainWindow(QMainWindow):
     # Stages
 
     def go_to(self, stage_id):
+        self.previous_stage = getattr(self, "current", None)
         self.current = stage_id
         if getattr(self.bridge, "session", None) is not None:
             self.bridge.session.stage = stage_id
@@ -370,6 +374,21 @@ class MainWindow(QMainWindow):
     def _stage_job_ended(self, how, code=None, step=None):
         if hasattr(self.stage_widget, "job_ended"):
             self.stage_widget.job_ended(how, code, step)
+
+    def _ask_text(self, title, prompt):
+        from PySide6.QtWidgets import QInputDialog, QLineEdit
+
+        text, ok = QInputDialog.getText(self, title, prompt, QLineEdit.Normal, "")
+        return text.strip() if ok else None
+
+    def fix_mapping_and_run(self, diag):
+        """Match it and process again: the mapping change, then a run. Decisions come back by record key (A-07)."""
+        from wholecount.session.commands import SetupChange
+        from wholecount.session.survey import survey
+
+        t = survey(self.bridge.session).table(diag.table_key)
+        self.bridge.dispatch(SetupChange("mappings", (t.file_name, t.idx, diag.field), diag.column_better))
+        return self.start_process()
 
     def open_queue(self, status):
         """Fix problems, step 2, on one status tab."""

@@ -115,3 +115,74 @@ class ResumeJob:
         from wholecount.session.resume import resume
 
         self.on_done(resume(session, saved, self.paths))
+
+
+class LookUpJob:
+    """Look up all {n}: gathers what would be filled. Nothing is dispatched until Apply in the fill preview."""
+
+    action_id = "look_up"
+    undoable = False
+
+    def __init__(self, session, cause_id, record_keys, on_done):
+        from wholecount.ui.jobs.steps import steps_of
+
+        self.steps = steps_of("look_up")
+        self.session, self.cause_id, self.keys, self.on_done = session, cause_id, tuple(record_keys), on_done
+
+    def run(self, sink):
+        from wholecount.session.progress import ProgressMessage, Step, Unit
+
+        sink.begin(Step.LOOKING_UP_ADDRESSES, len(self.keys), Unit.ADDRESSES)
+        found = sum(1 for k in self.keys if k in self.session.results.fills)
+        sink.advance(len(self.keys), ProgressMessage("progress.found.demo", {"n": len(self.keys)}))
+        sink.end(ProgressMessage("progress.found.demo", {"n": found}))
+        return self.keys
+
+    def apply(self, session, keys):
+        self.on_done(self.cause_id, keys)
+
+
+class CorrectionsJob:
+    """Applying a corrections file: read it, check signatures and originals, re-apply decisions (SPEC 8.6, 11.6.2)."""
+
+    action_id = "corrections"
+
+    def __init__(self, session, path, on_done):
+        from wholecount.ui.jobs.steps import steps_of
+
+        self.steps = steps_of("corrections")
+        self.session, self.path, self.on_done = session, path, on_done
+        self.cmd = None
+
+    def run(self, sink):
+        from wholecount.session.corrections_view import read_corrections_file
+        from wholecount.session.progress import ProgressMessage, Step, Unit
+
+        sink.begin(Step.READING_CORRECTIONS, 1, Unit.ROWS)
+        got = read_corrections_file(self.session, self.path)
+        sink.end(ProgressMessage("progress.found.demo", {"n": got.rows_read}))
+        sink.begin(Step.CHECKING_SIGNATURES, got.rows_read, Unit.CHECKS)
+        sink.end(ProgressMessage("progress.found.demo", {"n": len(got.accepted)}))
+        return got
+
+    def apply(self, session, got):
+        from wholecount.session.commands import ApplyCorrections
+
+        before = {c.record_key for c in got.accepted if session.results.outcomes[c.record_key].counted}
+        if got.accepted:
+            self.cmd = ApplyCorrections(got.accepted, got.fingerprint, got.file_name)
+            self.cmd.apply(session)
+            session.log(self.cmd.audit_entry())
+            from wholecount.session.runner import recompute_from
+
+            recompute_from(session)
+        now = {c.record_key for c in got.accepted if session.results.outcomes[c.record_key].counted}
+        self.on_done(got, len(now - before) + len(before))
+        return None
+
+    def undo(self, session, token):
+        if self.cmd is not None:
+            self.cmd.undo(session)
+            from wholecount.session.runner import recompute_from
+
+            recompute_from(session)

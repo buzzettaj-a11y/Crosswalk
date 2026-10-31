@@ -2698,3 +2698,351 @@ claim = "CL-BALANCE-BATCH-01"
 text = "Go to Fix problems"
 [run.go_results]
 text = "Go to Results"
+
+# Fix problems (M12 section 2)
+
+[review.finish]
+text = "Finish review"
+[review.finish_title]
+text = "Finish review?"
+[review.finish_anyway]
+text = "Finish anyway"
+[review.keep_reviewing]
+text = "Keep reviewing"
+[review.hold.causes]
+text = "Held until {n} causes are decided."
+claim = "CL-REV-HOLD-01"
+[review.not_run]
+text = "Nothing has been processed yet."
+[review.corrections.button]
+text = "Apply a corrections file"
+[review.corrections.filter]
+text = "Corrections file (*.csv *.xlsx)"
+[review.corrections.result]
+text = "{a} rows accepted, {b} refused. {c} of the accepted rows now count."
+[review.corrections.refused.signature]
+text = "This row didn't come from this computer's review file."
+[review.corrections.refused.changed]
+text = "This row has changed since the review file was made."
+claim = "CL-CORRECTIONS-REFUSE-01"
+[review.corrections.refused.other_column]
+text = "{column} did not fail, so it can't be corrected here."
+claim = "CL-CORRECTIONS-REFUSE-02"
+[review.corrections.refused.unknown]
+text = "This row is not in this batch."
+[review.corrections.line]
+text = "Row {line}: {why}"
+[review.reviewer.title]
+text = "Who is reviewing?"
+[review.reviewer.line]
+text = "Your name is saved with each decision you make and written to both audit logs."
+claim = "CL-REVIEWER-LOGGED-01"
+[review.reviewer.start]
+text = "Start reviewing"
+[review.reviewer.not_now]
+text = "Not now"
+[review.step1.kicker]
+text = "STEP 1"
+[review.step1.title]
+text = "Decide the causes"
+[review.step1.left]
+text = "{n} of {m} still to decide, covering {rows} rows"
+[review.step1.done]
+text = "all {m} decided"
+[review.step2.kicker]
+text = "STEP 2"
+[review.step2.title]
+text = "Row by row"
+[review.step2.line]
+text = "{n} rows waiting"
+[review.nolonger.title]
+text = "{n} decisions no longer apply"
+[review.nolonger.line]
+text = "A record changed, a file was removed, or a mapping changed, so the decision cannot be put back on the same record."
+claim = "CL-NOLONGER-01"
+[review.nolonger.where]
+text = "{file}, row {n}"
+[review.nolonger.row]
+text = "{kind} · {where} · {why}"
+[review.nolonger.again]
+text = "Decide again"
+[review.nolonger.why.person_gone]
+text = "The record is no longer in the batch."
+[review.nolonger.why.basis_changed]
+text = "The record changed since the decision."
+[review.nolonger.why.names_gone]
+text = "The program names are no longer in the batch."
+[review.nolonger.why.record_gone]
+text = "The record is no longer in the batch."
+[review.nolonger.why.group_gone]
+text = "The group is no longer there."
+[review.nolonger.why.reason_gone]
+text = "The problem is no longer there."
+[review.kind.approve]
+text = "Approve"
+[review.kind.set_aside]
+text = "Set aside"
+[review.kind.pair]
+text = "Same person"
+[review.kind.program]
+text = "Program"
+[review.kind.keep_one]
+text = "Keep one copy"
+[review.kind.not_copies]
+text = "Not copies"
+[review.kind.accept_fill]
+text = "Accept a fill"
+[review.kind.correction]
+text = "Correction"
+[review.kind.route]
+text = "Row by row"
+[review.kind.return_to_open]
+text = "Return to open"
+[review.kind.different_people]
+text = "Different people"
+[review.kind.approved_as_entered]
+text = "Approved as entered"
+[review.tab.counts]
+text = "Affects the counts ({n})"
+[review.tab.location]
+text = "Location ({n})"
+[review.tab.look]
+text = "Worth a look ({n})"
+[review.counts.intro]
+text = "These rows aren't counted until they're decided. Copy groups are counted already, and they widen the range until decided."
+[review.loc.intro]
+text = "These rows already count. Fixing them improves the map."
+claim = "CL-LOC-COUNTS-01"
+[review.look.intro]
+text = "These rows count. Each has something worth a second look."
+[review.tag.needs]
+text = "NEEDS YOUR SAY"
+[review.tag.decided]
+text = "DECIDED BY YOU"
+[review.tag.settled]
+text = "SET ASIDE BY RULE"
+[review.tag.no_decision]
+text = "NO DECISION NEEDED"
+[review.sent_to_row]
+text = "Sent to row by row"
+[review.diag.bold]
+text = "This is a matching problem, not a data problem."
+[review.diag.fix]
+text = "Match it and process again"
+[review.act.look]
+text = "Look at them"
+[review.act.compare]
+text = "Compare the {g}"
+[review.act.route]
+text = "Send to row by row"
+[review.act.preview]
+text = "Preview"
+[review.act.lookup]
+text = "Look up all {n}"
+[review.act.aside]
+text = "Set all aside"
+[review.act.accept]
+text = "Accept all as they are"
+[review.col.name]
+text = "NAME"
+[review.col.id]
+text = "ID"
+[review.col.address]
+text = "ADDRESS"
+[review.col.problem]
+text = "PROBLEM"
+[review.col.counted]
+text = "COUNTED"
+[review.col.location]
+text = "LOCATION"
+[review.col.source]
+text = "SOURCE"
+[review.accept.title]
+text = "Accept {n} rows as they are"
+[review.accept.type]
+text = "Type {n} to confirm"
+[review.accept.reason]
+text = "Reason"
+[review.accept.over]
+text = "This is over 200 rows, so a second person must confirm."
+[review.accept.second]
+text = "Second reviewer's name"
+[review.accept.ok]
+text = "Accept {n}"
+[review.accept.hold.count]
+text = "Held until you type {n}."
+[review.accept.hold.reason]
+text = "Held until you pick a reason."
+[review.accept.hold.second]
+text = "Held until a second reviewer is named."
+[review.refused.count_mismatch]
+text = "The number typed is not the number of rows."
+[review.refused.reason_missing]
+text = "Pick a reason first."
+[review.refused.second_signoff_needed]
+text = "A second reviewer has to be named."
+[review.refused.second_same_person]
+text = "The second reviewer has to be someone else."
+[review.refused.decision_not_allowed]
+text = "That decision can't be made here."
+[review.refused.note_not_allowed]
+text = "A note is only for the Other reason, and up to 120 characters."
+[review.choose]
+text = "Choose..."
+[review.cancel]
+text = "Cancel"
+[review.aside.title]
+text = "Set {n} rows aside"
+[review.aside.ok]
+text = "Set aside {n}"
+[review.aside.note]
+text = "Do not type client names. This note goes to the internal audit log only."
+claim = "CL-NOTE-INTERNAL-01"
+[review.preview.kicker]
+text = "Preview"
+[review.preview.accept]
+text = "If you accept all, counted goes from {a} to {b}."
+[review.preview.aside]
+text = "If you set all aside, set aside goes from {a} to {b}."
+[review.preview.note]
+text = "This is a preview. Nothing changes."
+claim = "CL-PREVIEW-ARITH-01"
+[review.fill.heading]
+text = "Look up {n} addresses"
+[review.fill.title]
+text = "Review what would be filled in. Nothing changes until you press Apply."
+claim = "CL-FILL-NOCHANGE-01"
+[review.fill.counts]
+text = "Will fill {a} · Left alone {b}"
+[review.fill.col.name]
+text = "NAME"
+[review.fill.col.row]
+text = "ROW"
+[review.fill.col.source]
+text = "SOURCE"
+[review.fill.col.was]
+text = "WAS"
+[review.fill.col.becomes]
+text = "WILL BECOME"
+[review.fill.col.why]
+text = "WHY"
+[review.fill.why]
+text = "Worked out from this row's own address for {field}."
+[review.fill.left]
+text = "{n} rows are left alone, because their own address gives nothing to fill."
+[review.fill.apply]
+text = "Apply {k} fills"
+[review.fill.toast]
+text = "{k} filled, {j} still need a look."
+[review.compare.group]
+text = "Group {i} of {g}"
+[review.compare.same_id]
+text = "One identifier is being used for two different people."
+[review.compare.row]
+text = "ROW"
+[review.compare.same]
+text = "These are the same person"
+[review.compare.different]
+text = "These are different people"
+[review.compare.back]
+text = "Back to the causes"
+[review.status.open]
+text = "Open ({n})"
+[review.status.corrected]
+text = "Corrected ({n})"
+[review.status.approved]
+text = "Approved ({n})"
+[review.status.set_aside]
+text = "Set aside ({n})"
+[review.filter.any]
+text = "Any problem ({n})"
+[review.filter.item]
+text = "{name} ({n})"
+[review.filter.any_source]
+text = "Any source file"
+[review.filter.search]
+text = "name, address, ZIP, identifier"
+[review.filter.clear]
+text = "Clear filters"
+[review.queue.showing]
+text = "Showing {m} of {n} rows in the queue, on one page."
+[review.queue.tick]
+text = "Select {name}"
+[review.select.page]
+text = "Select this page"
+[review.select.all]
+text = "Select all {m} rows matching these filters"
+[review.select.count]
+text = "{n} rows selected"
+[review.select.clear]
+text = "Clear selection"
+[review.bulk.approve]
+text = "Approve as entered"
+[review.bulk.aside]
+text = "Set aside"
+[review.bulk.reopen]
+text = "Return to open"
+[review.bulk.keep_one]
+text = "Keep one of each person in each program"
+[review.keep_one.title]
+text = "Keep one per program?"
+[review.keep_one.plan]
+text = "Keep {k} rows and set {j} aside. The kept row's record key goes on the reason for each."
+claim = "CL-KEEP-ONE-PLAN-01"
+[review.keep_one.ok]
+text = "Keep them"
+[review.second.title]
+text = "Second reviewer"
+[review.second.prompt]
+text = "This is over 200 rows ({n}), so a second person must confirm. Type their name."
+[review.record.head]
+text = "{name} · {id}"
+[review.record.where]
+text = "{file}, row {n}, counted {counted}."
+[review.record.several]
+text = "This row has {n} problems."
+[review.record.means]
+text = "What the problem means"
+[review.record.location]
+text = "Location"
+[review.record.arrived]
+text = "The row as it arrived"
+[review.record.unmatched_count]
+text = "{n} columns on this row were never matched"
+[review.record.unmatched_out]
+text = "They stay out of every export."
+[review.record.show_alongside]
+text = "Show them alongside"
+[review.record.unmatched]
+text = "These values stay on this screen. They are in no download and no log."
+claim = "CL-UNMATCHED-SCREEN-01"
+[review.record.sharing]
+text = "{n} records share the identifier {id}"
+[review.record.open_row]
+text = "Open row {n}"
+[review.record.suggested]
+text = "Suggested: {fill}"
+[review.record.apply]
+text = "Apply and check again"
+[review.record.not_this]
+text = "Not this one"
+[review.open.button]
+text = "Open the source file"
+[review.open.title]
+text = "Open the source file?"
+[review.open.confirm_name]
+text = "Open {name} in the program Windows uses for it?"
+[review.open.confirm]
+text = "{product} sends nothing. Windows opens the file the way it does when you double-click it."
+claim = "CL-SHELL-OPEN-01"
+[review.open.ok]
+text = "Open it"
+[review.open.windows_only]
+text = "This works on Windows."
+[results.go_process]
+text = "Go to Process"
+[results.held]
+text = "The set-up changed after the last run, so these numbers could be wrong. Process again to see them."
+claim = "CL-STALE-HIDDEN-01"
+[results.hold_stale]
+text = "Held until you process again. The results are out of date."

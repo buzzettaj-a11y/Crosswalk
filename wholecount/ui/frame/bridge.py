@@ -25,6 +25,7 @@ class SessionBridge(QObject):
         self.runner.finished.connect(self._job_finished)
         self._last_stale = frozenset()
         self._last_view = None
+        self.last_refusal = None
         self.dispatched = []
 
     def view(self):
@@ -44,12 +45,13 @@ class SessionBridge(QObject):
 
     def dispatch(self, command):
         from wholecount.session.commands import CommandResult, Refused
-        from wholecount.session.reviewer import BadReviewerName
+        from wholecount.session.reviewer import BadReviewerName, BulkAcceptRefused
 
         self.dispatched.append(command)
         try:
             result = self.session.history.execute(command)
-        except (Refused, BadReviewerName) as exc:
+        except (Refused, BadReviewerName, BulkAcceptRefused) as exc:
+            self.last_refusal = exc.code
             self.refused.emit(exc.code)
             return CommandResult(ok=False)
         self._after_command(command)
@@ -101,6 +103,11 @@ class SessionBridge(QObject):
     def loaded_tables(self):
         sv = self.survey()
         return list(sv.loaded.values()) if sv else []
+
+    def diagnosis(self, cause):
+        from wholecount.session.pages import diagnosis
+
+        return diagnosis(self.session, cause)
 
     def export_settings(self):
         """Download's settings, from the set-up's export_settings section (M09)."""

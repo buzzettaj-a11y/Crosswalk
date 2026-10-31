@@ -330,3 +330,54 @@ def export_plan(session, settings):
     return ExportPlan(tuple(files), tuple(all_cols), tuple(on),
                       {"counted": c.counted, "not_counted_yet": c.not_counted_yet, "set_aside": c.set_aside,
                        "received": c.received})
+
+
+def diagnosis(session, cause):
+    """M08's diagnose_mapping for one cause: a matching problem, not a data problem. Names and counts only."""
+    from wholecount.engine.review import diagnose_mapping
+
+    r = session.results
+    keys = set(cause.record_keys)
+    for w in r.works:
+        index = {rk: (w.table.key, i) for i, rk in enumerate(w.table.record_keys)}
+        if keys <= set(index):
+            return diagnose_mapping(cause, w.mapping, list(w.profiles), index)
+    return None
+
+
+def keep_one_plan(session, keys):
+    """M08's exact plan for Keep one of each person in each program: (kept, set aside) counts (C-16)."""
+    from wholecount.engine.review import keep_one_per_program
+
+    r = session.results
+    res = keep_one_per_program(tuple(sorted(keys)), r.open_groups, {k: r.rows[k].value("Program") for k in keys if k in r.rows})
+    return len(res.kept), len(res.set_aside)
+
+
+def unmatched_columns(session, record_key):
+    """(column name, value) for every column of this row's table that no field is matched to. Screen only (H10)."""
+    r = session.results
+    for w in r.works:
+        if record_key in w.table.record_keys:
+            i = w.table.record_keys.index(record_key)
+            mapped = {a.column.name for a in w.mapping.assignments}
+            row = w.table.rows[i]
+            return [(h, row[j] if j < len(row) else "") for j, h in enumerate(w.table.headers) if h not in mapped]
+    return []
+
+
+def sharing_identifier(session, record_key):
+    r = session.results
+    cid = r.rows[record_key].value("Client_ID")
+    if not cid:
+        return []
+    sys_ = r.system_of_record.get(record_key)
+    return sorted(k for k, row in r.rows.items() if k != record_key and row.value("Client_ID") == cid
+                  and r.system_of_record.get(k) == sys_)
+
+
+def source_path(session, record_key):
+    import pathlib
+
+    name = session.results.file_of_record.get(record_key)
+    return next((p for p in session.setup.paths() if pathlib.Path(p).name == name), None)
