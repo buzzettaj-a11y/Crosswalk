@@ -19,7 +19,8 @@ LABELS = {"add_files_ms", "process_ms", "preview_ms", "decision_ms", "download_m
 def small_run(tmp_path_factory):
     folder = tmp_path_factory.mktemp("perfset")
     truth = make_large_set.write_set(20261030, 600, 5, folder)
-    p = subprocess.run([sys.executable, "-m", "wholecount.dev", "perf", "--set", str(folder), "--fake"], cwd=ROOT,
+    p = subprocess.run([sys.executable, "-m", "wholecount.dev", "perf", "--set", str(folder), "--fake", "--report",
+                        str(folder / "perf-report.txt")], cwd=ROOT,
                        capture_output=True, text=True, timeout=600, env={**__import__("os").environ,
                                                                           "QT_QPA_PLATFORM": "offscreen"})
     assert p.returncode == 0, p.stderr
@@ -49,7 +50,9 @@ def test_no_client_value_is_printed(small_run):
 
 
 def test_the_report_marks_a_fake_process_time_not_accepted(small_run):
-    _, _, out = small_run
+    folder, _, out = small_run
+    written = (folder / "perf-report.txt").read_text(encoding="utf-8")
+    assert written.startswith("Backend: fake") and "not accepted" in written
     values, backend = perf_report.parse(out)
     rows = {r[1]: r for r in perf_report.rows(values, backend)}
     assert rows["process_ms"][4] == "not accepted"

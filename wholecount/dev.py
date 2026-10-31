@@ -1433,22 +1433,29 @@ def _redraw_max(session, rounds):
 
 
 def cmd_perf(args):
-    """--set DIR [--fake]: the performance run (SPEC 15). Counts-only output with integer labels, then the backend word."""
-    folder, fake = None, False
+    """--set DIR [--fake] [--report PATH]: the performance run (SPEC 15). Counts-only output with integer labels, then the
+    backend word. --report also writes the budget table that tools/perf_report.py writes."""
+    folder, fake, report = None, False, None
     it = iter(args)
     for a in it:
         if a == "--set":
             folder = next(it)
         elif a == "--fake":
             fake = True
+        elif a == "--report":
+            report = next(it)
     if folder is None:
-        print("usage: python -m wholecount.dev perf --set DIR [--fake]", file=sys.stderr)
+        print("usage: python -m wholecount.dev perf --set DIR [--fake] [--report PATH]", file=sys.stderr)
         return 2
     out, word = perf_run(folder, fake)
     for label, value in out.items():
         emit(label, value, grouped=False)
     assert word in PERF_BACKENDS
     print("backend " + word)
+    if report:
+        from tools import perf_report
+
+        pathlib.Path(report).write_text(perf_report.render({k.value: v for k, v in out.items()}, word), encoding="utf-8")
     return 0
 
 
