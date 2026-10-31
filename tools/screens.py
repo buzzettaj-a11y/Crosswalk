@@ -14,7 +14,9 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "build" / "screens"
 COMMIT = ROOT / "docs" / "milestones" / "screens" / "M10"
 COMMIT_M11 = ROOT / "docs" / "milestones" / "screens" / "M11"
+COMMIT_M12 = ROOT / "docs" / "milestones" / "screens" / "M12"
 M11_STAGES = ("sources", "schema", "prepare", "map", "programs")
+M12_STAGES = ("run", "review", "summary", "export")
 SIZES = {1440: (1440, 980), 1280: (1280, 900)}
 # The frames the milestone says to commit.
 COMMITTED = ("07-review-1440.png", "running-1440.png", "running-1280.png", "low-1440.png", "practice-1440.png",
@@ -48,13 +50,23 @@ def window(view, width, stage="sources"):
     return w
 
 
-def session_window(populated, width, stage):
+def session_window(populated, width, stage, processed=False):
     from tools import screen_fixtures as F
     from wholecount.ui.frame.bridge import SessionBridge
     from wholecount.ui.frame.window import MainWindow
 
     s = F.example_session(populated)
-    ui = {"saved_progress": False, "practice": populated, "example_loaded": populated}
+    if processed:
+        from wholecount.session import commands as C
+        from wholecount.session.survey import survey
+
+        for g in survey(s).program_map.unconfirmed:
+            s.history.execute(C.DecideProgramGroup("confirm", tuple(g.members), g.label))
+        from wholecount.session.runner import process
+
+        process(s)
+        s.reviewer = "Reviewer"
+    ui = {"saved_progress": False, "practice": populated, "example_loaded": populated, "reviewer_asked": processed}
     w = MainWindow(SessionBridge(s, ui, clock=lambda: F.NOW), clock=lambda: F.NOW, confirm=lambda *a: False)
     w.resize(*SIZES[width])
     w.show()
@@ -96,6 +108,73 @@ def show_running(w):
     w.ticker.show_progress(w.model)
     w.strip.set_run_fractions({sid: w.model.stage_fraction(sid) for sid in w.model.owners()})
     assert F
+
+
+def m12_running(width):
+    """Process mid-run: a made-up job on the real window over the example files, grabbed while it goes."""
+    import time
+
+    from tools import screen_fixtures as F
+
+    w = session_window(True, width, "run")
+    app = _app()
+    w.start_job(F.DemoJob(seconds=30.5))
+    end = time.monotonic() + 1.6
+    while time.monotonic() < end:
+        app.processEvents()
+        time.sleep(0.02)
+
+    def stop():
+        w.bridge.runner.cancel()
+        w.bridge.runner.wait()
+        _settle(app)
+    w.cleanup = stop
+    return w
+
+
+def m12_frames():
+    """Stages 06 to 09 before a run, mid-run and after a sample run, plus the extra frames M12 names."""
+    from wholecount.ui.frame.stages import BY_ID
+
+    out = []
+    for sid in M12_STAGES:
+        for width in SIZES:
+            base = f"m12-{BY_ID[sid].nn}-{sid}"
+            out.append((f"{base}-before-{width}.png", width, lambda sid=sid, width=width: session_window(True, width, sid)))
+            if sid == "run":
+                out.append((f"{base}-running-{width}.png", width, lambda width=width: m12_running(width)))
+            out.append((f"{base}-after-{width}.png", width,
+                        lambda sid=sid, width=width: session_window(True, width, sid, processed=True)))
+
+    def step2(width):
+        from wholecount.session.pages import QueueFilter
+
+        w = session_window(True, width, "review", processed=True)
+        w.stage_widget.set_step(2, QueueFilter())
+        _settle(_app())
+        q = w.stage_widget.queue
+        if q.data.rows:
+            q._open_key(q.data.rows[0].record_key)
+        return w
+
+    def accept(width):
+        from wholecount.session.pages import cause_views
+
+        w = session_window(True, width, "review", processed=True)
+        c = next(v.cause for v in cause_views(w.bridge.session) if v.cause.cause_id == "no_identifier")
+        w.stage_widget.accept_all(c)
+        return w
+
+    def pairs(width):
+        w = session_window(True, width, "summary", processed=True)
+        w.stage_widget._open_pairs()
+        return w
+
+    for width in SIZES:
+        out += [(f"m12-07-review-step2-{width}.png", width, lambda width=width: step2(width)),
+                (f"m12-07-review-accept-{width}.png", width, lambda width=width: accept(width)),
+                (f"m12-08-summary-pairs-{width}.png", width, lambda width=width: pairs(width))]
+    return out
 
 
 def frames():
@@ -155,7 +234,7 @@ def frames():
             for width in SIZES:
                 out.append((f"m11-{BY_ID[sid].nn}-{sid}-{state}-{width}.png", width,
                             lambda sid=sid, state=state, width=width: session_window(state == "populated", width, sid)))
-    return out
+    return out + m12_frames()
 
 
 def render(names=None, out=OUT):
@@ -174,12 +253,37 @@ def render(names=None, out=OUT):
         _settle(app, 2)
         path = out / name
         w.grab().save(str(path), "PNG")
+        if name.startswith("m12-07-review-accept") and w.stage_widget.dialog is not None:
+            _paste_dialog(w, w.stage_widget.dialog, path)
         written.append(path)
+        if getattr(w, "cleanup", None):
+            w.cleanup()
         w.closing_confirmed = True
         w.close()
         w.deleteLater()
         _settle(app, 2)
     return written
+
+
+def _paste_dialog(w, d, path):
+    """A dialog is its own window, so grab() of the main window leaves it out. Draw it centered over the frame."""
+    from PySide6.QtGui import QPainter, QPixmap
+
+    frame = QPixmap(str(path))
+    shot = d.grab()
+    p = QPainter(frame)
+    p.fillRect(frame.rect(), QColor_dim())
+    x, y = (frame.width() - shot.width()) // 2, (frame.height() - shot.height()) // 3
+    p.fillRect(x, y, shot.width(), shot.height(), d.palette().window())
+    p.drawPixmap(x, y, shot)
+    p.end()
+    frame.save(str(path), "PNG")
+
+
+def QColor_dim():  # noqa: N802
+    from PySide6.QtGui import QColor
+
+    return QColor(16, 24, 40, 90)
 
 
 def demo_run(practice=False):
@@ -213,6 +317,9 @@ def main(argv=None):
         COMMIT_M11.mkdir(parents=True, exist_ok=True)
         for p in OUT.glob("m11-0*.png"):
             shutil.copy(p, COMMIT_M11 / p.name)
+        COMMIT_M12.mkdir(parents=True, exist_ok=True)
+        for p in OUT.glob("m12-0*.png"):
+            shutil.copy(p, COMMIT_M12 / p.name)
     return 0
 
 

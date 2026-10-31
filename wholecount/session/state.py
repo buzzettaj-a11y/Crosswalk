@@ -180,6 +180,13 @@ class Session:
 
     @property
     def stale(self):
+        """The out-of-date result nodes (H13). The exports node is left out: Download always builds its files from the
+        current results with the current download settings, so a changed setting holds nothing and needs no new run."""
+        return self.stale_nodes - {"exports"}
+
+    @property
+    def stale_nodes(self):
+        """Every node whose live fingerprint differs from the one the results were made from, the exports node included."""
         return staleness.stale(self.live_fingerprints(), self.results.fingerprints if self.results else None)
 
     def counts(self):

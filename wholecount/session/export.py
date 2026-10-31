@@ -82,7 +82,8 @@ def build_events(session, results):
         elif d.kind != "correction":
             for rk in d.record_keys or ("",):
                 events.append((d.made_at, entry("DECISION", decision_id=d.decision_id, record_key=rk or None,
-                                                reason_code=d.kind if d.kind != "set_aside" else d.basis, **common)))
+                                                reason_code=d.kind if d.kind != "set_aside" else d.basis,
+                                                note=d.get("note"), **common)))
     translate = {"ACCEPT_GROUP": "BULK_ACCEPT", "CORRECTION": "CORRECTION", "UNDO": "UNDO", "REVIEWER": "REVIEWER_SET",
                  "LOW_CONFIDENCE_ACKNOWLEDGED": "CONFIDENCE_ACK", "FINISH_REVIEW": "FINISH_REVIEW", "SETUP_CHANGE": "SETUP_CHANGE",
                  "RESUME": "RESUME"}

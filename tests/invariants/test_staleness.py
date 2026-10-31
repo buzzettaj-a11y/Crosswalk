@@ -17,9 +17,9 @@ def test_declared_covers_actual(tmp_path, section):
     key, value = VALUES[section]
     cmd = C.SetupChange(section, key, value)
     s.history.execute(cmd)
-    assert s.stale and cmd.invalidates >= s.stale
+    assert s.stale_nodes and cmd.invalidates >= s.stale_nodes
     s.history.undo()
-    assert not s.stale
+    assert not s.stale_nodes
 
 
 def test_decisions_declare_what_they_touch(tmp_path):

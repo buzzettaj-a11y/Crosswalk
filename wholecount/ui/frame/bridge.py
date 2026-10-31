@@ -25,6 +25,7 @@ class SessionBridge(QObject):
         self.runner.finished.connect(self._job_finished)
         self._last_stale = frozenset()
         self._last_view = None
+        self.last_refusal = None
         self.dispatched = []
 
     def view(self):
@@ -44,12 +45,13 @@ class SessionBridge(QObject):
 
     def dispatch(self, command):
         from wholecount.session.commands import CommandResult, Refused
-        from wholecount.session.reviewer import BadReviewerName
+        from wholecount.session.reviewer import BadReviewerName, BulkAcceptRefused
 
         self.dispatched.append(command)
         try:
             result = self.session.history.execute(command)
-        except (Refused, BadReviewerName) as exc:
+        except (Refused, BadReviewerName, BulkAcceptRefused) as exc:
+            self.last_refusal = exc.code
             self.refused.emit(exc.code)
             return CommandResult(ok=False)
         self._after_command(command)
@@ -101,6 +103,33 @@ class SessionBridge(QObject):
     def loaded_tables(self):
         sv = self.survey()
         return list(sv.loaded.values()) if sv else []
+
+    def program_sources(self):
+        """Each table's program source (P-PROG-1), from the survey of the set-up the last run used."""
+        from wholecount.session.survey import survey
+
+        return survey(self.session).program_tables if self.session is not None else ()
+
+    def summary_html(self, include_file_names):
+        from wholecount.session.frame import summary_html
+
+        return summary_html(self.session, include_file_names)
+
+    def save_summary(self, path, include_file_names):
+        from wholecount.session.export import save_summary
+
+        return save_summary(self.session, path, include_file_names, overwrite=True)
+
+    def diagnosis(self, cause):
+        from wholecount.session.pages import diagnosis
+
+        return diagnosis(self.session, cause)
+
+    def export_settings(self):
+        """Download's settings, from the set-up's export_settings section (M09)."""
+        from wholecount.session.frame import export_settings
+
+        return export_settings(self.session)
 
     def pref(self, key, default=None):
         """A view choice from prefs.json (SPEC H9), or from memory when there's no store."""

@@ -150,14 +150,18 @@ def test_STALE_3_undo_restores_without_a_run(tmp_path):
 
 def test_STALE_4_download_gate_checks_stale(tmp_path):
     s = base(tmp_path)
-    s.history.execute(C.SetupChange("export_settings", "x", 1))
+    s.history.execute(C.SetupChange("run_settings", "extra_fields", frozenset({"census_tract"})))
     assert s.download_gate().reasons == ("stale",)
-
-
-def test_exports_only_stale_for_export_settings(tmp_path):
-    s = base(tmp_path)
-    s.history.execute(C.SetupChange("export_settings", "x", 1))
-    assert s.stale == {"exports"}
     with pytest.raises(StaleResults):
         s.counts()
+
+
+def test_export_settings_touch_only_the_exports_node_and_hold_nothing(tmp_path):
+    """Download builds its files from the current results with the current settings, so a changed download setting
+    marks only the exports node and holds neither the counts nor Download (M12 report)."""
+    s = base(tmp_path)
+    s.history.execute(C.SetupChange("export_settings", "x", 1))
+    assert s.stale_nodes == {"exports"} and s.stale == set()
+    assert s.counts() is s.results.counts
+    assert "stale" not in s.download_gate().reasons
     assert group(s, "identical")

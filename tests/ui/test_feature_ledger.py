@@ -34,6 +34,22 @@ FEATURES = [
      "stage:map.confirm"),
     ("program columns, name groups, preview", "M11", "05", "stage:programs.refresh_btn"),
     ("rename a built-in field", "M11", "dropped by SPEC 4.1", "dropped"),
+    ("run settings, pre-run summary, run panel, cancel, log, confidence callout, rows found with both balances", "M12",
+     "06", "stage:run.settings_box"),
+    ("reviewer name, three tabs, grouped decisions, bulk accept with sample, typed count, reason and second sign-off, "
+     "send to row by row, preview, fill from street, matching diagnosis, cross-file note, finish review", "M12",
+     "07 step 1", "stage:review.accept_all"),
+    ("queue with status filter, facets, search, page size, select page and all matching, bulk approve, set aside, "
+     "return to open, keep one per program", "M12", "07 step 2", "class:wholecount.ui.stages.review.queue.QueueView"),
+    ("record panel with meaning, original row, unmatched columns on screen, shared identifier, suggestion, approve, "
+     "set aside, open the source file", "M12", "07 RecordPanel", "class:wholecount.ui.stages.review.record.RecordPanel"),
+    ("compare copies, no longer apply list, signed corrections file", "M12", "07", "stage:review.corrections_result"),
+    ("two counts with range, open pairs, automatic joins with split, program bars, locations, person table, "
+     "printable page", "M12", "08", "stage:summary.page_button"),
+    ("ten files, three formats, column chips, exact coordinates, Map_Points, synced folder callout, low confidence "
+     "hold, receipt, set-ups", "M12", "09", "stage:export.download"),
+    ("reject, set a field on all selected, privacy offset switch and seed, send unplaced rows to review", "M12",
+     "dropped by Q7, P-GEO-7 and P-VAL-2", "dropped"),
 ]
 
 
@@ -44,6 +60,11 @@ def _resolve(w, path):
         stage, attr = path[6:].split(".", 1)
         w.go_to(stage)
         return getattr(w.stage_widget, attr, None)
+    if path.startswith("class:"):
+        import importlib
+
+        mod, _, name = path[6:].rpartition(".")
+        return getattr(importlib.import_module(mod), name, None)
     if path == "help_button_factory":
         from wholecount.ui.widgets.help import HelpButton
         return HelpButton

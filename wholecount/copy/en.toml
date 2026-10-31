@@ -2518,3 +2518,799 @@ text = "Programs"
 text = "Sets up the second count: clients per program."
 [help.stage.programs.how]
 text = "Pick each file's program column, confirm or split the proposed groups, then preview the counts."
+
+[common.ok]
+text = "OK"
+
+# Process (M12 section 1)
+
+[run.process]
+text = "Process everything"
+[run.process_again]
+text = "Process again"
+[run.continue]
+text = "Continue to Fix problems"
+[run.hold.blocker]
+text = "Held until {field} is matched for {table}."
+claim = "CL-RUN-HOLD-BLOCKER-01"
+[run.hold.programs]
+text = "Held until {n} program groups are confirmed or kept separate."
+claim = "CL-RUN-HOLD-PROGRAMS-01"
+[run.up_to_date]
+text = "Up to date"
+[run.pre.kicker]
+text = "What this run will do"
+[run.pre.reads]
+text = "Reads {n} tables from {m} files, once. Nothing in them changes."
+claim = "CL-RUN-READS-01"
+[run.pre.checks]
+text = "Tidies with {k} steps, checks every row, finds copies inside each file, and finds the same person across files. Rows that need a person go to Fix problems."
+claim = "CL-RUN-CHECKS-01"
+[run.pre.backend.geosupport]
+text = "Places addresses with Geosupport Desktop Edition."
+claim = "CL-RUN-BACKEND-01"
+[run.pre.backend.reference]
+text = "Places addresses with the reference file you installed. Only exact matches are placed."
+claim = "CL-RUN-BACKEND-02"
+[run.pre.backend.none]
+text = "Does not place addresses, because neither Geosupport nor a reference file is installed. Rows are still checked and counted, and every location reads Not mapped."
+claim = "CL-RUN-BACKEND-03"
+[run.pre.backend.practice]
+text = "Practice run. Uses the small sample address file, so locations are for practice only."
+claim = "CL-RUN-BACKEND-04"
+[run.pre.maps.default]
+text = "Keeps coordinates out of your clean file. Map counts under 11 are left blank."
+claim = "CL-RUN-MAPS-01"
+[run.pre.maps.coords]
+text = "Map counts under 11 are left blank. Exact coordinates are on, for internal use."
+claim = "CL-RUN-MAPS-02"
+[run.pre.maps.points]
+text = "Keeps coordinates out of your clean file. Map counts under 11 are left blank. Moved points are on, each moved 150 to 250 feet. Districts come from the true point."
+claim = "CL-RUN-MAPS-03"
+[run.pre.maps.both]
+text = "Map counts under 11 are left blank. Exact coordinates are on, for internal use. Moved points are on, each moved 150 to 250 feet. Districts come from the true point."
+claim = "CL-RUN-MAPS-04"
+[run.pre.change]
+text = "Change"
+[run.settings.kicker]
+text = "Run settings"
+[run.settings.geocoder]
+text = "Geocoder"
+[run.settings.backend.geosupport]
+text = "Geosupport Desktop Edition"
+[run.settings.backend.reference]
+text = "Address reference file"
+[run.settings.backend.practice]
+text = "Sample address file, practice only"
+[run.settings.backend.none]
+text = "None"
+[run.settings.ready]
+text = "READY"
+[run.settings.not_installed]
+text = "NOT INSTALLED"
+[run.settings.reference_rows]
+text = "{n} addresses in the file"
+[run.settings.two_files]
+text = "Two files are in the reference folder, so none is used."
+[run.settings.local]
+text = "Geosupport Desktop Edition is checked on this computer. Nothing is sent anywhere."
+[run.settings.extra]
+text = "Extra Geosupport fields (optional)"
+[run.settings.field.census_tract]
+text = "Census tract"
+[run.settings.selected]
+text = "{n} selected"
+[run.settings.extra_off]
+text = "These come from Geosupport Desktop Edition and can be ticked once it is active."
+[run.panel.kicker]
+text = "Running"
+[run.panel.step]
+text = "Step {i} of {n} · {step}"
+[run.panel.elapsed]
+text = "{secs} s"
+[run.cancelling]
+text = "Cancelling..."
+[run.cancelled]
+text = "Cancelled. Nothing was changed."
+claim = "CL-CANCEL-UNCHANGED-01"
+[run.failed]
+text = "The run stopped while {step}. Nothing was changed."
+claim = "CL-CANCEL-UNCHANGED-02"
+[run.try_again]
+text = "Try again"
+[run.copy_code]
+text = "Copy the error code"
+[run.done.line]
+text = "Last run finished in {secs} s · {n} steps, nothing written to disk"
+claim = "CL-RUN-NOWRITE-01"
+[run.out_of_date]
+text = "Out of date. {what} Process again."
+[run.stale.sources]
+text = "The files changed."
+[run.stale.tables]
+text = "The tables changed."
+[run.stale.steps]
+text = "A tidy-up step changed."
+[run.stale.mappings]
+text = "A column match changed."
+[run.stale.standardized]
+text = "A default or date order changed."
+[run.stale.checks]
+text = "A check changed."
+[run.stale.geo]
+text = "A run setting changed."
+[run.stale.copies]
+text = "Copies changed."
+[run.stale.decisions]
+text = "A decision changed."
+[run.stale.identity]
+text = "A same-person decision changed."
+[run.stale.programs]
+text = "A program changed."
+[run.stale.counts]
+text = "The counts changed."
+[run.stale.confidence]
+text = "Confidence changed."
+[run.stale.exports]
+text = "A download setting changed."
+[run.log.step]
+text = "STEP"
+[run.log.took]
+text = "TOOK"
+[run.log.found]
+text = "FOUND"
+[run.found.kicker]
+text = "What the run found"
+[run.found.balance]
+text = "{counted} + {not_counted_yet} + {aside} = {received} rows received"
+claim = "CL-BALANCE-TABLES-01"
+[run.found.balance_note]
+text = "The three add up to the rows received."
+[run.found.loc_sum]
+text = "{high} + {low} + {not_mapped} = {counted} rows counted"
+[run.found.loc]
+text = "Not mapped rows are counted. They are just not on the map."
+claim = "CL-BALANCE-LOC-02"
+[run.found.box.counted]
+text = "Counted"
+[run.found.box.counted_means]
+text = "In both counts."
+[run.found.box.not_counted_yet]
+text = "Not counted yet"
+[run.found.box.not_counted_yet_means]
+text = "Waiting for a decision on Fix problems."
+[run.found.box.set_aside]
+text = "Set aside"
+[run.found.box.set_aside_means]
+text = "Kept in the set-aside file, never counted."
+[run.found.see]
+text = "See them"
+[run.found.per_table]
+text = "Per table"
+[run.found.table_line]
+text = "{c} counted · {n} not yet · {a} aside · {m} mapped · {u} not mapped · {r} in all"
+[run.found.fault]
+text = "These numbers do not add up. That is a fault in {product}. Nothing was written, and the counts stay hidden."
+[run.found.outside]
+text = "{a} rows are in tables you left out, {b} are in blocks that are not tables, and {c} are above the headers. They are listed on Add your files and are not counted."
+claim = "CL-BALANCE-BATCH-01"
+[run.go_review]
+text = "Go to Fix problems"
+[run.go_results]
+text = "Go to Results"
+
+# Fix problems (M12 section 2)
+
+[review.finish]
+text = "Finish review"
+[review.finish_title]
+text = "Finish review?"
+[review.finish_anyway]
+text = "Finish anyway"
+[review.keep_reviewing]
+text = "Keep reviewing"
+[review.hold.causes]
+text = "Held until {n} causes are decided."
+claim = "CL-REV-HOLD-01"
+[review.not_run]
+text = "Nothing has been processed yet."
+[review.corrections.button]
+text = "Apply a corrections file"
+[review.corrections.filter]
+text = "Corrections file (*.csv *.xlsx)"
+[review.corrections.result]
+text = "{a} rows accepted, {b} refused. {c} of the accepted rows now count."
+[review.corrections.refused.signature]
+text = "This row didn't come from this computer's review file."
+[review.corrections.refused.changed]
+text = "This row has changed since the review file was made."
+claim = "CL-CORRECTIONS-REFUSE-01"
+[review.corrections.refused.other_column]
+text = "{column} did not fail, so it can't be corrected here."
+claim = "CL-CORRECTIONS-REFUSE-02"
+[review.corrections.refused.unknown]
+text = "This row is not in this batch."
+[review.corrections.line]
+text = "Row {line}: {why}"
+[review.reviewer.title]
+text = "Who is reviewing?"
+[review.reviewer.line]
+text = "Your name is saved with each decision you make and written to both audit logs."
+claim = "CL-REVIEWER-LOGGED-01"
+[review.reviewer.start]
+text = "Start reviewing"
+[review.reviewer.not_now]
+text = "Not now"
+[review.step1.kicker]
+text = "STEP 1"
+[review.step1.title]
+text = "Decide the causes"
+[review.step1.left]
+text = "{n} of {m} still to decide, covering {rows} rows"
+[review.step1.done]
+text = "all {m} decided"
+[review.step2.kicker]
+text = "STEP 2"
+[review.step2.title]
+text = "Row by row"
+[review.step2.line]
+text = "{n} rows waiting"
+[review.nolonger.title]
+text = "{n} decisions no longer apply"
+[review.nolonger.line]
+text = "A record changed, a file was removed, or a mapping changed, so the decision cannot be put back on the same record."
+claim = "CL-NOLONGER-01"
+[review.nolonger.where]
+text = "{file}, row {n}"
+[review.nolonger.row]
+text = "{kind} · {where} · {why}"
+[review.nolonger.again]
+text = "Decide again"
+[review.nolonger.why.person_gone]
+text = "The record is no longer in the batch."
+[review.nolonger.why.basis_changed]
+text = "The record changed since the decision."
+[review.nolonger.why.names_gone]
+text = "The program names are no longer in the batch."
+[review.nolonger.why.record_gone]
+text = "The record is no longer in the batch."
+[review.nolonger.why.group_gone]
+text = "The group is no longer there."
+[review.nolonger.why.reason_gone]
+text = "The problem is no longer there."
+[review.nolonger.why.group_changed]
+text = "The group changed since the decision."
+[review.nolonger.why.file_removed]
+text = "Corrected values are not kept between sessions, so the corrections file has to be applied again."
+[review.nolonger.why.row_set_aside]
+text = "The row was set aside after the decision."
+[review.nolonger.why.dob_now_differs]
+text = "The dates of birth now differ."
+[review.kind.approve]
+text = "Approve"
+[review.kind.set_aside]
+text = "Set aside"
+[review.kind.pair]
+text = "Same person"
+[review.kind.program]
+text = "Program"
+[review.kind.keep_one]
+text = "Keep one copy"
+[review.kind.not_copies]
+text = "Not copies"
+[review.kind.accept_fill]
+text = "Accept a fill"
+[review.kind.correction]
+text = "Correction"
+[review.kind.route]
+text = "Row by row"
+[review.kind.return_to_open]
+text = "Return to open"
+[review.kind.different_people]
+text = "Different people"
+[review.kind.approved_as_entered]
+text = "Approved as entered"
+[review.tab.counts]
+text = "Affects the counts ({n})"
+[review.tab.location]
+text = "Location ({n})"
+[review.tab.look]
+text = "Worth a look ({n})"
+[review.counts.intro]
+text = "These rows aren't counted until they're decided. Copy groups are counted already, and they widen the range until decided."
+[review.loc.intro]
+text = "These rows already count. Fixing them improves the map."
+claim = "CL-LOC-COUNTS-01"
+[review.look.intro]
+text = "These rows count. Each has something worth a second look."
+[review.tag.needs]
+text = "NEEDS YOUR SAY"
+[review.tag.decided]
+text = "DECIDED BY YOU"
+[review.tag.settled]
+text = "SET ASIDE BY RULE"
+[review.tag.no_decision]
+text = "NO DECISION NEEDED"
+[review.sent_to_row]
+text = "Sent to row by row"
+[review.diag.bold]
+text = "This is a matching problem, not a data problem."
+[review.diag.fix]
+text = "Match it and process again"
+[review.act.look]
+text = "Look at them"
+[review.act.compare]
+text = "Compare the groups ({g})"
+[review.act.route]
+text = "Send to row by row"
+[review.act.preview]
+text = "Preview"
+[review.act.lookup]
+text = "Look up all {n}"
+[review.act.aside]
+text = "Set all aside"
+[review.act.accept]
+text = "Accept all as they are"
+[review.col.name]
+text = "NAME"
+[review.col.id]
+text = "ID"
+[review.col.address]
+text = "ADDRESS"
+[review.col.problem]
+text = "PROBLEM"
+[review.col.counted]
+text = "COUNTED"
+[review.col.location]
+text = "LOCATION"
+[review.col.source]
+text = "SOURCE"
+[review.accept.title]
+text = "Accept {n} rows as they are"
+[review.accept.type]
+text = "Type {n} to confirm"
+[review.accept.reason]
+text = "Reason"
+[review.accept.over]
+text = "This is over 200 rows, so a second person must confirm."
+[review.accept.second]
+text = "Second reviewer's name"
+[review.accept.ok]
+text = "Accept {n}"
+[review.accept.hold.count]
+text = "Held until you type {n}."
+[review.accept.hold.reason]
+text = "Held until you pick a reason."
+[review.accept.hold.second]
+text = "Held until a second reviewer is named."
+[review.refused.count_mismatch]
+text = "The number typed is not the number of rows."
+[review.refused.reason_missing]
+text = "Pick a reason first."
+[review.refused.second_signoff_needed]
+text = "A second reviewer has to be named."
+[review.refused.second_same_person]
+text = "The second reviewer has to be someone else."
+[review.refused.decision_not_allowed]
+text = "That decision can't be made here."
+[review.refused.note_not_allowed]
+text = "A note is only for the Other reason, and up to 120 characters."
+[review.choose]
+text = "Choose..."
+[review.cancel]
+text = "Cancel"
+[review.aside.title]
+text = "Set {n} rows aside"
+[review.aside.ok]
+text = "Set aside {n}"
+[review.aside.note]
+text = "Do not type client names. This note goes to the internal audit log only."
+claim = "CL-NOTE-INTERNAL-01"
+[review.preview.kicker]
+text = "Preview"
+[review.preview.accept]
+text = "If you accept all, counted goes from {a} to {b}."
+[review.preview.aside]
+text = "If you set all aside, set aside goes from {a} to {b}."
+[review.preview.note]
+text = "This is a preview. Nothing changes."
+claim = "CL-PREVIEW-ARITH-01"
+[review.fill.heading]
+text = "Look up {n} addresses"
+[review.fill.title]
+text = "Review what would be filled in. Nothing changes until you press Apply."
+claim = "CL-FILL-NOCHANGE-01"
+[review.fill.counts]
+text = "Will fill {a} · Left alone {b}"
+[review.fill.col.name]
+text = "NAME"
+[review.fill.col.row]
+text = "ROW"
+[review.fill.col.source]
+text = "SOURCE"
+[review.fill.col.was]
+text = "WAS"
+[review.fill.col.becomes]
+text = "WILL BECOME"
+[review.fill.col.why]
+text = "WHY"
+[review.fill.why]
+text = "Worked out from this row's own address for {field}."
+[review.fill.left]
+text = "{n} rows are left alone, because their own address gives nothing to fill."
+[review.fill.apply]
+text = "Apply {k} fills"
+[review.fill.toast]
+text = "{k} filled, {j} still need a look."
+[review.compare.group]
+text = "Group {i} of {g}"
+[review.compare.same_id]
+text = "One identifier is being used for two different people."
+[review.compare.row]
+text = "ROW"
+[review.compare.same]
+text = "These are the same person"
+[review.compare.different]
+text = "These are different people"
+[review.compare.back]
+text = "Back to the causes"
+[review.status.open]
+text = "Open ({n})"
+[review.status.corrected]
+text = "Corrected ({n})"
+[review.status.approved]
+text = "Approved ({n})"
+[review.status.set_aside]
+text = "Set aside ({n})"
+[review.filter.any]
+text = "Any problem ({n})"
+[review.filter.item]
+text = "{name} ({n})"
+[review.filter.any_source]
+text = "Any source file"
+[review.filter.search]
+text = "name, address, ZIP, identifier"
+[review.filter.clear]
+text = "Clear filters"
+[review.queue.showing]
+text = "Showing {m} of {n} rows in the queue, on one page."
+[review.queue.tick]
+text = "Select {name}"
+[review.select.page]
+text = "Select this page"
+[review.select.all]
+text = "Select all {m} rows matching these filters"
+[review.select.count]
+text = "{n} rows selected"
+[review.select.clear]
+text = "Clear selection"
+[review.bulk.approve]
+text = "Approve as entered"
+[review.bulk.aside]
+text = "Set aside"
+[review.bulk.reopen]
+text = "Return to open"
+[review.bulk.keep_one]
+text = "Keep one of each person in each program"
+[review.keep_one.title]
+text = "Keep one per program?"
+[review.keep_one.plan]
+text = "Keep {k} rows and set {j} aside. The kept row's record key goes on the reason for each."
+claim = "CL-KEEP-ONE-PLAN-01"
+[review.keep_one.ok]
+text = "Keep them"
+[review.second.title]
+text = "Second reviewer"
+[review.second.prompt]
+text = "This is over 200 rows ({n}), so a second person must confirm. Type their name."
+[review.record.head]
+text = "{name} · {id}"
+[review.record.where]
+text = "{file}, row {n}, counted {counted}."
+[review.record.several]
+text = "This row has {n} problems."
+[review.record.means]
+text = "What the problem means"
+[review.record.location]
+text = "Location"
+[review.record.arrived]
+text = "The row as it arrived"
+[review.record.unmatched_count]
+text = "{n} columns on this row were never matched"
+[review.record.unmatched_out]
+text = "They stay out of every export."
+[review.record.show_alongside]
+text = "Show them alongside"
+[review.record.unmatched]
+text = "These values stay on this screen. They are in no download and no log."
+claim = "CL-UNMATCHED-SCREEN-01"
+[review.record.sharing]
+text = "{n} records share the identifier {id}"
+[review.record.open_row]
+text = "Open row {n}"
+[review.record.suggested]
+text = "Suggested: {fill}"
+[review.record.apply]
+text = "Apply and check again"
+[review.record.not_this]
+text = "Not this one"
+[review.open.button]
+text = "Open the source file"
+[review.open.title]
+text = "Open the source file?"
+[review.open.confirm_name]
+text = "Open {name} in the program Windows uses for it?"
+[review.open.confirm]
+text = "{product} sends nothing. Windows opens the file the way it does when you double-click it."
+claim = "CL-SHELL-OPEN-01"
+[review.open.ok]
+text = "Open it"
+[review.open.windows_only]
+text = "This works on Windows."
+[results.go_process]
+text = "Go to Process"
+[results.held]
+text = "The set-up changed after the last run, so these numbers could be wrong. Process again to see them."
+claim = "CL-STALE-HIDDEN-01"
+[results.hold_stale]
+text = "Held until you process again. The results are out of date."
+
+# Results (M12 section 3)
+
+[results.print_button]
+text = "Open a page to print or hand on"
+[results.continue]
+text = "Continue to the files"
+[results.held_title]
+text = "The results are held"
+[results.final]
+text = "Final. Nothing is left to decide."
+claim = "CL-FINAL-04"
+[results.partial]
+text = "Settled for the rows counted so far. {n} rows aren't counted yet."
+claim = "CL-FINAL-05"
+[results.pairs_open]
+text = "{n} pairs of records are still open, so both counts are ranges."
+[results.pairs_groups_open]
+text = "{n} pairs of records and {g} copy groups are still open, so both counts are ranges."
+[results.goal1.kicker]
+text = "GOAL 1"
+[results.goal1.title]
+text = "Unique clients"
+[results.goal1.body]
+text = "Every person counted once, however many systems they appear in."
+[results.goal2.kicker]
+text = "GOAL 2"
+[results.goal2.title]
+text = "Unique clients by program"
+[results.goal2.body]
+text = "The same person counted once in each program they take part in. Somebody in three programs counts once above and three times here."
+[results.until]
+text = "until {n} pairs are decided"
+[results.until_groups]
+text = "until {n} pairs and {g} copy groups are decided"
+[results.noprogram]
+text = "{n} people have no program recorded. They are counted in Goal 1 and not in Goal 2."
+claim = "CL-NOPROGRAM-PEOPLE-01"
+[results.no_program_file]
+text = "{file} has no program, so its {n} rows are not in Goal 2."
+[results.counted_from]
+text = "Counted from {a} rows. {b} rows aren't counted yet and {c} are set aside."
+[results.earlier]
+text = "{n} people were matched from earlier batches."
+[results.pairs.title]
+text = "{n} pairs of records may be the same person"
+[results.pairs.line]
+text = "The tool will not merge people on a guess, so the first count stays a range until you decide them. {a} links were joined on evidence that could not reasonably be coincidence, and {b} were confirmed by a person."
+[results.pairs.decide]
+text = "Decide them now"
+[results.pairs.needs]
+text = "NEEDS YOU"
+[results.pairs.decided]
+text = "DECIDED BY YOU"
+[results.pairs.was_same]
+text = "Decided: the same person."
+[results.pairs.was_different]
+text = "Decided: different people."
+[results.pairs.col.source]
+text = "SOURCE AND ROW"
+[results.pairs.col.name]
+text = "NAME"
+[results.pairs.col.dob]
+text = "DATE OF BIRTH"
+[results.pairs.col.address]
+text = "ADDRESS 1"
+[results.pairs.col.zip]
+text = "ZIP"
+[results.pairs.col.program]
+text = "PROGRAM"
+[results.pairs.col.id]
+text = "ID"
+[results.pairs.agrees]
+text = "What agrees"
+[results.pairs.check]
+text = "What to check"
+[results.pairs.second]
+text = "This joins more than 5 records, so a second person must confirm. Type their name."
+[results.joins.title]
+text = "Joined without asking"
+[results.joins.search]
+text = "Search by name, on this screen only"
+[results.joins.records]
+text = "{n} records"
+[results.joins.reason.same_system_id]
+text = "Same Client ID in one system, with name and date of birth agreeing"
+[results.joins.reason.four_exact_facts]
+text = "Date of birth, surname, given name and address all match exactly"
+[results.joins.reason.earlier_batch]
+text = "A person joined these in an earlier batch"
+[results.programs.title]
+text = "Where the people are"
+[results.programs.none]
+text = "No program recorded"
+[results.programs.note]
+text = "Counted by person. A person in three programs appears in three bars."
+[results.loc.title]
+text = "Locations"
+[results.loc.high]
+text = "Mapped, high confidence"
+[results.loc.low]
+text = "Mapped, low confidence"
+[results.loc.not_mapped]
+text = "Counted, no usable address"
+[results.noaddr]
+text = "These people are in both counts. They are not on the map."
+claim = "CL-NOADDR-COUNTED-01"
+[results.verified]
+text = "A weak match is never labeled fully verified."
+claim = "CL-VERIFIED-01"
+[results.people.title]
+text = "Each person, and the programs they count in"
+[results.people.col.person]
+text = "PERSON"
+[results.people.col.name]
+text = "NAME"
+[results.people.col.programs]
+text = "PROGRAMS"
+[results.people.col.counts_as]
+text = "COUNTS AS"
+[results.people.counts_as]
+text = "{n} in Goal 2"
+[results.people.more]
+text = "and {n} more, all included in the counts and in the download."
+[results.people.show]
+text = "Show the list"
+[results.print.title]
+text = "A page to print or hand on"
+[results.print.names]
+text = "Include file names"
+[results.print.pdf]
+text = "Save as PDF"
+[results.print.web]
+text = "Save as a web page"
+[results.print.pdf_filter]
+text = "PDF (*.pdf)"
+[results.print.web_filter]
+text = "Web page (*.html)"
+
+# Download (M12 section 4)
+
+[export.download]
+text = "Download {n} files"
+[export.hold.balance]
+text = "Held because the numbers do not add up."
+[export.hold.columns]
+text = "Held until at least one column is switched on."
+[hold.low]
+text = "Download is held until the Low confidence is ticked as seen."
+claim = "CL-HOLD-LOW-01"
+[export.band]
+text = "{counted} counted + {not_counted_yet} not counted yet + {aside} set aside = {received} rows received. The clean file, the rows marked Counted No in the review file, and the set-aside file add up to exactly this."
+claim = "CL-BALANCE-FILES-01"
+[export.format_label]
+text = "Format"
+[export.format.all_csv]
+text = "Use CSV for all"
+[export.format.all_xlsx]
+text = "Use Excel for all"
+[export.format.all_json]
+text = "Use JSON for all"
+[export.format.csv]
+text = "CSV"
+[export.format.xlsx]
+text = "Excel"
+[export.format.json]
+text = "JSON"
+[export.fixed]
+text = "{fmt}"
+[export.always]
+text = "ALWAYS WRITTEN"
+[export.file.size]
+text = "{rows} rows · {cols} columns"
+[export.file.final_clean_mapped]
+text = "Every counted row, with your fields, the count status, the location status and confidence, districts and where each row came from."
+[export.file.unique_clients]
+text = "One row per person, counted once however many systems they appear in. This is the first count."
+[export.file.unique_clients_by_program]
+text = "One row per person per program. A person in three programs appears three times. This is the second count."
+[export.file.manual_review_needed]
+text = "Every row with an open problem, with a Counted column, the reasons, and the failing fields only. Fix them and send the file back on Fix problems."
+[export.file.set_aside_records]
+text = "Every row set aside, each with its reason. Nothing is deleted. This is where it went."
+[export.file.map_counts]
+text = "Counts by district for each program, with no names, addresses or points. Any count from 1 to 10 is left blank and shown as \"fewer than 11\"."
+claim = "CL-SMALLCELL-01"
+[export.file.map_points]
+text = "One row per person and program, with a point moved 150 to 250 feet. Everyone at one building gets the same moved point. A moved point can sit across a district line from its district."
+claim = "CL-OFFSET-NOTE-01"
+[export.file.internal_audit_log]
+text = "Every change and decision, by record key, field name and reviewer. It holds file names and row numbers, so keep it inside your organization."
+[export.file.shareable_audit_log]
+text = "The same events with source letters only, no file names, no row numbers and different record keys."
+[export.file.data_quality_report]
+text = "One row per source table, with rows received, counted, not counted yet, set aside, mapped and each problem kind's count."
+[export.coords_box]
+text = "Exact coordinates, for internal use"
+[export.coords.note]
+text = "The clean file already holds addresses. With exact coordinates on, keep it inside your organization."
+claim = "CL-COORDS-INTERNAL-01"
+[export.map_points]
+text = "Write Map_Points"
+[export.columns.title]
+text = "Columns in the clean file"
+[export.columns.count]
+text = "{n} of {m} on"
+[export.columns.all]
+text = "all"
+[export.columns.none]
+text = "none"
+[export.columns.reset]
+text = "reset"
+[export.folder]
+text = "Choose a folder for the files"
+[export.synced.title]
+text = "This folder copies files to other computers"
+[export.synced.use]
+text = "Use this folder"
+[export.synced.other]
+text = "Choose another folder"
+[export.replace.title]
+text = "Replace these files?"
+[export.replace.q]
+text = "{n} files with these names are already in this folder. Replace them?"
+[export.replace.ok]
+text = "Replace"
+[export.write.in_use]
+text = "The file is open in another program."
+[export.write.disk_full]
+text = "The disk is full."
+[export.write.refused]
+text = "Windows would not allow it."
+[export.write.failed]
+text = "It could not be written."
+[export.receipt.title]
+text = "Download finished"
+[export.receipt.col.file]
+text = "FILE"
+[export.receipt.col.path]
+text = "FULL PATH"
+[export.receipt.col.rows]
+text = "ROWS"
+[export.receipt.col.cols]
+text = "COLUMNS"
+[export.receipt.col.time]
+text = "TIME"
+[export.receipt.nothing]
+text = "Nothing else was written."
+claim = "CL-RECEIPT-ONLY-01"
+[export.receipt.changed]
+text = "The results have changed since these files were written."
+[export.receipt.copy]
+text = "Copy the receipt"
+[export.receipt.again]
+text = "Download again"
+[export.footer.before]
+text = "Nothing has been written yet."
+claim = "CL-RECEIPT-ONLY-02"
+[export.footer.after]
+text = "Your own files were not changed. {product} wrote only the files listed here."
