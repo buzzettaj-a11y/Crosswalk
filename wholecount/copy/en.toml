@@ -359,3 +359,103 @@ text = "{done} of {total} addresses looked up"
 
 [progress.found.placing_addresses]
 text = "{placed} of {looked_up} addresses placed"
+
+# Copies and the same person (P-DUP, P-ID). The engine returns codes; these are the sentences.
+
+[people.evidence.dob_exact]
+text = "Date of birth matches exactly."
+claim = "CL-ID-EV-01"
+
+[people.evidence.dob_swapped]
+text = "Day and month of birth are the other way round."
+claim = "CL-ID-EV-02"
+
+[people.evidence.dob_one_digit]
+text = "Dates of birth differ by one digit."
+claim = "CL-ID-EV-03"
+
+[people.evidence.dob_differs]
+text = "Dates of birth don't match."
+claim = "CL-ID-EV-04"
+
+[people.evidence.surname_exact]
+text = "Surname matches."
+claim = "CL-ID-EV-05"
+
+[people.evidence.surname_part]
+text = "Part of a double surname matches."
+claim = "CL-ID-EV-06"
+
+[people.evidence.names_swapped]
+text = "Given name and surname look like they're in opposite columns."
+claim = "CL-ID-EV-07"
+
+[people.evidence.given_exact]
+text = "Given name matches."
+claim = "CL-ID-EV-08"
+
+[people.evidence.given_nickname]
+text = "Given names are forms of the same name, like Bob and Robert."
+claim = "CL-ID-EV-09"
+
+[people.evidence.given_initial]
+text = "Only an initial is recorded for the given name, and it matches."
+claim = "CL-ID-EV-10"
+
+[people.evidence.address_exact]
+text = "Address matches, including the street type and ZIP."
+claim = "CL-ID-EV-11"
+
+[people.evidence.zip_only]
+text = "Only the ZIP matches, not the street address."
+claim = "CL-ID-EV-12"
+
+[people.evidence.same_system_id]
+text = "Same Client ID in the same system, with the same name and date of birth."
+claim = "CL-ID-EV-13"
+
+[people.evidence.same_system_id_differs]
+text = "Same Client ID in the same system, but the details differ. A reviewer kept them as two records."
+claim = "CL-ID-EV-14"
+
+[people.evidence.suffix_differs]
+text = "One name has a suffix like Jr or Sr and the other doesn't, or they differ. This could be a parent and child."
+claim = "CL-ID-EV-15"
+
+[people.evidence.rare_name]
+text = "This name is rare in this batch, so a name match counts for a little more."
+claim = "CL-ID-EV-16"
+
+[people.join.same_system_id]
+text = "Joined because they share a Client ID in one system, with the same name and date of birth."
+claim = "CL-ID-JOIN-01"
+
+[people.join.four_exact_facts]
+text = "Joined because date of birth, surname, given name and full address all match exactly."
+claim = "CL-ID-JOIN-02"
+
+[people.join.earlier_batch]
+text = "Joined because they were the same person in an earlier batch. You can split them."
+claim = "CL-ID-JOIN-03"
+
+[people.band.likely]
+text = "Likely the same person"
+
+[people.band.possible]
+text = "Possibly the same person"
+
+[copies.cause.identical]
+text = "These rows are identical in every field. Keep one."
+claim = "CL-DUP-01"
+
+[copies.cause.possible]
+text = "These rows have the same name and date of birth, or the same name and address, in one file. They may be copies."
+claim = "CL-DUP-02"
+
+[copies.cause.same_id_different]
+text = "One Client ID is used for rows with different names or dates of birth in one system."
+claim = "CL-DUP-03"
+
+[copies.open_rows_counted]
+text = "While this is open, every row stays counted, and the people count shows a range."
+claim = "CL-DUP-04"

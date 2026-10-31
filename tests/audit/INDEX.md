@@ -9,7 +9,7 @@ A finding listed under more than one milestone names every test that closes it. 
 | A-02 | High | M09 | arrives in M09 | pending |
 | A-03 | High | M09 | arrives in M09 | pending |
 | A-04 | High | M09 | arrives in M09 | pending |
-| A-05 | High | M06 | arrives in M06 | pending |
+| A-05 | High | M06 | `tests/audit/test_A05_same_id_merge.py` | done |
 | A-06 | High | M08 | arrives in M08 | pending |
 | A-07 | High | M08 | arrives in M08 | pending |
 | A-08 | High | M09 | arrives in M09 | pending |
@@ -65,10 +65,10 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-33 | Medium | M03 | `tests/audit/test_B33_middle_initial_placeholders.py` | done |
 | B-34 | Medium | M05 | `tests/audit/test_B34_fill_proposals.py` | done |
 | B-35 | Medium | M05 | `tests/audit/test_B35_verified_label.py` | done |
-| B-36 | Medium | M06 | arrives in M06 | pending |
-| B-37 | Medium | M06 | arrives in M06 | pending |
-| B-38 | Medium | M06 | arrives in M06 | pending |
-| B-39 | Medium | M06 | arrives in M06 | pending |
+| B-36 | Medium | M06 | `tests/audit/test_B36_same_id_across_files.py` | done |
+| B-37 | Medium | M06 | `tests/audit/test_B37_identical_record.py` | done |
+| B-38 | Medium | M06 | `tests/audit/test_B38_saved_copy_decision.py` | done |
+| B-39 | Medium | M06 | `tests/audit/test_B39_accent_folding.py` | done |
 | B-40 | Medium | M07 | arrives in M07 | pending |
 | B-41 | Low | M04 | `tests/audit/test_B41_marble_hill.py` | done |
 | B-42 | Low | M03 | `tests/audit/test_B42_rear_and_front.py` | done |
@@ -76,11 +76,11 @@ A finding listed under more than one milestone names every test that closes it. 
 | B-44 | Low | M04 | `tests/audit/test_B44_summary_surnames.py` | done |
 | B-45 | Low | M05 | `tests/audit/test_B45_early_failure_offset.py` | done |
 | B-46 | Low | M05 | `tests/audit/test_B46_district_note.py` | done |
-| B-47 | Low | M06 | arrives in M06 | pending |
+| B-47 | Low | M06 | `tests/audit/test_B47_default_copy_rule.py` | done |
 | B-48 | Low | M02 | `tests/audit/test_B48_last_visit.py` | done |
 | B-49 | Low | M02 | `tests/audit/test_B49_address_line_2.py` | done |
-| C-01 | High | M06 | arrives in M06 | pending |
-| C-02 | High | M06 | arrives in M06 | pending |
+| C-01 | High | M06 | `tests/audit/test_C01_auto_join_score.py` | done |
+| C-02 | High | M06 | `tests/audit/test_C02_same_system_id.py` | done |
 | C-03 | High | M08 | arrives in M08 | pending |
 | C-04 | High | M08 | arrives in M08 | pending |
 | C-05 | High | M07 | arrives in M07 | pending |
@@ -95,14 +95,14 @@ A finding listed under more than one milestone names every test that closes it. 
 | C-14 | Medium | M08 | arrives in M08 | pending |
 | C-15 | Medium | M08 | arrives in M08 | pending |
 | C-16 | Medium | M08 | arrives in M08 | pending |
-| C-17 | Medium | M06 | arrives in M06 | pending |
+| C-17 | Medium | M06 | `tests/audit/test_C17_client_id_scope.py` | done |
 | C-18 | Medium | M08 | arrives in M08 | pending |
 | C-19 | Medium | M07 | arrives in M07 | pending |
-| C-20 | Medium | M06 | arrives in M06 | pending |
-| C-21 | Medium | M06 | arrives in M06 | pending |
+| C-20 | Medium | M06 | `tests/audit/test_C20_master_id_stability.py` | done |
+| C-21 | Medium | M06 | `tests/audit/test_C21_identity_verdict_audit.py` | done |
 | C-22 | Medium | M09 | arrives in M09 | pending |
 | C-23 | Medium | M01 | `tests/audit/test_C23_blank_line_and_comma_row.py` | done |
-| C-24 | Medium | M06 | arrives in M06 | pending |
+| C-24 | Medium | M06 | `tests/audit/test_C24_address_key.py` | done |
 | C-25 | Low | M05 | `tests/audit/test_C25_shared_stream.py` | done |
 | C-26 | Low | M09 | arrives in M09 | pending |
 | C-27 | Low | M09 | arrives in M09 | pending |
