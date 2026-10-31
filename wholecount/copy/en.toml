@@ -1828,7 +1828,7 @@ text = "Export to a file"
 [setups.import]
 text = "Import from a file"
 [setups.filter]
-text = "Wholecount set-up (*.json)"
+text = "{product} set-up (*.json)"
 
 # Add your files (M11 section 1)
 
@@ -1885,7 +1885,7 @@ claim = "CL-DROP-WORKS-01"
 [src.drop.not_local]
 text = "Only files on this computer can be added."
 [src.drop.network_address]
-text = "Wholecount cannot open files by network address. Map the share to a drive letter, or copy the file to this computer."
+text = "{product} cannot open files by network address. Map the share to a drive letter, or copy the file to this computer."
 claim = "CL-DROP-UNC-01"
 
 [src.example_loaded]
@@ -1911,14 +1911,14 @@ claim = "CL-SENSITIVE-KEEP-01"
 [src.sensitive.keep]
 text = "Keep it"
 [src.network_drive]
-text = "{name} is on a network drive. Wholecount reads it once into memory and never writes there. Copy it to this computer if the drive is slow."
+text = "{name} is on a network drive. {product} reads it once into memory and never writes there. Copy it to this computer if the drive is slow."
 [src.corrections_file]
 text = "{name} is a corrections file, not a source. It is applied on Fix problems, by Record_Key."
 claim = "CL-CORRECTIONS-RECOGNIZED-02"
 [src.resume]
 text = "Resume"
 [src.resume_pick]
-text = "Add the same files again. Wholecount matches them by their contents, because no rows are saved."
+text = "Add the same files again. {product} matches them by their contents, because no rows are saved."
 claim = "CL-RESUME-MATCH-01"
 [src.resume_changed]
 text = "{name} has changed since it was saved. Your decisions are applied again by record key, and anything that no longer fits is listed on Fix problems under No longer apply."
@@ -1928,7 +1928,7 @@ text = "Delete saved progress"
 [src.systems.title]
 text = "Which files come from the same system?"
 [src.systems.body]
-text = "Two exports from one system, for example two ETO exports, share one set of Client IDs. Wholecount looks for the same Client ID within one system, never across systems."
+text = "Two exports from one system, for example two ETO exports, share one set of Client IDs. {product} looks for the same Client ID within one system, never across systems."
 claim = "CL-SYSTEMS-01"
 [src.systems.own]
 text = "Its own system"
