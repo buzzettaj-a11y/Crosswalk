@@ -1,0 +1,13 @@
+# Every user-facing sentence in Wholecount's window, one table per key (H11).
+#
+# Each table has `text` and, for a sentence that states a fact about behavior, a `claim` ID of the form CL-<AREA>-<NN>.
+# Every claim ID needs at least one test marked @pytest.mark.claim("<ID>"), and tests/copy/test_claims_have_tests.py checks it.
+# Write {product} where the product name goes. Never write the name itself. Numbers are passed as int parameters and get
+# thousands separators. Wording follows H16: American spelling, plain words, no em dashes, emoji or exclamation marks.
+
+[app.version_line]
+text = "{product} {version}"
+
+[offline.nothing_leaves]
+text = "Nothing leaves this computer."
+claim = "CL-OFFLINE-01"

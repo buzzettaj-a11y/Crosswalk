@@ -1,0 +1,10 @@
+# Development and test tools. Never shipped.
+# Every runtime pin is held at the same version as requirements.lock.
+-c requirements.lock
+-r requirements.in
+pytest
+pytest-qt
+hypothesis
+pefile
+# colorama has no marker on purpose: a Linux compile drops Windows-only markers, and pytest needs it on Windows.
+colorama
