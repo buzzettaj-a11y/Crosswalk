@@ -29,6 +29,7 @@ def test_scanned_docs_include_milestones_and_test_docs():
     rels = {p.relative_to(ROOT).as_posix() for p in scanned_docs()}
     assert "docs/milestones/M00-foundation.md" in rels
     assert "tests/HARD_RULES.md" in rels and "tests/audit/INDEX.md" in rels
+    assert "docs/IT_TRUST.md" in rels and "docs/SIGNING.md" in rels
 
 
 def test_negative_controls_on_a_temp_registry(tmp_path):

@@ -7,3 +7,12 @@ dist/
 *.egg-info/
 .pytest_cache/
 .hypothesis/
+# M14: signing keys, per-machine signing settings, generated sandbox files and build output
+*.pfx
+*.p12
+tools/signing.local.json
+tools/sandbox/*.wsb
+Output/
+build/wholecount/
+build/version_info.txt
+build/wholecount.ico

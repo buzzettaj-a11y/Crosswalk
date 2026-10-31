@@ -1,0 +1,6 @@
+Qt for Python (PySide6-Essentials and shiboken6)
+
+Wholecount uses Qt for Python under the GNU Lesser General Public License version 3 (LGPL 3).
+The Qt libraries are separate files in the _internal folder of this installation, so you may replace them with your own
+build of the same version. The Qt source code is available from The Qt Company and the Qt Project. Ask the publisher of
+this copy of Wholecount if you want a copy of the source for the version shipped here.

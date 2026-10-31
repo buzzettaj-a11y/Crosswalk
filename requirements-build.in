@@ -1,0 +1,8 @@
+# Build tools for M14. Never shipped, but they write what is shipped, so they get a hashed lock (research 8.2).
+# Every distribution the lock resolves must be in APPROVED_DISTS, APPROVED_DEV_DISTS or APPROVED_BUILD_DISTS in
+# tools/offline_rules.py. Installed beside requirements-dev.lock, so its shared pins are held at the same versions.
+-c requirements-dev.lock
+pyinstaller
+# Windows-only dependencies of PyInstaller, named without markers on purpose: a Linux compile drops Windows-only markers.
+pefile
+pywin32-ctypes

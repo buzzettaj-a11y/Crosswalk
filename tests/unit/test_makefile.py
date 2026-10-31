@@ -2,6 +2,7 @@
 import re
 import shutil
 import subprocess
+import sys
 
 import pytest
 
@@ -19,11 +20,23 @@ def test_targets_exist():
 
 
 @needs_make
-@pytest.mark.parametrize("target,milestone", [("bundle", "M14")])
-def test_stubs_exit_1_and_name_their_milestone(target, milestone):
+@pytest.mark.skipif(sys.platform == "win32", reason="these are the real targets on Windows")
+@pytest.mark.parametrize("target", ["installer", "sign", "release"])
+def test_windows_only_targets_fail_elsewhere(target):
+    """M14: installer, sign and release are Windows only. Elsewhere they say so and exit 1, so a stub never looks green."""
     p = subprocess.run(["make", "-s", target], cwd=ROOT, capture_output=True, text=True, timeout=30)
     assert p.returncode != 0
-    assert f"arrives in {milestone}" in p.stdout
+    assert "Windows only" in p.stdout
+
+
+@needs_make
+def test_bundle_builds_and_checks():
+    p = subprocess.run(["make", "-n", "bundle"], cwd=ROOT, capture_output=True, text=True, timeout=30)
+    assert p.returncode == 0, p.stderr
+    # Under make test, make -n also prints its own "make[1]: Entering/Leaving directory" lines.
+    lines = [ln.strip() for ln in p.stdout.splitlines() if not ln.startswith("make")]
+    assert "python -m PyInstaller --noconfirm --clean --distpath dist --workpath build build/wholecount.spec" in lines
+    assert lines[-1] == "python tools/check_bundle.py dist/Wholecount build/wholecount"
 
 
 @needs_make

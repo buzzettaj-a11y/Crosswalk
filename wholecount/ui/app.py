@@ -39,7 +39,11 @@ def build(argv=None):
     from wholecount.ui.frame.window import MainWindow
     from wholecount.ui.theme import apply
 
-    app = QApplication.instance() or QApplication(list(argv or sys.argv))
+    # Only the program name reaches Qt, so no Qt switch can arrive on the command line (research 3.3).
+    app = QApplication.instance() or QApplication([sys.argv[0]])
+    from wholecount import crash
+
+    crash.install()              # M14: one box with the error code; nothing logged to disk (A-15)
     apply.apply_theme(app)
     secret_ok = True
     try:

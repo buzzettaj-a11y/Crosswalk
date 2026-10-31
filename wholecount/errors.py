@@ -15,10 +15,24 @@ def safe_error_text(exc):
     return copy.get("errors.safe_text", kind=type(exc).__name__, module=module, line=last.lineno if last else 0)
 
 
+_HANDLERS = []          # M14: crash.py adds the window's message box here. Each gets the exception and returns nothing.
+
+
+def add_handler(fn):
+    if fn not in _HANDLERS:
+        _HANDLERS.append(fn)
+
+
 def _hook(exc_type, exc, tb):
     if exc is not None and exc.__traceback__ is None:
         exc.__traceback__ = tb
-    sys.__stderr__.write(safe_error_text(exc) + "\n")
+    if sys.__stderr__ is not None:          # None in a windowed exe (console=False)
+        sys.__stderr__.write(safe_error_text(exc) + "\n")
+    for fn in list(_HANDLERS):
+        try:
+            fn(exc)
+        except Exception:  # noqa: BLE001  a failing handler must never hide the first fault
+            pass
 
 
 def install_excepthook():

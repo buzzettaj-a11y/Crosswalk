@@ -1,0 +1,110 @@
+# Windows build, install and test (M14 section 7, SPEC 13.6). Joe chose to run this job only by hand (workflow_dispatch),
+# because the hosted Windows runner downloads its tools from the internet. Start it from Actions, windows, Run workflow.
+# The Linux job in ci.yml runs on every push. No secrets: CI signs with a one-day certificate made in the run.
+name: windows
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      WHOLECOUNT_REQUIRE_WINDOWS_TESTS: "1"
+      WHOLECOUNT_REQUIRE_BUNDLE: "1"
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Python build and runner facts
+        run: |
+          python -VV
+          $admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+          $os = (Get-CimInstance Win32_OperatingSystem).Caption + " " + [Environment]::OSVersion.Version
+          "Elevated: $admin" | Tee-Object -Append $env:GITHUB_STEP_SUMMARY
+          "Windows: $os" | Tee-Object -Append $env:GITHUB_STEP_SUMMARY
+          if (-not $admin) { throw "The runner is not elevated, so the install and firewall tests cannot run" }
+
+      - name: Install the dev and build locks
+        run: |
+          python -m pip install --require-hashes --no-deps --only-binary=:all: -r requirements-dev.lock
+          python -m pip install --require-hashes --no-deps --only-binary=:all: -r requirements-build.lock
+
+      - name: Compare the locks with a Windows resolve
+        run: |
+          python -m pip download --platform win_amd64 --python-version 3.12 --implementation cp --abi cp312 --only-binary=:all: --require-hashes -r requirements-dev.lock -d "$env:RUNNER_TEMP\wheels"
+          python -m pip download --platform win_amd64 --python-version 3.12 --implementation cp --abi cp312 --only-binary=:all: --require-hashes -r requirements-build.lock -d "$env:RUNNER_TEMP\wheels"
+
+      - name: Locate Inno Setup
+        run: |
+          $iscc = @("${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe", "$env:ProgramFiles\Inno Setup 6\ISCC.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $iscc) { throw "Inno Setup 6 is not on this runner image. Read the image's software list and pin a version." }
+          "ISCC=$iscc" | Out-File -Append $env:GITHUB_ENV -Encoding utf8
+
+      - name: Build and test the bundle
+        run: |
+          .\tools\build.ps1 -NoInstaller
+          "WHOLECOUNT_DIST=$((Resolve-Path dist\Wholecount).Path)" | Out-File -Append $env:GITHUB_ENV -Encoding utf8
+          "WHOLECOUNT_BUILD=$((Resolve-Path build\wholecount).Path)" | Out-File -Append $env:GITHUB_ENV -Encoding utf8
+
+      - name: Frozen self-check
+        run: |
+          $p = Start-Process dist\Wholecount\Wholecount.exe -ArgumentList "--self-check --self-check-out out\selfcheck" -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "self-check exit $($p.ExitCode)" }
+          python -c "import json,sys; d=json.load(open('out/selfcheck/result.json')); bad=[k for k,v in d['checks'].items() if v!='ok']; print(bad); sys.exit(1 if bad else 0)"
+
+      - name: PE network import report
+        run: python tools\pe_net_imports.py dist\Wholecount | Tee-Object out\pe-report.txt
+
+      - name: Make the CI certificate, build and sign the installer
+        id: cert
+        run: |
+          .\tools\make_cert.ps1 -Ci
+
+      - name: Sign and compile
+        run: |
+          $thumb = "${{ steps.cert.outputs.thumbprint }}"
+          $cer = "${{ steps.cert.outputs.cer }}"
+          Import-Certificate -FilePath $cer -CertStoreLocation Cert:\LocalMachine\Root | Out-Null
+          Import-Certificate -FilePath $cer -CertStoreLocation Cert:\LocalMachine\TrustedPublisher | Out-Null
+          .\tools\sign.ps1 -Path dist\Wholecount\Wholecount.exe -Thumbprint $thumb
+          $sign = "pwsh -NoProfile -File `"$((Resolve-Path tools\sign.ps1).Path)`" -Thumbprint $thumb -Path `$f"
+          $version = python -c "from wholecount.brand import VERSION; print(VERSION)"
+          & $env:ISCC "/DAppVersion=$version" "/DSignIt" "/Swholecountsign=$sign" installer\wholecount.iss
+          if ($LASTEXITCODE -ne 0) { throw "ISCC failed" }
+          $setup = Get-ChildItem Output\Wholecount-Setup-*.exe | Select-Object -First 1
+          .\tools\sign.ps1 -Path $setup.FullName -Thumbprint $thumb
+          (Get-FileHash $setup.FullName -Algorithm SHA256).Hash | Out-File "$($setup.FullName).sha256" -Encoding ascii
+          Copy-Item $cer Output\
+
+      - name: Windows tests
+        run: python -m pytest tests_windows -m windows -rs --junitxml=out\junit.xml
+
+      - name: Upload the installer
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wholecount-installer
+          path: |
+            Output/Wholecount-Setup-*.exe
+            Output/*.sha256
+            Output/*.cer
+
+      - name: Upload the reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wholecount-reports
+          path: |
+            out/
+            Output/install.log

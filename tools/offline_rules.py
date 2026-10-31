@@ -46,6 +46,12 @@ APPROVED_DEV_DISTS = frozenset({
     "typing-extensions",
 })
 
+# Build tools in requirements-build.lock that are not already approved (M14, approved by Joe). Never shipped: they run on the
+# developer's machine or the Windows runner and write the shipped folder. pefile and packaging are already dev tools.
+APPROVED_BUILD_DISTS = frozenset({
+    "altgraph", "pyinstaller", "pyinstaller-hooks-contrib", "pywin32-ctypes", "setuptools",
+})
+
 # os.startfile is forbidden everywhere except this one file, which opens a source file the operator added (SPEC 12.6).
 STARTFILE_EXEMPT = ("wholecount/ui/shell.py",)
 

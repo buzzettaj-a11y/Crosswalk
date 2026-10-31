@@ -11,8 +11,17 @@ def main(argv=None):
     import sys
 
     argv = sys.argv[1:] if argv is None else argv
+    if "--self-check" in argv:
+        # M14: the only command line option besides --version, handled before any window.
+        from wholecount.selfcheck import SelfCheckRefused, main as self_check
+
+        try:
+            return self_check(argv)
+        except SelfCheckRefused:
+            return 2
     if "--version" in argv:
-        print(copy.get("app.version_line", version=VERSION))
+        if sys.stdout is not None:
+            print(copy.get("app.version_line", version=VERSION))
         return 0
     from wholecount.ui.app import run
 

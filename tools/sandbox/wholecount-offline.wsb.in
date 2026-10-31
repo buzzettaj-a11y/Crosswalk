@@ -1,0 +1,19 @@
+<Configuration>
+  <Networking>Disable</Networking>
+  <vGPU>Disable</vGPU>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>@INSTALLER_DIR@</HostFolder>
+      <SandboxFolder>C:\Wholecount\in</SandboxFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+    <MappedFolder>
+      <HostFolder>@RESULTS_DIR@</HostFolder>
+      <SandboxFolder>C:\Wholecount\results</SandboxFolder>
+      <ReadOnly>false</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>powershell.exe -ExecutionPolicy Bypass -File C:\Wholecount\in\sandbox_run.ps1</Command>
+  </LogonCommand>
+</Configuration>

@@ -3584,3 +3584,13 @@ text = "ZIP"
 text = "System"
 [matching.field.blank]
 text = "blank"
+
+[crash.title]
+text = "{product} stopped"
+[crash.message]
+text = "{product} stopped because of a fault in the program. Error code {code}. Nothing was written, and your own files were not changed."
+claim = "CL-CRASH-01"
+[crash.copy]
+text = "Copy the error code"
+[crash.close]
+text = "Close"

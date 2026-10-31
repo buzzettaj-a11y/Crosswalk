@@ -1,4 +1,4 @@
-# Linux checks for every milestone (M00). The Windows job arrives in M14.
+# Linux checks for every milestone (M00). The Windows job is windows.yml, started by hand (M14).
 name: ci
 
 on:
@@ -36,6 +36,21 @@ jobs:
 
       - name: make copy
         run: make copy
+
+      # M14: the spec's logic on Linux. WHOLECOUNT_REQUIRE_BUNDLE makes the bundle tests fail rather than skip.
+      - name: Install the build lock
+        run: >
+          python -m pip install --require-hashes --no-deps --only-binary=:all: -r requirements-build.lock
+
+      - name: make bundle and the bundle tests
+        env:
+          WHOLECOUNT_REQUIRE_BUNDLE: "1"
+          WHOLECOUNT_DIST: dist/Wholecount
+          WHOLECOUNT_BUILD: build/wholecount
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          make bundle
+          python -m pytest -q tests/bundle
 
       # The only step that needs the network: it proves every runtime pin has a Windows wheel whose hash is in the lock.
       - name: Download the runtime lock for Windows
