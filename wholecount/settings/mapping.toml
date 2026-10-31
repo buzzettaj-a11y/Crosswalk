@@ -1,0 +1,66 @@
+# Auto-mapping by meaning, not file order (P-MAP-1, P-MAP-8). Scoring is by column name only.
+#
+# Headers are split into lowercase word tokens: on anything that isn't a letter or digit, between a lowercase and an uppercase
+# letter (FirstName), and between letters and digits (Address1). Synonyms and phrases are compared the same way.
+#
+#   100  the header is the field's name or label
+#    90  the header is a synonym
+#    60  the header holds a contiguous run of one of the field's phrases, and every other word is an allowed extra
+#
+# A word from the field's deny group excludes the column. A penalty word subtracts 40 from address fields, so a mailing
+# address loses to a home address but is still offered when it is the only one (P-MAP-8). A bare word like "first" matches
+# only as the whole header, because bare words are synonyms, never phrases.
+
+[allowed_extras]
+all = ["client", "patient", "participant", "consumer", "resident", "member", "legal", "current", "primary"]
+address = ["home", "residential", "residence", "street", "of", "the", "address"]
+
+[deny]
+person_fields = ["emergency", "contact", "guardian", "parent", "caseworker", "staff", "employer", "landlord", "provider", "referral", "spouse", "partner", "kin", "teacher", "doctor", "physician", "counselor", "supervisor", "manager", "worker"]
+address_fields = ["emergency", "contact", "employer", "work", "birth", "previous", "prior", "former", "school", "landlord", "provider", "agency", "site"]
+name_fields = ["visit", "visited", "seen", "date", "time", "dob", "birth", "created", "updated", "modified"]
+client_id = ["program", "case", "household", "parent", "provider", "site", "grant", "contract", "agency", "enrollment", "service", "order"]
+program = ["id", "identifier", "code", "number", "num", "no", "key", "uid", "date", "start", "end", "time"]
+
+[penalty]
+mailing = ["mailing", "billing"]
+
+[synonyms]
+First_Name = ["first_name", "firstname", "f_name", "fname", "first", "given_name", "givenname", "given", "forename"]
+Middle_Initial = ["middle_initial", "middle", "mi", "m_name", "middle_name", "mid_init"]
+Last_Name = ["last_name", "lastname", "l_name", "lname", "last", "surname", "family_name", "familyname", "family"]
+Client_ID = ["client_id", "eto_client_id", "ehr_id", "patientnumber", "patient_number", "system_id", "participant_id", "uid", "pid", "id", "client_number", "clientnumber", "record_id"]
+Address_1 = ["address_1", "addr1", "address", "street", "full_address", "address_line", "street_address", "address_line_1"]
+Address_2 = ["address_2", "addr2", "address_line_2", "street_address_2", "apt", "unit", "suite", "apartment"]
+City = ["city", "borough", "town"]
+State = ["state", "st"]
+Zip = ["zip", "zipcode", "zip_code", "postal", "postalcode", "postal_code"]
+Program = ["program", "program_name", "programname", "program_type", "program_area", "service_area", "svc_area", "service_type", "svc_type", "service", "svc", "activity", "activity_name", "enrollment_type", "project_name", "service_category", "program_category", "prog", "prog_name"]
+Date_of_Birth = ["dob", "date_of_birth", "birth_date", "birthdate", "birthday"]
+
+[phrases]
+First_Name = [["first", "name"], ["given", "name"]]
+Middle_Initial = [["middle", "initial"], ["middle", "name"]]
+Last_Name = [["last", "name"], ["family", "name"]]
+Client_ID = [["client", "id"], ["id"], ["client", "number"]]
+Address_1 = [["street", "address"], ["address", "line", "1"], ["address"]]
+Address_2 = [["address", "line", "2"], ["address", "2"], ["apt"], ["unit"], ["apartment"], ["suite"]]
+City = [["city"], ["borough"]]
+State = [["state"]]
+Zip = [["zip"], ["zip", "code"], ["postal", "code"]]
+Program = [["program"], ["program", "name"]]
+Date_of_Birth = [["date", "of", "birth"], ["birth", "date"]]
+
+# A column a tidy-up step made is named after its source column plus one of these suffixes (M03). The suffix says which field
+# it fills, at the synonym score.
+[derived_suffix]
+first = "First_Name"
+middle = "Middle_Initial"
+mi = "Middle_Initial"
+last = "Last_Name"
+street = "Address_1"
+address2 = "Address_2"
+unit = "Address_2"
+city = "City"
+state = "State"
+zip = "Zip"

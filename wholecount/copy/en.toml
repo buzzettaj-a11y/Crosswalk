@@ -120,3 +120,104 @@ text = "Dropped at load: {columns} columns whose names or values suggest sensiti
 
 [progress.file_count]
 text = "{done} of {total} files"
+
+# Match your columns (P-MAP). These sentences state computed facts about the data, so they take no claim ID.
+
+[mapping.check.col_ok]
+text = "Looks right."
+
+[mapping.check.col_empty_ok]
+text = "Always empty in this file, which is fine for this field."
+
+[mapping.check.col_empty]
+text = "This column is empty on every row, so this field will be blank throughout."
+
+[mapping.check.col_mostly_empty]
+text = "Only about {percent}% of rows have a value here. The rest would be missing this field."
+
+[mapping.check.col_low_fill]
+text = "Only about {percent}% of rows have a value here."
+
+[mapping.check.col_address1_dates]
+text = "These are dates, not street addresses."
+
+[mapping.check.col_address1_not_streets]
+text = "These don't look like street addresses. A street is a house number followed by a street name."
+
+[mapping.check.col_address1_mostly_units]
+text = "These look like apartment or floor numbers rather than streets. This column probably belongs in Address 2."
+
+[mapping.check.col_address1_digits_only]
+text = "These are only numbers, with no street name. An address needs both."
+
+[mapping.check.col_address1_no_house_number]
+text = "Most of these have no house number, so they may not be placed on the map."
+
+[mapping.check.col_zip_lost_zero]
+text = "Most of these are four digits. A ZIP has five, so these have probably lost a leading zero."
+
+[mapping.check.col_zip_not_zips]
+text = "These don't look like ZIP codes. A ZIP is five digits."
+
+[mapping.check.col_state_not_two_letters]
+text = "A state should be two letters, such as NY."
+
+[mapping.check.col_city_has_digits]
+text = "Cities shouldn't contain numbers. This column may hold addresses rather than city names."
+
+[mapping.check.col_city_many_values]
+text = "There are {distinct} different values here, and few are boroughs. Check that this is a city column."
+
+[mapping.check.col_name_looks_like_address]
+text = "These look like addresses rather than names. The columns may be matched one across."
+
+[mapping.check.col_name_has_digits]
+text = "Names shouldn't contain numbers."
+
+[mapping.check.col_name_mostly_one_value]
+text = "About {percent}% of rows have the same value here, which a name column rarely does."
+
+[mapping.check.col_middle_full_names]
+text = "These are full middle names. Only the first letter is kept, so check that's what you want."
+
+[mapping.check.col_id_repeats]
+text = "Most rows share an identifier, so it can't tell people apart. The most common one appears {times} times."
+
+[mapping.check.col_program_looks_like_dates]
+text = "These are dates, not program names. The count by program needs names."
+
+[mapping.check.col_program_looks_like_codes]
+text = "These are numbers, which look like program codes rather than names. The count by program needs names."
+
+[mapping.check.col_address2_mostly_streets]
+text = "These look like streets, not apartment or floor numbers. Check whether this column belongs in Address 1."
+
+[mapping.check.col_address2_not_units]
+text = "These don't look like apartment or floor numbers. Check what this column holds."
+
+[mapping.better_column]
+text = "The column {column} looks like it holds this field. Choose it instead."
+
+[mapping.question_tie]
+text = "Two or more columns fit {field} equally well. Choose one."
+
+[map.block.missing_required]
+text = "{field} has no column in this table, so the table can't be processed yet."
+
+[map.block.missing_client_id_or_dob]
+text = "This table has no Client ID column and no Date of Birth column. Map one of them so its rows can be counted."
+
+[map.block.ssn_shaped_id]
+text = "These identifiers look like Social Security numbers. Map a different identifier, or drop this column."
+
+[map.custom_required_no_column]
+text = "{field} is required but has no column in this table. Each row will be listed for a check."
+
+[map.date_order_question]
+text = "This table writes dates as month/day or day/month? {month_first} values can only be month/day, {day_first} can only be day/month, and {either} could be either."
+
+[map.date_both_ways]
+text = "Dates in this column are written both ways."
+
+[map.two_digit_rule_question]
+text = "Two-digit years up to {pivot} mean the 2000s, otherwise the 1900s."

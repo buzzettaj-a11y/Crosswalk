@@ -8,7 +8,7 @@ from tests.conftest import ROOT
 from tests.support.guarded import run_guarded
 from wholecount import brand
 
-LINE_RE = re.compile(r"^[a-z_]+( [A-Z]+)? [0-9,]+$")
+LINE_RE = re.compile(r"^[a-z_]+( [A-Z]+(\.[0-9]+)?)?( [A-Z][A-Za-z_]+)? [0-9,]+$")
 
 
 def test_printer_takes_closed_labels_ints_and_source_letters_only():
@@ -26,14 +26,16 @@ def test_printer_takes_closed_labels_ints_and_source_letters_only():
         attempt('word scope', lambda: dev.emit(dev.CountLabel.PINS_RUNTIME, 1, scope='clients', out=buf))
         attempt('digit scope', lambda: dev.emit(dev.CountLabel.PINS_RUNTIME, 1, scope='1', out=buf))
         attempt('lower scope', lambda: dev.emit(dev.CountLabel.PINS_RUNTIME, 1, scope='b', out=buf))
+        attempt('header as field', lambda: dev.emit(dev.CountLabel.PINS_RUNTIME, 1, scope='A.1', field='Full Address', out=buf))
+        dev.emit(dev.CountLabel.REQUIRED_UNMAPPED, 1, scope='A.2', field='First_Name', out=buf)
         out['after'] = len(buf.getvalue().splitlines())
     """, install="[]")
     assert r.pop("lines") == ["pins_runtime 1,234,567", "guard_violations B 0"]
-    assert r.pop("after") == 2
+    assert r.pop("after") == 3
     assert r == {
         "str value": "other:TypeError", "bool value": "other:TypeError", "float value": "other:TypeError",
         "str label": "other:TypeError", "word scope": "other:ValueError", "digit scope": "other:ValueError",
-        "lower scope": "other:ValueError",
+        "lower scope": "other:ValueError", "header as field": "other:ValueError",
     }, r
 
 
@@ -95,3 +97,14 @@ def test_main_entry_prints_name_and_version():
     p = subprocess.run([sys.executable, "-m", "wholecount"], cwd=ROOT, capture_output=True, text=True, timeout=60)
     assert p.returncode == 0, p.stderr
     assert p.stdout.strip() == f"{brand.PRODUCT_NAME} {brand.VERSION}"
+
+
+def test_columns_prints_counts_and_field_names_only(tmp_path):
+    (tmp_path / "a.csv").write_text("Zelphina Name,Client_ID,Full_Address\nQuorvath Ann,C1,1 Main St\n")
+    p = subprocess.run([sys.executable, "-m", "wholecount.dev", "columns", str(tmp_path / "a.csv")], cwd=ROOT, capture_output=True,
+                       text=True, timeout=120)
+    assert p.returncode == 0, p.stderr
+    lines = p.stdout.splitlines()
+    assert all(LINE_RE.match(ln) for ln in lines), lines
+    assert "Zelphina" not in p.stdout and "Quorvath" not in p.stdout and "Full_Address" not in p.stdout
+    assert "required_unmapped A.1 First_Name 1" in lines and "process_blocked A.1 1" in lines

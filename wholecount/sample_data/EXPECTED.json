@@ -155,23 +155,23 @@
     }
   },
   "map": {
-    "before_steps": {
+    "auto": {
       "example_clinic.csv": {
+        "sheet": null,
         "fields": {
           "Client_ID": "Client_ID",
+          "Address_1": "Full_Address",
           "Date_of_Birth": "DOB",
           "Program": "Program"
         },
-        "unmapped": [
-          "Name",
-          "Full_Address"
-        ],
         "blockers": [
           "First_Name",
           "Last_Name"
         ]
       },
       "example_housing.xlsx": {
+        "sheet": "Clients",
+        "header_row": 3,
         "fields": {
           "Client_ID": "Client ID",
           "First_Name": "First Name",
@@ -185,10 +185,10 @@
           "Date_of_Birth": "Date of Birth",
           "Program": "Program"
         },
-        "unmapped": [],
         "blockers": []
       },
       "example_partner.tsv": {
+        "sheet": null,
         "fields": {
           "Client_ID": "uid",
           "First_Name": "first",
@@ -201,10 +201,10 @@
           "Zip": "zip",
           "Program": "program"
         },
-        "unmapped": [],
         "blockers": []
       },
       "example_portal.json": {
+        "sheet": null,
         "fields": {
           "Client_ID": "id",
           "First_Name": "first_name",
@@ -217,10 +217,10 @@
           "Zip": "address.zip",
           "Program": "program"
         },
-        "unmapped": [],
         "blockers": []
       },
       "example_state.xml": {
+        "sheet": null,
         "fields": {
           "Client_ID": "ClientNumber",
           "First_Name": "FirstName",
@@ -233,12 +233,12 @@
           "State": "State",
           "Zip": "Zip"
         },
-        "unmapped": [],
         "blockers": []
       }
     },
     "after_steps": {
       "example_clinic.csv": {
+        "sheet": null,
         "steps": [
           {
             "step": "split_name",
@@ -250,6 +250,11 @@
             "column": "Full_Address"
           }
         ],
+        "fields": {
+          "Client_ID": "Client_ID",
+          "Date_of_Birth": "DOB",
+          "Program": "Program"
+        },
         "fields_from_steps": {
           "First_Name": "Name",
           "Middle_Initial": "Name",
@@ -260,14 +265,11 @@
           "State": "Full_Address",
           "Zip": "Full_Address"
         },
-        "fields": {
-          "Client_ID": "Client_ID",
-          "Date_of_Birth": "DOB",
-          "Program": "Program"
-        },
         "blockers": []
       },
       "example_housing.xlsx": {
+        "sheet": "Clients",
+        "header_row": 3,
         "fields": {
           "Client_ID": "Client ID",
           "First_Name": "First Name",
@@ -281,10 +283,10 @@
           "Date_of_Birth": "Date of Birth",
           "Program": "Program"
         },
-        "unmapped": [],
         "blockers": []
       },
       "example_partner.tsv": {
+        "sheet": null,
         "fields": {
           "Client_ID": "uid",
           "First_Name": "first",
@@ -297,10 +299,10 @@
           "Zip": "zip",
           "Program": "program"
         },
-        "unmapped": [],
         "blockers": []
       },
       "example_portal.json": {
+        "sheet": null,
         "fields": {
           "Client_ID": "id",
           "First_Name": "first_name",
@@ -313,10 +315,10 @@
           "Zip": "address.zip",
           "Program": "program"
         },
-        "unmapped": [],
         "blockers": []
       },
       "example_state.xml": {
+        "sheet": null,
         "fields": {
           "Client_ID": "ClientNumber",
           "First_Name": "FirstName",
@@ -329,7 +331,6 @@
           "State": "State",
           "Zip": "Zip"
         },
-        "unmapped": [],
         "blockers": []
       }
     },
