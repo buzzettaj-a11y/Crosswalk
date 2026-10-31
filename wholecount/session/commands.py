@@ -165,7 +165,8 @@ class SetAsideRows(_DecisionCommand):
         self.label = CopyRef("commands.set_aside_rows", (("count", len(self.record_keys)),))
 
     def build(self, s):
-        return [_mk(s, "set_aside", (k,), self.reason_code) for k in self.record_keys]
+        detail = (("note", self.note),) if self.note else ()
+        return [_mk(s, "set_aside", (k,), self.reason_code, detail=detail) for k in self.record_keys]
 
     def audit_entry(self):
         return self._entry("SET_ASIDE", reason_code=self.reason_code, note=self.note)
