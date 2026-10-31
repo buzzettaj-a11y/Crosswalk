@@ -62,3 +62,16 @@ def test_store_choice_by_platform(tmp_path):
     win = default_store(platform="win32", env={"LOCALAPPDATA": str(tmp_path)})
     assert isinstance(win, DpapiSecretStore) and not win.INSECURE
     assert win.path.parent.name == "Wholecount" and win.path.name == "key.bin"
+
+
+def test_mac_is_hmac_sha256_and_never_the_secret():
+    import hashlib
+    import hmac
+
+    from tests.support.secrets import TEST_SECRET
+    from wholecount.session.secret_store import InstallSecret
+
+    s = InstallSecret(TEST_SECRET)
+    d = s.mac(b"offset|1|main street|11201")
+    assert d == hmac.new(TEST_SECRET, b"offset|1|main street|11201", hashlib.sha256).digest()
+    assert TEST_SECRET not in d and len(d) == 32
