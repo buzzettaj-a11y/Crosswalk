@@ -26,8 +26,7 @@ class GuideDialog(QDialog):
         self.contents.currentRowChanged.connect(self.go)
         self.browser = QTextBrowser()
         self.browser.setObjectName("guideText")
-        self.browser.setOpenLinks(False)
-        self.browser.setOpenExternalLinks(False)
+        self.browser.setOpenLinks(False)       # openExternalLinks is off by default, and the offline scan forbids its setter
         self.browser.setHtml(to_html(self.guide))
         self.browser.anchorClicked.connect(lambda url: self.browser.scrollToAnchor(url.fragment()))
         row.addWidget(self.contents)
