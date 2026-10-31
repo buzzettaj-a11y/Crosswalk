@@ -33,3 +33,4 @@ LOCK_FLAGS = --generate-hashes --allow-unsafe --strip-extras --no-emit-index-url
 lock:
 	$(PIP_COMPILE) $(LOCK_FLAGS) -o requirements.lock requirements.in
 	$(PIP_COMPILE) $(LOCK_FLAGS) -o requirements-dev.lock requirements-dev.in
+	$(PIP_COMPILE) $(LOCK_FLAGS) -o requirements-build.lock requirements-build.in
